@@ -1,5 +1,5 @@
 import { Stage, Layer, Rect, Text, Transformer } from "react-konva";
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState, MouseEventHandler } from "react";
 import Konva from "konva";
 
 const Rectangle = ({ shapeProps, isSelected, onSelect, onChange }: any) => {
@@ -47,6 +47,15 @@ const initialRectangles = [
 ];
 
 const Preview = () => {
+  // useEffect(() => {
+  //   document.addEventListener("mousemove", (e) => {
+  //     startSelection(e);
+  //   });
+  //   document.addEventListener("mouseup", (e) => {
+  //     endSelection(e);
+  //   });
+  // }, []);
+
   const [rectangles, setRectangles] = useState(initialRectangles);
   const [selectedId, selectShape] = useState<string[]>(["rect1", "rect2"]);
 
@@ -54,17 +63,34 @@ const Preview = () => {
   const [y1, setY1] = useState(0);
   const [x2, setX2] = useState(0);
   const [y2, setY2] = useState(0);
-  const wrapRef = useRef<any>();
   const layerRef = useRef<any>();
   const stageRef = useRef<any>();
 
   const selectRef = useRef<any>();
   const trRef = useRef<any>();
 
+  useEffect(() => {
+    const startHandler = (e: MouseEvent) => {
+      startSelection(e);
+    };
+    const endHandler = (e: MouseEvent) => {
+      endSelection(e);
+    };
+    document.addEventListener("mousemove", startHandler);
+    document.addEventListener("mouseup", endHandler);
+
+    return () => {
+      document.removeEventListener("mousemove", startHandler);
+      document.removeEventListener("mouseup", endHandler);
+    };
+  }, [x1, y1, x2, y2]);
+
   const checkDeselect = (e: any) => {
     const clickedOnEmpty = e.target === e.target.getStage();
     if (clickedOnEmpty) {
       selectShape([]);
+
+      console.log(stageRef.current.getPointerPosition().x);
 
       setX1(stageRef.current.getPointerPosition().x);
       setY1(stageRef.current.getPointerPosition().y);
@@ -83,11 +109,12 @@ const Preview = () => {
       return;
     }
 
-    // console.log(e.clientX);
-    // console.log(stageRef.current.getPointerPosition().x);
+    const canvas = document.getElementsByTagName("canvas");
+    const rel_x = e.clientX - canvas[0].getBoundingClientRect().x;
+    const rel_y = e.clientY - canvas[0].getBoundingClientRect().y;
 
-    setX2(stageRef.current.getPointerPosition().x);
-    setY2(stageRef.current.getPointerPosition().y);
+    setX2(rel_x);
+    setY2(rel_y);
 
     selectRef.current.setAttrs({
       x: Math.min(x1, x2),
@@ -130,19 +157,12 @@ const Preview = () => {
   }, [selectedId]);
 
   return (
-    <div
-      ref={wrapRef}
-      className="w-full h-[600px] bg-slate-400"
-      onMouseMove={startSelection}
-      onMouseUp={endSelection}
-    >
+    <div className="flex w-[600px] h-[600px] bg-slate-200 justify-center">
       <Stage
         ref={stageRef}
         width={600}
         height={600}
         onMouseDown={checkDeselect}
-
-        // onMouseLeave={endSelection}
       >
         <Layer ref={layerRef}>
           {rectangles.map((rect, i) => {
