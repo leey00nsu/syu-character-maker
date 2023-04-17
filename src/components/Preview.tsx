@@ -76,17 +76,28 @@ const Preview = () => {
     const endHandler = (e: MouseEvent) => {
       endSelection(e);
     };
+    const touchMoveHandler = (e: TouchEvent) => {
+      startSelection(e);
+    };
+    const touchEndHandler = (e: TouchEvent) => {
+      endSelection(e);
+    };
     document.addEventListener("mousemove", startHandler);
     document.addEventListener("mouseup", endHandler);
+    document.addEventListener("touchmove", touchMoveHandler);
+    document.addEventListener("touchend", touchEndHandler);
 
     return () => {
       document.removeEventListener("mousemove", startHandler);
       document.removeEventListener("mouseup", endHandler);
+      document.removeEventListener("touchmove", touchMoveHandler);
+      document.removeEventListener("touchend", touchEndHandler);
     };
   }, [x1, y1, x2, y2]);
 
   const checkDeselect = (e: any) => {
     const clickedOnEmpty = e.target === e.target.getStage();
+
     if (clickedOnEmpty) {
       selectShape([]);
 
@@ -112,6 +123,8 @@ const Preview = () => {
     const canvas = document.getElementsByTagName("canvas");
     const rel_x = e.clientX - canvas[0].getBoundingClientRect().x;
     const rel_y = e.clientY - canvas[0].getBoundingClientRect().y;
+
+    console.log(e.clientX, canvas[0]);
 
     setX2(rel_x);
     setY2(rel_y);
@@ -157,12 +170,13 @@ const Preview = () => {
   }, [selectedId]);
 
   return (
-    <div className="flex w-[600px] h-[600px] bg-slate-200 justify-center">
+    <div className="flex  w-[300px] h-[300px] bg-slate-200 justify-center">
       <Stage
         ref={stageRef}
-        width={600}
-        height={600}
+        width={300}
+        height={300}
         onMouseDown={checkDeselect}
+        onTouchStart={checkDeselect}
       >
         <Layer ref={layerRef}>
           {rectangles.map((rect, i) => {
@@ -188,6 +202,10 @@ const Preview = () => {
           <Transformer shouldOverdrawWholeArea ref={trRef} />
         </Layer>
       </Stage>
+      {/* <p>{x1}</p>
+      <p>{y1}</p>
+      <p>{x2}</p>
+      <p>{y2}</p> */}
     </div>
   );
 };
