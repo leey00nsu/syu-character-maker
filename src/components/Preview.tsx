@@ -1,4 +1,4 @@
-import { Stage, Layer, Rect, Text, Transformer } from "react-konva";
+import { Line, Stage, Layer, Rect, Text, Transformer } from "react-konva";
 import { useRef, useEffect, useState, MouseEventHandler } from "react";
 import Konva from "konva";
 
@@ -48,28 +48,17 @@ const initialRectangles = [
   },
 ];
 
-const Preview = () => {
-  // useEffect(() => {
-  //   document.addEventListener("mousemove", (e) => {
-  //     startSelection(e);
-  //   });
-  //   document.addEventListener("mouseup", (e) => {
-  //     endSelection(e);
-  //   });
-  // }, []);
-
+const Preview = ({ mode }: { mode: string }) => {
   const [rectangles, setRectangles] = useState(initialRectangles);
   const [selectedId, selectShape] = useState<string[]>(["rect1", "rect2"]);
 
-  const [x1, setX1] = useState(0);
-  const [y1, setY1] = useState(0);
-  const [x2, setX2] = useState(0);
-  const [y2, setY2] = useState(0);
+  const [lines, setLines] = useState<any>([]);
   const layerRef = useRef<any>();
   const stageRef = useRef<any>();
 
   const selectRef = useRef<any>();
   const trRef = useRef<any>();
+  const drawRef = useRef(false);
 
   useEffect(() => {
     const startHandler = (e: MouseEvent) => {
@@ -95,65 +84,107 @@ const Preview = () => {
       document.removeEventListener("touchmove", touchMoveHandler);
       document.removeEventListener("touchend", touchEndHandler);
     };
-  }, [x1, y1, x2, y2]);
+  }, [lines, mode]);
 
   const checkDeselect = (e: any) => {
-    const clickedOnEmpty = e.target === e.target.getStage();
+    if (mode === "move") {
+      const clickedOnEmpty = e.target === e.target.getStage();
 
-    if (clickedOnEmpty) {
-      selectShape([]);
+      if (clickedOnEmpty) {
+        selectShape([]);
 
-      setX1(stageRef.current.getPointerPosition().x);
-      setY1(stageRef.current.getPointerPosition().y);
-      setX2(stageRef.current.getPointerPosition().x);
-      setY2(stageRef.current.getPointerPosition().y);
+        const pos = stageRef.current.getPointerPosition();
 
-      selectRef.current.visible(true);
+        selectRef.current.setAttrs({
+          x1: pos.x,
+          y1: pos.y,
+          x2: pos.x,
+          y2: pos.y,
+        });
 
-      selectRef.current.width(0);
-      selectRef.current.height(0);
+        selectRef.current.visible(true);
+
+        selectRef.current.width(0);
+        selectRef.current.height(0);
+        updateSelection();
+      }
+    } else {
+      drawRef.current = true;
+
+      const pos = stageRef.current.getPointerPosition();
+      setLines([...lines, { points: [pos.x, pos.y] }]);
     }
+  };
+
+  const updateSelection = () => {
+    selectRef.current.setAttrs({
+      visible: selectRef.current.visible(),
+      x: Math.min(selectRef.current.attrs.x1, selectRef.current.attrs.x2),
+      y: Math.min(selectRef.current.attrs.y1, selectRef.current.attrs.y2),
+      width: Math.abs(selectRef.current.attrs.x1 - selectRef.current.attrs.x2),
+      height: Math.abs(selectRef.current.attrs.y1 - selectRef.current.attrs.y2),
+    });
+    selectRef.current.getLayer().batchDraw();
   };
 
   const startSelection = (e: any) => {
-    if (!selectRef.current.visible()) {
-      return;
+    if (mode === "move") {
+      if (!selectRef.current.visible()) {
+        return;
+      }
+
+      const canvas = document.getElementsByTagName("canvas");
+      const rel_x = e.clientX - canvas[0].getBoundingClientRect().x;
+      const rel_y = e.clientY - canvas[0].getBoundingClientRect().y;
+
+      selectRef.current.attrs.x2 = rel_x;
+      selectRef.current.attrs.y2 = rel_y;
+      updateSelection();
+    } else {
+      if (!drawRef.current) {
+        return;
+      }
+
+      const canvas = document.getElementsByTagName("canvas");
+      const rel_x = e.clientX - canvas[0].getBoundingClientRect().x;
+      const rel_y = e.clientY - canvas[0].getBoundingClientRect().y;
+      let lastLine = lines[lines.length - 1];
+      // add point
+      lastLine.points = lastLine.points.concat([rel_x, rel_y]);
+
+      // replace last
+      lines.splice(lines.length - 1, 1, lastLine);
+      setLines(lines.concat());
     }
-
-    const canvas = document.getElementsByTagName("canvas");
-    const rel_x = e.clientX - canvas[0].getBoundingClientRect().x;
-    const rel_y = e.clientY - canvas[0].getBoundingClientRect().y;
-
-    setX2(rel_x);
-    setY2(rel_y);
-
-    selectRef.current.setAttrs({
-      x: Math.min(x1, x2),
-      y: Math.min(y1, y2),
-      width: Math.abs(x2 - x1),
-      height: Math.abs(y2 - y1),
-    });
   };
 
   const endSelection = (e: any) => {
-    if (!selectRef.current.visible()) {
-      return;
+    if (mode === "move") {
+      if (!selectRef.current.visible()) {
+        return;
+      }
+
+      setTimeout(() => {
+        selectRef.current.visible(false);
+      });
+
+      let shapes = stageRef.current.find(".rects");
+      let lines = stageRef.current.find(".lines");
+
+      let contents = [...shapes, ...lines];
+
+      let box = selectRef.current.getClientRect();
+
+      let selected = contents.filter((shape: any) =>
+        Konva.Util.haveIntersection(box, shape.getClientRect())
+      );
+
+      let selectedId = selected.map((child: any) => child.attrs.id);
+
+      selectShape(selectedId);
+    } else {
+      drawRef.current = false;
     }
-
-    setTimeout(() => {
-      selectRef.current.visible(false);
-    });
-
-    let shapes = stageRef.current.find(".rects");
-
-    let box = selectRef.current.getClientRect();
-    let selected = shapes.filter((shape: any) =>
-      Konva.Util.haveIntersection(box, shape.getClientRect())
-    );
-
-    let selectedId = selected.map((child: any) => child.attrs.id);
-
-    selectShape(selectedId);
   };
 
   useEffect(() => {
@@ -168,6 +199,7 @@ const Preview = () => {
   }, [selectedId]);
 
   const saveImageHandler = () => {
+    selectShape([]);
     const dataURL = stageRef.current.toDataURL({ pixelRatio: 3 });
 
     var link = document.createElement("a");
@@ -208,6 +240,26 @@ const Preview = () => {
                 />
               );
             })}
+            {lines.map((line: any, i: any) => (
+              <Line
+                id={`lines${i}`}
+                name="lines"
+                key={i}
+                points={line.points}
+                stroke="black"
+                strokeWidth={5}
+                tension={0.5}
+                lineCap="round"
+                lineJoin="round"
+                draggable={mode === "move"}
+                globalCompositeOperation={"source-over"}
+                onSelect={() => {
+                  if (selectedId.length < 2) {
+                    selectShape((prev: any) => [`lines${i}`]);
+                  }
+                }}
+              />
+            ))}
             <Rect ref={selectRef} fill="rgba(0,0,245,0.2)" visible={false} />
             <Transformer shouldOverdrawWholeArea ref={trRef} />
           </Layer>
@@ -218,6 +270,15 @@ const Preview = () => {
       <p>{y2}</p> */}
       </div>
       <p onClick={saveImageHandler}>다운로드</p>
+      <p>{mode}</p>
+      <p
+        onClick={() => {
+          // console.log(trRef.current);
+          console.log(selectRef.current.visible());
+        }}
+      >
+        체크
+      </p>
     </>
   );
 };
