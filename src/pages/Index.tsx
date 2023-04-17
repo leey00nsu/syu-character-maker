@@ -5,7 +5,7 @@ import Preview from "../components/Preview";
 const Index = () => {
   return (
     <div className="flex justify-center w-screen h-screen">
-      <div className="flex flex-col items-center w-full max-w-4xl">
+      <div className="flex flex-col items-center w-full h-full max-w-4xl">
         <Header />
         <Preview />
       </div>

@@ -29,14 +29,16 @@ const Rectangle = ({ shapeProps, isSelected, onSelect, onChange }: any) => {
 
 const initialRectangles = [
   {
+    z: 0,
     x: 10,
     y: 10,
     width: 100,
     height: 100,
-    fill: "red",
+    fill: "blue",
     id: "rect1",
   },
   {
+    z: 1,
     x: 150,
     y: 150,
     width: 100,
@@ -101,8 +103,6 @@ const Preview = () => {
     if (clickedOnEmpty) {
       selectShape([]);
 
-      console.log(stageRef.current.getPointerPosition().x);
-
       setX1(stageRef.current.getPointerPosition().x);
       setY1(stageRef.current.getPointerPosition().y);
       setX2(stageRef.current.getPointerPosition().x);
@@ -123,8 +123,6 @@ const Preview = () => {
     const canvas = document.getElementsByTagName("canvas");
     const rel_x = e.clientX - canvas[0].getBoundingClientRect().x;
     const rel_y = e.clientY - canvas[0].getBoundingClientRect().y;
-
-    console.log(e.clientX, canvas[0]);
 
     setX2(rel_x);
     setY2(rel_y);
@@ -169,44 +167,58 @@ const Preview = () => {
     }
   }, [selectedId]);
 
+  const saveImageHandler = () => {
+    const dataURL = stageRef.current.toDataURL({ pixelRatio: 3 });
+
+    var link = document.createElement("a");
+    link.download = "save";
+    link.href = dataURL;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
-    <div className="flex  w-[300px] h-[300px] bg-slate-200 justify-center">
-      <Stage
-        ref={stageRef}
-        width={300}
-        height={300}
-        onMouseDown={checkDeselect}
-        onTouchStart={checkDeselect}
-      >
-        <Layer ref={layerRef}>
-          {rectangles.map((rect, i) => {
-            return (
-              <Rectangle
-                key={i}
-                shapeProps={rect}
-                isSelected={selectedId.includes(rect.id)}
-                onSelect={() => {
-                  if (selectedId.length < 2) {
-                    selectShape((prev: any) => [rect.id]);
-                  }
-                }}
-                onChange={(newAttrs: any) => {
-                  const rects = rectangles.slice();
-                  rects[i] = newAttrs;
-                  setRectangles(rects);
-                }}
-              />
-            );
-          })}
-          <Rect ref={selectRef} fill="rgba(0,0,245,0.2)" visible={false} />
-          <Transformer shouldOverdrawWholeArea ref={trRef} />
-        </Layer>
-      </Stage>
-      {/* <p>{x1}</p>
+    <>
+      <div className="flex flex-col  w-[600px] h-[600px] bg-slate-200 justify-center">
+        <Stage
+          ref={stageRef}
+          width={600}
+          height={600}
+          onMouseDown={checkDeselect}
+          onTouchStart={checkDeselect}
+        >
+          <Layer ref={layerRef}>
+            {rectangles.map((rect, i) => {
+              return (
+                <Rectangle
+                  key={i}
+                  shapeProps={rect}
+                  isSelected={selectedId.includes(rect.id)}
+                  onSelect={() => {
+                    if (selectedId.length < 2) {
+                      selectShape((prev: any) => [rect.id]);
+                    }
+                  }}
+                  onChange={(newAttrs: any) => {
+                    const rects = rectangles.slice();
+                    rects[i] = newAttrs;
+                    setRectangles(rects);
+                  }}
+                />
+              );
+            })}
+            <Rect ref={selectRef} fill="rgba(0,0,245,0.2)" visible={false} />
+            <Transformer shouldOverdrawWholeArea ref={trRef} />
+          </Layer>
+        </Stage>
+        {/* <p>{x1}</p>
       <p>{y1}</p>
       <p>{x2}</p>
       <p>{y2}</p> */}
-    </div>
+      </div>
+      <p onClick={saveImageHandler}>다운로드</p>
+    </>
   );
 };
 
