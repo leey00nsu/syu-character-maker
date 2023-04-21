@@ -16,7 +16,9 @@
     "react-color": "^2.19.3",
     "react-dom": "^18.2.0",
     "react-icons": "^4.8.0",
-    "react-konva": "^18.2.7"
+    "react-konva": "^18.2.7",
+    "recoil": "^0.7.7",
+    "use-image": "^1.1.0"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",

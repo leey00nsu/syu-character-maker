@@ -1,7 +1,9 @@
-import { Line, Stage, Layer, Rect, Text, Transformer } from "react-konva";
-import { useRef, useEffect, useState, MouseEventHandler } from "react";
+import { Line, Stage, Layer, Rect, Image, Transformer } from "react-konva";
+import { useRef, useEffect, useState } from "react";
 import Konva from "konva";
-import { SketchPicker } from "react-color";
+import { bgColorState, modeState, bgState, saveState } from "../store/store";
+import { useRecoilState } from "recoil";
+import useImage from "use-image";
 
 const Rectangle = ({ shapeProps, isSelected, onSelect, onChange }: any) => {
   const shapeRef = useRef<any>();
@@ -49,24 +51,17 @@ const initialRectangles = [
   },
 ];
 
-const backgroundRectangles = {
-  z: -999,
-  x: 0,
-  y: 0,
-  width: 600,
-  height: 600,
-  fill: "white",
-  id: "background",
-};
-
-interface PreviewProps {
-  mode: string;
-  bgColor: string;
-}
-
-const Preview = ({ mode, bgColor }: PreviewProps) => {
+const Preview = () => {
+  const [save, setSave] = useRecoilState(saveState);
+  const [mode, setMode] = useRecoilState(modeState);
+  const [bgColor, setBgColor] = useRecoilState(bgColorState);
+  const [bg, setBg] = useRecoilState(bgState);
   const [rectangles, setRectangles] = useState(initialRectangles);
-  const [selectedId, selectShape] = useState<string[]>(["rect1", "rect2"]);
+  const [selectedId, selectShape] = useState<string[]>([]);
+  const [image] =
+    bg === "수야"
+      ? useImage("./src/assets/suya.png")
+      : useImage("./src/assets/suho.png");
 
   const [lines, setLines] = useState<any>([]);
   const layerRef = useRef<any>();
@@ -106,7 +101,6 @@ const Preview = ({ mode, bgColor }: PreviewProps) => {
     if (mode === "move") {
       // const clickedOnEmpty = e.target === e.target.getStage();
       const clickedOnEmpty = e.target.getId() === "background";
-      console.log(e.target.getId());
 
       if (clickedOnEmpty) {
         selectShape([]);
@@ -216,21 +210,25 @@ const Preview = ({ mode, bgColor }: PreviewProps) => {
     }
   }, [selectedId]);
 
-  const saveImageHandler = () => {
-    selectShape([]);
-    const dataURL = stageRef.current.toDataURL({ pixelRatio: 3 });
+  useEffect(() => {
+    if (save) {
+      selectShape([]);
+      const dataURL = stageRef.current.toDataURL({ pixelRatio: 3 });
 
-    var link = document.createElement("a");
-    link.download = "save";
-    link.href = dataURL;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
+      var link = document.createElement("a");
+      link.download = "save";
+      link.href = dataURL;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      setSave(false);
+    }
+  }, [save]);
+  const saveImageHandler = () => {};
 
   return (
     <>
-      <div className="flex flex-col  w-[600px] h-[600px] bg-slate-200 justify-center">
+      <div className="flex flex-col  w-[600px] h-[600px] justify-center">
         <Stage
           ref={stageRef}
           width={600}
@@ -242,12 +240,22 @@ const Preview = ({ mode, bgColor }: PreviewProps) => {
             <Rect
               name="background"
               key="background"
+              stroke={"#cfcfcf"}
+              strokeWidth={2}
               z={-999}
               x={0}
               y={0}
               width={600}
               height={600}
               fill={bgColor}
+              id="background"
+            />
+            <Image
+              x={50}
+              y={50}
+              width={500}
+              height={500}
+              image={image}
               id="background"
             />
           </Layer>
@@ -280,6 +288,11 @@ const Preview = ({ mode, bgColor }: PreviewProps) => {
                 tension={0.5}
                 lineCap="round"
                 lineJoin="round"
+                onDragStart={() => {
+                  if (selectedId.length < 2) {
+                    selectShape((prev: any) => [`lines${i}`]);
+                  }
+                }}
                 draggable={mode === "move"}
                 globalCompositeOperation={"source-over"}
                 onSelect={() => {
@@ -294,7 +307,6 @@ const Preview = ({ mode, bgColor }: PreviewProps) => {
           </Layer>
         </Stage>
       </div>
-      <p onClick={saveImageHandler}>다운로드</p>
     </>
   );
 };
