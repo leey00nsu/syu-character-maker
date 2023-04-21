@@ -1,6 +1,7 @@
 import { Line, Stage, Layer, Rect, Text, Transformer } from "react-konva";
 import { useRef, useEffect, useState, MouseEventHandler } from "react";
 import Konva from "konva";
+import { SketchPicker } from "react-color";
 
 const Rectangle = ({ shapeProps, isSelected, onSelect, onChange }: any) => {
   const shapeRef = useRef<any>();
@@ -48,7 +49,22 @@ const initialRectangles = [
   },
 ];
 
-const Preview = ({ mode }: { mode: string }) => {
+const backgroundRectangles = {
+  z: -999,
+  x: 0,
+  y: 0,
+  width: 600,
+  height: 600,
+  fill: "white",
+  id: "background",
+};
+
+interface PreviewProps {
+  mode: string;
+  bgColor: string;
+}
+
+const Preview = ({ mode, bgColor }: PreviewProps) => {
   const [rectangles, setRectangles] = useState(initialRectangles);
   const [selectedId, selectShape] = useState<string[]>(["rect1", "rect2"]);
 
@@ -88,7 +104,9 @@ const Preview = ({ mode }: { mode: string }) => {
 
   const checkDeselect = (e: any) => {
     if (mode === "move") {
-      const clickedOnEmpty = e.target === e.target.getStage();
+      // const clickedOnEmpty = e.target === e.target.getStage();
+      const clickedOnEmpty = e.target.getId() === "background";
+      console.log(e.target.getId());
 
       if (clickedOnEmpty) {
         selectShape([]);
@@ -220,26 +238,37 @@ const Preview = ({ mode }: { mode: string }) => {
           onMouseDown={checkDeselect}
           onTouchStart={checkDeselect}
         >
+          <Layer>
+            <Rect
+              name="background"
+              key="background"
+              z={-999}
+              x={0}
+              y={0}
+              width={600}
+              height={600}
+              fill={bgColor}
+              id="background"
+            />
+          </Layer>
           <Layer ref={layerRef}>
-            {rectangles.map((rect, i) => {
-              return (
-                <Rectangle
-                  key={i}
-                  shapeProps={rect}
-                  isSelected={selectedId.includes(rect.id)}
-                  onSelect={() => {
-                    if (selectedId.length < 2) {
-                      selectShape((prev: any) => [rect.id]);
-                    }
-                  }}
-                  onChange={(newAttrs: any) => {
-                    const rects = rectangles.slice();
-                    rects[i] = newAttrs;
-                    setRectangles(rects);
-                  }}
-                />
-              );
-            })}
+            {rectangles.map((rect, i) => (
+              <Rectangle
+                key={i}
+                shapeProps={rect}
+                isSelected={selectedId.includes(rect.id)}
+                onSelect={() => {
+                  if (selectedId.length < 2) {
+                    selectShape((prev: any) => [rect.id]);
+                  }
+                }}
+                onChange={(newAttrs: any) => {
+                  const rects = rectangles.slice();
+                  rects[i] = newAttrs;
+                  setRectangles(rects);
+                }}
+              />
+            ))}
             {lines.map((line: any, i: any) => (
               <Line
                 id={`lines${i}`}
@@ -264,21 +293,8 @@ const Preview = ({ mode }: { mode: string }) => {
             <Transformer shouldOverdrawWholeArea ref={trRef} />
           </Layer>
         </Stage>
-        {/* <p>{x1}</p>
-      <p>{y1}</p>
-      <p>{x2}</p>
-      <p>{y2}</p> */}
       </div>
       <p onClick={saveImageHandler}>다운로드</p>
-      <p>{mode}</p>
-      <p
-        onClick={() => {
-          // console.log(trRef.current);
-          console.log(selectRef.current.visible());
-        }}
-      >
-        체크
-      </p>
     </>
   );
 };

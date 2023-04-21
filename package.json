@@ -9,9 +9,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@types/react-color": "^3.0.6",
     "daisyui": "^2.51.5",
     "konva": "^9.0.0",
     "react": "^18.2.0",
+    "react-color": "^2.19.3",
     "react-dom": "^18.2.0",
     "react-icons": "^4.8.0",
     "react-konva": "^18.2.7"
@@ -25,5 +27,9 @@
     "tailwindcss": "^3.3.1",
     "typescript": "^4.9.3",
     "vite": "^4.2.0"
+  },
+  "resolutions": {
+    "@types/react": "^18.0.26",
+    "@types/react-dom": "^18.0.9"
   }
 }
