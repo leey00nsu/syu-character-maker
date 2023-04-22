@@ -29,3 +29,8 @@ export const removeState = atom({
   key: "removeState",
   default: false,
 });
+
+export const uploadState = atom<string | ArrayBuffer>({
+  key: "uploadState",
+  default: "",
+});

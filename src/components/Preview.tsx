@@ -1,5 +1,5 @@
 import { Line, Stage, Layer, Rect, Image, Transformer } from "react-konva";
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState, MouseEventHandler } from "react";
 import Konva from "konva";
 import {
   bgColorState,
@@ -7,70 +7,29 @@ import {
   bgState,
   saveState,
   removeState,
+  uploadState,
 } from "../store/store";
 import { useRecoilState } from "recoil";
 import useImage from "use-image";
-
-const Rectangle = ({ shapeProps, isSelected, onSelect, onChange }: any) => {
-  const shapeRef = useRef<any>();
-
-  return (
-    <>
-      <Rect
-        name="rects"
-        onClick={onSelect}
-        onTap={onSelect}
-        ref={shapeRef}
-        {...shapeProps}
-        onDragStart={onSelect}
-        draggable
-        onDragEnd={(e) => {
-          onChange({
-            ...shapeProps,
-            x: e.target.x(),
-            y: e.target.y(),
-          });
-        }}
-      />
-    </>
-  );
-};
-
-const initialRectangles = [
-  {
-    z: 0,
-    x: 10,
-    y: 10,
-    width: 100,
-    height: 100,
-    fill: "blue",
-    id: "rect1",
-  },
-  {
-    z: 1,
-    x: 150,
-    y: 150,
-    width: 100,
-    height: 100,
-    fill: "green",
-    id: "rect2",
-  },
-];
+import UseImages from "./UseImages";
 
 const Preview = () => {
+  const [upload, setUpload] = useRecoilState(uploadState);
   const [save, setSave] = useRecoilState(saveState);
   const [remove, setRemove] = useRecoilState(removeState);
   const [mode, setMode] = useRecoilState(modeState);
   const [bgColor, setBgColor] = useRecoilState(bgColorState);
   const [bg, setBg] = useRecoilState(bgState);
-  const [rectangles, setRectangles] = useState(initialRectangles);
+
   const [selectedId, selectShape] = useState<string[]>([]);
-  const [image] =
+  const [bgImage] =
     bg === "수야"
       ? useImage("./src/assets/suya.png")
       : useImage("./src/assets/suho.png");
 
   const [lines, setLines] = useState<any>([]);
+  const [images, setImages] = useState<any>([]);
+
   const layerRef = useRef<any>();
   const stageRef = useRef<any>();
 
@@ -195,7 +154,7 @@ const Preview = () => {
         selectRef.current.visible(false);
       });
 
-      let selected_shapes = stageRef.current.find(".rects");
+      let selected_shapes = stageRef.current.find(".images");
       let selected_lines = stageRef.current.find(".lines");
 
       let contents = [...selected_shapes, ...selected_lines];
@@ -252,17 +211,36 @@ const Preview = () => {
       let new_lines = lines.filter(
         (line: any) => !selectedId.includes(line.id)
       );
+      let new_images = images.filter(
+        (image: any) => !selectedId.includes(image.id)
+      );
+
+      console.log(new_lines);
 
       setLines(new_lines);
+      setImages(new_images);
       selectShape([]);
 
       setRemove(false);
     }
   }, [remove]);
 
+  const onUpload = (newUpload: string | ArrayBuffer) => {
+    setImages((prev: any) => [
+      ...prev,
+      { id: `images${prev.length}`, url: newUpload },
+    ]); // 파일의 컨텐츠
+  };
+
+  useEffect(() => {
+    if (upload) {
+      onUpload(upload);
+      setUpload("");
+    }
+  }, [upload]);
   return (
     <>
-      <div className="flex flex-col w-[600px] h-[600px] justify-center">
+      <div className="flex flex-col w-[600px] h-[600px] justify-center ">
         <Stage
           ref={stageRef}
           width={600}
@@ -274,8 +252,6 @@ const Preview = () => {
             <Rect
               name="background"
               key="background"
-              stroke={"#cfcfcf"}
-              strokeWidth={2}
               z={-999}
               x={0}
               y={0}
@@ -289,25 +265,30 @@ const Preview = () => {
               y={50}
               width={500}
               height={500}
-              image={image}
+              image={bgImage}
               id="background"
             />
           </Layer>
           <Layer ref={layerRef}>
-            {rectangles.map((rect, i) => (
-              <Rectangle
+            {images.map((image: any, i: any) => (
+              <UseImages
+                x={50}
+                y={50}
+                url={image.url}
+                id={`images${i}`}
+                name="images"
                 key={i}
-                shapeProps={rect}
-                isSelected={selectedId.includes(rect.id)}
-                onSelect={() => {
+                onDragEnd={() => {}}
+                onDragStart={() => {
                   if (selectedId.length < 2) {
-                    selectShape((prev: any) => [rect.id]);
+                    selectShape((prev: any) => [`images${i}`]);
                   }
                 }}
-                onChange={(newAttrs: any) => {
-                  const rects = rectangles.slice();
-                  rects[i] = newAttrs;
-                  setRectangles(rects);
+                draggable={mode === "move"}
+                onSelect={() => {
+                  if (selectedId.length < 2) {
+                    selectShape((prev: any) => [`images${i}`]);
+                  }
                 }}
               />
             ))}
@@ -343,7 +324,7 @@ const Preview = () => {
       </div>
       <p
         onClick={() => {
-          console.log(rectangles);
+          console.log(images);
         }}
       >
         button
