@@ -1,7 +1,13 @@
 import { Line, Stage, Layer, Rect, Image, Transformer } from "react-konva";
 import { useRef, useEffect, useState } from "react";
 import Konva from "konva";
-import { bgColorState, modeState, bgState, saveState } from "../store/store";
+import {
+  bgColorState,
+  modeState,
+  bgState,
+  saveState,
+  removeState,
+} from "../store/store";
 import { useRecoilState } from "recoil";
 import useImage from "use-image";
 
@@ -53,6 +59,7 @@ const initialRectangles = [
 
 const Preview = () => {
   const [save, setSave] = useRecoilState(saveState);
+  const [remove, setRemove] = useRecoilState(removeState);
   const [mode, setMode] = useRecoilState(modeState);
   const [bgColor, setBgColor] = useRecoilState(bgColorState);
   const [bg, setBg] = useRecoilState(bgState);
@@ -71,6 +78,7 @@ const Preview = () => {
   const trRef = useRef<any>();
   const drawRef = useRef(false);
 
+  // 브라우저의 모든 부분에서 마우스 움직임을 감지하기 위하여 따로 할당
   useEffect(() => {
     const startHandler = (e: MouseEvent) => {
       startSelection(e);
@@ -97,6 +105,7 @@ const Preview = () => {
     };
   }, [lines, mode]);
 
+  // 한 번 클릭했을 때
   const checkDeselect = (e: any) => {
     if (mode === "move") {
       // const clickedOnEmpty = e.target === e.target.getStage();
@@ -124,10 +133,14 @@ const Preview = () => {
       drawRef.current = true;
 
       const pos = stageRef.current.getPointerPosition();
-      setLines([...lines, { points: [pos.x, pos.y] }]);
+      setLines((prev: any) => [
+        ...lines,
+        { points: [pos.x, pos.y], id: `lines${prev.length}` },
+      ]);
     }
   };
 
+  // 드래그 한 부분
   const updateSelection = () => {
     selectRef.current.setAttrs({
       visible: selectRef.current.visible(),
@@ -139,6 +152,7 @@ const Preview = () => {
     selectRef.current.getLayer().batchDraw();
   };
 
+  // 드래그 할 때
   const startSelection = (e: any) => {
     if (mode === "move") {
       if (!selectRef.current.visible()) {
@@ -170,6 +184,7 @@ const Preview = () => {
     }
   };
 
+  // 드래그가 끝났을 때
   const endSelection = (e: any) => {
     if (mode === "move") {
       if (!selectRef.current.visible()) {
@@ -180,10 +195,10 @@ const Preview = () => {
         selectRef.current.visible(false);
       });
 
-      let shapes = stageRef.current.find(".rects");
-      let lines = stageRef.current.find(".lines");
+      let selected_shapes = stageRef.current.find(".rects");
+      let selected_lines = stageRef.current.find(".lines");
 
-      let contents = [...shapes, ...lines];
+      let contents = [...selected_shapes, ...selected_lines];
 
       let box = selectRef.current.getClientRect();
 
@@ -199,6 +214,7 @@ const Preview = () => {
     }
   };
 
+  // 현재 선택된 요소를 Transformer에게 전달
   useEffect(() => {
     if (selectedId) {
       let selectedNodes = layerRef.current.children.filter((child: any) =>
@@ -210,6 +226,7 @@ const Preview = () => {
     }
   }, [selectedId]);
 
+  // save state를 통해서 다른 컴포넌트에서 이 함수를 실행할 수 있도록 함
   useEffect(() => {
     if (save) {
       selectShape([]);
@@ -224,11 +241,28 @@ const Preview = () => {
       setSave(false);
     }
   }, [save]);
-  const saveImageHandler = () => {};
+
+  useEffect(() => {
+    selectShape([]);
+  }, [mode]);
+
+  // remove state를 통해서 다른 컴포넌트에서 이 함수를 실행할 수 있도록 함
+  useEffect(() => {
+    if (remove) {
+      let new_lines = lines.filter(
+        (line: any) => !selectedId.includes(line.id)
+      );
+
+      setLines(new_lines);
+      selectShape([]);
+
+      setRemove(false);
+    }
+  }, [remove]);
 
   return (
     <>
-      <div className="flex flex-col  w-[600px] h-[600px] justify-center">
+      <div className="flex flex-col w-[600px] h-[600px] justify-center">
         <Stage
           ref={stageRef}
           width={600}
@@ -307,6 +341,13 @@ const Preview = () => {
           </Layer>
         </Stage>
       </div>
+      <p
+        onClick={() => {
+          console.log(rectangles);
+        }}
+      >
+        button
+      </p>
     </>
   );
 };

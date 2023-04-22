@@ -16,8 +16,8 @@ const BackGround = () => {
 
   return (
     <section className="flex w-full justify-between px-6">
-      <div className="flex flex-col items-center w-1/2">
-        <p>캐릭터를 골라주세요!</p>
+      <div className="flex flex-col items-center w-1/2 gap-2">
+        <p className=" font-semibold text-lg">캐릭터를 골라주세요!</p>
         <div className="w-1/2">
           <label className="label cursor-pointer">
             <span className="label-text">수호</span>
@@ -43,8 +43,8 @@ const BackGround = () => {
         </div>
       </div>
 
-      <div className="flex flex-col items-center w-1/2">
-        <p>배경색을 골라주세요!</p>
+      <div className="flex flex-col items-center w-1/2 gap-2">
+        <p className=" font-semibold text-lg">배경색을 골라주세요!</p>
         <SketchPicker
           color={bgColor}
           onChange={changeColorHandler}

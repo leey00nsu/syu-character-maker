@@ -10,7 +10,7 @@ const Save = () => {
   return (
     <section>
       <button onClick={changeSaveHandler} className="btn  btn-primary btn-wide">
-        다운로드
+        이미지 파일로 저장하기
       </button>
     </section>
   );

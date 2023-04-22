@@ -24,3 +24,8 @@ export const saveState = atom({
   key: "saveState",
   default: false,
 });
+
+export const removeState = atom({
+  key: "removeState",
+  default: false,
+});
