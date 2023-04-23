@@ -1,4 +1,3 @@
-import React from "react";
 import BackGround from "../BackGround";
 import Photo from "../Photo";
 import Draw from "../Draw";
@@ -59,7 +58,7 @@ const Menu = () => {
         </li>
       </ul>
       <div className="flex justify-center px-4 py-16 border-t border-base-300">
-        {menu === "꾸미기" && <p>Hello</p>}
+        {menu === "꾸미기" && <p>...</p>}
         {menu === "배경" && <BackGround />}
         {menu === "사진" && <Photo />}
         {menu === "그리기" && <Draw />}

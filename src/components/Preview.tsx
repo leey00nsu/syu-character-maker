@@ -1,9 +1,10 @@
 import { Line, Stage, Layer, Rect, Image, Transformer } from "react-konva";
-import { useRef, useEffect, useState, MouseEventHandler } from "react";
+import { useRef, useEffect, useState } from "react";
 import Konva from "konva";
 import {
   bgColorState,
   modeState,
+  menuState,
   bgState,
   saveState,
   removeState,
@@ -11,9 +12,21 @@ import {
 } from "../store/store";
 import { useRecoilState } from "recoil";
 import useImage from "use-image";
-import UseImages from "./UseImages";
+import UseImage from "./UseImage";
+
+interface objectProps {
+  type: string;
+  id: string;
+  points?: number[];
+  color?: string;
+  size?: string;
+  url?: string;
+  z: number;
+}
 
 const Preview = () => {
+  const [objectCount, setObjectCount] = useState(0);
+  const [menu, setMenu] = useRecoilState(menuState);
   const [upload, setUpload] = useRecoilState(uploadState);
   const [save, setSave] = useRecoilState(saveState);
   const [remove, setRemove] = useRecoilState(removeState);
@@ -27,8 +40,7 @@ const Preview = () => {
       ? useImage("./src/assets/suya.png")
       : useImage("./src/assets/suho.png");
 
-  const [lines, setLines] = useState<any>([]);
-  const [images, setImages] = useState<any>([]);
+  const [objects, setObjects] = useState<objectProps[]>([]);
 
   const layerRef = useRef<any>();
   const stageRef = useRef<any>();
@@ -62,7 +74,7 @@ const Preview = () => {
       document.removeEventListener("touchmove", touchMoveHandler);
       document.removeEventListener("touchend", touchEndHandler);
     };
-  }, [lines, mode]);
+  }, [objects, mode]);
 
   // 한 번 클릭했을 때
   const checkDeselect = (e: any) => {
@@ -87,15 +99,25 @@ const Preview = () => {
         selectRef.current.width(0);
         selectRef.current.height(0);
         updateSelection();
+      } else {
+        if (selectedId.length === 0) {
+          selectShape([e.target.getId()]);
+        }
       }
     } else {
       drawRef.current = true;
 
       const pos = stageRef.current.getPointerPosition();
-      setLines((prev: any) => [
-        ...lines,
-        { points: [pos.x, pos.y], id: `lines${prev.length}` },
+      setObjects((prev: objectProps[]) => [
+        ...prev,
+        {
+          type: "line",
+          points: [pos.x, pos.y],
+          id: `obj${objectCount}`,
+          z: objectCount,
+        },
       ]);
+      setObjectCount((prev) => prev + 1);
     }
   };
 
@@ -133,13 +155,13 @@ const Preview = () => {
       const canvas = document.getElementsByTagName("canvas");
       const rel_x = e.clientX - canvas[0].getBoundingClientRect().x;
       const rel_y = e.clientY - canvas[0].getBoundingClientRect().y;
-      let lastLine = lines[lines.length - 1];
+      let lastLine = objects[objects.length - 1];
       // add point
-      lastLine.points = lastLine.points.concat([rel_x, rel_y]);
+      lastLine.points = lastLine.points?.concat([rel_x, rel_y]);
 
       // replace last
-      lines.splice(lines.length - 1, 1, lastLine);
-      setLines(lines.concat());
+      objects.splice(objects.length - 1, 1, lastLine);
+      setObjects(objects.concat());
     }
   };
 
@@ -188,7 +210,6 @@ const Preview = () => {
   // save state를 통해서 다른 컴포넌트에서 이 함수를 실행할 수 있도록 함
   useEffect(() => {
     if (save) {
-      selectShape([]);
       const dataURL = stageRef.current.toDataURL({ pixelRatio: 3 });
 
       var link = document.createElement("a");
@@ -205,20 +226,21 @@ const Preview = () => {
     selectShape([]);
   }, [mode]);
 
+  useEffect(() => {
+    if (menu === "저장") {
+      selectShape([]);
+    }
+  }, [menu]);
+
   // remove state를 통해서 다른 컴포넌트에서 이 함수를 실행할 수 있도록 함
   useEffect(() => {
     if (remove) {
-      let new_lines = lines.filter(
-        (line: any) => !selectedId.includes(line.id)
-      );
-      let new_images = images.filter(
-        (image: any) => !selectedId.includes(image.id)
+      let new_objects = objects.filter(
+        (object: objectProps) => !selectedId.includes(object.id)
       );
 
-      console.log(new_lines);
+      setObjects(new_objects);
 
-      setLines(new_lines);
-      setImages(new_images);
       selectShape([]);
 
       setRemove(false);
@@ -226,10 +248,16 @@ const Preview = () => {
   }, [remove]);
 
   const onUpload = (newUpload: string | ArrayBuffer) => {
-    setImages((prev: any) => [
+    setObjects((prev: any) => [
       ...prev,
-      { id: `images${prev.length}`, url: newUpload },
-    ]); // 파일의 컨텐츠
+      {
+        type: "image",
+        id: `obj${objectCount}`,
+        url: newUpload,
+        z: objectCount,
+      },
+    ]);
+    setObjectCount((prev) => prev + 1);
   };
 
   useEffect(() => {
@@ -270,53 +298,54 @@ const Preview = () => {
             />
           </Layer>
           <Layer ref={layerRef}>
-            {images.map((image: any, i: any) => (
-              <UseImages
-                x={50}
-                y={50}
-                url={image.url}
-                id={`images${i}`}
-                name="images"
-                key={i}
-                onDragEnd={() => {}}
-                onDragStart={() => {
-                  if (selectedId.length < 2) {
-                    selectShape((prev: any) => [`images${i}`]);
-                  }
-                }}
-                draggable={mode === "move"}
-                onSelect={() => {
-                  if (selectedId.length < 2) {
-                    selectShape((prev: any) => [`images${i}`]);
-                  }
-                }}
-              />
-            ))}
-            {lines.map((line: any, i: any) => (
-              <Line
-                id={`lines${i}`}
-                name="lines"
-                key={i}
-                points={line.points}
-                stroke="black"
-                strokeWidth={5}
-                tension={0.5}
-                lineCap="round"
-                lineJoin="round"
-                onDragStart={() => {
-                  if (selectedId.length < 2) {
-                    selectShape((prev: any) => [`lines${i}`]);
-                  }
-                }}
-                draggable={mode === "move"}
-                globalCompositeOperation={"source-over"}
-                onSelect={() => {
-                  if (selectedId.length < 2) {
-                    selectShape((prev: any) => [`lines${i}`]);
-                  }
-                }}
-              />
-            ))}
+            {objects.map((object: objectProps) =>
+              object.type === "image" ? (
+                <UseImage
+                  x={50}
+                  y={50}
+                  url={object.url}
+                  id={object.id}
+                  name="images"
+                  key={object.z}
+                  onDragEnd={() => {}}
+                  onDragStart={(e: any) => {
+                    if (selectedId.length < 2) {
+                      selectShape((prev: any) => [object.id]);
+                    }
+                  }}
+                  draggable={mode === "move"}
+                  onSelect={(e: any) => {
+                    if (selectedId.length < 2) {
+                      selectShape((prev: any) => [object.id]);
+                    }
+                  }}
+                />
+              ) : (
+                <Line
+                  id={object.id}
+                  name="lines"
+                  key={object.z}
+                  points={object.points}
+                  stroke="black"
+                  strokeWidth={5}
+                  tension={0.5}
+                  lineCap="round"
+                  lineJoin="round"
+                  onDragStart={() => {
+                    if (selectedId.length < 2) {
+                      selectShape((prev: any) => [object.id]);
+                    }
+                  }}
+                  draggable={mode === "move"}
+                  globalCompositeOperation={"source-over"}
+                  onSelect={() => {
+                    if (selectedId.length < 2) {
+                      selectShape((prev: any) => [object.id]);
+                    }
+                  }}
+                />
+              )
+            )}
             <Rect ref={selectRef} fill="rgba(0,0,245,0.2)" visible={false} />
             <Transformer shouldOverdrawWholeArea ref={trRef} />
           </Layer>
@@ -324,7 +353,7 @@ const Preview = () => {
       </div>
       <p
         onClick={() => {
-          console.log(images);
+          console.log(selectedId);
         }}
       >
         button

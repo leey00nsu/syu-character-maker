@@ -1,4 +1,4 @@
-import { bgColorState, modeState, bgState, saveState } from "../store/store";
+import { saveState } from "../store/store";
 import { useRecoilState } from "recoil";
 
 const Save = () => {
@@ -9,7 +9,7 @@ const Save = () => {
   };
   return (
     <section>
-      <button onClick={changeSaveHandler} className="btn  btn-primary btn-wide">
+      <button onClick={changeSaveHandler} className="btn btn-primary btn-wide">
         이미지 파일로 저장하기
       </button>
     </section>

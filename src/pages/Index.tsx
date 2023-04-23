@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Header from "../components/ui/Header";
 import Preview from "../components/Preview";
 import Menu from "../components/ui/Menu";
