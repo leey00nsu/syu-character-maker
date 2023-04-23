@@ -9,6 +9,7 @@ import {
   saveState,
   removeState,
   uploadState,
+  penState,
 } from "../store/store";
 import { useRecoilState } from "recoil";
 import useImage from "use-image";
@@ -19,13 +20,14 @@ interface objectProps {
   id: string;
   points?: number[];
   color?: string;
-  size?: string;
+  size?: number;
   url?: string;
   z: number;
 }
 
 const Preview = () => {
   const [objectCount, setObjectCount] = useState(0);
+  const [pen, setPen] = useRecoilState(penState);
   const [menu, setMenu] = useRecoilState(menuState);
   const [upload, setUpload] = useRecoilState(uploadState);
   const [save, setSave] = useRecoilState(saveState);
@@ -112,6 +114,8 @@ const Preview = () => {
         ...prev,
         {
           type: "line",
+          size: pen.size,
+          color: pen.color,
           points: [pos.x, pos.y],
           id: `obj${objectCount}`,
           z: objectCount,
@@ -326,8 +330,8 @@ const Preview = () => {
                   name="lines"
                   key={object.z}
                   points={object.points}
-                  stroke="black"
-                  strokeWidth={5}
+                  stroke={object.color}
+                  strokeWidth={object.size}
                   tension={0.5}
                   lineCap="round"
                   lineJoin="round"
@@ -351,13 +355,13 @@ const Preview = () => {
           </Layer>
         </Stage>
       </div>
-      <p
+      {/* <p
         onClick={() => {
-          console.log(selectedId);
+          console.log(objects);
         }}
       >
         button
-      </p>
+      </p> */}
     </>
   );
 };

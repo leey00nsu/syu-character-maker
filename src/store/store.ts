@@ -10,6 +10,11 @@ export const bgColorState = atom<string>({
   default: "#ffffff",
 });
 
+export const penState = atom<{ size: number; color: string }>({
+  key: "penState",
+  default: { size: 5, color: "black" },
+});
+
 export const menuState = atom<string>({
   key: "menuState",
   default: "꾸미기",
