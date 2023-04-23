@@ -38,9 +38,7 @@ const Preview = () => {
 
   const [selectedId, selectShape] = useState<string[]>([]);
   const [bgImage] =
-    bg === "수야"
-      ? useImage("./src/assets/suya.png")
-      : useImage("./src/assets/suho.png");
+    bg === "수야" ? useImage("/suya.png") : useImage("/suho.png");
 
   const [objects, setObjects] = useState<objectProps[]>([]);
 
