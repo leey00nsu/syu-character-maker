@@ -312,13 +312,13 @@ const Preview = () => {
                   onDragEnd={() => {}}
                   onDragStart={(e: any) => {
                     if (selectedId.length < 2) {
-                      selectShape((prev: any) => [object.id]);
+                      selectShape((prev: string[]) => [object.id]);
                     }
                   }}
                   draggable={mode === "move"}
                   onSelect={(e: any) => {
                     if (selectedId.length < 2) {
-                      selectShape((prev: any) => [object.id]);
+                      selectShape((prev: string[]) => [object.id]);
                     }
                   }}
                 />
@@ -335,14 +335,14 @@ const Preview = () => {
                   lineJoin="round"
                   onDragStart={() => {
                     if (selectedId.length < 2) {
-                      selectShape((prev: any) => [object.id]);
+                      selectShape((prev: string[]) => [object.id]);
                     }
                   }}
                   draggable={mode === "move"}
                   globalCompositeOperation={"source-over"}
                   onSelect={() => {
                     if (selectedId.length < 2) {
-                      selectShape((prev: any) => [object.id]);
+                      selectShape((prev: string[]) => [object.id]);
                     }
                   }}
                 />
