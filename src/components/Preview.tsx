@@ -10,10 +10,12 @@ import {
   removeState,
   uploadState,
   penState,
+  itemState,
 } from "../store/store";
 import { useRecoilState } from "recoil";
 import useImage from "use-image";
 import UseImage from "./UseImage";
+import UseItem from "./UseItem";
 
 interface objectProps {
   type: string;
@@ -27,6 +29,7 @@ interface objectProps {
 
 const Preview = () => {
   const [objectCount, setObjectCount] = useState(0);
+  const [items, setItems] = useRecoilState(itemState);
   const [pen, setPen] = useRecoilState(penState);
   const [menu, setMenu] = useRecoilState(menuState);
   const [upload, setUpload] = useRecoilState(uploadState);
@@ -300,6 +303,10 @@ const Preview = () => {
             />
           </Layer>
           <Layer ref={layerRef}>
+            {items.map((i) => (
+              <UseItem key={i.item} url={i.itemUrl} id="background" />
+            ))}
+
             {objects.map((object: objectProps) =>
               object.type === "image" ? (
                 <UseImage

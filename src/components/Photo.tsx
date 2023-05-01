@@ -20,13 +20,13 @@ const Photo = () => {
     }
   };
   return (
-    <>
+    <section className="flex justify-center px-4 py-16 border-t border-base-300">
       <input
         onChange={onUpload}
         type="file"
         className="shrink-0 file-input file-input-bordered file-input-primary w-full max-w-xs"
       />
-    </>
+    </section>
   );
 };
 

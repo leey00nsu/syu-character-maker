@@ -39,3 +39,8 @@ export const uploadState = atom<string | ArrayBuffer>({
   key: "uploadState",
   default: "",
 });
+
+export const itemState = atom<{ item: string; itemUrl: string }[]>({
+  key: "itemState",
+  default: [],
+});

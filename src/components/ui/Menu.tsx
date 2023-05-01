@@ -2,6 +2,7 @@ import BackGround from "../BackGround";
 import Photo from "../Photo";
 import Draw from "../Draw";
 import Save from "../Save";
+import Items from "../Items";
 import { bgColorState, menuState, modeState } from "../../store/store";
 import { useRecoilState } from "recoil";
 
@@ -57,8 +58,8 @@ const Menu = () => {
           </a>
         </li>
       </ul>
-      <div className="flex justify-center px-4 py-16 border-t border-base-300">
-        {menu === "꾸미기" && <p>...</p>}
+      <div>
+        {menu === "꾸미기" && <Items />}
         {menu === "배경" && <BackGround />}
         {menu === "사진" && <Photo />}
         {menu === "그리기" && <Draw />}

@@ -15,7 +15,7 @@ const BackGround = () => {
   };
 
   return (
-    <section className="flex w-full justify-between px-6">
+    <section className="flex justify-center px-4 py-16 border-t border-base-300">
       <div className="flex flex-col items-center w-1/2 gap-2">
         <p className=" font-medium text-lg">캐릭터를 골라주세요</p>
         <div className="w-1/2">

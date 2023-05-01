@@ -8,7 +8,7 @@ const Save = () => {
     setSave(true);
   };
   return (
-    <section>
+    <section className="flex justify-center px-4 py-16 border-t border-base-300">
       <button onClick={changeSaveHandler} className="btn btn-primary btn-wide">
         이미지 파일로 저장하기
       </button>
