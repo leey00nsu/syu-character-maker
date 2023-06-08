@@ -5,7 +5,7 @@ import { useRecoilState } from "recoil";
 import { itemParts } from "../constants/itemParts";
 import { suhoItems } from "../constants/suhoItems";
 import { suyaItems } from "../constants/suyaItems";
-import ItemToggleButton from "./itemToggleButton";
+import ItemToggleButton from "./ItemToggleButton";
 
 const Items = () => {
   const [part, setPart] = useState("머리");
