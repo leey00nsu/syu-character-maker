@@ -1,13 +1,15 @@
 import { SketchPicker, ColorResult } from "react-color";
 import { useRecoilState } from "recoil";
-import { bgColorState, bgState } from "../store/store";
+import { bgColorState, bgState, itemState } from "../store/store";
 
 const BackGround = () => {
   const [bgColor, setBgColor] = useRecoilState(bgColorState);
   const [bg, setBg] = useRecoilState(bgState);
+  const [items, setItems] = useRecoilState(itemState);
 
   const changeBgHandler = (changes: string) => {
     setBg(changes);
+    setItems([]);
   };
 
   const changeColorHandler = (color: ColorResult) => {

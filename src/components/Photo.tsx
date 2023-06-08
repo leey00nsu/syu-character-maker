@@ -15,6 +15,7 @@ const Photo = () => {
       reader.onload = () => {
         if (reader.result) {
           setUpload(reader.result); // 파일의 컨텐츠
+          e.target.value = "";
         }
       };
     }
