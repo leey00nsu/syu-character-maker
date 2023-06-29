@@ -44,3 +44,18 @@ export const itemState = atom<{ item: string; itemUrl: string }[]>({
   key: "itemState",
   default: [],
 });
+
+interface Object {
+  type: string;
+  id: string;
+  points?: any;
+  color?: string;
+  size?: number;
+  url?: string;
+  z: number;
+}
+
+export const objectState = atom<Object[]>({
+  key: "objectState",
+  default: [],
+});

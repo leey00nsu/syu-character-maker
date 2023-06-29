@@ -11,24 +11,16 @@ import {
   uploadState,
   penState,
   itemState,
+  objectState,
 } from "../store/store";
 import { useRecoilState } from "recoil";
 import useImage from "use-image";
 import UseImage from "./UseImage";
 import UseItem from "./UseItem";
 
-interface objectProps {
-  type: string;
-  id: string;
-  points?: number[];
-  color?: string;
-  size?: number;
-  url?: string;
-  z: number;
-}
-
 const Preview = () => {
   const [objectCount, setObjectCount] = useState(0);
+  const [objects, setObjects] = useRecoilState(objectState);
   const [items, setItems] = useRecoilState(itemState);
   const [pen, setPen] = useRecoilState(penState);
   const [menu, setMenu] = useRecoilState(menuState);
@@ -42,8 +34,6 @@ const Preview = () => {
   const [selectedId, selectShape] = useState<string[]>([]);
   const [bgImage] =
     bg === "수야" ? useImage("/suya.png") : useImage("/suho.png");
-
-  const [objects, setObjects] = useState<objectProps[]>([]);
 
   const layerRef = useRef<any>();
   const stageRef = useRef<any>();
@@ -111,14 +101,14 @@ const Preview = () => {
       drawRef.current = true;
 
       const pos = stageRef.current.getPointerPosition();
-      setObjects((prev: objectProps[]) => [
+      setObjects((prev) => [
         ...prev,
         {
           type: "line",
           size: pen.size,
           color: pen.color,
           points: [pos.x, pos.y],
-          id: `obj${objectCount}`,
+          id: `선 ${objectCount}`,
           z: objectCount,
         },
       ]);
@@ -160,13 +150,19 @@ const Preview = () => {
       const canvas = document.getElementsByTagName("canvas");
       const rel_x = e.clientX - canvas[0].getBoundingClientRect().x;
       const rel_y = e.clientY - canvas[0].getBoundingClientRect().y;
-      let lastLine = objects[objects.length - 1];
-      // add point
-      lastLine.points = lastLine.points?.concat([rel_x, rel_y]);
 
-      // replace last
-      objects.splice(objects.length - 1, 1, lastLine);
-      setObjects(objects.concat());
+      // 마지막 선의 포인트를 추가합니다.
+      const newObjects = objects.map((object, index) => {
+        if (index === objects.length - 1) {
+          return {
+            ...object,
+            points: [...object.points, rel_x, rel_y],
+          };
+        }
+        return object;
+      });
+
+      setObjects(newObjects);
     }
   };
 
@@ -241,7 +237,7 @@ const Preview = () => {
   useEffect(() => {
     if (remove) {
       let new_objects = objects.filter(
-        (object: objectProps) => !selectedId.includes(object.id)
+        (object) => !selectedId.includes(object.id)
       );
 
       setObjects(new_objects);
@@ -257,7 +253,7 @@ const Preview = () => {
       ...prev,
       {
         type: "image",
-        id: `obj${objectCount}`,
+        id: `이미지 ${objectCount}`,
         url: newUpload,
         z: objectCount,
       },
@@ -307,7 +303,7 @@ const Preview = () => {
               <UseItem key={i.item} url={i.itemUrl} id="background" />
             ))}
 
-            {objects.map((object: objectProps) =>
+            {objects.map((object) =>
               object.type === "image" ? (
                 <UseImage
                   x={50}

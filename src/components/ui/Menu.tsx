@@ -5,6 +5,7 @@ import Save from "../Save";
 import Items from "../Items";
 import { bgColorState, menuState, modeState } from "../../store/store";
 import { useRecoilState } from "recoil";
+import { menus } from "../../constants/menus";
 
 const Menu = () => {
   const [menu, setMenu] = useRecoilState(menuState);
@@ -17,46 +18,16 @@ const Menu = () => {
   return (
     <div className="mockup-window border border-base-300 shrink-0 w-[600px]">
       <ul className="w-full justify-between  menu menu-horizontal bg-base-100 rounded-box p-2">
-        <li>
-          <a
-            onClick={changeMenuHandler.bind(this, "꾸미기")}
-            className={menu == "꾸미기" ? "px-10 active" : "px-10 "}
-          >
-            꾸미기
-          </a>
-        </li>
-        <li>
-          <a
-            onClick={changeMenuHandler.bind(this, "배경")}
-            className={menu == "배경" ? "px-10 active" : "px-10 "}
-          >
-            배경
-          </a>
-        </li>
-        <li>
-          <a
-            onClick={changeMenuHandler.bind(this, "사진")}
-            className={menu == "사진" ? "px-10 active" : "px-10 "}
-          >
-            사진
-          </a>
-        </li>
-        <li>
-          <a
-            onClick={changeMenuHandler.bind(this, "그리기")}
-            className={menu == "그리기" ? "px-10 active" : "px-10 "}
-          >
-            그리기
-          </a>
-        </li>
-        <li>
-          <a
-            onClick={changeMenuHandler.bind(this, "저장")}
-            className={menu == "저장" ? "px-10 active" : "px-10 "}
-          >
-            저장
-          </a>
-        </li>
+        {menus.map((m) => (
+          <li key={m}>
+            <a
+              onClick={changeMenuHandler.bind(this, m)}
+              className={menu == m ? "px-10 active" : "px-10 "}
+            >
+              {m}
+            </a>
+          </li>
+        ))}
       </ul>
       <div>
         {menu === "꾸미기" && <Items />}

@@ -24,6 +24,7 @@ const ItemToggleButton = (props: ItemToggleButtonProps) => {
     <>
       {currentItems.map((currentItem) => (
         <button
+          key={currentItem.item}
           onClick={props.onClick.bind(
             this,
             currentItem.item,
