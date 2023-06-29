@@ -1,9 +1,10 @@
 import React from "react";
-import { uploadState } from "../store/store";
+import { objectState, objectCountState } from "../store/store";
 import { useRecoilState } from "recoil";
 
-const Photo = () => {
-  const [upload, setUpload] = useRecoilState(uploadState);
+const Upload = () => {
+  const [objects, setObjects] = useRecoilState(objectState);
+  const [objectCount, setObjectCount] = useRecoilState(objectCountState);
   const onUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const file = e.target.files[0];
@@ -14,7 +15,16 @@ const Photo = () => {
 
       reader.onload = () => {
         if (reader.result) {
-          setUpload(reader.result); // 파일의 컨텐츠
+          setObjects((prev: any) => [
+            ...prev,
+            {
+              type: "image",
+              id: `이미지 ${objectCount}`,
+              url: reader.result,
+              z: objectCount,
+            },
+          ]);
+          setObjectCount((prev) => prev + 1);
           e.target.value = "";
         }
       };
@@ -31,4 +41,4 @@ const Photo = () => {
   );
 };
 
-export default Photo;
+export default Upload;

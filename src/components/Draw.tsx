@@ -1,19 +1,29 @@
 import { FaPencilAlt, FaExpandArrowsAlt, FaTrashAlt } from "react-icons/fa";
-import { modeState, removeState, penState } from "../store/store";
+import {
+  modeState,
+  objectState,
+  penState,
+  selectedIdState,
+} from "../store/store";
 import { useRecoilState } from "recoil";
 import { CirclePicker } from "react-color";
 
 const Draw = () => {
   const [pen, setPen] = useRecoilState(penState);
   const [mode, setMode] = useRecoilState(modeState);
-  const [remove, setRemove] = useRecoilState(removeState);
+  const [objects, setObjects] = useRecoilState(objectState);
+  const [selectedId, setSelectedId] = useRecoilState(selectedIdState);
 
   const changeModeHandler = (changes: string) => {
     setMode(changes);
   };
 
   const removeHandler = () => {
-    setRemove(true);
+    const new_objects = objects.filter(
+      (object) => !selectedId.includes(object.id)
+    );
+    setObjects(new_objects);
+    setSelectedId([]);
   };
 
   const changePenSizeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {

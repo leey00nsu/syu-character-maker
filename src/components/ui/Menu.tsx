@@ -1,5 +1,5 @@
 import BackGround from "../BackGround";
-import Photo from "../Photo";
+import Upload from "../Upload";
 import Draw from "../Draw";
 import Save from "../Save";
 import Items from "../Items";
@@ -7,7 +7,7 @@ import { bgColorState, menuState, modeState } from "../../store/store";
 import { useRecoilState } from "recoil";
 import { menus } from "../../constants/menus";
 
-const Menu = () => {
+const Menu = (props: any) => {
   const [menu, setMenu] = useRecoilState(menuState);
   const [mode, setMode] = useRecoilState(modeState);
 
@@ -32,9 +32,9 @@ const Menu = () => {
       <div>
         {menu === "꾸미기" && <Items />}
         {menu === "배경" && <BackGround />}
-        {menu === "사진" && <Photo />}
+        {menu === "사진" && <Upload />}
         {menu === "그리기" && <Draw />}
-        {menu === "저장" && <Save />}
+        {menu === "저장" && <Save stageRef={props.stageRef} />}
       </div>
     </div>
   );

@@ -6,37 +6,36 @@ import {
   modeState,
   menuState,
   bgState,
-  saveState,
-  removeState,
-  uploadState,
   penState,
   itemState,
   objectState,
+  selectedIdState,
+  objectCountState,
 } from "../store/store";
 import { useRecoilState } from "recoil";
 import useImage from "use-image";
 import UseImage from "./UseImage";
 import UseItem from "./UseItem";
 
-const Preview = () => {
-  const [objectCount, setObjectCount] = useState(0);
+interface PreviewProps {
+  stageRef: any;
+}
+
+const Preview = (props: PreviewProps) => {
+  const [objectCount, setObjectCount] = useRecoilState(objectCountState);
+  const [selectedId, setSelectedId] = useRecoilState(selectedIdState);
   const [objects, setObjects] = useRecoilState(objectState);
   const [items, setItems] = useRecoilState(itemState);
   const [pen, setPen] = useRecoilState(penState);
   const [menu, setMenu] = useRecoilState(menuState);
-  const [upload, setUpload] = useRecoilState(uploadState);
-  const [save, setSave] = useRecoilState(saveState);
-  const [remove, setRemove] = useRecoilState(removeState);
   const [mode, setMode] = useRecoilState(modeState);
   const [bgColor, setBgColor] = useRecoilState(bgColorState);
   const [bg, setBg] = useRecoilState(bgState);
 
-  const [selectedId, selectShape] = useState<string[]>([]);
   const [bgImage] =
     bg === "수야" ? useImage("/suya.png") : useImage("/suho.png");
 
   const layerRef = useRef<any>();
-  const stageRef = useRef<any>();
 
   const selectRef = useRef<any>();
   const trRef = useRef<any>();
@@ -76,9 +75,9 @@ const Preview = () => {
       const clickedOnEmpty = e.target.getId() === "background";
 
       if (clickedOnEmpty) {
-        selectShape([]);
+        setSelectedId([]);
 
-        const pos = stageRef.current.getPointerPosition();
+        const pos = props.stageRef.current.getPointerPosition();
 
         selectRef.current.setAttrs({
           x1: pos.x,
@@ -94,13 +93,13 @@ const Preview = () => {
         updateSelection();
       } else {
         if (selectedId.length === 0) {
-          selectShape([e.target.getId()]);
+          setSelectedId([e.target.getId()]);
         }
       }
     } else {
       drawRef.current = true;
 
-      const pos = stageRef.current.getPointerPosition();
+      const pos = props.stageRef.current.getPointerPosition();
       setObjects((prev) => [
         ...prev,
         {
@@ -177,8 +176,8 @@ const Preview = () => {
         selectRef.current.visible(false);
       });
 
-      let selected_shapes = stageRef.current.find(".images");
-      let selected_lines = stageRef.current.find(".lines");
+      let selected_shapes = props.stageRef.current.find(".images");
+      let selected_lines = props.stageRef.current.find(".lines");
 
       let contents = [...selected_shapes, ...selected_lines];
 
@@ -190,7 +189,7 @@ const Preview = () => {
 
       let selectedId = selected.map((child: any) => child.attrs.id);
 
-      selectShape(selectedId);
+      setSelectedId(selectedId);
     } else {
       drawRef.current = false;
     }
@@ -203,75 +202,26 @@ const Preview = () => {
         selectedId.includes(child.attrs.id)
       );
 
-      trRef.current.nodes(selectedNodes);
-      trRef.current.getLayer().batchDraw();
+      trRef.current?.nodes(selectedNodes);
+      trRef.current?.getLayer()?.batchDraw();
     }
   }, [selectedId]);
 
-  // save state를 통해서 다른 컴포넌트에서 이 함수를 실행할 수 있도록 함
   useEffect(() => {
-    if (save) {
-      const dataURL = stageRef.current.toDataURL({ pixelRatio: 3 });
-
-      var link = document.createElement("a");
-      link.download = "save";
-      link.href = dataURL;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      setSave(false);
-    }
-  }, [save]);
-
-  useEffect(() => {
-    selectShape([]);
+    setSelectedId([]);
   }, [mode]);
 
   useEffect(() => {
     if (menu === "저장") {
-      selectShape([]);
+      setSelectedId([]);
     }
   }, [menu]);
 
-  // remove state를 통해서 다른 컴포넌트에서 이 함수를 실행할 수 있도록 함
-  useEffect(() => {
-    if (remove) {
-      let new_objects = objects.filter(
-        (object) => !selectedId.includes(object.id)
-      );
-
-      setObjects(new_objects);
-
-      selectShape([]);
-
-      setRemove(false);
-    }
-  }, [remove]);
-
-  const onUpload = (newUpload: string | ArrayBuffer) => {
-    setObjects((prev: any) => [
-      ...prev,
-      {
-        type: "image",
-        id: `이미지 ${objectCount}`,
-        url: newUpload,
-        z: objectCount,
-      },
-    ]);
-    setObjectCount((prev) => prev + 1);
-  };
-
-  useEffect(() => {
-    if (upload) {
-      onUpload(upload);
-      setUpload("");
-    }
-  }, [upload]);
   return (
     <>
       <div className="flex flex-col w-[600px] h-[600px] justify-center ">
         <Stage
-          ref={stageRef}
+          ref={props.stageRef}
           width={600}
           height={600}
           onMouseDown={checkDeselect}
@@ -315,13 +265,13 @@ const Preview = () => {
                   onDragEnd={() => {}}
                   onDragStart={(e: any) => {
                     if (selectedId.length < 2) {
-                      selectShape((prev: string[]) => [object.id]);
+                      setSelectedId((prev: string[]) => [object.id]);
                     }
                   }}
                   draggable={mode === "move"}
                   onSelect={(e: any) => {
                     if (selectedId.length < 2) {
-                      selectShape((prev: string[]) => [object.id]);
+                      setSelectedId((prev: string[]) => [object.id]);
                     }
                   }}
                 />
@@ -338,14 +288,14 @@ const Preview = () => {
                   lineJoin="round"
                   onDragStart={() => {
                     if (selectedId.length < 2) {
-                      selectShape((prev: string[]) => [object.id]);
+                      setSelectedId((prev: string[]) => [object.id]);
                     }
                   }}
                   draggable={mode === "move"}
                   globalCompositeOperation={"source-over"}
                   onSelect={() => {
                     if (selectedId.length < 2) {
-                      selectShape((prev: string[]) => [object.id]);
+                      setSelectedId((prev: string[]) => [object.id]);
                     }
                   }}
                 />

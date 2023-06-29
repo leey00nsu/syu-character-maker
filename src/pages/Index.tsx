@@ -4,17 +4,19 @@ import Menu from "../components/ui/Menu";
 import Status from "../components/ui/Status";
 import { objectState } from "../store/store";
 import { useRecoilState } from "recoil";
-
+import { useRef } from "react";
 const Index = () => {
   const [objects, setObjects] = useRecoilState(objectState);
+
+  const stageRef = useRef<any>(null);
   return (
     <div className="flex flex-col w-screen h-screen ">
       <Header />
       <div className="flex w-full">
         <div className="flex flex-col items-center w-2/3 h-full max-w-4xl gap-2">
           <Status />
-          <Preview />
-          <Menu />
+          <Preview stageRef={stageRef} />
+          <Menu stageRef={stageRef} />
         </div>
         <div className="mockup-window border border-base-300  w-[200px] max-h-[400px] bg-white shrink-0">
           <p className=" absolute top-[14px] left-2/4">레이어</p>
