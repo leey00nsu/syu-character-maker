@@ -3,7 +3,7 @@ const Header = () => {
     <div className="navbar bg-base-100">
       <div className="flex-1">
         <a className="btn btn-ghost normal-case text-xl">
-          삼육대 캐릭터 짤 만들기
+          나만의 수야 수호 만들기
         </a>
       </div>
       <div className="flex-none">

@@ -25,6 +25,7 @@ export const menuState = atom<string>({
 });
 
 // 그리기의 모드를 선택하는 상태
+// state : move, draw
 export const modeState = atom<string>({
   key: "modeState",
   default: "move",

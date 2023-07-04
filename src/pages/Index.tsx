@@ -2,11 +2,18 @@ import Header from "../components/ui/Header";
 import Preview from "../components/Preview";
 import Menu from "../components/ui/Menu";
 import Status from "../components/ui/Status";
-import { objectState } from "../store/store";
+import { objectState, selectedIdState, modeState } from "../store/store";
 import { useRecoilState } from "recoil";
 import { useRef } from "react";
 const Index = () => {
+  const [mode, setMode] = useRecoilState(modeState);
+  const [selectedId, setSelectedId] = useRecoilState(selectedIdState);
   const [objects, setObjects] = useRecoilState(objectState);
+
+  const clickLayerHandler = (selectedId: string) => {
+    setSelectedId([selectedId]);
+    setMode("move");
+  };
 
   const stageRef = useRef<any>(null);
   return (
@@ -22,7 +29,13 @@ const Index = () => {
           <p className=" absolute top-[14px] left-2/4">레이어</p>
           <div className="py-2 h-full flex flex-col overflow-y-auto">
             {objects.map((object) => (
-              <p key={object.id}>{object.id}</p>
+              <p
+                className={selectedId.includes(object.id) ? " bg-blue-400" : ""}
+                onClick={() => clickLayerHandler(object.id)}
+                key={object.id}
+              >
+                {object.id}
+              </p>
             ))}
           </div>
         </div>
