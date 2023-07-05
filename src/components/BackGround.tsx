@@ -1,4 +1,4 @@
-import { SketchPicker, ColorResult } from "react-color";
+import { ChromePicker, ColorResult } from "react-color";
 import { useRecoilState } from "recoil";
 import { bgColorState, bgState, itemState } from "../store/store";
 
@@ -47,7 +47,8 @@ const BackGround = () => {
 
       <div className="flex flex-col items-center w-1/2 gap-2">
         <p className=" font-medium text-lg">배경색을 골라주세요</p>
-        <SketchPicker
+        <ChromePicker
+          className="border shadow-none rounded-xl overflow-hidden"
           color={bgColor}
           onChange={changeColorHandler}
           // onChangeComplete={() => console.log(color)}

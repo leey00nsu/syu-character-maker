@@ -1,12 +1,54 @@
+import { FaPencilAlt, FaExpandArrowsAlt, FaTrashAlt } from "react-icons/fa";
+import { useRecoilState } from "recoil";
+import { modeState, objectState, selectedIdState } from "../../store/store";
+
 const Header = () => {
+  const [mode, setMode] = useRecoilState(modeState);
+  const [objects, setObjects] = useRecoilState(objectState);
+  const [selectedId, setSelectedId] = useRecoilState(selectedIdState);
+
+  const changeModeHandler = (changes: string) => {
+    setMode(changes);
+  };
+
+  const removeHandler = () => {
+    const new_objects = objects.filter(
+      (object) => !selectedId.includes(object.id)
+    );
+    setObjects(new_objects);
+    setSelectedId([]);
+  };
   return (
-    <div className="navbar bg-base-100">
-      <div className="flex-1">
+    <div className="flex justify-between w-full p-2 items-center bg-base-100 h-20">
+      <div className="flex items-center">
         <a className="btn btn-ghost normal-case text-xl">
           나만의 수야 수호 만들기
         </a>
+        <div className="flex justify-between">
+          <div
+            onClick={changeModeHandler.bind(this, "draw")}
+            className="grid w-16 h-16 cursor-pointer btn btn-ghost rounded-box place-items-center"
+          >
+            <FaPencilAlt className="shrink-0" size={30} />
+          </div>
+
+          <div
+            onClick={changeModeHandler.bind(this, "move")}
+            className="grid w-16 h-16 cursor-pointer btn btn-ghost rounded-box place-items-center"
+          >
+            <FaExpandArrowsAlt className=" shrink-0" size={30} />
+          </div>
+
+          <div
+            onClick={removeHandler}
+            className="grid w-16 h-16 border-0 cursor-pointer btn btn-accent btn-outline rounded-box place-items-center"
+          >
+            <FaTrashAlt className=" shrink-0" size={30} />
+          </div>
+        </div>
       </div>
-      <div className="flex-none">
+
+      <div className="flex">
         <button className="btn btn-square btn-ghost">
           <svg
             xmlns="http://www.w3.org/2000/svg"

@@ -16,7 +16,7 @@ const Menu = (props: any) => {
     setMode("move");
   };
   return (
-    <div className="mockup-window border border-base-300 shrink-0 w-[600px]">
+    <div className="mockup-window border border-base-300 shrink-0 w-[600px] ">
       <ul className="w-full justify-between  menu menu-horizontal bg-base-100 rounded-box p-2">
         {menus.map((m) => (
           <li key={m}>

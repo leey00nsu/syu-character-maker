@@ -1,7 +1,6 @@
 import Header from "../components/ui/Header";
 import Preview from "../components/Preview";
 import Menu from "../components/ui/Menu";
-import Status from "../components/ui/Status";
 import { objectState, selectedIdState, modeState } from "../store/store";
 import { useRecoilState } from "recoil";
 import { useRef } from "react";
@@ -21,7 +20,6 @@ const Index = () => {
       <Header />
       <div className="flex w-full">
         <div className="flex flex-col items-center w-2/3 h-full max-w-4xl gap-2">
-          <Status />
           <Preview stageRef={stageRef} />
           <Menu stageRef={stageRef} />
         </div>
