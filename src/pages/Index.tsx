@@ -4,6 +4,9 @@ import Menu from "../components/ui/Menu";
 import { objectState, selectedIdState, modeState } from "../store/store";
 import { useRecoilState } from "recoil";
 import { useRef } from "react";
+
+import { FaAngleDown, FaAngleUp } from "react-icons/fa";
+
 const Index = () => {
   const [mode, setMode] = useRecoilState(modeState);
   const [selectedId, setSelectedId] = useRecoilState(selectedIdState);
@@ -23,18 +26,42 @@ const Index = () => {
           <Preview stageRef={stageRef} />
           <Menu stageRef={stageRef} />
         </div>
-        <div className="mockup-window border border-base-300  w-[200px] max-h-[400px] bg-white shrink-0">
+        <div className="mockup-window border border-base-300  w-[200px] h-[400px] bg-white shrink-0">
           <p className=" absolute top-[14px] left-2/4">레이어</p>
-          <div className="py-2 h-full flex flex-col overflow-y-auto">
-            {objects.map((object) => (
-              <p
-                className={selectedId.includes(object.id) ? " bg-blue-400" : ""}
-                onClick={() => clickLayerHandler(object.id)}
-                key={object.id}
-              >
-                {object.id}
-              </p>
-            ))}
+
+          <div className="w-full h-full pb-10 overflow-y-auto ">
+            <ul className="w-full gap-1 menu ">
+              {objects.map((object) => (
+                <li
+                  className={
+                    selectedId.includes(object.id)
+                      ? "flex flex-row justify-between w-full btn-active rounded-lg  "
+                      : "flex flex-row w-full justify-between"
+                  }
+                  onClick={() => clickLayerHandler(object.id)}
+                  key={object.id}
+                >
+                  <p className="w-full">{object.id}</p>
+
+                  {selectedId.includes(object.id) && (
+                    <>
+                      <div
+                        onClick={() => console.log("Up")}
+                        className="absolute flex justify-center items-center right-8 h-full w-1"
+                      >
+                        <FaAngleUp className=" shrink-0 " size={15} />
+                      </div>
+                      <div
+                        onClick={() => console.log("Down")}
+                        className="absolute flex justify-center items-center right-0 h-full w-1"
+                      >
+                        <FaAngleDown className=" shrink-0 " size={15} />
+                      </div>
+                    </>
+                  )}
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </div>

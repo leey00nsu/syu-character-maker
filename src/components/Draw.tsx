@@ -5,28 +5,33 @@ import { useState } from "react";
 
 const Draw = () => {
   const [pen, setPen] = useRecoilState(penState);
-  const [hsl, setHsl] = useState("0 0% 0%");
 
   const changePenSizeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPen({ ...pen, size: Number(e.target.value) });
+    setPen({
+      ...pen,
+      size: Number(e.target.value),
+    });
   };
 
   const changePenColorHandler = (changes: ColorResult) => {
-    setPen({ ...pen, color: changes.hex });
-    setHsl(`${changes.hsl.h} ${changes.hsl.s * 100}% ${changes.hsl.l * 100}%`);
+    setPen({
+      ...pen,
+      color: changes.hex,
+      hsl: `${changes.hsl.h} ${changes.hsl.s * 100}% ${changes.hsl.l * 100}%`,
+    });
   };
 
   return (
     <section
       style={
         {
-          "--range-shdw": hsl,
+          "--range-shdw": pen.hsl,
         } as React.CSSProperties
       }
       className="flex justify-center px-4 py-16 border-t border-base-300"
     >
       <div className="flex flex-col items-center w-full gap-4">
-        <div className="flex  w-full gap-4">
+        <div className="flex  w-full gap-2">
           <div className="flex flex-col items-center w-1/2 gap-2">
             <p className="text-lg font-medium ">펜 굵기</p>
             <input

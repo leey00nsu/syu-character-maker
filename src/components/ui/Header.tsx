@@ -19,22 +19,30 @@ const Header = () => {
     setSelectedId([]);
   };
   return (
-    <div className="flex justify-between w-full p-2 items-center bg-base-100 h-20">
+    <div className="flex items-center justify-between w-full h-20 p-2 bg-base-100">
       <div className="flex items-center">
-        <a className="btn btn-ghost normal-case text-xl">
+        <a className="text-xl normal-case btn btn-ghost">
           나만의 수야 수호 만들기
         </a>
-        <div className="flex justify-between">
+        <div className="flex justify-between gap-2">
           <div
             onClick={changeModeHandler.bind(this, "draw")}
-            className="grid w-16 h-16 cursor-pointer btn btn-ghost rounded-box place-items-center"
+            className={
+              mode === "draw"
+                ? "grid w-16 h-16 cursor-pointer btn btn-ghost btn-active rounded-box place-items-center"
+                : "grid w-16 h-16 cursor-pointer btn btn-ghost rounded-box place-items-center"
+            }
           >
             <FaPencilAlt className="shrink-0" size={30} />
           </div>
 
           <div
             onClick={changeModeHandler.bind(this, "move")}
-            className="grid w-16 h-16 cursor-pointer btn btn-ghost rounded-box place-items-center"
+            className={
+              mode === "draw"
+                ? "grid w-16 h-16 cursor-pointer btn btn-ghost rounded-box place-items-center"
+                : "grid w-16 h-16 cursor-pointer btn btn-ghost btn-active rounded-box place-items-center"
+            }
           >
             <FaExpandArrowsAlt className=" shrink-0" size={30} />
           </div>

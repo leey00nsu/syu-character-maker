@@ -12,10 +12,16 @@ export const bgColorState = atom<string>({
   default: "#ffffff",
 });
 
+interface PenState {
+  size: number;
+  color: string;
+  hsl: string;
+}
+
 // 펜의 색상과 굵기를 선택하는 상태
-export const penState = atom<{ size: number; color: string }>({
+export const penState = atom<PenState>({
   key: "penState",
-  default: { size: 5, color: "black" },
+  default: { size: 5, color: "black", hsl: "0 0% 0%" },
 });
 
 // 메뉴의 상태를 선택하는 상태

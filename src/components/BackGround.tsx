@@ -19,7 +19,7 @@ const BackGround = () => {
   return (
     <section className="flex justify-center px-4 py-16 border-t border-base-300">
       <div className="flex flex-col items-center w-1/2 gap-2">
-        <p className=" font-medium text-lg">캐릭터를 골라주세요</p>
+        <p className=" font-medium text-lg">캐릭터</p>
         <div className="w-1/2">
           <label className="label cursor-pointer">
             <span className="label-text">수호</span>
@@ -46,7 +46,7 @@ const BackGround = () => {
       </div>
 
       <div className="flex flex-col items-center w-1/2 gap-2">
-        <p className=" font-medium text-lg">배경색을 골라주세요</p>
+        <p className=" font-medium text-lg">배경색</p>
         <ChromePicker
           className="border shadow-none rounded-xl overflow-hidden"
           color={bgColor}

@@ -198,7 +198,6 @@ const Preview = (props: PreviewProps) => {
   // 현재 선택된 요소를 Transformer에게 전달
   useEffect(() => {
     if (selectedId) {
-      console.log(selectedId);
       let selectedNodes = layerRef.current.children.filter((child: any) =>
         selectedId.includes(child.attrs.id)
       );

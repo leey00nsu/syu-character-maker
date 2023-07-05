@@ -7,6 +7,7 @@
   font-family: "Noto Sans KR", sans-serif;
 }
 
+/* color picker에 의해 바뀌는 커스텀 range (daisyui) */
 .color-range {
   height: 1.5rem /* 24px */;
   width: 100%;
