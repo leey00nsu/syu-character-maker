@@ -35,9 +35,17 @@ const Draw = () => {
           <div className="flex flex-col items-center w-1/2 gap-2">
             <p className="text-lg font-medium ">펜 굵기</p>
             <input
+              type="number"
+              min={1}
+              max={50}
+              value={pen.size}
+              onChange={changePenSizeHandler}
+              className="input input-bordered w-1/2  "
+            />
+            <input
               type="range"
               min="1"
-              max="20"
+              max="50"
               value={pen.size}
               onChange={changePenSizeHandler}
               className="color-range "

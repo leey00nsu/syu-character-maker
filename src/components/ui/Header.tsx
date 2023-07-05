@@ -1,11 +1,17 @@
 import { FaPencilAlt, FaExpandArrowsAlt, FaTrashAlt } from "react-icons/fa";
 import { useRecoilState } from "recoil";
-import { modeState, objectState, selectedIdState } from "../../store/store";
+import {
+  modeState,
+  objectState,
+  selectedIdState,
+  objectCountState,
+} from "../../store/store";
 
 const Header = () => {
   const [mode, setMode] = useRecoilState(modeState);
   const [objects, setObjects] = useRecoilState(objectState);
   const [selectedId, setSelectedId] = useRecoilState(selectedIdState);
+  const [objectCount, setObjectCount] = useRecoilState(objectCountState);
 
   const changeModeHandler = (changes: string) => {
     setMode(changes);

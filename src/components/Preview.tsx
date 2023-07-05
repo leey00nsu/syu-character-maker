@@ -106,7 +106,7 @@ const Preview = (props: PreviewProps) => {
           type: "line",
           size: pen.size,
           color: pen.color,
-          points: [pos.x, pos.y],
+          points: [pos.x, pos.y, pos.x + 0.0001, pos.y], // 점을 찍을 때 표시가 안될때가 있어 임의로 0.0001을 더해줌
           id: `선 ${objectCount}`,
           z: objectCount,
         },
@@ -208,7 +208,9 @@ const Preview = (props: PreviewProps) => {
   }, [selectedId]);
 
   useEffect(() => {
-    setSelectedId([]);
+    if (mode === "draw") {
+      setSelectedId([]);
+    }
   }, [mode]);
 
   useEffect(() => {
@@ -216,6 +218,13 @@ const Preview = (props: PreviewProps) => {
       setSelectedId([]);
     }
   }, [menu]);
+
+  const sortedObjects = [...objects].sort((a, b) => {
+    if (a.z > b.z) return 1;
+    if (a.z == b.z) return 0;
+    if (a.z < b.z) return -1;
+    return 0;
+  });
 
   return (
     <>
@@ -253,7 +262,7 @@ const Preview = (props: PreviewProps) => {
               <UseItem key={i.item} url={i.itemUrl} id="background" />
             ))}
 
-            {objects.map((object) =>
+            {sortedObjects.map((object) =>
               object.type === "image" ? (
                 <UseImage
                   x={50}
@@ -309,6 +318,7 @@ const Preview = (props: PreviewProps) => {
       {/* <p
         onClick={() => {
           console.log(objects);
+          console.log(sortedObjects);
         }}
       >
         button

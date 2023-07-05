@@ -17,6 +17,26 @@ const Index = () => {
     setMode("move");
   };
 
+  const layerUpHandler = (index: number) => {
+    if (index !== 0) {
+      const new_objects = [...objects];
+      const temp = new_objects[index - 1];
+      new_objects[index - 1] = new_objects[index];
+      new_objects[index] = temp;
+      setObjects([...new_objects]);
+    }
+  };
+
+  const layerDownHandler = (index: number) => {
+    if (index !== objects.length - 1) {
+      const new_objects = [...objects];
+      const temp = new_objects[index + 1];
+      new_objects[index + 1] = new_objects[index];
+      new_objects[index] = temp;
+      setObjects([...new_objects]);
+    }
+  };
+
   const stageRef = useRef<any>(null);
   return (
     <div className="flex flex-col w-screen h-screen ">
@@ -31,7 +51,7 @@ const Index = () => {
 
           <div className="w-full h-full pb-10 overflow-y-auto ">
             <ul className="w-full gap-1 menu ">
-              {objects.map((object) => (
+              {objects.map((object, index) => (
                 <li
                   className={
                     selectedId.includes(object.id)
@@ -46,13 +66,13 @@ const Index = () => {
                   {selectedId.includes(object.id) && (
                     <>
                       <div
-                        onClick={() => console.log("Up")}
+                        onClick={() => layerUpHandler(index)}
                         className="absolute flex justify-center items-center right-8 h-full w-1"
                       >
                         <FaAngleUp className=" shrink-0 " size={15} />
                       </div>
                       <div
-                        onClick={() => console.log("Down")}
+                        onClick={() => layerDownHandler(index)}
                         className="absolute flex justify-center items-center right-0 h-full w-1"
                       >
                         <FaAngleDown className=" shrink-0 " size={15} />
