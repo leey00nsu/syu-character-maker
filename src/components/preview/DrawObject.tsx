@@ -10,7 +10,26 @@ const DrawObject = ({ ...props }) => {
   const { object, objectSelectHandler } = props;
   const [image] = useImage(object.url);
 
-  if (object.type === "image") {
+  if (object.type === "background") {
+    return (
+      <Image
+        x={50}
+        y={50}
+        url={object.url}
+        id="background"
+        opacity={object.opacity}
+        name="backgroundCharactor"
+        key={object.z}
+        onDragEnd={() => {}}
+        onDragStart={() => {}}
+        draggable={false}
+        onSelect={() => {}}
+        image={image}
+        width={500}
+        height={500}
+      />
+    );
+  } else if (object.type === "image") {
     if (image) {
       let aspect_ratio = image.width / image.height;
 

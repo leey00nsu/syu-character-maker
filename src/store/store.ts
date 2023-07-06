@@ -55,12 +55,20 @@ interface Object {
 
 export const objectState = atom<Object[]>({
   key: "objectState",
-  default: [],
+  default: [
+    {
+      type: "background",
+      id: "background",
+      url: "/suya.png",
+      z: 1,
+      opacity: 1,
+    },
+  ],
 });
 
 export const objectCountState = atom({
   key: "objectCountState",
-  default: 1,
+  default: 2,
 });
 
 export const selectedIdState = atom<string[]>({

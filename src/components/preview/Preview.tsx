@@ -70,6 +70,10 @@ const Preview = (props: PreviewProps) => {
 
   // 한 번 클릭했을 때
   const checkDeselect = (e: any) => {
+    // 저장 메뉴에서는 클릭을 무시 (transformer가 저장되지 않도록 하기 위함)
+    if (menu === "저장") {
+      return;
+    }
     // move mode일 때
     if (mode === "move") {
       const clickedOnEmpty = e.target.getId() === "background";
@@ -227,11 +231,10 @@ const Preview = (props: PreviewProps) => {
   }, [menu]);
 
   // 오브젝트들을 z-index 순으로 정렬
-  const sortedObjects = [...objects].sort((a, b) => {
-    if (a.z > b.z) return 1;
-    if (a.z == b.z) return 0;
-    if (a.z < b.z) return -1;
-    return 0;
+  const zIndexedObjects = objects.map((object, index) => {
+    {
+      return { ...object, z: index + 1 };
+    }
   });
 
   // 오브젝트가 드래그 되거나 선택되면 , selectedId에 추가
@@ -241,6 +244,7 @@ const Preview = (props: PreviewProps) => {
 
   return (
     <div className="flex flex-col w-[600px] h-[600px] justify-center ">
+      <button onClick={() => console.log(objects)}>button</button>
       <Stage
         ref={props.stageRef}
         width={600}
@@ -260,20 +264,21 @@ const Preview = (props: PreviewProps) => {
             fill={bgColor}
             id="background"
           />
-          <Image
+          {/* <Image
+            id="background"
+            opacity={1}
             x={50}
             y={50}
             width={500}
             height={500}
             image={bgImage}
-            id="background"
-          />
+          /> */}
         </Layer>
         <Layer ref={layerRef}>
           {items.map((i) => (
             <DrawItem key={i.item} url={i.itemUrl} id="background" />
           ))}
-          {sortedObjects.map((object) => (
+          {zIndexedObjects.map((object) => (
             <DrawObject
               key={object.id}
               object={object}
