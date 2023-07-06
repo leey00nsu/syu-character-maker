@@ -2,7 +2,7 @@ import React from "react";
 import { Image } from "react-konva";
 import useImage from "use-image";
 
-const UseItem = ({ ...props }) => {
+const DrawItem = ({ ...props }) => {
   const [image] = useImage(props.url);
 
   if (image) {
@@ -21,4 +21,4 @@ const UseItem = ({ ...props }) => {
   return <></>;
 };
 
-export default UseItem;
+export default DrawItem;

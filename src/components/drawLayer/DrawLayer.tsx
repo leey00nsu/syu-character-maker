@@ -1,17 +1,25 @@
 import React from "react";
 import { FaAngleDown, FaAngleUp } from "react-icons/fa";
 
-import { modeState, selectedIdState, objectState } from "../../store/store";
+import {
+  modeState,
+  selectedIdState,
+  objectState,
+  menuState,
+} from "../../store/store";
 import { useRecoilState } from "recoil";
 
 const drawLayer = () => {
+  const [menu, setMenu] = useRecoilState(menuState);
   const [mode, setMode] = useRecoilState(modeState);
   const [selectedId, setSelectedId] = useRecoilState(selectedIdState);
   const [objects, setObjects] = useRecoilState(objectState);
 
   const clickLayerHandler = (selectedId: string) => {
-    setSelectedId([selectedId]);
-    setMode("move");
+    if (menu !== "저장") {
+      setSelectedId([selectedId]);
+      setMode("move");
+    }
   };
 
   const layerUpHandler = (index: number) => {

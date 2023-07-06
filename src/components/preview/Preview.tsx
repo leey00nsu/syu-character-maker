@@ -14,8 +14,8 @@ import {
 } from "../../store/store";
 import { useRecoilState } from "recoil";
 import useImage from "use-image";
-import UseImage from "./UseImage";
-import UseItem from "./UseItem";
+import DrawItem from "./DrawItem";
+import DrawObject from "./DrawObject";
 
 interface PreviewProps {
   stageRef: any;
@@ -70,8 +70,8 @@ const Preview = (props: PreviewProps) => {
 
   // 한 번 클릭했을 때
   const checkDeselect = (e: any) => {
+    // move mode일 때
     if (mode === "move") {
-      // const clickedOnEmpty = e.target === e.target.getStage();
       const clickedOnEmpty = e.target.getId() === "background";
 
       if (clickedOnEmpty) {
@@ -97,9 +97,13 @@ const Preview = (props: PreviewProps) => {
         }
       }
     } else {
+      // draw mode일 때
       drawRef.current = true;
 
+      // 현재 마우스의 위치를 받아옴
       const pos = props.stageRef.current.getPointerPosition();
+
+      // 현재 마우스의 위치를 받아와서 객체를 생성
       setObjects((prev) => [
         ...prev,
         {
@@ -196,7 +200,7 @@ const Preview = (props: PreviewProps) => {
     }
   };
 
-  // 현재 선택된 요소를 Transformer에게 전달
+  // selectedId가 변경될 때마다 현재 선택된 요소를 Transformer에게 전달하여 표시
   useEffect(() => {
     if (selectedId) {
       let selectedNodes = layerRef.current.children.filter((child: any) =>
@@ -208,18 +212,21 @@ const Preview = (props: PreviewProps) => {
     }
   }, [selectedId]);
 
+  // mode가 변경될 때마다 selectedId를 초기화
   useEffect(() => {
     if (mode === "draw") {
       setSelectedId([]);
     }
   }, [mode]);
 
+  // menu가 변경될 때마다 selectedId를 초기화
   useEffect(() => {
     if (menu === "저장") {
       setSelectedId([]);
     }
   }, [menu]);
 
+  // 오브젝트들을 z-index 순으로 정렬
   const sortedObjects = [...objects].sort((a, b) => {
     if (a.z > b.z) return 1;
     if (a.z == b.z) return 0;
@@ -227,106 +234,57 @@ const Preview = (props: PreviewProps) => {
     return 0;
   });
 
-  return (
-    <>
-      <div className="flex flex-col w-[600px] h-[600px] justify-center ">
-        <Stage
-          ref={props.stageRef}
-          width={600}
-          height={600}
-          onMouseDown={checkDeselect}
-          onTouchStart={checkDeselect}
-        >
-          <Layer>
-            <Rect
-              name="background"
-              key="background"
-              z={-999}
-              x={0}
-              y={0}
-              width={600}
-              height={600}
-              fill={bgColor}
-              id="background"
-            />
-            <Image
-              x={50}
-              y={50}
-              width={500}
-              height={500}
-              image={bgImage}
-              id="background"
-            />
-          </Layer>
-          <Layer ref={layerRef}>
-            {items.map((i) => (
-              <UseItem key={i.item} url={i.itemUrl} id="background" />
-            ))}
+  // 오브젝트가 드래그 되거나 선택되면 , selectedId에 추가
+  const objectSelectHandler = (objectId: string) => {
+    setSelectedId((prev: string[]) => [objectId]);
+  };
 
-            {sortedObjects.map((object) =>
-              object.type === "image" ? (
-                <UseImage
-                  x={50}
-                  y={50}
-                  url={object.url}
-                  id={object.id}
-                  opacity={object.opacity}
-                  name="images"
-                  key={object.z}
-                  onDragEnd={() => {}}
-                  onDragStart={(e: any) => {
-                    if (selectedId.length < 2) {
-                      setSelectedId((prev: string[]) => [object.id]);
-                    }
-                  }}
-                  draggable={mode === "move"}
-                  onSelect={(e: any) => {
-                    if (selectedId.length < 2) {
-                      setSelectedId((prev: string[]) => [object.id]);
-                    }
-                  }}
-                />
-              ) : (
-                <Line
-                  id={object.id}
-                  name="lines"
-                  key={object.z}
-                  points={object.points}
-                  stroke={object.color}
-                  strokeWidth={object.size}
-                  opacity={object.opacity}
-                  tension={0.5}
-                  lineCap="round"
-                  lineJoin="round"
-                  onDragStart={() => {
-                    if (selectedId.length < 2) {
-                      setSelectedId((prev: string[]) => [object.id]);
-                    }
-                  }}
-                  draggable={mode === "move"}
-                  globalCompositeOperation={"source-over"}
-                  onSelect={() => {
-                    if (selectedId.length < 2) {
-                      setSelectedId((prev: string[]) => [object.id]);
-                    }
-                  }}
-                />
-              )
-            )}
-            <Rect ref={selectRef} fill="rgba(0,0,245,0.2)" visible={false} />
-            <Transformer shouldOverdrawWholeArea ref={trRef} />
-          </Layer>
-        </Stage>
-      </div>
-      {/* <p
-        onClick={() => {
-          console.log(objects);
-          console.log(sortedObjects);
-        }}
+  return (
+    <div className="flex flex-col w-[600px] h-[600px] justify-center ">
+      <Stage
+        ref={props.stageRef}
+        width={600}
+        height={600}
+        onMouseDown={checkDeselect}
+        onTouchStart={checkDeselect}
       >
-        button
-      </p> */}
-    </>
+        <Layer>
+          <Rect
+            name="background"
+            key="background"
+            z={-999}
+            x={0}
+            y={0}
+            width={600}
+            height={600}
+            fill={bgColor}
+            id="background"
+          />
+          <Image
+            x={50}
+            y={50}
+            width={500}
+            height={500}
+            image={bgImage}
+            id="background"
+          />
+        </Layer>
+        <Layer ref={layerRef}>
+          {items.map((i) => (
+            <DrawItem key={i.item} url={i.itemUrl} id="background" />
+          ))}
+          {sortedObjects.map((object) => (
+            <DrawObject
+              key={object.id}
+              object={object}
+              objectSelectHandler={objectSelectHandler}
+            />
+          ))}
+          <Rect ref={selectRef} fill="rgba(0,0,245,0.2)" visible={false} />
+          <Transformer shouldOverdrawWholeArea ref={trRef} />
+        </Layer>
+      </Stage>
+    </div>
   );
 };
 
