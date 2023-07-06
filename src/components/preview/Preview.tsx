@@ -7,14 +7,11 @@ import {
   menuState,
   bgState,
   penState,
-  itemState,
   objectState,
   selectedIdState,
   objectCountState,
 } from "../../store/store";
 import { useRecoilState } from "recoil";
-import useImage from "use-image";
-import DrawItem from "./DrawItem";
 import DrawObject from "./DrawObject";
 
 interface PreviewProps {
@@ -25,15 +22,10 @@ const Preview = (props: PreviewProps) => {
   const [objectCount, setObjectCount] = useRecoilState(objectCountState);
   const [selectedId, setSelectedId] = useRecoilState(selectedIdState);
   const [objects, setObjects] = useRecoilState(objectState);
-  const [items, setItems] = useRecoilState(itemState);
   const [pen, setPen] = useRecoilState(penState);
   const [menu, setMenu] = useRecoilState(menuState);
   const [mode, setMode] = useRecoilState(modeState);
   const [bgColor, setBgColor] = useRecoilState(bgColorState);
-  const [bg, setBg] = useRecoilState(bgState);
-
-  const [bgImage] =
-    bg === "수야" ? useImage("/suya.png") : useImage("/suho.png");
 
   const layerRef = useRef<any>();
 
@@ -230,7 +222,7 @@ const Preview = (props: PreviewProps) => {
     }
   }, [menu]);
 
-  // 오브젝트들을 z-index 순으로 정렬
+  // 오브젝트의 z-index를 인덱스 순으로 정렬
   const zIndexedObjects = objects.map((object, index) => {
     {
       return { ...object, z: index + 1 };
@@ -244,7 +236,7 @@ const Preview = (props: PreviewProps) => {
 
   return (
     <div className="flex flex-col w-[600px] h-[600px] justify-center ">
-      <button onClick={() => console.log(objects)}>button</button>
+      {/* <button onClick={() => console.log(objects)}>button</button> */}
       <Stage
         ref={props.stageRef}
         width={600}
@@ -264,20 +256,8 @@ const Preview = (props: PreviewProps) => {
             fill={bgColor}
             id="background"
           />
-          {/* <Image
-            id="background"
-            opacity={1}
-            x={50}
-            y={50}
-            width={500}
-            height={500}
-            image={bgImage}
-          /> */}
         </Layer>
         <Layer ref={layerRef}>
-          {items.map((i) => (
-            <DrawItem key={i.item} url={i.itemUrl} id="background" />
-          ))}
           {zIndexedObjects.map((object) => (
             <DrawObject
               key={object.id}
@@ -286,7 +266,9 @@ const Preview = (props: PreviewProps) => {
             />
           ))}
           <Rect ref={selectRef} fill="rgba(0,0,245,0.2)" visible={false} />
-          <Transformer shouldOverdrawWholeArea ref={trRef} />
+          {!selectedId.includes("background") && (
+            <Transformer shouldOverdrawWholeArea ref={trRef} />
+          )}
         </Layer>
       </Stage>
     </div>

@@ -1,33 +1,43 @@
 import React from "react";
+import DrawItem from "./DrawItem";
 import { Image, Line } from "react-konva";
-import { modeState, menuState } from "../../store/store";
+import { modeState, menuState, itemState, bgState } from "../../store/store";
 import useImage from "use-image";
 import { useRecoilState } from "recoil";
 
 const DrawObject = ({ ...props }) => {
+  const [bg, setBg] = useRecoilState(bgState);
   const [mode, setMode] = useRecoilState(modeState);
   const [menu, setMenu] = useRecoilState(menuState);
+  const [items, setItems] = useRecoilState(itemState);
   const { object, objectSelectHandler } = props;
   const [image] = useImage(object.url);
 
   if (object.type === "background") {
+    const [bgImage] =
+      bg === "수야" ? useImage("/suya.png") : useImage("/suho.png");
+
     return (
-      <Image
-        x={50}
-        y={50}
-        url={object.url}
-        id="background"
-        opacity={object.opacity}
-        name="backgroundCharactor"
-        key={object.z}
-        onDragEnd={() => {}}
-        onDragStart={() => {}}
-        draggable={false}
-        onSelect={() => {}}
-        image={image}
-        width={500}
-        height={500}
-      />
+      <>
+        <Image
+          x={50}
+          y={50}
+          image={bgImage}
+          id="background"
+          opacity={object.opacity}
+          name="backgroundCharactor"
+          key={object.z}
+          onDragEnd={() => {}}
+          onDragStart={() => {}}
+          draggable={false}
+          onSelect={() => {}}
+          width={500}
+          height={500}
+        />
+        {items.map((i) => (
+          <DrawItem key={i.item} url={i.itemUrl} id="background" />
+        ))}
+      </>
     );
   } else if (object.type === "image") {
     if (image) {

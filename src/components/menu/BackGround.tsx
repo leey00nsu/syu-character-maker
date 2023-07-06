@@ -51,7 +51,6 @@ const BackGround = () => {
           className="border shadow-none rounded-xl overflow-hidden"
           color={bgColor}
           onChange={changeColorHandler}
-          // onChangeComplete={() => console.log(color)}
         />
       </div>
     </section>

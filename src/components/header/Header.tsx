@@ -75,13 +75,16 @@ const Header = () => {
             <FaExpandArrowsAlt className=" shrink-0" size={30} />
           </div>
 
-          <div
-            onClick={removeHandler}
-            className="grid w-16 h-16 border-0 cursor-pointer btn btn-accent btn-outline rounded-box place-items-center"
-          >
-            <FaTrashAlt className=" shrink-0" size={30} />
-          </div>
-          {selectedId.length === 1 && (
+          {selectedId.length > 0 && selectedId[0] !== "background" && (
+            <div
+              onClick={removeHandler}
+              className="grid w-16 h-16 border-0 cursor-pointer btn btn-accent btn-outline rounded-box place-items-center"
+            >
+              <FaTrashAlt className=" shrink-0" size={30} />
+            </div>
+          )}
+
+          {selectedId.length === 1 && selectedId[0] !== "background" && (
             <div className="flex flex-col items-center">
               <p>투명도</p>
               <input

@@ -59,7 +59,6 @@ export const objectState = atom<Object[]>({
     {
       type: "background",
       id: "background",
-      url: "/suya.png",
       z: 1,
       opacity: 1,
     },
