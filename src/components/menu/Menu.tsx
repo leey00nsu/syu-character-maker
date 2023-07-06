@@ -1,8 +1,8 @@
-import BackGround from "../BackGround";
-import Upload from "../Upload";
-import Draw from "../Draw";
-import Save from "../Save";
-import Items from "../Items";
+import BackGround from "./BackGround";
+import Upload from "./Upload";
+import Draw from "./Draw";
+import Save from "./Save";
+import Items from "./items/Items";
 import { bgColorState, menuState, modeState } from "../../store/store";
 import { useRecoilState } from "recoil";
 import { menus } from "../../constants/menus";

@@ -11,7 +11,7 @@ import {
   objectState,
   selectedIdState,
   objectCountState,
-} from "../store/store";
+} from "../../store/store";
 import { useRecoilState } from "recoil";
 import useImage from "use-image";
 import UseImage from "./UseImage";

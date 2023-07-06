@@ -1,5 +1,5 @@
 import React from "react";
-import { objectState, objectCountState } from "../store/store";
+import { objectState, objectCountState } from "../../store/store";
 import { useRecoilState } from "recoil";
 
 const Upload = () => {

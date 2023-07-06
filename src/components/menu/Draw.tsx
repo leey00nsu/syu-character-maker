@@ -1,4 +1,4 @@
-import { penState } from "../store/store";
+import { penState } from "../../store/store";
 import { useRecoilState } from "recoil";
 import { ChromePicker, ColorResult } from "react-color";
 import { useState } from "react";

@@ -1,10 +1,8 @@
 import React from "react";
 import { useState } from "react";
-import { bgState, itemState } from "../store/store";
+import { bgState, itemState } from "../../../store/store";
 import { useRecoilState } from "recoil";
-import { itemParts } from "../constants/itemParts";
-import { suhoItems } from "../constants/suhoItems";
-import { suyaItems } from "../constants/suyaItems";
+import { itemParts } from "../../../constants/itemParts";
 import ItemToggleButton from "./ItemToggleButton";
 
 const Items = () => {
