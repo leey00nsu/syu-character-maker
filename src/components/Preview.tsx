@@ -109,6 +109,7 @@ const Preview = (props: PreviewProps) => {
           points: [pos.x, pos.y, pos.x + 0.0001, pos.y], // 점을 찍을 때 표시가 안될때가 있어 임의로 0.0001을 더해줌
           id: `선 ${objectCount}`,
           z: objectCount,
+          opacity: 1,
         },
       ]);
       setObjectCount((prev) => prev + 1);
@@ -269,6 +270,7 @@ const Preview = (props: PreviewProps) => {
                   y={50}
                   url={object.url}
                   id={object.id}
+                  opacity={object.opacity}
                   name="images"
                   key={object.z}
                   onDragEnd={() => {}}
@@ -292,6 +294,7 @@ const Preview = (props: PreviewProps) => {
                   points={object.points}
                   stroke={object.color}
                   strokeWidth={object.size}
+                  opacity={object.opacity}
                   tension={0.5}
                   lineCap="round"
                   lineJoin="round"

@@ -1,4 +1,9 @@
-import { FaPencilAlt, FaExpandArrowsAlt, FaTrashAlt } from "react-icons/fa";
+import {
+  FaPencilAlt,
+  FaExpandArrowsAlt,
+  FaTrashAlt,
+  FaCog,
+} from "react-icons/fa";
 import { useRecoilState } from "recoil";
 import {
   modeState,
@@ -24,10 +29,28 @@ const Header = () => {
     setObjects(new_objects);
     setSelectedId([]);
   };
+
+  const changeOpacityHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newObject = [...objects].map((object) => {
+      if (object.id === selectedId[0]) {
+        return {
+          ...object,
+          opacity: Number(e.target.value),
+        };
+      }
+      return object;
+    });
+    setObjects(newObject);
+  };
+
+  const selectedObject = objects.filter(
+    (object) => object.id === selectedId[0]
+  )[0];
+
   return (
-    <div className="flex items-center justify-between w-full h-20 p-2 bg-base-100">
-      <div className="flex items-center">
-        <a className="text-xl normal-case btn btn-ghost">
+    <div className="flex items-center justify-between w-full px-6 py-2  bg-base-100">
+      <div className="flex items-center gap-2 ">
+        <a className=" text-xl normal-case btn btn-ghost">
           나만의 수야 수호 만들기
         </a>
         <div className="flex justify-between gap-2">
@@ -59,11 +82,25 @@ const Header = () => {
           >
             <FaTrashAlt className=" shrink-0" size={30} />
           </div>
+          {selectedId.length === 1 && (
+            <div className="flex flex-col items-center">
+              <p>투명도</p>
+              <input
+                type="range"
+                min={0}
+                max={1}
+                step={0.1}
+                value={selectedObject.opacity}
+                onChange={changeOpacityHandler}
+                className="range "
+              />
+            </div>
+          )}
         </div>
       </div>
 
       <div className="flex">
-        <button className="btn btn-square btn-ghost">
+        <button className="btn btn-square btn-ghost h-full">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"

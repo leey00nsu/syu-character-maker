@@ -22,6 +22,7 @@ const Upload = () => {
               id: `이미지 ${objectCount}`,
               url: reader.result,
               z: objectCount,
+              opacity: 1,
             },
           ]);
           setObjectCount((prev) => prev + 1);

@@ -50,6 +50,7 @@ interface Object {
   size?: number;
   url?: string;
   z: number;
+  opacity?: number;
 }
 
 export const objectState = atom<Object[]>({
