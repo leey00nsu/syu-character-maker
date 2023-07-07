@@ -45,6 +45,13 @@ export const itemState = atom<{ item: string; itemUrl: string }[]>({
 interface Object {
   type: string;
   id: string;
+  x?: number;
+  y?: number;
+  scaleX?: number;
+  scaleY?: number;
+  skewX?: number;
+  skewY?: number;
+  rotation?: number;
   points?: any;
   color?: string;
   size?: number;

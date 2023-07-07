@@ -109,7 +109,14 @@ const Preview = (props: PreviewProps) => {
           points: [pos.x, pos.y, pos.x + 0.0001, pos.y], // 점을 찍을 때 표시가 안될때가 있어 임의로 0.0001을 더해줌
           id: `선 ${objectCount}`,
           z: objectCount,
+          x: 0,
+          y: 0,
+          scaleX: 1,
+          scaleY: 1,
+          skewX: 0,
+          skewY: 0,
           opacity: 1,
+          rotation: 0,
         },
       ]);
       setObjectCount((prev) => prev + 1);

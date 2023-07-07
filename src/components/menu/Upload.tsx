@@ -21,6 +21,12 @@ const Upload = () => {
               type: "image",
               id: `이미지 ${objectCount}`,
               url: reader.result,
+              x: 50,
+              y: 50,
+              scaleX: 1,
+              scaleY: 1,
+              skewX: 0,
+              skewY: 0,
               z: objectCount,
               opacity: 1,
             },
@@ -33,11 +39,14 @@ const Upload = () => {
   };
   return (
     <section className="flex justify-center px-4 py-16 border-t border-base-300">
-      <input
-        onChange={onUpload}
-        type="file"
-        className="shrink-0 file-input file-input-bordered file-input-primary w-full max-w-xs"
-      />
+      <div className="flex flex-col items-center w-1/2 gap-2">
+        <p className="text-lg font-medium ">사진 레이어 추가</p>
+        <input
+          onChange={onUpload}
+          type="file"
+          className="shrink-0 file-input file-input-bordered file-input-primary w-full max-w-xs"
+        />
+      </div>
     </section>
   );
 };
