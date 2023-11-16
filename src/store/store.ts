@@ -42,7 +42,7 @@ export const itemState = atom<{ item: string; itemUrl: string }[]>({
   default: [],
 });
 
-interface DrawingObject {
+export interface DrawingObject {
   type: string;
   id: string;
   x?: number;

@@ -1,18 +1,17 @@
-import { Line, Stage, Layer, Rect, Image, Transformer } from "react-konva";
-import { useRef, useEffect, useState } from "react";
 import Konva from "konva";
+import { useEffect, useRef } from "react";
+import { Layer, Rect, Stage, Transformer } from "react-konva";
+import { useRecoilState } from "recoil";
 import {
   bgColorState,
-  modeState,
-  menuState,
-  bgState,
-  penState,
-  drawingObjectState,
-  selectedIdState,
   drawingObjectCountState,
+  drawingObjectState,
+  menuState,
+  modeState,
+  penState,
+  selectedIdState,
 } from "../../store/store";
-import { useRecoilState } from "recoil";
-import DrawObject from "./DrawObject";
+import DrawDrawingObjects from "./DrawDrawingObjects";
 
 interface PreviewProps {
   stageRef: any;
@@ -239,13 +238,6 @@ const Preview = (props: PreviewProps) => {
     }
   }, [menu]);
 
-  // 오브젝트의 z-index를 인덱스 순으로 정렬
-  const zIndexedObjects = drawingObjects.map((object, index) => {
-    {
-      return { ...object, z: index + 1 };
-    }
-  });
-
   // 오브젝트가 드래그 되거나 선택되면 , selectedId에 추가
   const objectSelectHandler = (objectId: string) => {
     if (!selectedId.includes(objectId)) {
@@ -277,13 +269,10 @@ const Preview = (props: PreviewProps) => {
           />
         </Layer>
         <Layer ref={layerRef}>
-          {zIndexedObjects.map((object) => (
-            <DrawObject
-              key={object.id}
-              object={object}
-              objectSelectHandler={objectSelectHandler}
-            />
-          ))}
+          <DrawDrawingObjects
+            drawingObjects={drawingObjects}
+            objectSelectHandler={objectSelectHandler}
+          />
           <Rect
             ref={selectRef}
             id="selection"
