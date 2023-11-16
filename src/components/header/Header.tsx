@@ -1,20 +1,20 @@
 import {
-  FaPencilAlt,
   FaExpandArrowsAlt,
-  FaTrashAlt,
+  FaPencilAlt,
   FaQuestion,
+  FaTrashAlt,
 } from "react-icons/fa";
 import { useRecoilState } from "recoil";
 import {
+  drawingObjectState,
   modeState,
-  objectState,
   selectedIdState,
-  objectCountState,
 } from "../../store/store";
 
 const Header = () => {
   const [mode, setMode] = useRecoilState(modeState);
-  const [objects, setObjects] = useRecoilState(objectState);
+  const [drawingObjects, setdrawingObjects] =
+    useRecoilState(drawingObjectState);
   const [selectedId, setSelectedId] = useRecoilState(selectedIdState);
 
   const changeModeHandler = (changes: string) => {
@@ -22,15 +22,15 @@ const Header = () => {
   };
 
   const removeHandler = () => {
-    const new_objects = objects.filter(
-      (object) => !selectedId.includes(object.id)
+    const new_objects = drawingObjects.filter(
+      (drawingObject) => !selectedId.includes(drawingObject.id)
     );
-    setObjects(new_objects);
+    setdrawingObjects(new_objects);
     setSelectedId([]);
   };
 
   const changeOpacityHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newObject = [...objects].map((object) => {
+    const newObject = [...drawingObjects].map((object) => {
       if (object.id === selectedId[0]) {
         return {
           ...object,
@@ -39,10 +39,10 @@ const Header = () => {
       }
       return object;
     });
-    setObjects(newObject);
+    setdrawingObjects(newObject);
   };
 
-  const selectedObject = objects.filter(
+  const selectedObject = drawingObjects.filter(
     (object) => object.id === selectedId[0]
   )[0];
 

@@ -6,7 +6,7 @@ import {
   menuState,
   itemState,
   bgState,
-  objectState,
+  drawingObjectState,
 } from "../../store/store";
 import useImage from "use-image";
 import { useRecoilState } from "recoil";
@@ -16,7 +16,8 @@ const DrawObject = ({ ...props }) => {
   const [mode, setMode] = useRecoilState(modeState);
   const [menu, setMenu] = useRecoilState(menuState);
   const [items, setItems] = useRecoilState(itemState);
-  const [objects, setObjects] = useRecoilState(objectState);
+  const [drawingObjects, setDrawingObjects] =
+    useRecoilState(drawingObjectState);
   const { object, objectSelectHandler } = props;
   const [image] = useImage(object.url);
 
@@ -24,7 +25,7 @@ const DrawObject = ({ ...props }) => {
   const objectMoveHandler = (e: any) => {
     const { x, y, id } = e.target.attrs;
 
-    const newObjects = objects.map((object) => {
+    const newObjects = drawingObjects.map((object) => {
       if (object.id === id) {
         return {
           ...object,
@@ -35,13 +36,13 @@ const DrawObject = ({ ...props }) => {
         return object;
       }
     });
-    setObjects(newObjects);
+    setDrawingObjects(newObjects);
   };
 
   // 오브젝트 변형시 변형값 업데이트
   const objectTransformHandler = (e: any) => {
     const { id, scaleX, scaleY, skewX, skewY, rotation } = e.target.attrs;
-    const newObjects = objects.map((object) => {
+    const newObjects = drawingObjects.map((object) => {
       if (object.id === id) {
         return {
           ...object,
@@ -56,7 +57,7 @@ const DrawObject = ({ ...props }) => {
       }
     });
 
-    setObjects(newObjects);
+    setDrawingObjects(newObjects);
   };
 
   if (object.type === "background") {
@@ -70,7 +71,7 @@ const DrawObject = ({ ...props }) => {
           y={object.y}
           image={bgImage}
           id="background"
-          opacity={object.opacity}
+          opacity={1}
           name="backgroundCharactor"
           key={object.id}
           onDragEnd={() => {}}

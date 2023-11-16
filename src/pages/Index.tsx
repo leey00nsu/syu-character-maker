@@ -6,7 +6,7 @@ import { useRef } from "react";
 
 const Index = () => {
   // canvas의 정보를 가져오기 위한 ref
-  const stageRef = useRef<any>(null);
+  const stageRef = useRef<HTMLCanvasElement>(null);
   return (
     <div className="flex flex-col w-screen h-screen ">
       <Header />

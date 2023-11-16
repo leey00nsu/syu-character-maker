@@ -7,9 +7,9 @@ import {
   menuState,
   bgState,
   penState,
-  objectState,
+  drawingObjectState,
   selectedIdState,
-  objectCountState,
+  drawingObjectCountState,
 } from "../../store/store";
 import { useRecoilState } from "recoil";
 import DrawObject from "./DrawObject";
@@ -19,16 +19,18 @@ interface PreviewProps {
 }
 
 const Preview = (props: PreviewProps) => {
-  const [objectCount, setObjectCount] = useRecoilState(objectCountState);
+  const [drawingObjectCount, setDrawingObjectCount] = useRecoilState(
+    drawingObjectCountState
+  );
   const [selectedId, setSelectedId] = useRecoilState(selectedIdState);
-  const [objects, setObjects] = useRecoilState(objectState);
+  const [drawingObjects, setDrawingObjects] =
+    useRecoilState(drawingObjectState);
   const [pen, setPen] = useRecoilState(penState);
   const [menu, setMenu] = useRecoilState(menuState);
   const [mode, setMode] = useRecoilState(modeState);
   const [bgColor, setBgColor] = useRecoilState(bgColorState);
 
   const layerRef = useRef<any>();
-
   const selectRef = useRef<any>();
   const trRef = useRef<any>();
   const drawRef = useRef(false);
@@ -58,10 +60,10 @@ const Preview = (props: PreviewProps) => {
       document.removeEventListener("touchmove", touchMoveHandler);
       document.removeEventListener("touchend", touchEndHandler);
     };
-  }, [objects, mode]);
+  }, [drawingObjects, mode]);
 
   // 한 번 클릭했을 때
-  const checkDeselect = (e: any) => {
+  const clickHandler = (e: any) => {
     // 저장 메뉴에서는 클릭을 무시 (transformer가 저장되지 않도록 하기 위함)
     if (menu === "저장") {
       return;
@@ -70,6 +72,7 @@ const Preview = (props: PreviewProps) => {
     if (mode === "move") {
       const clickedOnEmpty = e.target.getId() === "background";
 
+      // 배경을 클릭하고 있을 때
       if (clickedOnEmpty) {
         setSelectedId([]);
 
@@ -100,15 +103,15 @@ const Preview = (props: PreviewProps) => {
       const pos = props.stageRef.current.getPointerPosition();
 
       // 현재 마우스의 위치를 받아와서 객체를 생성
-      setObjects((prev) => [
+      setDrawingObjects((prev) => [
         ...prev,
         {
           type: "line",
           size: pen.size,
           color: pen.color,
           points: [pos.x, pos.y, pos.x + 0.0001, pos.y], // 점을 찍을 때 표시가 안될때가 있어 임의로 0.0001을 더해줌
-          id: `선 ${objectCount}`,
-          z: objectCount,
+          id: `선 ${drawingObjectCount}`,
+          z: drawingObjectCount,
           x: 0,
           y: 0,
           scaleX: 1,
@@ -119,7 +122,7 @@ const Preview = (props: PreviewProps) => {
           rotation: 0,
         },
       ]);
-      setObjectCount((prev) => prev + 1);
+      setDrawingObjectCount((prev) => prev + 1);
     }
   };
 
@@ -159,8 +162,8 @@ const Preview = (props: PreviewProps) => {
       const rel_y = e.clientY - canvas[0].getBoundingClientRect().y;
 
       // 마지막 선의 포인트를 추가합니다.
-      const newObjects = objects.map((object, index) => {
-        if (index === objects.length - 1) {
+      const newObjects = drawingObjects.map((object, index) => {
+        if (index === drawingObjects.length - 1) {
           return {
             ...object,
             points: [...object.points, rel_x, rel_y],
@@ -169,7 +172,7 @@ const Preview = (props: PreviewProps) => {
         return object;
       });
 
-      setObjects(newObjects);
+      setDrawingObjects(newObjects);
     }
   };
 
@@ -230,7 +233,7 @@ const Preview = (props: PreviewProps) => {
   }, [menu]);
 
   // 오브젝트의 z-index를 인덱스 순으로 정렬
-  const zIndexedObjects = objects.map((object, index) => {
+  const zIndexedObjects = drawingObjects.map((object, index) => {
     {
       return { ...object, z: index + 1 };
     }
@@ -248,8 +251,8 @@ const Preview = (props: PreviewProps) => {
         ref={props.stageRef}
         width={600}
         height={600}
-        onMouseDown={checkDeselect}
-        onTouchStart={checkDeselect}
+        onMouseDown={clickHandler}
+        onTouchStart={clickHandler}
       >
         <Layer>
           <Rect

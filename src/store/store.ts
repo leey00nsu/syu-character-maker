@@ -42,7 +42,7 @@ export const itemState = atom<{ item: string; itemUrl: string }[]>({
   default: [],
 });
 
-interface Object {
+interface DrawingObject {
   type: string;
   id: string;
   x?: number;
@@ -60,20 +60,21 @@ interface Object {
   opacity?: number;
 }
 
-export const objectState = atom<Object[]>({
-  key: "objectState",
+export const drawingObjectState = atom<DrawingObject[]>({
+  key: "drawingObjectState",
   default: [
     {
+      x: 50,
+      y: 50,
       type: "background",
       id: "background",
       z: 1,
-      opacity: 1,
     },
   ],
 });
 
-export const objectCountState = atom({
-  key: "objectCountState",
+export const drawingObjectCountState = atom({
+  key: "drawingObjectCountState",
   default: 2,
 });
 

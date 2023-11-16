@@ -1,10 +1,13 @@
 import React from "react";
-import { objectState, objectCountState } from "../../store/store";
+import { drawingObjectState, drawingObjectCountState } from "../../store/store";
 import { useRecoilState } from "recoil";
 
 const Upload = () => {
-  const [objects, setObjects] = useRecoilState(objectState);
-  const [objectCount, setObjectCount] = useRecoilState(objectCountState);
+  const [drawingObjects, setDrawingObjects] =
+    useRecoilState(drawingObjectState);
+  const [drawingObjectCount, setDrawingObjectCount] = useRecoilState(
+    drawingObjectCountState
+  );
   const onUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const file = e.target.files[0];
@@ -15,11 +18,11 @@ const Upload = () => {
 
       reader.onload = () => {
         if (reader.result) {
-          setObjects((prev: any) => [
+          setDrawingObjects((prev: any) => [
             ...prev,
             {
               type: "image",
-              id: `이미지 ${objectCount}`,
+              id: `이미지 ${drawingObjectCount}`,
               url: reader.result,
               x: 50,
               y: 50,
@@ -27,11 +30,11 @@ const Upload = () => {
               scaleY: 1,
               skewX: 0,
               skewY: 0,
-              z: objectCount,
+              z: drawingObjectCount,
               opacity: 1,
             },
           ]);
-          setObjectCount((prev) => prev + 1);
+          setDrawingObjectCount((prev) => prev + 1);
           e.target.value = "";
         }
       };

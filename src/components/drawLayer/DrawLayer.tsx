@@ -1,19 +1,19 @@
-import React from "react";
 import { FaAngleDown, FaAngleUp } from "react-icons/fa";
 
+import { useRecoilState } from "recoil";
 import {
+  drawingObjectState,
+  menuState,
   modeState,
   selectedIdState,
-  objectState,
-  menuState,
 } from "../../store/store";
-import { useRecoilState } from "recoil";
 
 const drawLayer = () => {
   const [menu, setMenu] = useRecoilState(menuState);
   const [mode, setMode] = useRecoilState(modeState);
   const [selectedId, setSelectedId] = useRecoilState(selectedIdState);
-  const [objects, setObjects] = useRecoilState(objectState);
+  const [drawingObjects, setDrawingObjects] =
+    useRecoilState(drawingObjectState);
 
   const clickLayerHandler = (selectedId: string) => {
     if (menu !== "저장") {
@@ -24,21 +24,21 @@ const drawLayer = () => {
 
   const layerUpHandler = (index: number) => {
     if (index !== 0) {
-      const new_objects = [...objects];
+      const new_objects = [...drawingObjects];
       const temp = new_objects[index - 1];
       new_objects[index - 1] = new_objects[index];
       new_objects[index] = temp;
-      setObjects([...new_objects]);
+      setDrawingObjects([...new_objects]);
     }
   };
 
   const layerDownHandler = (index: number) => {
-    if (index !== objects.length - 1) {
-      const new_objects = [...objects];
+    if (index !== drawingObjects.length - 1) {
+      const new_objects = [...drawingObjects];
       const temp = new_objects[index + 1];
       new_objects[index + 1] = new_objects[index];
       new_objects[index] = temp;
-      setObjects([...new_objects]);
+      setDrawingObjects([...new_objects]);
     }
   };
 
@@ -48,7 +48,7 @@ const drawLayer = () => {
 
       <div className="w-full h-full pb-10 overflow-y-auto ">
         <ul className="w-full gap-1 menu ">
-          {objects.map((object, index) => (
+          {drawingObjects.map((object, index) => (
             <li
               className={
                 selectedId.includes(object.id)
