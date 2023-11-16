@@ -92,7 +92,7 @@ const Header = () => {
                 min={0}
                 max={1}
                 step={0.1}
-                value={selectedObject.opacity}
+                value={selectedObject?.opacity}
                 onChange={changeOpacityHandler}
                 className="range "
               />

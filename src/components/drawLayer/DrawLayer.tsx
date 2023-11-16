@@ -24,21 +24,21 @@ const drawLayer = () => {
 
   const layerUpHandler = (index: number) => {
     if (index !== 0) {
-      const new_objects = [...drawingObjects];
-      const temp = new_objects[index - 1];
-      new_objects[index - 1] = new_objects[index];
-      new_objects[index] = temp;
-      setDrawingObjects([...new_objects]);
+      const newObjects = [...drawingObjects];
+      const temp = newObjects[index - 1];
+      newObjects[index - 1] = newObjects[index];
+      newObjects[index] = temp;
+      setDrawingObjects([...newObjects]);
     }
   };
 
   const layerDownHandler = (index: number) => {
     if (index !== drawingObjects.length - 1) {
-      const new_objects = [...drawingObjects];
-      const temp = new_objects[index + 1];
-      new_objects[index + 1] = new_objects[index];
-      new_objects[index] = temp;
-      setDrawingObjects([...new_objects]);
+      const newObjects = [...drawingObjects];
+      const temp = newObjects[index + 1];
+      newObjects[index + 1] = newObjects[index];
+      newObjects[index] = temp;
+      setDrawingObjects([...newObjects]);
     }
   };
 

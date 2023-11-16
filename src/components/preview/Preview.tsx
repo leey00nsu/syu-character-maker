@@ -91,11 +91,16 @@ const Preview = (props: PreviewProps) => {
         selectRef.current.height(0);
         updateSelection();
       } else {
-        if (selectedId.length === 0) {
+        // 클릭한 대상이 선, 그림이고 , 현재 선택된 요소에 포함되어 있지 않을 때 해당 요소를 선택
+        if (
+          ["lines", "images"].includes(e.target.getName()) &&
+          !selectedId.includes(e.target.getId())
+        ) {
           setSelectedId([e.target.getId()]);
         }
       }
-    } else {
+    }
+    if (mode === "draw") {
       // draw mode일 때
       drawRef.current = true;
 
@@ -152,7 +157,9 @@ const Preview = (props: PreviewProps) => {
       selectRef.current.attrs.x2 = rel_x;
       selectRef.current.attrs.y2 = rel_y;
       updateSelection();
-    } else {
+    }
+
+    if (mode === "draw") {
       if (!drawRef.current) {
         return;
       }
@@ -183,9 +190,7 @@ const Preview = (props: PreviewProps) => {
         return;
       }
 
-      setTimeout(() => {
-        selectRef.current.visible(false);
-      });
+      selectRef.current.visible(false);
 
       let selected_shapes = props.stageRef.current.find(".images");
       let selected_lines = props.stageRef.current.find(".lines");
@@ -201,7 +206,9 @@ const Preview = (props: PreviewProps) => {
       let selectedId = selected.map((child: any) => child.attrs.id);
 
       setSelectedId(selectedId);
-    } else {
+    }
+
+    if (mode === "draw") {
       drawRef.current = false;
     }
   };
@@ -241,7 +248,9 @@ const Preview = (props: PreviewProps) => {
 
   // 오브젝트가 드래그 되거나 선택되면 , selectedId에 추가
   const objectSelectHandler = (objectId: string) => {
-    setSelectedId((prev: string[]) => [objectId]);
+    if (!selectedId.includes(objectId)) {
+      setSelectedId([objectId]);
+    }
   };
 
   return (
@@ -275,7 +284,12 @@ const Preview = (props: PreviewProps) => {
               objectSelectHandler={objectSelectHandler}
             />
           ))}
-          <Rect ref={selectRef} fill="rgba(0,0,245,0.2)" visible={false} />
+          <Rect
+            ref={selectRef}
+            id="selection"
+            fill="rgba(0,0,245,0.2)"
+            visible={false}
+          />
           {!selectedId.includes("background") && (
             <Transformer shouldOverdrawWholeArea ref={trRef} />
           )}
