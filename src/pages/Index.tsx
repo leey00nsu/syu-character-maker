@@ -10,11 +10,11 @@ const Index = () => {
   return (
     <div className="flex flex-col w-screen h-screen ">
       <Header />
-      <div className="flex w-full h-screen max-h-screen pt-24">
-        <div className="flex  justify-center items-center w-1/2 h-full shrink-0  ">
+      <div className="flex flex-col xl:flex-row w-full h-screen max-h-screen pt-24">
+        <div className="flex  justify-center items-center w-full xl:w-1/2 h-full shrink-0  ">
           <Preview stageRef={stageRef} />
         </div>
-        <div className="flex flex-col w-1/2 h-full items-center gap-3 p-4">
+        <div className="flex flex-col w-full xl:w-1/2 h-full items-center gap-3 p-4">
           <Menu stageRef={stageRef} />
           <DrawLayer />
         </div>
