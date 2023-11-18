@@ -16,7 +16,7 @@ const Menu = (props: any) => {
     setMode("move");
   };
   return (
-    <div className="mockup-window border border-base-300 shrink-0 w-[600px] ">
+    <div className="flex flex-col mockup-window border border-base-300 shrink-0 w-[600px] h-2/3 max-h-2/3 bg-white">
       <ul className="w-full justify-between  menu menu-horizontal bg-base-100 rounded-box p-2">
         {menus.map((m) => (
           <li key={m}>
@@ -29,13 +29,11 @@ const Menu = (props: any) => {
           </li>
         ))}
       </ul>
-      <div>
-        {menu === "꾸미기" && <Items />}
-        {menu === "배경" && <BackGround />}
-        {menu === "사진" && <Upload />}
-        {menu === "그리기" && <Draw />}
-        {menu === "저장" && <Save stageRef={props.stageRef} />}
-      </div>
+      {menu === "꾸미기" && <Items />}
+      {menu === "배경" && <BackGround />}
+      {menu === "사진" && <Upload />}
+      {menu === "그리기" && <Draw />}
+      {menu === "저장" && <Save stageRef={props.stageRef} />}
     </div>
   );
 };

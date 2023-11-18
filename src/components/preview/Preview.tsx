@@ -246,44 +246,46 @@ const Preview = (props: PreviewProps) => {
   };
 
   return (
-    <div className="flex flex-col w-[600px] h-[600px] justify-center ">
-      {/* <button onClick={() => console.log(objects)}>button</button> */}
-      <Stage
-        ref={props.stageRef}
-        width={600}
-        height={600}
-        onMouseDown={clickHandler}
-        onTouchStart={clickHandler}
-      >
-        <Layer>
-          <Rect
-            name="background"
-            key="background"
-            z={-999}
-            x={0}
-            y={0}
-            width={600}
-            height={600}
-            fill={bgColor}
-            id="background"
-          />
-        </Layer>
-        <Layer ref={layerRef}>
-          <DrawDrawingObjects
-            drawingObjects={drawingObjects}
-            objectSelectHandler={objectSelectHandler}
-          />
-          <Rect
-            ref={selectRef}
-            id="selection"
-            fill="rgba(0,0,245,0.2)"
-            visible={false}
-          />
-          {!selectedId.includes("background") && (
-            <Transformer shouldOverdrawWholeArea ref={trRef} />
-          )}
-        </Layer>
-      </Stage>
+    <div className="border border-base-300 rounded-2xl p-1">
+      <div className="flex flex-col w-[600px] h-[600px] justify-center  ">
+        {/* <button onClick={() => console.log(objects)}>button</button> */}
+        <Stage
+          ref={props.stageRef}
+          width={600}
+          height={600}
+          onMouseDown={clickHandler}
+          onTouchStart={clickHandler}
+        >
+          <Layer>
+            <Rect
+              name="background"
+              key="background"
+              z={-999}
+              x={0}
+              y={0}
+              width={600}
+              height={600}
+              fill={bgColor}
+              id="background"
+            />
+          </Layer>
+          <Layer ref={layerRef}>
+            <DrawDrawingObjects
+              drawingObjects={drawingObjects}
+              objectSelectHandler={objectSelectHandler}
+            />
+            <Rect
+              ref={selectRef}
+              id="selection"
+              fill="rgba(0,0,245,0.2)"
+              visible={false}
+            />
+            {!selectedId.includes("background") && (
+              <Transformer shouldOverdrawWholeArea ref={trRef} />
+            )}
+          </Layer>
+        </Stage>
+      </div>
     </div>
   );
 };

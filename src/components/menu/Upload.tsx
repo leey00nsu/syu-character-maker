@@ -41,8 +41,8 @@ const Upload = () => {
     }
   };
   return (
-    <section className="flex justify-center px-4 py-16 border-t border-base-300">
-      <div className="flex flex-col items-center w-1/2 gap-2">
+    <section className="flex w-full grow justify-center items-center  border-t border-base-300 bg-white">
+      <div className="flex flex-col items-center w-full gap-2">
         <p className="text-lg font-medium ">사진 레이어 추가</p>
         <input
           onChange={onUpload}

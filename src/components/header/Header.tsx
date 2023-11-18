@@ -47,7 +47,7 @@ const Header = () => {
   )[0];
 
   return (
-    <div className="flex items-center justify-between w-full px-6 py-2  bg-base-100">
+    <div className="fixed flex items-center justify-between w-full px-6 py-2  bg-base-100">
       <div className="flex items-center gap-2 ">
         <a className=" text-xl normal-case btn btn-ghost">
           나만의 수야 수호 만들기

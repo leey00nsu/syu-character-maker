@@ -28,7 +28,7 @@ const Draw = () => {
           "--range-shdw": pen.hsl,
         } as React.CSSProperties
       }
-      className="flex justify-center px-4 py-16 border-t border-base-300"
+      className="flex w-full grow justify-center items-center px-8  border-t border-base-300 bg-white"
     >
       <div className="flex flex-col items-center w-full gap-4">
         <div className="flex  w-full gap-2">
@@ -56,7 +56,7 @@ const Draw = () => {
             <p className="text-lg font-medium ">펜 색</p>
             <div className="flex gap-2">
               <ChromePicker
-                className="border shadow-none rounded-xl overflow-hidden "
+                className="border shadow-none rounded-xl overflow-hidden h-full"
                 color={pen.color}
                 onChange={changePenColorHandler}
               />

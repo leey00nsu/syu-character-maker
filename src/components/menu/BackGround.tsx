@@ -17,7 +17,7 @@ const BackGround = () => {
   };
 
   return (
-    <section className="flex justify-center px-4 py-16 border-t border-base-300">
+    <section className="flex w-full grow justify-center items-center  border-t border-base-300 bg-white">
       <div className="flex flex-col items-center w-1/2 gap-2">
         <p className=" font-medium text-lg">캐릭터</p>
         <div className="w-1/2">

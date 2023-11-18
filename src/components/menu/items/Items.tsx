@@ -21,7 +21,7 @@ const Items = () => {
     }
   };
   return (
-    <section className="flex w-full h-full border-t border-base-300">
+    <section className="flex w-full h-full  border-t border-base-300 bg-white">
       <ul className="flex h-full gap-1 p-2 border-r shrink-0 menu menu-vertical bg-base-100 ">
         {itemParts.map((itemPart) => (
           <li key={itemPart}>
@@ -35,9 +35,7 @@ const Items = () => {
         ))}
       </ul>
 
-      <div className="flex flex-wrap h-full gap-2 p-2 grow-0 ">
-        <ItemToggleButton part={part} onClick={toggleItemHandler} />
-      </div>
+      <ItemToggleButton part={part} onClick={toggleItemHandler} />
     </section>
   );
 };

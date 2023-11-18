@@ -43,7 +43,7 @@ const drawLayer = () => {
   };
 
   return (
-    <section className="mockup-window border border-base-300  w-[200px] h-[400px] bg-white shrink-0">
+    <section className="mockup-window border border-base-300  w-[600px] h-1/3 max-h-1/3  bg-white ">
       <p className=" absolute top-[14px] left-2/4">레이어</p>
 
       <div className="w-full h-full pb-10 overflow-y-auto ">
