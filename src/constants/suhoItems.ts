@@ -2,7 +2,7 @@ export const suhoHeadItems = [
   {
     part: "머리",
     item: "야구모자",
-    itemUrl: "/suho/suho_yankees_hat.png",
+    itemUrl: "/suho/suho_baseball_hat.png",
   },
   {
     part: "머리",
@@ -16,16 +16,6 @@ export const suhoBodyItems = [
     part: "몸",
     item: "과잠",
     itemUrl: "/suho/suho_baseball_jumper.png",
-  },
-  {
-    part: "몸",
-    item: "바지1",
-    itemUrl: "/suho/suho_pants1.png",
-  },
-  {
-    part: "몸",
-    item: "바지2",
-    itemUrl: "/suho/suho_pants2.png",
   },
   {
     part: "몸",
@@ -57,11 +47,6 @@ export const suhoFaceItems = [
   },
   {
     part: "얼굴",
-    item: "별선글라스",
-    itemUrl: "/suho/suho_star_sunglasses.png",
-  },
-  {
-    part: "얼굴",
     item: "동그란안경",
     itemUrl: "/suho/suho_circle_glasses.png",
   },
@@ -82,13 +67,8 @@ export const suhoFaceItems = [
   },
   {
     part: "얼굴",
-    item: "홍조1",
-    itemUrl: "/suho/suho_blush1.png",
-  },
-  {
-    part: "얼굴",
-    item: "홍조2",
-    itemUrl: "/suho/suho_blush2.png",
+    item: "홍조",
+    itemUrl: "/suho/suho_blush.png",
   },
 ];
 
@@ -115,11 +95,6 @@ export const suhoFootItems = [
     part: "발",
     item: "샌들",
     itemUrl: "/suho/suho_sandle.png",
-  },
-  {
-    part: "발",
-    item: "신발1",
-    itemUrl: "/suho/suho_shoes1.png",
   },
 ];
 
