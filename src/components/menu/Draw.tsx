@@ -31,7 +31,7 @@ const Draw = () => {
       className="flex w-full grow justify-center items-center px-8  border-t border-base-300 bg-white"
     >
       <div className="flex flex-col items-center w-full gap-4">
-        <div className="flex  w-full gap-2">
+        <div className="flex items-center  w-full gap-2">
           <div className="flex flex-col items-center w-1/2 gap-2">
             <p className="text-lg font-medium ">펜 굵기</p>
             <input

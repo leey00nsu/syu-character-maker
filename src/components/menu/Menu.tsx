@@ -16,7 +16,7 @@ const Menu = (props: any) => {
     setMode("move");
   };
   return (
-    <div className="flex flex-col mockup-window border border-base-300 shrink-0 w-[600px] h-2/3 max-h-2/3 bg-white">
+    <div className="flex flex-col mockup-window border border-base-300 shrink-0 w-[600px] h-[400px] xl:h-2/3 xl:max-h-2/3 bg-white">
       <ul className="w-full justify-between  menu menu-horizontal bg-base-100 rounded-box p-2">
         {menus.map((m) => (
           <li key={m}>

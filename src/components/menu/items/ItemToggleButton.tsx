@@ -32,7 +32,7 @@ const ItemToggleButton = (props: ItemToggleButtonProps) => {
           )}
           className={
             items.find((i) => i.item === currentItem.item)
-              ? "btn  btn-outline btn-active "
+              ? "btn  btn-outline btn-active  "
               : "btn btn-ghost border-1 border-base-300"
           }
         >
