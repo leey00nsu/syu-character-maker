@@ -7,6 +7,7 @@ const Draw = () => {
   const [pen, setPen] = useRecoilState(penState);
 
   const changePenSizeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (Number(e.target.value) > 50) return;
     setPen({
       ...pen,
       size: Number(e.target.value),
@@ -34,8 +35,8 @@ const Draw = () => {
         <p className="text-lg font-medium ">펜 굵기</p>
         <input
           type="number"
-          min={1}
-          max={50}
+          min="1"
+          max="50"
           value={pen.size}
           onChange={changePenSizeHandler}
           className="input-bordered input w-1/2  "

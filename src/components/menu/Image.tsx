@@ -47,6 +47,7 @@ const Image = () => {
         <input
           onChange={onUpload}
           type="file"
+          accept="image/*"
           className="file-input-bordered file-input-primary file-input w-full max-w-xs shrink-0"
         />
       </div>
