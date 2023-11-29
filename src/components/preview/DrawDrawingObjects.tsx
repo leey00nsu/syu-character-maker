@@ -1,7 +1,7 @@
-import { DrawingObject } from "../../store/store";
-import DrawBackground from "./DrawBackground";
-import DrawImage from "./DrawImage";
-import DrawLine from "./DrawLine";
+import { DrawingObject } from '../../store/store';
+import DrawBackground from './DrawBackground';
+import DrawImage from './DrawImage';
+import DrawLine from './DrawLine';
 
 interface DrawDrawingObjectsProps {
   drawingObjects: DrawingObject[];
@@ -21,8 +21,8 @@ const DrawDrawingObjects = ({
 
   return (
     <>
-      {zIndexedObjects.map((object) => {
-        if (object.type === "background") {
+      {zIndexedObjects.map(object => {
+        if (object.type === 'background') {
           return (
             <DrawBackground
               key={object.id}
@@ -31,7 +31,7 @@ const DrawDrawingObjects = ({
             />
           );
         }
-        if (object.type === "line") {
+        if (object.type === 'line') {
           return (
             <DrawLine
               key={object.id}
@@ -40,7 +40,7 @@ const DrawDrawingObjects = ({
             />
           );
         }
-        if (object.type === "image") {
+        if (object.type === 'image') {
           return (
             <DrawImage
               key={object.id}

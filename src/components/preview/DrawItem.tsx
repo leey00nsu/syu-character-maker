@@ -1,6 +1,6 @@
-import React from "react";
-import { Image } from "react-konva";
-import useImage from "use-image";
+import React from 'react';
+import { Image } from 'react-konva';
+import useImage from 'use-image';
 
 const DrawItem = ({ ...props }) => {
   const [image] = useImage(props.url);

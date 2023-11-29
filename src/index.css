@@ -4,7 +4,7 @@
 @tailwind utilities;
 
 * {
-  font-family: "Noto Sans KR", sans-serif;
+  font-family: 'Noto Sans KR', sans-serif;
 }
 
 /* color picker에 의해 바뀌는 커스텀 range (daisyui) */
@@ -55,7 +55,9 @@
   transform: translateY(-50%);
   --filler-size: 100rem /* 1600px */;
   --filler-offset: 0.6rem /* 9.6px */;
-  box-shadow: 0 0 0 3px hsl(var(--range-shdw)) inset, var(--focus-shadow, 0 0),
+  box-shadow:
+    0 0 0 3px hsl(var(--range-shdw)) inset,
+    var(--focus-shadow, 0 0),
     calc(var(--filler-size) * -1 - var(--filler-offset)) 0 0 var(--filler-size);
 }
 .color-range:focus-visible::-webkit-slider-thumb::-moz-range-thumb {
@@ -69,7 +71,9 @@
   color: hsl(var(--range-shdw));
   --filler-size: 100rem /* 1600px */;
   --filler-offset: 0.5rem /* 8px */;
-  box-shadow: 0 0 0 3px hsl(var(--range-shdw)) inset, var(--focus-shadow, 0 0),
+  box-shadow:
+    0 0 0 3px hsl(var(--range-shdw)) inset,
+    var(--focus-shadow, 0 0),
     calc(var(--filler-size) * -1 - var(--filler-offset)) 0 0 var(--filler-size);
 }
 

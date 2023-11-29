@@ -1,8 +1,8 @@
-import { Image } from "react-konva";
-import { useRecoilState } from "recoil";
-import useImage from "use-image";
-import { DrawingObject, bgState, itemState } from "../../store/store";
-import DrawItem from "./DrawItem";
+import { Image } from 'react-konva';
+import { useRecoilState } from 'recoil';
+import useImage from 'use-image';
+import { DrawingObject, bgState, itemState } from '../../store/store';
+import DrawItem from './DrawItem';
 
 interface DrawObjectProps {
   object: DrawingObject;
@@ -14,7 +14,7 @@ const DrawBackground = ({ object }: DrawObjectProps) => {
   const [items, setItems] = useRecoilState(itemState);
 
   const [bgImage] =
-    bg === "수야" ? useImage("/suya.png") : useImage("/suho.png");
+    bg === '수야' ? useImage('/suya.png') : useImage('/suho.png');
 
   return (
     <>
@@ -33,7 +33,7 @@ const DrawBackground = ({ object }: DrawObjectProps) => {
         width={500}
         height={500}
       />
-      {items.map((i) => (
+      {items.map(i => (
         <DrawItem key={i.item} url={i.itemUrl} id="background" />
       ))}
     </>

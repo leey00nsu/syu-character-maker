@@ -1,7 +1,7 @@
-import { penState } from "../../store/store";
-import { useRecoilState } from "recoil";
-import { ChromePicker, ColorResult } from "react-color";
-import { useState } from "react";
+import { penState } from '../../store/store';
+import { useRecoilState } from 'recoil';
+import { ChromePicker, ColorResult } from 'react-color';
+import { useState } from 'react';
 
 const Draw = () => {
   const [pen, setPen] = useRecoilState(penState);
@@ -25,7 +25,7 @@ const Draw = () => {
     <section
       style={
         {
-          "--range-shdw": pen.hsl,
+          '--range-shdw': pen.hsl,
         } as React.CSSProperties
       }
       className="flex w-full grow justify-center items-center px-8  border-t border-base-300 bg-white"

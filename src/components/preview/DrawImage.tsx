@@ -1,12 +1,12 @@
-import { Image } from "react-konva";
-import { useRecoilState } from "recoil";
-import useImage from "use-image";
+import { Image } from 'react-konva';
+import { useRecoilState } from 'recoil';
+import useImage from 'use-image';
 import {
   DrawingObject,
   drawingObjectState,
   menuState,
   modeState,
-} from "../../store/store";
+} from '../../store/store';
 
 interface DrawObjectProps {
   object: DrawingObject;
@@ -19,13 +19,13 @@ const DrawImage = ({ object, objectSelectHandler }: DrawObjectProps) => {
 
   const [drawingObjects, setDrawingObjects] =
     useRecoilState(drawingObjectState);
-  const [image] = useImage(object.url ?? "");
+  const [image] = useImage(object.url ?? '');
 
   // 오브젝트 이동시 좌표값 업데이트
   const objectMoveHandler = (e: any) => {
     const { x, y, id } = e.target.attrs;
 
-    const newObjects = drawingObjects.map((object) => {
+    const newObjects = drawingObjects.map(object => {
       if (object.id === id) {
         return {
           ...object,
@@ -42,7 +42,7 @@ const DrawImage = ({ object, objectSelectHandler }: DrawObjectProps) => {
   // 오브젝트 변형시 변형값 업데이트
   const objectTransformHandler = (e: any) => {
     const { id, scaleX, scaleY, skewX, skewY, rotation } = e.target.attrs;
-    const newObjects = drawingObjects.map((object) => {
+    const newObjects = drawingObjects.map(object => {
       if (object.id === id) {
         return {
           ...object,
@@ -78,7 +78,7 @@ const DrawImage = ({ object, objectSelectHandler }: DrawObjectProps) => {
         name="images"
         key={object.id}
         onDragStart={() => objectSelectHandler(object.id)}
-        draggable={mode === "move" && menu !== "저장"}
+        draggable={mode === 'move' && menu !== '저장'}
         onSelect={() => objectSelectHandler(object.id)}
         image={image}
         width={200}

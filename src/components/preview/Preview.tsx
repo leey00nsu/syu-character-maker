@@ -1,7 +1,7 @@
-import Konva from "konva";
-import { useEffect, useRef } from "react";
-import { Layer, Rect, Stage, Transformer } from "react-konva";
-import { useRecoilState } from "recoil";
+import Konva from 'konva';
+import { useEffect, useRef } from 'react';
+import { Layer, Rect, Stage, Transformer } from 'react-konva';
+import { useRecoilState } from 'recoil';
 import {
   bgColorState,
   drawingObjectCountState,
@@ -10,8 +10,8 @@ import {
   modeState,
   penState,
   selectedIdState,
-} from "../../store/store";
-import DrawDrawingObjects from "./DrawDrawingObjects";
+} from '../../store/store';
+import DrawDrawingObjects from './DrawDrawingObjects';
 
 interface PreviewProps {
   stageRef: any;
@@ -19,7 +19,7 @@ interface PreviewProps {
 
 const Preview = (props: PreviewProps) => {
   const [drawingObjectCount, setDrawingObjectCount] = useRecoilState(
-    drawingObjectCountState
+    drawingObjectCountState,
   );
   const [selectedId, setSelectedId] = useRecoilState(selectedIdState);
   const [drawingObjects, setDrawingObjects] =
@@ -48,28 +48,28 @@ const Preview = (props: PreviewProps) => {
     const touchEndHandler = (e: TouchEvent) => {
       endSelection(e);
     };
-    document.addEventListener("mousemove", startHandler);
-    document.addEventListener("mouseup", endHandler);
-    document.addEventListener("touchmove", touchMoveHandler);
-    document.addEventListener("touchend", touchEndHandler);
+    document.addEventListener('mousemove', startHandler);
+    document.addEventListener('mouseup', endHandler);
+    document.addEventListener('touchmove', touchMoveHandler);
+    document.addEventListener('touchend', touchEndHandler);
 
     return () => {
-      document.removeEventListener("mousemove", startHandler);
-      document.removeEventListener("mouseup", endHandler);
-      document.removeEventListener("touchmove", touchMoveHandler);
-      document.removeEventListener("touchend", touchEndHandler);
+      document.removeEventListener('mousemove', startHandler);
+      document.removeEventListener('mouseup', endHandler);
+      document.removeEventListener('touchmove', touchMoveHandler);
+      document.removeEventListener('touchend', touchEndHandler);
     };
   }, [drawingObjects, mode]);
 
   // 한 번 클릭했을 때
   const clickHandler = (e: any) => {
     // 저장 메뉴에서는 클릭을 무시 (transformer가 저장되지 않도록 하기 위함)
-    if (menu === "저장") {
+    if (menu === '저장') {
       return;
     }
     // move mode일 때
-    if (mode === "move") {
-      const clickedOnEmpty = e.target.getId() === "background";
+    if (mode === 'move') {
+      const clickedOnEmpty = e.target.getId() === 'background';
 
       // 배경을 클릭하고 있을 때
       if (clickedOnEmpty) {
@@ -92,14 +92,14 @@ const Preview = (props: PreviewProps) => {
       } else {
         // 클릭한 대상이 선, 그림이고 , 현재 선택된 요소에 포함되어 있지 않을 때 해당 요소를 선택
         if (
-          ["lines", "images"].includes(e.target.getName()) &&
+          ['lines', 'images'].includes(e.target.getName()) &&
           !selectedId.includes(e.target.getId())
         ) {
           setSelectedId([e.target.getId()]);
         }
       }
     }
-    if (mode === "draw") {
+    if (mode === 'draw') {
       // draw mode일 때
       drawRef.current = true;
 
@@ -107,10 +107,10 @@ const Preview = (props: PreviewProps) => {
       const pos = props.stageRef.current.getPointerPosition();
 
       // 현재 마우스의 위치를 받아와서 객체를 생성
-      setDrawingObjects((prev) => [
+      setDrawingObjects(prev => [
         ...prev,
         {
-          type: "line",
+          type: 'line',
           size: pen.size,
           color: pen.color,
           points: [pos.x, pos.y, pos.x + 0.0001, pos.y], // 점을 찍을 때 표시가 안될때가 있어 임의로 0.0001을 더해줌
@@ -126,7 +126,7 @@ const Preview = (props: PreviewProps) => {
           rotation: 0,
         },
       ]);
-      setDrawingObjectCount((prev) => prev + 1);
+      setDrawingObjectCount(prev => prev + 1);
     }
   };
 
@@ -144,12 +144,12 @@ const Preview = (props: PreviewProps) => {
 
   // 드래그 할 때
   const startSelection = (e: any) => {
-    if (mode === "move") {
+    if (mode === 'move') {
       if (!selectRef.current.visible()) {
         return;
       }
 
-      const canvas = document.getElementsByTagName("canvas");
+      const canvas = document.getElementsByTagName('canvas');
       const rel_x = e.clientX - canvas[0].getBoundingClientRect().x;
       const rel_y = e.clientY - canvas[0].getBoundingClientRect().y;
 
@@ -158,12 +158,12 @@ const Preview = (props: PreviewProps) => {
       updateSelection();
     }
 
-    if (mode === "draw") {
+    if (mode === 'draw') {
       if (!drawRef.current) {
         return;
       }
 
-      const canvas = document.getElementsByTagName("canvas");
+      const canvas = document.getElementsByTagName('canvas');
       const rel_x = e.clientX - canvas[0].getBoundingClientRect().x;
       const rel_y = e.clientY - canvas[0].getBoundingClientRect().y;
 
@@ -184,22 +184,22 @@ const Preview = (props: PreviewProps) => {
 
   // 드래그가 끝났을 때
   const endSelection = (e: any) => {
-    if (mode === "move") {
+    if (mode === 'move') {
       if (!selectRef.current.visible()) {
         return;
       }
 
       selectRef.current.visible(false);
 
-      let selected_shapes = props.stageRef.current.find(".images");
-      let selected_lines = props.stageRef.current.find(".lines");
+      let selected_shapes = props.stageRef.current.find('.images');
+      let selected_lines = props.stageRef.current.find('.lines');
 
       let contents = [...selected_shapes, ...selected_lines];
 
       let box = selectRef.current.getClientRect();
 
       let selected = contents.filter((shape: any) =>
-        Konva.Util.haveIntersection(box, shape.getClientRect())
+        Konva.Util.haveIntersection(box, shape.getClientRect()),
       );
 
       let selectedId = selected.map((child: any) => child.attrs.id);
@@ -207,7 +207,7 @@ const Preview = (props: PreviewProps) => {
       setSelectedId(selectedId);
     }
 
-    if (mode === "draw") {
+    if (mode === 'draw') {
       drawRef.current = false;
     }
   };
@@ -216,7 +216,7 @@ const Preview = (props: PreviewProps) => {
   useEffect(() => {
     if (selectedId) {
       let selectedNodes = layerRef.current.children.filter((child: any) =>
-        selectedId.includes(child.attrs.id)
+        selectedId.includes(child.attrs.id),
       );
 
       trRef.current?.nodes(selectedNodes);
@@ -226,14 +226,14 @@ const Preview = (props: PreviewProps) => {
 
   // mode가 변경될 때마다 selectedId를 초기화
   useEffect(() => {
-    if (mode === "draw") {
+    if (mode === 'draw') {
       setSelectedId([]);
     }
   }, [mode]);
 
   // menu가 변경될 때마다 selectedId를 초기화
   useEffect(() => {
-    if (menu === "저장") {
+    if (menu === '저장') {
       setSelectedId([]);
     }
   }, [menu]);
@@ -280,7 +280,7 @@ const Preview = (props: PreviewProps) => {
               fill="rgba(0,0,245,0.2)"
               visible={false}
             />
-            {!selectedId.includes("background") && (
+            {!selectedId.includes('background') && (
               <Transformer shouldOverdrawWholeArea ref={trRef} />
             )}
           </Layer>

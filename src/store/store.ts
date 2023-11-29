@@ -1,15 +1,15 @@
-import { atom } from "recoil";
+import { atom } from 'recoil';
 
 // 백그라운드 캐릭터를 선택하는 상태
 export const bgState = atom<string>({
-  key: "bgState",
-  default: "수호",
+  key: 'bgState',
+  default: '수호',
 });
 
 // 백그라운드 색상을 선택하는 상태
 export const bgColorState = atom<string>({
-  key: "bgColorState",
-  default: "#ffffff",
+  key: 'bgColorState',
+  default: '#ffffff',
 });
 
 interface PenState {
@@ -20,25 +20,25 @@ interface PenState {
 
 // 펜의 색상과 굵기를 선택하는 상태
 export const penState = atom<PenState>({
-  key: "penState",
-  default: { size: 5, color: "black", hsl: "0 0% 0%" },
+  key: 'penState',
+  default: { size: 5, color: 'black', hsl: '0 0% 0%' },
 });
 
 // 메뉴의 상태를 선택하는 상태
 export const menuState = atom<string>({
-  key: "menuState",
-  default: "꾸미기",
+  key: 'menuState',
+  default: '꾸미기',
 });
 
 // 그리기의 모드를 선택하는 상태
 // state : move, draw
 export const modeState = atom<string>({
-  key: "modeState",
-  default: "move",
+  key: 'modeState',
+  default: 'move',
 });
 
 export const itemState = atom<{ item: string; itemUrl: string }[]>({
-  key: "itemState",
+  key: 'itemState',
   default: [],
 });
 
@@ -61,24 +61,24 @@ export interface DrawingObject {
 }
 
 export const drawingObjectState = atom<DrawingObject[]>({
-  key: "drawingObjectState",
+  key: 'drawingObjectState',
   default: [
     {
       x: 50,
       y: 50,
-      type: "background",
-      id: "background",
+      type: 'background',
+      id: 'background',
       z: 1,
     },
   ],
 });
 
 export const drawingObjectCountState = atom({
-  key: "drawingObjectCountState",
+  key: 'drawingObjectCountState',
   default: 2,
 });
 
 export const selectedIdState = atom<string[]>({
-  key: "selectedIdState",
+  key: 'selectedIdState',
   default: [],
 });

@@ -1,6 +1,6 @@
-import { ChromePicker, ColorResult } from "react-color";
-import { useRecoilState } from "recoil";
-import { bgColorState, bgState, itemState } from "../../store/store";
+import { ChromePicker, ColorResult } from 'react-color';
+import { useRecoilState } from 'recoil';
+import { bgColorState, bgState, itemState } from '../../store/store';
 
 const BackGround = () => {
   const [bgColor, setBgColor] = useRecoilState(bgColorState);
@@ -24,22 +24,22 @@ const BackGround = () => {
           <label className="label cursor-pointer">
             <span className="label-text">수호</span>
             <input
-              onChange={changeBgHandler.bind(this, "수호")}
+              onChange={changeBgHandler.bind(this, '수호')}
               type="radio"
               name="radio-character"
               className="radio checked:bg-red-500"
-              checked={bg === "수호"}
+              checked={bg === '수호'}
             />
           </label>
 
           <label className="label cursor-pointer">
             <span className="label-text">수야</span>
             <input
-              onChange={changeBgHandler.bind(this, "수야")}
+              onChange={changeBgHandler.bind(this, '수야')}
               type="radio"
               name="radio-character"
               className="radio checked:bg-blue-500"
-              checked={bg === "수야"}
+              checked={bg === '수야'}
             />
           </label>
         </div>

@@ -1,12 +1,12 @@
-import { FaAngleDown, FaAngleUp } from "react-icons/fa";
+import { FaAngleDown, FaAngleUp } from 'react-icons/fa';
 
-import { useRecoilState } from "recoil";
+import { useRecoilState } from 'recoil';
 import {
   drawingObjectState,
   menuState,
   modeState,
   selectedIdState,
-} from "../../store/store";
+} from '../../store/store';
 
 const drawLayer = () => {
   const [menu, setMenu] = useRecoilState(menuState);
@@ -16,9 +16,9 @@ const drawLayer = () => {
     useRecoilState(drawingObjectState);
 
   const clickLayerHandler = (selectedId: string) => {
-    if (menu !== "저장") {
+    if (menu !== '저장') {
       setSelectedId([selectedId]);
-      setMode("move");
+      setMode('move');
     }
   };
 
@@ -52,8 +52,8 @@ const drawLayer = () => {
             <li
               className={
                 selectedId.includes(object.id)
-                  ? "flex flex-row justify-between w-full btn-active rounded-lg  "
-                  : "flex flex-row w-full justify-between"
+                  ? 'flex flex-row justify-between w-full btn-active rounded-lg  '
+                  : 'flex flex-row w-full justify-between'
               }
               onClick={() => clickLayerHandler(object.id)}
               key={object.id}

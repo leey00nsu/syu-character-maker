@@ -3,13 +3,13 @@ import {
   FaPencilAlt,
   FaQuestion,
   FaTrashAlt,
-} from "react-icons/fa";
-import { useRecoilState } from "recoil";
+} from 'react-icons/fa';
+import { useRecoilState } from 'recoil';
 import {
   drawingObjectState,
   modeState,
   selectedIdState,
-} from "../../store/store";
+} from '../../store/store';
 
 const Header = () => {
   const [mode, setMode] = useRecoilState(modeState);
@@ -23,14 +23,14 @@ const Header = () => {
 
   const removeHandler = () => {
     const new_objects = drawingObjects.filter(
-      (drawingObject) => !selectedId.includes(drawingObject.id)
+      drawingObject => !selectedId.includes(drawingObject.id),
     );
     setdrawingObjects(new_objects);
     setSelectedId([]);
   };
 
   const changeOpacityHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newObject = [...drawingObjects].map((object) => {
+    const newObject = [...drawingObjects].map(object => {
       if (object.id === selectedId[0]) {
         return {
           ...object,
@@ -43,7 +43,7 @@ const Header = () => {
   };
 
   const selectedObject = drawingObjects.filter(
-    (object) => object.id === selectedId[0]
+    object => object.id === selectedId[0],
   )[0];
 
   return (
@@ -54,28 +54,28 @@ const Header = () => {
         </a>
         <div className="flex justify-between gap-2">
           <div
-            onClick={changeModeHandler.bind(this, "draw")}
+            onClick={changeModeHandler.bind(this, 'draw')}
             className={
-              mode === "draw"
-                ? "grid w-16 h-16 cursor-pointer btn btn-ghost btn-active rounded-box place-items-center"
-                : "grid w-16 h-16 cursor-pointer btn btn-ghost rounded-box place-items-center"
+              mode === 'draw'
+                ? 'grid w-16 h-16 cursor-pointer btn btn-ghost btn-active rounded-box place-items-center'
+                : 'grid w-16 h-16 cursor-pointer btn btn-ghost rounded-box place-items-center'
             }
           >
             <FaPencilAlt className="shrink-0" size={30} />
           </div>
 
           <div
-            onClick={changeModeHandler.bind(this, "move")}
+            onClick={changeModeHandler.bind(this, 'move')}
             className={
-              mode === "draw"
-                ? "grid w-16 h-16 cursor-pointer btn btn-ghost rounded-box place-items-center"
-                : "grid w-16 h-16 cursor-pointer btn btn-ghost btn-active rounded-box place-items-center"
+              mode === 'draw'
+                ? 'grid w-16 h-16 cursor-pointer btn btn-ghost rounded-box place-items-center'
+                : 'grid w-16 h-16 cursor-pointer btn btn-ghost btn-active rounded-box place-items-center'
             }
           >
             <FaExpandArrowsAlt className=" shrink-0" size={30} />
           </div>
 
-          {selectedId.length > 0 && selectedId[0] !== "background" && (
+          {selectedId.length > 0 && selectedId[0] !== 'background' && (
             <div
               onClick={removeHandler}
               className="grid w-16 h-16 border-0 cursor-pointer btn btn-accent btn-outline rounded-box place-items-center"
@@ -84,7 +84,7 @@ const Header = () => {
             </div>
           )}
 
-          {selectedId.length === 1 && selectedId[0] !== "background" && (
+          {selectedId.length === 1 && selectedId[0] !== 'background' && (
             <div className="flex flex-col items-center">
               <p>투명도</p>
               <input

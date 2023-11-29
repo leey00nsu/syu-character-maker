@@ -1,11 +1,11 @@
-import { Line } from "react-konva";
-import { useRecoilState } from "recoil";
+import { Line } from 'react-konva';
+import { useRecoilState } from 'recoil';
 import {
   DrawingObject,
   drawingObjectState,
   menuState,
   modeState,
-} from "../../store/store";
+} from '../../store/store';
 
 interface DrawObjectProps {
   object: DrawingObject;
@@ -22,7 +22,7 @@ const DrawLine = ({ object, objectSelectHandler }: DrawObjectProps) => {
   const objectMoveHandler = (e: any) => {
     const { x, y, id } = e.target.attrs;
 
-    const newObjects = drawingObjects.map((object) => {
+    const newObjects = drawingObjects.map(object => {
       if (object.id === id) {
         return {
           ...object,
@@ -39,7 +39,7 @@ const DrawLine = ({ object, objectSelectHandler }: DrawObjectProps) => {
   // 오브젝트 변형시 변형값 업데이트
   const objectTransformHandler = (e: any) => {
     const { id, scaleX, scaleY, skewX, skewY, rotation } = e.target.attrs;
-    const newObjects = drawingObjects.map((object) => {
+    const newObjects = drawingObjects.map(object => {
       if (object.id === id) {
         return {
           ...object,
@@ -77,8 +77,8 @@ const DrawLine = ({ object, objectSelectHandler }: DrawObjectProps) => {
       lineCap="round"
       lineJoin="round"
       onDragStart={() => objectSelectHandler(object.id)}
-      draggable={mode === "move" && menu !== "저장"}
-      globalCompositeOperation={"source-over"}
+      draggable={mode === 'move' && menu !== '저장'}
+      globalCompositeOperation={'source-over'}
       onSelect={() => objectSelectHandler(object.id)}
       onDragEnd={objectMoveHandler}
       onTransformEnd={objectTransformHandler}
