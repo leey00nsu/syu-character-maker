@@ -7,8 +7,16 @@ import { useRef } from 'react';
 const Index = () => {
   // canvas의 정보를 가져오기 위한 ref
   const stageRef = useRef<HTMLCanvasElement>(null);
+
+  const disableRightClick = (event: any) => {
+    event.preventDefault();
+  };
+
   return (
-    <div className="flex h-screen w-screen flex-col ">
+    <div
+      onContextMenu={disableRightClick}
+      className="flex h-screen w-screen flex-col "
+    >
       <Header />
       <div className="flex h-screen max-h-screen w-full flex-col pt-24 xl:flex-row">
         <div className="flex  h-full w-full shrink-0 items-center justify-center xl:w-1/2  ">

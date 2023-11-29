@@ -14,7 +14,7 @@ import {
 import DrawDrawingObjects from './DrawDrawingObjects';
 
 interface PreviewProps {
-  stageRef: any;
+  stageRef: React.MutableRefObject<any>;
 }
 
 const Preview = (props: PreviewProps) => {
@@ -150,8 +150,20 @@ const Preview = (props: PreviewProps) => {
       }
 
       const canvas = document.getElementsByTagName('canvas');
-      const rel_x = e.clientX - canvas[0].getBoundingClientRect().x;
-      const rel_y = e.clientY - canvas[0].getBoundingClientRect().y;
+
+      let rel_x = 0;
+      let rel_y = 0;
+
+      if (e.type === 'mousemove') {
+        rel_x = e.clientX - canvas[0].getBoundingClientRect().x;
+        rel_y = e.clientY - canvas[0].getBoundingClientRect().y;
+      }
+
+      if (e.type === 'touchmove') {
+        rel_x = e.touches[0].clientX - canvas[0].getBoundingClientRect().x;
+        rel_y = e.touches[0].clientY - canvas[0].getBoundingClientRect().y;
+      }
+
 
       selectRef.current.attrs.x2 = rel_x;
       selectRef.current.attrs.y2 = rel_y;
@@ -164,8 +176,19 @@ const Preview = (props: PreviewProps) => {
       }
 
       const canvas = document.getElementsByTagName('canvas');
-      const rel_x = e.clientX - canvas[0].getBoundingClientRect().x;
-      const rel_y = e.clientY - canvas[0].getBoundingClientRect().y;
+
+      let rel_x = 0;
+      let rel_y = 0;
+
+      if (e.type === 'mousemove') {
+        rel_x = e.clientX - canvas[0].getBoundingClientRect().x;
+        rel_y = e.clientY - canvas[0].getBoundingClientRect().y;
+      }
+
+      if (e.type === 'touchmove') {
+        rel_x = e.touches[0].clientX - canvas[0].getBoundingClientRect().x;
+        rel_y = e.touches[0].clientY - canvas[0].getBoundingClientRect().y;
+      }
 
       // 마지막 선의 포인트를 추가합니다.
       const newObjects = drawingObjects.map((object, index) => {
@@ -248,7 +271,6 @@ const Preview = (props: PreviewProps) => {
   return (
     <div className="border border-base-300 rounded-2xl p-1">
       <div className="flex flex-col w-[600px] h-[600px] justify-center  ">
-        {/* <button onClick={() => console.log(objects)}>button</button> */}
         <Stage
           ref={props.stageRef}
           width={600}

@@ -2,7 +2,7 @@ import React from 'react';
 import { drawingObjectState, drawingObjectCountState } from '../../store/store';
 import { useRecoilState } from 'recoil';
 
-const Upload = () => {
+const Image = () => {
   const [drawingObjects, setDrawingObjects] =
     useRecoilState(drawingObjectState);
   const [drawingObjectCount, setDrawingObjectCount] = useRecoilState(
@@ -54,4 +54,4 @@ const Upload = () => {
   );
 };
 
-export default Upload;
+export default Image;

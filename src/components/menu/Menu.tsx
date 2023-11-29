@@ -1,5 +1,5 @@
 import BackGround from './BackGround';
-import Upload from './Upload';
+import Image from './Image';
 import Draw from './Draw';
 import Save from './Save';
 import Items from './items/Items';
@@ -31,7 +31,7 @@ const Menu = (props: any) => {
       </ul>
       {menu === '꾸미기' && <Items />}
       {menu === '배경' && <BackGround />}
-      {menu === '사진' && <Upload />}
+      {menu === '사진' && <Image />}
       {menu === '그리기' && <Draw />}
       {menu === '저장' && <Save stageRef={props.stageRef} />}
     </div>
