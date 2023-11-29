@@ -1,5 +1,5 @@
 import Konva from 'konva';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Layer, Rect, Stage, Transformer } from 'react-konva';
 import { useRecoilState } from 'recoil';
 import {
@@ -18,6 +18,11 @@ interface PreviewProps {
 }
 
 const Preview = (props: PreviewProps) => {
+  // 모바일일 때 크기와 데스크탑일 때 크기를 다르게 설정하여 렌더링
+  const MOBILE_WIDTH = 350;
+  const DESKTOP_WIDTH = 600;
+  const MOBILE_SCALE = MOBILE_WIDTH / DESKTOP_WIDTH;
+
   const [drawingObjectCount, setDrawingObjectCount] = useRecoilState(
     drawingObjectCountState,
   );
@@ -28,6 +33,7 @@ const Preview = (props: PreviewProps) => {
   const [menu, setMenu] = useRecoilState(menuState);
   const [mode, setMode] = useRecoilState(modeState);
   const [bgColor, setBgColor] = useRecoilState(bgColorState);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 640);
 
   const layerRef = useRef<any>();
   const selectRef = useRef<any>();
@@ -36,30 +42,24 @@ const Preview = (props: PreviewProps) => {
 
   // 브라우저의 모든 부분에서 마우스 움직임을 감지하기 위하여 따로 할당
   useEffect(() => {
-    const startHandler = (e: MouseEvent) => {
-      startSelection(e);
-    };
-    const endHandler = (e: MouseEvent) => {
-      endSelection(e);
-    };
-    const touchMoveHandler = (e: TouchEvent) => {
-      startSelection(e);
-    };
-    const touchEndHandler = (e: TouchEvent) => {
-      endSelection(e);
-    };
-    document.addEventListener('mousemove', startHandler);
-    document.addEventListener('mouseup', endHandler);
-    document.addEventListener('touchmove', touchMoveHandler);
-    document.addEventListener('touchend', touchEndHandler);
+    document.addEventListener('mousemove', startSelection);
+    document.addEventListener('mouseup', endSelection);
+    document.addEventListener('touchmove', startSelection);
+    document.addEventListener('touchend', endSelection);
+    window.addEventListener('resize', () =>
+      setIsMobile(window.innerWidth <= 640),
+    );
 
     return () => {
-      document.removeEventListener('mousemove', startHandler);
-      document.removeEventListener('mouseup', endHandler);
-      document.removeEventListener('touchmove', touchMoveHandler);
-      document.removeEventListener('touchend', touchEndHandler);
+      document.removeEventListener('mousemove', startSelection);
+      document.removeEventListener('mouseup', endSelection);
+      document.removeEventListener('touchmove', startSelection);
+      document.removeEventListener('touchend', endSelection);
+      window.removeEventListener('resize', () =>
+        setIsMobile(window.innerWidth <= 640),
+      );
     };
-  }, [drawingObjects, mode]);
+  }, [drawingObjects, mode, window.innerWidth]);
 
   // 한 번 클릭했을 때
   const clickHandler = (e: any) => {
@@ -76,6 +76,11 @@ const Preview = (props: PreviewProps) => {
         setSelectedId([]);
 
         const pos = props.stageRef.current.getPointerPosition();
+
+        if (isMobile) {
+          pos.x = pos.x / MOBILE_SCALE;
+          pos.y = pos.y / MOBILE_SCALE;
+        }
 
         selectRef.current.setAttrs({
           x1: pos.x,
@@ -105,6 +110,11 @@ const Preview = (props: PreviewProps) => {
 
       // 현재 마우스의 위치를 받아옴
       const pos = props.stageRef.current.getPointerPosition();
+
+      if (isMobile) {
+        pos.x = pos.x / MOBILE_SCALE;
+        pos.y = pos.y / MOBILE_SCALE;
+      }
 
       // 현재 마우스의 위치를 받아와서 객체를 생성
       setDrawingObjects(prev => [
@@ -164,6 +174,10 @@ const Preview = (props: PreviewProps) => {
         rel_y = e.touches[0].clientY - canvas[0].getBoundingClientRect().y;
       }
 
+      if (isMobile) {
+        rel_x = rel_x / MOBILE_SCALE;
+        rel_y = rel_y / MOBILE_SCALE;
+      }
 
       selectRef.current.attrs.x2 = rel_x;
       selectRef.current.attrs.y2 = rel_y;
@@ -190,12 +204,17 @@ const Preview = (props: PreviewProps) => {
         rel_y = e.touches[0].clientY - canvas[0].getBoundingClientRect().y;
       }
 
+      if (isMobile) {
+        rel_x = rel_x / MOBILE_SCALE;
+        rel_y = rel_y / MOBILE_SCALE;
+      }
+
       // 마지막 선의 포인트를 추가합니다.
       const newObjects = drawingObjects.map((object, index) => {
         if (index === drawingObjects.length - 1) {
           return {
             ...object,
-            points: [...object.points, rel_x, rel_y],
+            points: [...object.points!, rel_x, rel_y],
           };
         }
         return object;
@@ -270,15 +289,19 @@ const Preview = (props: PreviewProps) => {
 
   return (
     <div className="border border-base-300 rounded-2xl p-1">
-      <div className="flex flex-col w-[600px] h-[600px] justify-center  ">
+      <div className="flex flex-col  justify-center  ">
         <Stage
           ref={props.stageRef}
-          width={600}
-          height={600}
+          width={isMobile ? MOBILE_WIDTH : DESKTOP_WIDTH}
+          height={isMobile ? MOBILE_WIDTH : DESKTOP_WIDTH}
           onMouseDown={clickHandler}
           onTouchStart={clickHandler}
         >
-          <Layer>
+          <Layer
+            scale={
+              isMobile ? { x: MOBILE_SCALE, y: MOBILE_SCALE } : { x: 1, y: 1 }
+            }
+          >
             <Rect
               name="background"
               key="background"
@@ -291,7 +314,13 @@ const Preview = (props: PreviewProps) => {
               id="background"
             />
           </Layer>
-          <Layer ref={layerRef}>
+
+          <Layer
+            ref={layerRef}
+            scale={
+              isMobile ? { x: MOBILE_SCALE, y: MOBILE_SCALE } : { x: 1, y: 1 }
+            }
+          >
             <DrawDrawingObjects
               drawingObjects={drawingObjects}
               objectSelectHandler={objectSelectHandler}

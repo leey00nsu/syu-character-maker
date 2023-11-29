@@ -52,7 +52,7 @@ export interface DrawingObject {
   skewX?: number;
   skewY?: number;
   rotation?: number;
-  points?: any;
+  points?: number[];
   color?: string;
   size?: number;
   url?: string;

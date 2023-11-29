@@ -19,8 +19,8 @@ const DrawBackground = ({ object }: DrawObjectProps) => {
   return (
     <>
       <Image
-        x={object.x}
-        y={object.y}
+        x={50}
+        y={50}
         image={bgImage}
         id="background"
         opacity={1}
