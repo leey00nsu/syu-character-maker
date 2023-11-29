@@ -21,7 +21,7 @@ const ItemToggleButton = (props: ItemToggleButtonProps) => {
   }
 
   return (
-    <div className=" flex flex-wrap gap-2 p-2 grow-0 items-start content-start">
+    <div className=" flex grow-0 flex-wrap content-start items-start gap-2 p-2">
       {currentItems.map(currentItem => (
         <button
           key={currentItem.item}
@@ -32,8 +32,8 @@ const ItemToggleButton = (props: ItemToggleButtonProps) => {
           )}
           className={
             items.find(i => i.item === currentItem.item)
-              ? 'btn  btn-outline btn-active  '
-              : 'btn btn-ghost border-1 border-base-300'
+              ? 'btn-outline  btn-active btn  '
+              : 'border-1 btn-ghost btn border-base-300'
           }
         >
           {currentItem.item}

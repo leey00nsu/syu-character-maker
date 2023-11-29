@@ -16,8 +16,8 @@ const Save = (props: SaveProps) => {
     document.body.removeChild(link);
   };
   return (
-    <section className="flex w-full grow justify-center items-center  border-t border-base-300 bg-white">
-      <button onClick={changeSaveHandler} className="btn btn-primary btn-wide">
+    <section className="flex w-full grow items-center justify-center  border-t border-base-300 bg-white">
+      <button onClick={changeSaveHandler} className="btn-primary btn-wide btn">
         이미지 파일로 저장하기
       </button>
     </section>

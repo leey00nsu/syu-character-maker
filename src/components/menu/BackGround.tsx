@@ -17,9 +17,9 @@ const BackGround = () => {
   };
 
   return (
-    <section className="flex w-full grow justify-center items-center  border-t border-base-300 bg-white">
-      <div className="flex flex-col items-center w-1/2 gap-2">
-        <p className=" font-medium text-lg">캐릭터</p>
+    <section className="flex w-full grow flex-col items-center justify-center border-t  border-base-300 bg-white sm:flex-row">
+      <div className="flex w-full flex-col items-center gap-2 p-2 sm:w-1/2">
+        <p className=" text-lg font-medium">캐릭터</p>
         <div className="w-1/2">
           <label className="label cursor-pointer">
             <span className="label-text">수호</span>
@@ -45,10 +45,10 @@ const BackGround = () => {
         </div>
       </div>
 
-      <div className="flex flex-col items-center w-1/2 gap-2">
-        <p className=" font-medium text-lg">배경색</p>
+      <div className="flex w-full flex-col items-center gap-2 p-2 sm:w-1/2">
+        <p className=" text-lg font-medium">배경색</p>
         <ChromePicker
-          className="border shadow-none rounded-xl overflow-hidden"
+          className="overflow-hidden rounded-xl border shadow-none"
           color={bgColor}
           onChange={changeColorHandler}
         />

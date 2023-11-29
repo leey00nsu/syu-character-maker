@@ -16,13 +16,13 @@ const Menu = (props: any) => {
     setMode('move');
   };
   return (
-    <div className="flex flex-col mockup-window border border-base-300 shrink-0 w-[600px] h-[400px] xl:h-2/3 xl:max-h-2/3 bg-white">
-      <ul className="w-full justify-between  menu menu-horizontal bg-base-100 rounded-box p-2">
+    <div className="xl:max-h-2/3 mockup-window flex min-h-[300px] w-[360px] shrink-0 flex-col border border-base-300 bg-white sm:h-[400px] sm:w-[600px] xl:h-2/3">
+      <ul className="menu rounded-box menu-horizontal w-full  gap-1 bg-base-100 ">
         {menus.map(m => (
-          <li key={m}>
+          <li key={m} className="flex grow">
             <a
               onClick={changeMenuHandler.bind(this, m)}
-              className={menu == m ? 'px-10 active' : 'px-10 '}
+              className={menu == m ? 'active justify-center' : 'justify-center'}
             >
               {m}
             </a>

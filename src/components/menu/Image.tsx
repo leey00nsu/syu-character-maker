@@ -41,13 +41,13 @@ const Image = () => {
     }
   };
   return (
-    <section className="flex w-full grow justify-center items-center  border-t border-base-300 bg-white">
-      <div className="flex flex-col items-center w-full gap-2">
+    <section className="flex w-full grow items-center justify-center  border-t border-base-300 bg-white">
+      <div className="flex w-full flex-col items-center gap-2">
         <p className="text-lg font-medium ">사진 레이어 추가</p>
         <input
           onChange={onUpload}
           type="file"
-          className="shrink-0 file-input file-input-bordered file-input-primary w-full max-w-xs"
+          className="file-input-bordered file-input-primary file-input w-full max-w-xs shrink-0"
         />
       </div>
     </section>

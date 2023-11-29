@@ -28,40 +28,36 @@ const Draw = () => {
           '--range-shdw': pen.hsl,
         } as React.CSSProperties
       }
-      className="flex w-full grow justify-center items-center px-8  border-t border-base-300 bg-white"
+      className="flex w-full grow flex-col items-center justify-center border-t  border-base-300 bg-white sm:flex-row"
     >
-      <div className="flex flex-col items-center w-full gap-4">
-        <div className="flex items-center  w-full gap-2">
-          <div className="flex flex-col items-center w-1/2 gap-2">
-            <p className="text-lg font-medium ">펜 굵기</p>
-            <input
-              type="number"
-              min={1}
-              max={50}
-              value={pen.size}
-              onChange={changePenSizeHandler}
-              className="input input-bordered w-1/2  "
-            />
-            <input
-              type="range"
-              min="1"
-              max="50"
-              value={pen.size}
-              onChange={changePenSizeHandler}
-              className="color-range "
-            />
-          </div>
+      <div className="flex w-full flex-col items-center gap-2 p-2 sm:w-1/2">
+        <p className="text-lg font-medium ">펜 굵기</p>
+        <input
+          type="number"
+          min={1}
+          max={50}
+          value={pen.size}
+          onChange={changePenSizeHandler}
+          className="input-bordered input w-1/2  "
+        />
+        <input
+          type="range"
+          min="1"
+          max="50"
+          value={pen.size}
+          onChange={changePenSizeHandler}
+          className="color-range "
+        />
+      </div>
 
-          <div className="flex flex-col items-center w-1/2 gap-2">
-            <p className="text-lg font-medium ">펜 색</p>
-            <div className="flex gap-2">
-              <ChromePicker
-                className="border shadow-none rounded-xl overflow-hidden h-full"
-                color={pen.color}
-                onChange={changePenColorHandler}
-              />
-            </div>
-          </div>
+      <div className="flex w-full flex-col items-center gap-2 p-2 sm:w-1/2">
+        <p className="text-lg font-medium ">펜 색</p>
+        <div className="flex gap-2">
+          <ChromePicker
+            className="h-full overflow-hidden rounded-xl border shadow-none"
+            color={pen.color}
+            onChange={changePenColorHandler}
+          />
         </div>
       </div>
     </section>

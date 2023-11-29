@@ -22,12 +22,12 @@ const Items = () => {
   };
   return (
     <section className="flex w-full grow border-t border-base-300 bg-white">
-      <ul className="flex h-full gap-1 p-2 border-r shrink-0 menu menu-vertical bg-base-100 ">
+      <ul className="menu menu-vertical flex h-full shrink-0 gap-1 border-r bg-base-100 p-2 ">
         {itemParts.map(itemPart => (
           <li key={itemPart}>
             <a
               onClick={changePartHandler.bind(this, itemPart)}
-              className={part == itemPart ? 'px-10 active ' : 'px-10 '}
+              className={part == itemPart ? 'active px-10 ' : 'px-10 '}
             >
               {itemPart}
             </a>

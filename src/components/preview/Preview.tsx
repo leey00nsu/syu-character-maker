@@ -47,7 +47,7 @@ const Preview = (props: PreviewProps) => {
     document.addEventListener('touchmove', startSelection);
     document.addEventListener('touchend', endSelection);
     window.addEventListener('resize', () =>
-      setIsMobile(window.innerWidth <= 640),
+      setIsMobile(window.innerWidth < 640),
     );
 
     return () => {
@@ -56,7 +56,7 @@ const Preview = (props: PreviewProps) => {
       document.removeEventListener('touchmove', startSelection);
       document.removeEventListener('touchend', endSelection);
       window.removeEventListener('resize', () =>
-        setIsMobile(window.innerWidth <= 640),
+        setIsMobile(window.innerWidth < 640),
       );
     };
   }, [drawingObjects, mode, window.innerWidth]);
@@ -288,7 +288,7 @@ const Preview = (props: PreviewProps) => {
   };
 
   return (
-    <div className="border border-base-300 rounded-2xl p-1">
+    <div className="rounded-2xl border border-base-300 p-1">
       <div className="flex flex-col  justify-center  ">
         <Stage
           ref={props.stageRef}

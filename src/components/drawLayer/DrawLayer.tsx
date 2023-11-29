@@ -43,17 +43,17 @@ const drawLayer = () => {
   };
 
   return (
-    <section className="mockup-window border border-base-300  w-[600px]  h-[200px] xl:h-1/3 xl:max-h-1/3  bg-white ">
-      <p className=" absolute top-[14px] left-2/4">레이어</p>
+    <section className="xl:max-h-1/3 mockup-window h-[200px]  w-[360px] border  border-base-300 bg-white sm:w-[600px]  xl:h-1/3 ">
+      <p className=" absolute left-2/4 top-[14px]">레이어</p>
 
-      <div className="w-full h-full pb-10 overflow-y-auto ">
-        <ul className="w-full gap-1 menu ">
+      <div className="h-full w-full overflow-y-auto pb-10 ">
+        <ul className="menu w-full gap-1 ">
           {drawingObjects.map((object, index) => (
             <li
               className={
                 selectedId.includes(object.id)
-                  ? 'flex flex-row justify-between w-full btn-active rounded-lg  '
-                  : 'flex flex-row w-full justify-between'
+                  ? 'btn-active flex w-full flex-row justify-between rounded-lg  '
+                  : 'flex w-full flex-row justify-between'
               }
               onClick={() => clickLayerHandler(object.id)}
               key={object.id}
@@ -64,13 +64,13 @@ const drawLayer = () => {
                 <>
                   <div
                     onClick={() => layerUpHandler(index)}
-                    className="absolute flex justify-center items-center right-8 h-full w-1"
+                    className="absolute right-8 flex h-full w-1 items-center justify-center"
                   >
                     <FaAngleUp className=" shrink-0 " size={15} />
                   </div>
                   <div
                     onClick={() => layerDownHandler(index)}
-                    className="absolute flex justify-center items-center right-0 h-full w-1"
+                    className="absolute right-0 flex h-full w-1 items-center justify-center"
                   >
                     <FaAngleDown className=" shrink-0 " size={15} />
                   </div>

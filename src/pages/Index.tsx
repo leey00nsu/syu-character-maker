@@ -19,10 +19,10 @@ const Index = () => {
     >
       <Header />
       <div className="flex h-screen max-h-screen w-full flex-col pt-24 xl:flex-row">
-        <div className="flex  h-full w-full shrink-0 items-center justify-center xl:w-1/2  ">
+        <div className=" flex w-full shrink-0 items-center justify-center p-4 xl:h-full xl:w-1/2">
           <Preview stageRef={stageRef} />
         </div>
-        <div className="flex h-full w-full flex-col items-center gap-3 p-4 xl:w-1/2">
+        <div className="flex  w-full flex-col items-center gap-3 p-4 lg:h-full xl:w-1/2">
           <Menu stageRef={stageRef} />
           <DrawLayer />
         </div>

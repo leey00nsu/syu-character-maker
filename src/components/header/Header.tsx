@@ -10,6 +10,8 @@ import {
   modeState,
   selectedIdState,
 } from '../../store/store';
+import HeaderToggleButton from './HeaderToggleButton';
+import HeaderRemoveButton from './HeaderRemoveButton';
 
 const Header = () => {
   const [mode, setMode] = useRecoilState(modeState);
@@ -47,41 +49,22 @@ const Header = () => {
   )[0];
 
   return (
-    <div className="fixed flex items-center justify-between w-full px-6 py-2  bg-base-100 z-50">
+    <div className="fixed z-50 flex w-full items-center justify-between bg-base-100  px-6 py-6">
       <div className="flex items-center gap-2 ">
-        <a className=" text-xl normal-case btn btn-ghost">
+        <div className="btn-ghost btn hidden text-xl normal-case sm:visible sm:flex">
           나만의 수야 수호 만들기
-        </a>
-        <div className="flex justify-between gap-2">
-          <div
-            onClick={changeModeHandler.bind(this, 'draw')}
-            className={
-              mode === 'draw'
-                ? 'grid w-16 h-16 cursor-pointer btn btn-ghost btn-active rounded-box place-items-center'
-                : 'grid w-16 h-16 cursor-pointer btn btn-ghost rounded-box place-items-center'
-            }
-          >
-            <FaPencilAlt className="shrink-0" size={30} />
-          </div>
-
-          <div
-            onClick={changeModeHandler.bind(this, 'move')}
-            className={
-              mode === 'draw'
-                ? 'grid w-16 h-16 cursor-pointer btn btn-ghost rounded-box place-items-center'
-                : 'grid w-16 h-16 cursor-pointer btn btn-ghost btn-active rounded-box place-items-center'
-            }
-          >
-            <FaExpandArrowsAlt className=" shrink-0" size={30} />
-          </div>
-
+        </div>
+        <div className="flex items-center justify-between gap-2">
+          <HeaderToggleButton mode="draw" onClick={changeModeHandler}>
+            <FaPencilAlt className="h-full w-full" />
+          </HeaderToggleButton>
+          <HeaderToggleButton mode="move" onClick={changeModeHandler}>
+            <FaExpandArrowsAlt className="h-full w-full" />
+          </HeaderToggleButton>
           {selectedId.length > 0 && selectedId[0] !== 'background' && (
-            <div
-              onClick={removeHandler}
-              className="grid w-16 h-16 border-0 cursor-pointer btn btn-accent btn-outline rounded-box place-items-center"
-            >
-              <FaTrashAlt className=" shrink-0" size={30} />
-            </div>
+            <HeaderRemoveButton onClick={removeHandler}>
+              <FaTrashAlt className="h-full w-full" />
+            </HeaderRemoveButton>
           )}
 
           {selectedId.length === 1 && selectedId[0] !== 'background' && (
@@ -102,7 +85,7 @@ const Header = () => {
       </div>
 
       <div className="flex">
-        <button className="btn btn-square btn-ghost h-full">
+        <button className="btn-ghost btn-square btn h-full">
           <FaQuestion className=" shrink-0" size={30} />
         </button>
       </div>
