@@ -1,3 +1,4 @@
+import { RGBColor } from 'react-color';
 import { atom } from 'recoil';
 
 // 백그라운드 캐릭터를 선택하는 상태
@@ -6,10 +7,25 @@ export const bgState = atom<string>({
   default: '수호',
 });
 
+interface BgColorState {
+  rgb: RGBColor;
+  hex: string;
+  alpha: number;
+}
+
 // 백그라운드 색상을 선택하는 상태
-export const bgColorState = atom<string>({
+export const bgColorState = atom<BgColorState>({
   key: 'bgColorState',
-  default: '#ffffff',
+  default: {
+    rgb: {
+      r: 255,
+      g: 255,
+      b: 255,
+      a: 1,
+    },
+    hex: '#ffffff',
+    alpha: 1,
+  },
 });
 
 interface PenState {

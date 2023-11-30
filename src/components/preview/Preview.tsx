@@ -277,7 +277,7 @@ const Preview = (props: PreviewProps) => {
   };
 
   return (
-    <div className="rounded-2xl border border-base-300 p-1">
+    <div className="overflow-hidden rounded-2xl border border-base-300">
       <div className="flex flex-col  justify-center  ">
         <Stage
           ref={props.stageRef}
@@ -299,7 +299,8 @@ const Preview = (props: PreviewProps) => {
               y={0}
               width={600}
               height={600}
-              fill={bgColor}
+              fill={bgColor.hex}
+              opacity={bgColor.alpha}
               id="background"
             />
           </Layer>

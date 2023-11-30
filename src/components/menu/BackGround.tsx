@@ -13,7 +13,7 @@ const BackGround = () => {
   };
 
   const changeColorHandler = (color: ColorResult) => {
-    setBgColor(color.hex);
+    setBgColor({ rgb: color.rgb, hex: color.hex, alpha: color.rgb.a ?? 1 });
   };
 
   return (
@@ -49,7 +49,7 @@ const BackGround = () => {
         <p className=" text-lg font-medium">배경색</p>
         <ChromePicker
           className="overflow-hidden rounded-xl border shadow-none"
-          color={bgColor}
+          color={bgColor.rgb}
           onChange={changeColorHandler}
         />
       </div>
