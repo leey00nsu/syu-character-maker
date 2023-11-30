@@ -2,33 +2,45 @@ import {
   FaExpandArrowsAlt,
   FaPencilAlt,
   FaQuestion,
+  FaRedoAlt,
   FaTrashAlt,
+  FaUndoAlt,
 } from 'react-icons/fa';
 import { useRecoilState } from 'recoil';
+import useObjectControll from '../../hooks/useObjectControll';
 import {
+  drawingObjectHistoryIndexState,
+  drawingObjectHistoryState,
   drawingObjectState,
   modeState,
   selectedIdState,
 } from '../../store/store';
-import HeaderToggleButton from './HeaderToggleButton';
+import HeaderActiveButton from './HeaderActiveButton';
 import HeaderRemoveButton from './HeaderRemoveButton';
+import HeaderToggleButton from './HeaderToggleButton';
+import useHistoryControll from '../../hooks/useHistoryControll';
 
 const Header = () => {
   const [mode, setMode] = useRecoilState(modeState);
+  const [drawingObjectHistory, setDrawingObjectHistory] = useRecoilState(
+    drawingObjectHistoryState,
+  );
+  const [drawingObjectHistoryIndex, setDrawingObjectHistoryIndex] =
+    useRecoilState(drawingObjectHistoryIndexState);
   const [drawingObjects, setdrawingObjects] =
     useRecoilState(drawingObjectState);
   const [selectedId, setSelectedId] = useRecoilState(selectedIdState);
+
+  const { undoHistory, redoHistory } = useHistoryControll();
+  const { removeObject } = useObjectControll();
 
   const changeModeHandler = (changes: string) => {
     setMode(changes);
   };
 
-  const removeHandler = () => {
-    const new_objects = drawingObjects.filter(
-      drawingObject => !selectedId.includes(drawingObject.id),
-    );
-    setdrawingObjects(new_objects);
-    setSelectedId([]);
+  const changeHistoryHandler = (changes: string) => {
+    if (changes === 'undo') undoHistory();
+    if (changes === 'redo') redoHistory();
   };
 
   const changeOpacityHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -51,9 +63,9 @@ const Header = () => {
   return (
     <div className="fixed z-50 flex w-full items-center justify-between bg-base-100  px-6 py-6">
       <div className="flex items-center gap-2 ">
-        <div className="btn-ghost btn hidden text-xl normal-case sm:visible sm:flex">
+        {/* <div className="btn-ghost btn hidden text-xl normal-case sm:visible sm:flex">
           나만의 수야 수호 만들기
-        </div>
+        </div> */}
         <div className="flex items-center justify-between gap-2">
           <HeaderToggleButton mode="draw" onClick={changeModeHandler}>
             <FaPencilAlt className="h-full w-full" />
@@ -61,8 +73,14 @@ const Header = () => {
           <HeaderToggleButton mode="move" onClick={changeModeHandler}>
             <FaExpandArrowsAlt className="h-full w-full" />
           </HeaderToggleButton>
+          <HeaderActiveButton mode="undo" onClick={changeHistoryHandler}>
+            <FaUndoAlt className="h-full w-full" />
+          </HeaderActiveButton>
+          <HeaderActiveButton mode="redo" onClick={changeHistoryHandler}>
+            <FaRedoAlt className="h-full w-full" />
+          </HeaderActiveButton>
           {selectedId.length > 0 && selectedId[0] !== 'background' && (
-            <HeaderRemoveButton onClick={removeHandler}>
+            <HeaderRemoveButton onClick={removeObject}>
               <FaTrashAlt className="h-full w-full" />
             </HeaderRemoveButton>
           )}

@@ -6,12 +6,16 @@ import {
   bgColorState,
   drawingObjectCountState,
   drawingObjectState,
+  drawingObjectHistoryState,
+  drawingObjectHistoryIndexState,
   menuState,
   modeState,
   penState,
   selectedIdState,
 } from '../../store/store';
 import DrawDrawingObjects from './DrawDrawingObjects';
+import useUpdateHistory from '../../hooks/useHistoryControll';
+import useObjectControll from '../../hooks/useObjectControll';
 
 interface PreviewProps {
   stageRef: React.MutableRefObject<any>;
@@ -23,6 +27,11 @@ const Preview = (props: PreviewProps) => {
   const DESKTOP_WIDTH = 600;
   const MOBILE_SCALE = MOBILE_WIDTH / DESKTOP_WIDTH;
 
+  const [drawingObjectHistoryIndex, setDrawingObjectHistoryIndex] =
+    useRecoilState(drawingObjectHistoryIndexState);
+  const [drawingObjectHistory, setDrawingObjectHistory] = useRecoilState(
+    drawingObjectHistoryState,
+  );
   const [drawingObjectCount, setDrawingObjectCount] = useRecoilState(
     drawingObjectCountState,
   );
@@ -39,6 +48,9 @@ const Preview = (props: PreviewProps) => {
   const selectRef = useRef<any>();
   const trRef = useRef<any>();
   const drawRef = useRef(false);
+
+  const { updateHistory } = useUpdateHistory();
+  const { addLine, updateLine } = useObjectControll();
 
   // 브라우저의 모든 부분에서 마우스 움직임을 감지하기 위하여 따로 할당
   useEffect(() => {
@@ -77,6 +89,7 @@ const Preview = (props: PreviewProps) => {
 
         const pos = props.stageRef.current.getPointerPosition();
 
+        // 모바일일 때는 스케일을 고려하여 좌표를 변경
         if (isMobile) {
           pos.x = pos.x / MOBILE_SCALE;
           pos.y = pos.y / MOBILE_SCALE;
@@ -116,27 +129,11 @@ const Preview = (props: PreviewProps) => {
         pos.y = pos.y / MOBILE_SCALE;
       }
 
-      // 현재 마우스의 위치를 받아와서 객체를 생성
-      setDrawingObjects(prev => [
-        ...prev,
-        {
-          type: 'line',
-          size: pen.size,
-          color: pen.color,
-          points: [pos.x, pos.y, pos.x + 0.0001, pos.y], // 점을 찍을 때 표시가 안될때가 있어 임의로 0.0001을 더해줌
-          id: `선 ${drawingObjectCount}`,
-          z: drawingObjectCount,
-          x: 0,
-          y: 0,
-          scaleX: 1,
-          scaleY: 1,
-          skewX: 0,
-          skewY: 0,
-          opacity: 1,
-          rotation: 0,
-        },
-      ]);
-      setDrawingObjectCount(prev => prev + 1);
+      addLine({
+        size: pen.size,
+        color: pen.color,
+        points: [pos.x, pos.y, pos.x + 0.0001, pos.y], // 점을 찍을 때 표시가 안될때가 있어 임의로 0.0001을 더해줌
+      });
     }
   };
 
@@ -209,24 +206,14 @@ const Preview = (props: PreviewProps) => {
         rel_y = rel_y / MOBILE_SCALE;
       }
 
-      // 마지막 선의 포인트를 추가합니다.
-      const newObjects = drawingObjects.map((object, index) => {
-        if (index === drawingObjects.length - 1) {
-          return {
-            ...object,
-            points: [...object.points!, rel_x, rel_y],
-          };
-        }
-        return object;
-      });
-
-      setDrawingObjects(newObjects);
+      updateLine(rel_x, rel_y);
     }
   };
 
   // 드래그가 끝났을 때
   const endSelection = (e: any) => {
     if (mode === 'move') {
+      // 배경을 클릭했을 때
       if (!selectRef.current.visible()) {
         return;
       }
@@ -250,7 +237,9 @@ const Preview = (props: PreviewProps) => {
     }
 
     if (mode === 'draw') {
+      if (!drawRef.current) return;
       drawRef.current = false;
+      updateHistory(drawingObjects);
     }
   };
 

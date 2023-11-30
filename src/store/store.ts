@@ -75,10 +75,30 @@ export const drawingObjectState = atom<DrawingObject[]>({
 
 export const drawingObjectCountState = atom({
   key: 'drawingObjectCountState',
-  default: 2,
+  default: 1,
 });
 
 export const selectedIdState = atom<string[]>({
   key: 'selectedIdState',
   default: [],
+});
+
+export const drawingObjectHistoryState = atom<DrawingObject[][]>({
+  key: 'drawingObjectHistoryState',
+  default: [
+    [
+      {
+        x: 50,
+        y: 50,
+        type: 'background',
+        id: 'background',
+        z: 1,
+      },
+    ],
+  ],
+});
+
+export const drawingObjectHistoryIndexState = atom<number>({
+  key: 'drawingObjectHistoryIndexState',
+  default: 0,
 });

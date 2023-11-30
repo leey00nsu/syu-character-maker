@@ -1,11 +1,7 @@
 import { Line } from 'react-konva';
 import { useRecoilState } from 'recoil';
-import {
-  DrawingObject,
-  drawingObjectState,
-  menuState,
-  modeState,
-} from '../../store/store';
+import useObjectTransform from '../../hooks/useObjectTransform';
+import { DrawingObject, menuState, modeState } from '../../store/store';
 
 interface DrawObjectProps {
   object: DrawingObject;
@@ -15,47 +11,8 @@ interface DrawObjectProps {
 const DrawLine = ({ object, objectSelectHandler }: DrawObjectProps) => {
   const [mode, setMode] = useRecoilState(modeState);
   const [menu, setMenu] = useRecoilState(menuState);
-  const [drawingObjects, setDrawingObjects] =
-    useRecoilState(drawingObjectState);
 
-  // 오브젝트 이동시 좌표값 업데이트
-  const objectMoveHandler = (e: any) => {
-    const { x, y, id } = e.target.attrs;
-
-    const newObjects = drawingObjects.map(object => {
-      if (object.id === id) {
-        return {
-          ...object,
-          x: x,
-          y: y,
-        };
-      } else {
-        return object;
-      }
-    });
-    setDrawingObjects(newObjects);
-  };
-
-  // 오브젝트 변형시 변형값 업데이트
-  const objectTransformHandler = (e: any) => {
-    const { id, scaleX, scaleY, skewX, skewY, rotation } = e.target.attrs;
-    const newObjects = drawingObjects.map(object => {
-      if (object.id === id) {
-        return {
-          ...object,
-          skewX: skewX,
-          skewY: skewY,
-          scaleX: scaleX,
-          scaleY: scaleY,
-          rotation: rotation,
-        };
-      } else {
-        return object;
-      }
-    });
-
-    setDrawingObjects(newObjects);
-  };
+  const objectTransformHandler = useObjectTransform();
 
   return (
     <Line
@@ -80,7 +37,7 @@ const DrawLine = ({ object, objectSelectHandler }: DrawObjectProps) => {
       draggable={mode === 'move' && menu !== '저장'}
       globalCompositeOperation={'source-over'}
       onSelect={() => objectSelectHandler(object.id)}
-      onDragEnd={objectMoveHandler}
+      onDragEnd={objectTransformHandler}
       onTransformEnd={objectTransformHandler}
     />
   );

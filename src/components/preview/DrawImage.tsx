@@ -1,11 +1,11 @@
 import { Image } from 'react-konva';
 import { useRecoilState } from 'recoil';
 import useImage from 'use-image';
+import useObjectTransform from '../../hooks/useObjectTransform';
 import {
   DrawingObject,
-  drawingObjectState,
   menuState,
-  modeState,
+  modeState
 } from '../../store/store';
 
 interface DrawObjectProps {
@@ -17,48 +17,8 @@ const DrawImage = ({ object, objectSelectHandler }: DrawObjectProps) => {
   const [mode, setMode] = useRecoilState(modeState);
   const [menu, setMenu] = useRecoilState(menuState);
 
-  const [drawingObjects, setDrawingObjects] =
-    useRecoilState(drawingObjectState);
-  const [image] = useImage(object.url ?? '');
-
-  // 오브젝트 이동시 좌표값 업데이트
-  const objectMoveHandler = (e: any) => {
-    const { x, y, id } = e.target.attrs;
-
-    const newObjects = drawingObjects.map(object => {
-      if (object.id === id) {
-        return {
-          ...object,
-          x: x,
-          y: y,
-        };
-      } else {
-        return object;
-      }
-    });
-    setDrawingObjects(newObjects);
-  };
-
-  // 오브젝트 변형시 변형값 업데이트
-  const objectTransformHandler = (e: any) => {
-    const { id, scaleX, scaleY, skewX, skewY, rotation } = e.target.attrs;
-    const newObjects = drawingObjects.map(object => {
-      if (object.id === id) {
-        return {
-          ...object,
-          skewX: skewX,
-          skewY: skewY,
-          scaleX: scaleX,
-          scaleY: scaleY,
-          rotation: rotation,
-        };
-      } else {
-        return object;
-      }
-    });
-
-    setDrawingObjects(newObjects);
-  };
+  const [image] = useImage(object.url || '');
+  const objectTransformHandler = useObjectTransform();
 
   if (image) {
     let aspect_ratio = image.width / image.height;
@@ -83,7 +43,7 @@ const DrawImage = ({ object, objectSelectHandler }: DrawObjectProps) => {
         image={image}
         width={200}
         height={200 / aspect_ratio}
-        onDragEnd={objectMoveHandler}
+        onDragEnd={objectTransformHandler}
         onTransformEnd={objectTransformHandler}
       />
     );
