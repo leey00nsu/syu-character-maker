@@ -1,6 +1,6 @@
 import { Line } from 'react-konva';
 import { useRecoilState } from 'recoil';
-import useObjectTransform from '../../hooks/useObjectTransform';
+import useObjectControll from '../../hooks/useObjectControll';
 import { DrawingObject, menuState, modeState } from '../../store/store';
 
 interface DrawObjectProps {
@@ -12,7 +12,7 @@ const DrawLine = ({ object, objectSelectHandler }: DrawObjectProps) => {
   const [mode, setMode] = useRecoilState(modeState);
   const [menu, setMenu] = useRecoilState(menuState);
 
-  const objectTransformHandler = useObjectTransform();
+  const { transformObject } = useObjectControll();
 
   return (
     <Line
@@ -37,8 +37,8 @@ const DrawLine = ({ object, objectSelectHandler }: DrawObjectProps) => {
       draggable={mode === 'move' && menu !== '저장'}
       globalCompositeOperation={'source-over'}
       onSelect={() => objectSelectHandler(object.id)}
-      onDragEnd={objectTransformHandler}
-      onTransformEnd={objectTransformHandler}
+      onDragEnd={transformObject}
+      onTransformEnd={transformObject}
     />
   );
 };

@@ -1,12 +1,8 @@
 import { Image } from 'react-konva';
 import { useRecoilState } from 'recoil';
 import useImage from 'use-image';
-import useObjectTransform from '../../hooks/useObjectTransform';
-import {
-  DrawingObject,
-  menuState,
-  modeState
-} from '../../store/store';
+import { DrawingObject, menuState, modeState } from '../../store/store';
+import useObjectControll from '../../hooks/useObjectControll';
 
 interface DrawObjectProps {
   object: DrawingObject;
@@ -18,7 +14,7 @@ const DrawImage = ({ object, objectSelectHandler }: DrawObjectProps) => {
   const [menu, setMenu] = useRecoilState(menuState);
 
   const [image] = useImage(object.url || '');
-  const objectTransformHandler = useObjectTransform();
+  const { transformObject } = useObjectControll();
 
   if (image) {
     let aspect_ratio = image.width / image.height;
@@ -43,8 +39,8 @@ const DrawImage = ({ object, objectSelectHandler }: DrawObjectProps) => {
         image={image}
         width={200}
         height={200 / aspect_ratio}
-        onDragEnd={objectTransformHandler}
-        onTransformEnd={objectTransformHandler}
+        onDragEnd={transformObject}
+        onTransformEnd={transformObject}
       />
     );
   }
