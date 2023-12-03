@@ -36,7 +36,7 @@ const useObjectControll = () => {
         scaleY: 1,
         skewX: 0,
         skewY: 0,
-        opacity: 1,
+        opacity: line.opacity,
         rotation: 0,
       },
     ]);

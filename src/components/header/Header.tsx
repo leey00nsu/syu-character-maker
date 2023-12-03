@@ -7,10 +7,9 @@ import {
   FaUndoAlt,
 } from 'react-icons/fa';
 import { useRecoilState } from 'recoil';
+import useHistoryControll from '../../hooks/useHistoryControll';
 import useObjectControll from '../../hooks/useObjectControll';
 import {
-  drawingObjectHistoryIndexState,
-  drawingObjectHistoryState,
   drawingObjectState,
   modeState,
   selectedIdState,
@@ -18,15 +17,9 @@ import {
 import HeaderActiveButton from './HeaderActiveButton';
 import HeaderRemoveButton from './HeaderRemoveButton';
 import HeaderToggleButton from './HeaderToggleButton';
-import useHistoryControll from '../../hooks/useHistoryControll';
 
 const Header = () => {
   const [mode, setMode] = useRecoilState(modeState);
-  const [drawingObjectHistory, setDrawingObjectHistory] = useRecoilState(
-    drawingObjectHistoryState,
-  );
-  const [drawingObjectHistoryIndex, setDrawingObjectHistoryIndex] =
-    useRecoilState(drawingObjectHistoryIndexState);
   const [drawingObjects, setdrawingObjects] =
     useRecoilState(drawingObjectState);
   const [selectedId, setSelectedId] = useRecoilState(selectedIdState);

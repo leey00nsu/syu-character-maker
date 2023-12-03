@@ -9,7 +9,7 @@ interface DrawObjectProps {
   objectSelectHandler: (id: string) => void;
 }
 
-const DrawBackground = ({ object }: DrawObjectProps) => {
+const DrawCharacter = ({ object }: DrawObjectProps) => {
   const [bg, setBg] = useRecoilState(bgState);
   const [items, setItems] = useRecoilState(itemState);
 
@@ -40,4 +40,4 @@ const DrawBackground = ({ object }: DrawObjectProps) => {
   );
 };
 
-export default DrawBackground;
+export default DrawCharacter;

@@ -131,7 +131,8 @@ const Preview = (props: PreviewProps) => {
 
       addLine({
         size: pen.size,
-        color: pen.color,
+        color: pen.hex,
+        opacity: pen.alpha,
         points: [pos.x, pos.y, pos.x + 0.0001, pos.y], // 점을 찍을 때 표시가 안될때가 있어 임의로 0.0001을 더해줌
       });
     }

@@ -1,5 +1,5 @@
 import { DrawingObject } from '../../store/store';
-import DrawBackground from './DrawBackground';
+import DrawCharacter from './DrawChracter';
 import DrawImage from './DrawImage';
 import DrawLine from './DrawLine';
 
@@ -24,7 +24,7 @@ const DrawDrawingObjects = ({
       {zIndexedObjects.map(object => {
         if (object.type === 'background') {
           return (
-            <DrawBackground
+            <DrawCharacter
               key={object.id}
               object={object}
               objectSelectHandler={objectSelectHandler}

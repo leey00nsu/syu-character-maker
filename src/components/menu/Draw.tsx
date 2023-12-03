@@ -1,24 +1,27 @@
-import { penState } from '../../store/store';
-import { useRecoilState } from 'recoil';
 import { ChromePicker, ColorResult } from 'react-color';
-import { useState } from 'react';
+import { useRecoilState } from 'recoil';
+import { penState } from '../../store/store';
+
+const MAX_PEN_SIZE = 200;
 
 const Draw = () => {
   const [pen, setPen] = useRecoilState(penState);
 
   const changePenSizeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (Number(e.target.value) > 50) return;
+    if (Number(e.target.value) > MAX_PEN_SIZE) return;
     setPen({
       ...pen,
       size: Number(e.target.value),
     });
   };
 
-  const changePenColorHandler = (changes: ColorResult) => {
+  const changePenColorHandler = (color: ColorResult) => {
     setPen({
       ...pen,
-      color: changes.hex,
-      hsl: `${changes.hsl.h} ${changes.hsl.s * 100}% ${changes.hsl.l * 100}%`,
+      rgb: color.rgb,
+      hex: color.hex,
+      alpha: color.rgb.a ?? 1,
+      hsl: `${color.hsl.h} ${color.hsl.s * 100}% ${color.hsl.l * 100}%`,
     });
   };
 
@@ -36,7 +39,7 @@ const Draw = () => {
         <input
           type="number"
           min="1"
-          max="50"
+          max={MAX_PEN_SIZE}
           value={pen.size}
           onChange={changePenSizeHandler}
           className="input-bordered input w-1/2  "
@@ -44,7 +47,7 @@ const Draw = () => {
         <input
           type="range"
           min="1"
-          max="50"
+          max={MAX_PEN_SIZE}
           value={pen.size}
           onChange={changePenSizeHandler}
           className="color-range "
@@ -56,7 +59,7 @@ const Draw = () => {
         <div className="flex gap-2">
           <ChromePicker
             className="h-full overflow-hidden rounded-xl border shadow-none"
-            color={pen.color}
+            color={pen.rgb}
             onChange={changePenColorHandler}
           />
         </div>
