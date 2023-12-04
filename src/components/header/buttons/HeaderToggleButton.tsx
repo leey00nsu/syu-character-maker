@@ -1,5 +1,5 @@
 import { useRecoilState } from 'recoil';
-import { modeState } from '../../store/store';
+import { modeState } from '../../../store/store';
 import React from 'react';
 
 interface HeaderToggleButtonProps {

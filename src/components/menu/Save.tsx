@@ -1,5 +1,3 @@
-import { useRecoilState } from 'recoil';
-
 interface SaveProps {
   stageRef: any;
 }
@@ -15,6 +13,7 @@ const Save = (props: SaveProps) => {
     link.click();
     document.body.removeChild(link);
   };
+
   return (
     <section className="flex w-full grow items-center justify-center  border-t border-base-300 bg-white">
       <button onClick={changeSaveHandler} className="btn-primary btn-wide btn">
