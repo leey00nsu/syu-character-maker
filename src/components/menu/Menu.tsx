@@ -6,8 +6,14 @@ import Items from './items/Items';
 import { bgColorState, menuState, modeState } from '../../store/store';
 import { useRecoilState } from 'recoil';
 import { menus } from '../../constants/menus';
+import Konva from 'konva';
+import { MutableRefObject } from 'react';
 
-const Menu = (props: any) => {
+interface MenuProps {
+  stageRef: MutableRefObject<Konva.Stage | null>;
+}
+
+const Menu = ({ stageRef }: MenuProps) => {
   const [menu, setMenu] = useRecoilState(menuState);
   const [mode, setMode] = useRecoilState(modeState);
 
@@ -33,7 +39,7 @@ const Menu = (props: any) => {
       {menu === '배경' && <BackGround />}
       {menu === '사진' && <Image />}
       {menu === '그리기' && <Draw />}
-      {menu === '저장' && <Save stageRef={props.stageRef} />}
+      {menu === '저장' && <Save stageRef={stageRef} />}
     </div>
   );
 };

@@ -2,12 +2,14 @@ import IndexHeader from '../components/header/IndexHeader';
 import Preview from '../components/preview/Preview';
 import Menu from '../components/menu/Menu';
 import Layer from '../components/layer/Layer';
-import { useRef } from 'react';
+import { RefObject, useRef } from 'react';
 import PageContainer from '../components/ui/PageContainer';
+import { Stage } from 'react-konva';
+import Konva from 'konva';
 
 const IndexPage = () => {
   // canvas의 정보를 가져오기 위한 ref
-  const stageRef = useRef<HTMLCanvasElement>(null);
+  const stageRef = useRef<Konva.Stage | null>(null);
 
   return (
     <PageContainer>

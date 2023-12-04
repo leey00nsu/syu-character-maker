@@ -1,40 +1,34 @@
 import Konva from 'konva';
-import { useEffect, useRef, useState } from 'react';
+import {
+  MutableRefObject,
+  useEffect,
+  useRef,
+  useState
+} from 'react';
 import { Layer, Rect, Stage, Transformer } from 'react-konva';
 import { useRecoilState } from 'recoil';
+import useUpdateHistory from '../../hooks/useHistoryControll';
+import useObjectControll from '../../hooks/useObjectControll';
 import {
   bgColorState,
-  drawingObjectCountState,
   drawingObjectState,
-  drawingObjectHistoryState,
-  drawingObjectHistoryIndexState,
   menuState,
   modeState,
   penState,
-  selectedIdState,
+  selectedIdState
 } from '../../store/store';
 import DrawDrawingObjects from './DrawDrawingObjects';
-import useUpdateHistory from '../../hooks/useHistoryControll';
-import useObjectControll from '../../hooks/useObjectControll';
 
 interface PreviewProps {
-  stageRef: React.MutableRefObject<any>;
+  stageRef: MutableRefObject<Konva.Stage | null>;
 }
 
-const Preview = (props: PreviewProps) => {
+const Preview = ({ stageRef }: PreviewProps) => {
   // 모바일일 때 크기와 데스크탑일 때 크기를 다르게 설정하여 렌더링
   const MOBILE_WIDTH = 350;
   const DESKTOP_WIDTH = 600;
   const MOBILE_SCALE = MOBILE_WIDTH / DESKTOP_WIDTH;
 
-  const [drawingObjectHistoryIndex, setDrawingObjectHistoryIndex] =
-    useRecoilState(drawingObjectHistoryIndexState);
-  const [drawingObjectHistory, setDrawingObjectHistory] = useRecoilState(
-    drawingObjectHistoryState,
-  );
-  const [drawingObjectCount, setDrawingObjectCount] = useRecoilState(
-    drawingObjectCountState,
-  );
   const [selectedId, setSelectedId] = useRecoilState(selectedIdState);
   const [drawingObjects, setDrawingObjects] =
     useRecoilState(drawingObjectState);
@@ -87,7 +81,7 @@ const Preview = (props: PreviewProps) => {
       if (clickedOnEmpty) {
         setSelectedId([]);
 
-        const pos = props.stageRef.current.getPointerPosition();
+        const pos = stageRef?.current?.getPointerPosition()!;
 
         // 모바일일 때는 스케일을 고려하여 좌표를 변경
         if (isMobile) {
@@ -122,7 +116,7 @@ const Preview = (props: PreviewProps) => {
       drawRef.current = true;
 
       // 현재 마우스의 위치를 받아옴
-      const pos = props.stageRef.current.getPointerPosition();
+      const pos = stageRef?.current?.getPointerPosition()!;
 
       if (isMobile) {
         pos.x = pos.x / MOBILE_SCALE;
@@ -221,8 +215,8 @@ const Preview = (props: PreviewProps) => {
 
       selectRef.current.visible(false);
 
-      let selected_shapes = props.stageRef.current.find('.images');
-      let selected_lines = props.stageRef.current.find('.lines');
+      let selected_shapes = stageRef?.current?.find('.images')!;
+      let selected_lines = stageRef?.current?.find('.lines')!;
 
       let contents = [...selected_shapes, ...selected_lines];
 
@@ -281,7 +275,7 @@ const Preview = (props: PreviewProps) => {
     <div className="overflow-hidden rounded-2xl border border-base-300">
       <div className="flex flex-col  justify-center  ">
         <Stage
-          ref={props.stageRef}
+          ref={stageRef}
           width={isMobile ? MOBILE_WIDTH : DESKTOP_WIDTH}
           height={isMobile ? MOBILE_WIDTH : DESKTOP_WIDTH}
           onMouseDown={clickHandler}

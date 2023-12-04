@@ -1,11 +1,15 @@
+import Konva from 'konva';
+import { MutableRefObject } from 'react';
+
 interface SaveProps {
-  stageRef: any;
+  stageRef: MutableRefObject<Konva.Stage | null>;
 }
 
-const Save = (props: SaveProps) => {
+const Save = ({ stageRef }: SaveProps) => {
   // 현재 Stage를 이미지 파일로 저장하기
   const changeSaveHandler = () => {
-    const dataURL = props.stageRef.current.toDataURL({ pixelRatio: 3 });
+    if (!stageRef.current) return;
+    const dataURL = stageRef.current.toDataURL({ pixelRatio: 3 });
     var link = document.createElement('a');
     link.download = 'save';
     link.href = dataURL;
