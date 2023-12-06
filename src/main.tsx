@@ -8,6 +8,11 @@ import {
   RouterProvider,
   Navigate,
 } from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import GoogleAuthPage from './pages/GoogleAuthPage';
+import { GoogleOAuthProvider } from '@react-oauth/google';
+
+const queryClient = new QueryClient();
 
 const router = createBrowserRouter([
   {
@@ -20,10 +25,18 @@ const router = createBrowserRouter([
     path: '/about',
     element: <AboutPage />,
   },
+  {
+    path: '/auth/google',
+    element: <GoogleAuthPage />,
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <RecoilRoot>
-    <RouterProvider router={router} />
-  </RecoilRoot>,
+  <QueryClientProvider client={queryClient}>
+    <RecoilRoot>
+      <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
+        <RouterProvider router={router} />
+      </GoogleOAuthProvider>
+    </RecoilRoot>
+  </QueryClientProvider>,
 );

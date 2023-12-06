@@ -3,9 +3,11 @@ import {
   FaPencilAlt,
   FaQuestion,
   FaRedoAlt,
+  FaRegUserCircle,
   FaTrashAlt,
   FaUndoAlt,
 } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import useHistoryControll from '../../hooks/useHistoryControll';
 import useObjectControll from '../../hooks/useObjectControll';
@@ -14,11 +16,11 @@ import {
   modeState,
   selectedIdState,
 } from '../../store/store';
+import HeaderContainer from './HeaderContainer';
 import HeaderActiveButton from './buttons/HeaderActiveButton';
 import HeaderRemoveButton from './buttons/HeaderRemoveButton';
 import HeaderToggleButton from './buttons/HeaderToggleButton';
-import { useNavigate } from 'react-router-dom';
-import HeaderContainer from './HeaderContainer';
+import HeaderAuthButton from './buttons/HeaderAuthButton';
 
 const IndexHeader = () => {
   const navigate = useNavigate();
@@ -39,7 +41,7 @@ const IndexHeader = () => {
     if (changes === 'redo') redoHistory();
   };
 
-  const changePageHandler = (changes: string) => {
+  const changePageHandler = async (changes: string) => {
     if (changes === 'about') navigate('/about');
   };
 
@@ -97,6 +99,7 @@ const IndexHeader = () => {
       </HeaderContainer.Left>
 
       <HeaderContainer.Right>
+        <HeaderAuthButton />
         <HeaderActiveButton mode="about" onClick={changePageHandler}>
           <FaQuestion className="h-full w-full" />
         </HeaderActiveButton>
