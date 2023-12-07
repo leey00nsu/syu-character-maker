@@ -1,10 +1,5 @@
 import Konva from 'konva';
-import {
-  MutableRefObject,
-  useEffect,
-  useRef,
-  useState
-} from 'react';
+import { MutableRefObject, useEffect, useRef, useState } from 'react';
 import { Layer, Rect, Stage, Transformer } from 'react-konva';
 import { useRecoilState } from 'recoil';
 import useUpdateHistory from '../../hooks/useHistoryControll';
@@ -15,7 +10,7 @@ import {
   menuState,
   modeState,
   penState,
-  selectedIdState
+  selectedIdState,
 } from '../../store/store';
 import DrawDrawingObjects from './DrawDrawingObjects';
 
@@ -257,6 +252,11 @@ const Preview = ({ stageRef }: PreviewProps) => {
     }
   }, [mode]);
 
+  // 화면 크기 변경시 stage를 다시 렌더링
+  useEffect(() => {
+    stageRef?.current?.batchDraw();
+  }, [isMobile]);
+
   // menu가 변경될 때마다 selectedId를 초기화
   useEffect(() => {
     if (menu === '저장') {
@@ -273,18 +273,24 @@ const Preview = ({ stageRef }: PreviewProps) => {
 
   return (
     <div className="overflow-hidden rounded-2xl border border-base-300">
-      <div className="flex flex-col  justify-center  ">
+      <div className="flex h-[350px] w-[350px] justify-center sm:h-[600px] sm:w-[600px]">
         <Stage
           ref={stageRef}
-          width={isMobile ? MOBILE_WIDTH : DESKTOP_WIDTH}
-          height={isMobile ? MOBILE_WIDTH : DESKTOP_WIDTH}
+          className="h-full w-full"
+          width={600}
+          height={600}
+          // width={isMobile ? MOBILE_WIDTH : DESKTOP_WIDTH}
+          // height={isMobile ? MOBILE_WIDTH : DESKTOP_WIDTH}
           onMouseDown={clickHandler}
           onTouchStart={clickHandler}
+          scale={
+            isMobile ? { x: MOBILE_SCALE, y: MOBILE_SCALE } : { x: 1, y: 1 }
+          }
         >
           <Layer
-            scale={
-              isMobile ? { x: MOBILE_SCALE, y: MOBILE_SCALE } : { x: 1, y: 1 }
-            }
+          // scale={
+          //   isMobile ? { x: MOBILE_SCALE, y: MOBILE_SCALE } : { x: 1, y: 1 }
+          // }
           >
             <Rect
               name="background"
@@ -302,9 +308,9 @@ const Preview = ({ stageRef }: PreviewProps) => {
 
           <Layer
             ref={layerRef}
-            scale={
-              isMobile ? { x: MOBILE_SCALE, y: MOBILE_SCALE } : { x: 1, y: 1 }
-            }
+            // scale={
+            //   isMobile ? { x: MOBILE_SCALE, y: MOBILE_SCALE } : { x: 1, y: 1 }
+            // }
           >
             <DrawDrawingObjects
               drawingObjects={drawingObjects}
