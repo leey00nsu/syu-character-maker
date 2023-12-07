@@ -3,12 +3,15 @@ import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import { isLogin } from '../apis/auth.api';
 import { authState, userState } from '../store/authStore';
+import { useNavigate } from 'react-router-dom';
 
 interface AuthPageProps {
-  children: React.ReactNode;
+  element: JSX.Element;
+  privated?: boolean;
 }
 
-const AuthPage = ({ children }: AuthPageProps) => {
+const AuthPage = ({ element, privated }: AuthPageProps) => {
+  const navigate = useNavigate();
   const [auth, setAuth] = useRecoilState(authState);
   const [user, setUser] = useRecoilState(userState);
 
@@ -20,9 +23,12 @@ const AuthPage = ({ children }: AuthPageProps) => {
       setAuth(true);
       setUser(data.user);
     }
+    if (data && data.statusCode !== 200 && privated) {
+      navigate('/');
+    }
   }, [data]);
 
-  return <>{children}</>;
+  return element;
 };
 
 export default AuthPage;

@@ -27,6 +27,7 @@ const UserPage = () => {
             <Paragraph size="md" weight="normal">
               {user.name}
             </Paragraph>
+            <button className="btn">로그아웃</button>
           </div>
         </section>
       </PageContainer.Content>

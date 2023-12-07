@@ -12,6 +12,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import GoogleAuthPage from './pages/GoogleAuthPage';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import UserPage from './pages/UserPage';
+import AuthPage from './pages/AuthPage';
 
 const queryClient = new QueryClient();
 
@@ -19,20 +20,20 @@ const router = createBrowserRouter([
   {
     path: '/',
     index: true,
-    element: <IndexPage />,
+    element: <AuthPage element={<IndexPage />} />,
     errorElement: <Navigate to="/" />,
   },
   {
     path: '/about',
-    element: <AboutPage />,
+    element: <AuthPage element={<AboutPage />} />,
   },
   {
     path: '/user',
-    element: <UserPage />,
+    element: <AuthPage privated element={<UserPage />} />,
   },
   {
     path: '/auth/google',
-    element: <GoogleAuthPage />,
+    element: <AuthPage element={<GoogleAuthPage />} />,
   },
 ]);
 
