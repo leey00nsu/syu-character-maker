@@ -1,6 +1,6 @@
 import { FaArrowLeft } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
-import HeaderActiveButton from '../../ui/buttons/HeaderActiveButton';
+import ActiveButton from '../../ui/buttons/ActiveButton';
 
 const HeaderBackButton = () => {
   const navigate = useNavigate();
@@ -10,9 +10,9 @@ const HeaderBackButton = () => {
   };
 
   return (
-    <HeaderActiveButton onClick={changePageHandler}>
+    <ActiveButton onClick={changePageHandler}>
       <FaArrowLeft className="h-full w-full" />
-    </HeaderActiveButton>
+    </ActiveButton>
   );
 };
 

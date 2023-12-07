@@ -1,7 +1,7 @@
 import React from 'react';
 import { useRecoilState } from 'recoil';
 import { authState, userState } from '../../../store/authStore';
-import HeaderActiveButton from '../../ui/buttons/HeaderActiveButton';
+import ActiveButton from '../../ui/buttons/ActiveButton';
 import useGoogleAuth from '../../../hooks/useGoogleAuth';
 import { FaRegUserCircle } from 'react-icons/fa';
 import Avatar from '../../ui/Avatar';
@@ -25,14 +25,14 @@ const HeaderAuthButton = () => {
   return (
     <>
       {auth && (
-        <HeaderActiveButton onClick={navigateUserPageHandler}>
+        <ActiveButton onClick={navigateUserPageHandler}>
           <Avatar photo={user.photo} />
-        </HeaderActiveButton>
+        </ActiveButton>
       )}
       {!auth && (
-        <HeaderActiveButton onClick={loginHandler}>
+        <ActiveButton onClick={loginHandler}>
           <FaRegUserCircle className="h-full w-full" />
-        </HeaderActiveButton>
+        </ActiveButton>
       )}
     </>
   );

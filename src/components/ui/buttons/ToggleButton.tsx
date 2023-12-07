@@ -2,23 +2,24 @@ import { useRecoilState } from 'recoil';
 import { ModeState, modeState } from '../../../store/store';
 import React from 'react';
 
-interface HeaderToggleButtonProps<T> {
+interface ToggleButtonProps<T> {
   mode: T;
+  isActive: boolean;
   onClick: (mode: T) => void;
   children?: React.ReactNode;
 }
 
-const HeaderToggleButton = ({
+const ToggleButton = ({
   mode,
+  isActive,
   onClick,
   children,
-}: HeaderToggleButtonProps<ModeState>) => {
-  const [currentMode] = useRecoilState(modeState);
+}: ToggleButtonProps<ModeState>) => {
   return (
     <div
       onClick={onClick.bind(this, mode)}
       className={
-        mode === currentMode
+        isActive
           ? 'btn-ghost rounded-box btn-active btn h-12 w-12 cursor-pointer p-3 sm:h-16 sm:w-16 '
           : 'btn-ghost rounded-box btn h-12 w-12 cursor-pointer p-3 sm:h-16 sm:w-16 '
       }
@@ -28,4 +29,4 @@ const HeaderToggleButton = ({
   );
 };
 
-export default HeaderToggleButton;
+export default ToggleButton;

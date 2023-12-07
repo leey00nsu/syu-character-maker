@@ -1,12 +1,10 @@
-import IndexHeader from '../components/header/IndexHeader';
-import Preview from '../components/preview/Preview';
-import Menu from '../components/menu/Menu';
-import Layer from '../components/layer/Layer';
-import { RefObject, useRef } from 'react';
-import PageContainer from '../components/ui/PageContainer';
-import { Stage } from 'react-konva';
 import Konva from 'konva';
-import AuthPage from './AuthPage';
+import { useRef } from 'react';
+import IndexHeader from '../components/header/IndexHeader';
+import LayerContainer from '../components/layer/LayerContainer';
+import Menu from '../components/menu/Menu';
+import Preview from '../components/preview/Preview';
+import PageContainer from '../components/ui/PageContainer';
 
 const IndexPage = () => {
   // canvas의 정보를 가져오기 위한 ref
@@ -24,7 +22,7 @@ const IndexPage = () => {
         </div>
         <div className="flex  w-full flex-col items-center gap-3 p-4 lg:h-full xl:w-1/2">
           <Menu stageRef={stageRef} />
-          <Layer />
+          <LayerContainer />
         </div>
       </PageContainer.Content>
     </PageContainer>

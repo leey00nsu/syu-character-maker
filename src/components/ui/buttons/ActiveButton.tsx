@@ -1,11 +1,11 @@
 import React from 'react';
 
-interface HeaderActiveButtonProps {
+interface ActiveButtonProps {
   onClick: () => void;
   children?: React.ReactNode;
 }
 
-const HeaderActiveButton = ({ onClick, children }: HeaderActiveButtonProps) => {
+const ActiveButton = ({ onClick, children }: ActiveButtonProps) => {
   return (
     <div
       onClick={onClick}
@@ -16,4 +16,4 @@ const HeaderActiveButton = ({ onClick, children }: HeaderActiveButtonProps) => {
   );
 };
 
-export default HeaderActiveButton;
+export default ActiveButton;

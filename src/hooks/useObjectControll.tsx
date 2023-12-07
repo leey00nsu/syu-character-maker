@@ -118,7 +118,35 @@ const useObjectControll = () => {
     }
   };
 
-  return { addLine, updateLine, addImage, removeObject, transformObject };
+  const changeObjectIndex = (index: number, direction: string) => {
+    if (direction === 'up' && index !== 0) {
+      const newObjects = [...drawingObjects].reverse();
+      const temp = newObjects[index - 1];
+      newObjects[index - 1] = newObjects[index];
+      newObjects[index] = temp;
+      newObjects.reverse();
+      setDrawingObjects([...newObjects]);
+      updateHistory(newObjects);
+    }
+    if (direction === 'down' && index !== drawingObjects.length - 1) {
+      const newObjects = [...drawingObjects].reverse();
+      const temp = newObjects[index + 1];
+      newObjects[index + 1] = newObjects[index];
+      newObjects[index] = temp;
+      newObjects.reverse();
+      setDrawingObjects([...newObjects]);
+      updateHistory(newObjects);
+    }
+  };
+
+  return {
+    addLine,
+    updateLine,
+    addImage,
+    removeObject,
+    transformObject,
+    changeObjectIndex,
+  };
 };
 
 export default useObjectControll;

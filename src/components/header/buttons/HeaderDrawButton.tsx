@@ -1,7 +1,7 @@
 import { FaPencilAlt } from 'react-icons/fa';
 import { useRecoilState } from 'recoil';
 import { ModeState, modeState } from '../../../store/store';
-import HeaderToggleButton from '../../ui/buttons/HeaderToggleButton';
+import ToggleButton from '../../ui/buttons/ToggleButton';
 
 const HeaderDrawButton = () => {
   const [mode, setMode] = useRecoilState(modeState);
@@ -10,10 +10,12 @@ const HeaderDrawButton = () => {
     setMode(changes);
   };
 
+  const isActive = mode === 'draw';
+
   return (
-    <HeaderToggleButton mode="draw" onClick={changeModeHandler}>
+    <ToggleButton mode="draw" isActive={isActive} onClick={changeModeHandler}>
       <FaPencilAlt className="h-full w-full" />
-    </HeaderToggleButton>
+    </ToggleButton>
   );
 };
 

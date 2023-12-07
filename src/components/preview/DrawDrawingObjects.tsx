@@ -12,16 +12,16 @@ const DrawDrawingObjects = ({
   drawingObjects,
   objectSelectHandler,
 }: DrawDrawingObjectsProps) => {
-  // drawingObject의 z-index를 인덱스 순으로 정렬
-  const zIndexedObjects = drawingObjects.map((object, index) => {
-    {
-      return { ...object, z: index + 1 };
-    }
-  });
+  // // drawingObject의 z-index를 인덱스 순으로 정렬
+  // const zIndexedObjects = drawingObjects.map((object, index) => {
+  //   {
+  //     return { ...object, z: index + 1 };
+  //   }
+  // });
 
   return (
     <>
-      {zIndexedObjects.map(object => {
+      {drawingObjects.map(object => {
         if (object.type === 'background') {
           return (
             <DrawCharacter
