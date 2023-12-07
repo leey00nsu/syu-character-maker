@@ -1,5 +1,6 @@
 import HeaderContainer from './HeaderContainer';
 import HeaderAboutButton from './buttons/HeaderAboutButton';
+import HeaderAuthButton from './buttons/HeaderAuthButton';
 import HeaderBackButton from './buttons/HeaderBackButton';
 
 const AboutHeader = () => {
@@ -10,6 +11,7 @@ const AboutHeader = () => {
       </HeaderContainer.Left>
 
       <HeaderContainer.Right>
+        <HeaderAuthButton />
         <HeaderAboutButton />
       </HeaderContainer.Right>
     </HeaderContainer>

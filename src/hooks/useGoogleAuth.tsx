@@ -17,11 +17,11 @@ const useGoogleAuth = () => {
 
   const login = async (code: string) => {
     const response = await googleLogin(code);
-    if (response.data.statusCode === 200) {
+    if (response && response.statusCode === 200) {
       setAuth(true);
-      setUser(response.data.user);
+      setUser(response.user);
     } else {
-      console.log(response.data.message);
+      console.log(response.message);
     }
   };
 

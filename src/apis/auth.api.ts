@@ -1,7 +1,9 @@
 import axios from 'axios';
 
+const { VITE_SERVER_HOST } = import.meta.env;
+
 export const isLogin = async () => {
-  const response = await axios.get('http://localhost:3000/auth/isLogin', {
+  const response = await axios.get(`${VITE_SERVER_HOST}/auth/isLogin`, {
     withCredentials: true,
   });
 
@@ -10,7 +12,7 @@ export const isLogin = async () => {
 
 export const googleLogin = async (code: string) => {
   const response = await axios.get(
-    `http://localhost:3000/auth/google?code=${code}`,
+    `${VITE_SERVER_HOST}/auth/google?code=${code}`,
     {
       withCredentials: true,
     },

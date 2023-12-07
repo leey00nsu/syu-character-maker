@@ -5,7 +5,7 @@ import HeaderActiveButton from '../../ui/buttons/HeaderActiveButton';
 const HeaderBackButton = () => {
   const navigate = useNavigate();
 
-  const changePageHandler = async () => {
+  const changePageHandler = () => {
     navigate('/');
   };
 
