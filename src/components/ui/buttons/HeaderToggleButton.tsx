@@ -1,10 +1,10 @@
 import { useRecoilState } from 'recoil';
-import { modeState } from '../../../store/store';
+import { ModeState, modeState } from '../../../store/store';
 import React from 'react';
 
-interface HeaderToggleButtonProps {
-  mode: string;
-  onClick: (mode: string) => void;
+interface HeaderToggleButtonProps<T> {
+  mode: T;
+  onClick: (mode: T) => void;
   children?: React.ReactNode;
 }
 
@@ -12,7 +12,7 @@ const HeaderToggleButton = ({
   mode,
   onClick,
   children,
-}: HeaderToggleButtonProps) => {
+}: HeaderToggleButtonProps<ModeState>) => {
   const [currentMode] = useRecoilState(modeState);
   return (
     <div

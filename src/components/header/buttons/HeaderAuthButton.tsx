@@ -1,7 +1,7 @@
 import React from 'react';
 import { useRecoilState } from 'recoil';
 import { authState, userState } from '../../../store/authStore';
-import HeaderActiveButton from './HeaderActiveButton';
+import HeaderActiveButton from '../../ui/buttons/HeaderActiveButton';
 import useGoogleAuth from '../../../hooks/useGoogleAuth';
 import { FaRegUserCircle } from 'react-icons/fa';
 
@@ -18,7 +18,7 @@ const HeaderAuthButton = () => {
   return (
     <>
       {auth && (
-        <HeaderActiveButton mode="login" onClick={() => {}}>
+        <HeaderActiveButton onClick={() => {}}>
           <div className="online avatar">
             <div className="w-full rounded-full">
               <img src={user.photo} />
@@ -27,7 +27,7 @@ const HeaderAuthButton = () => {
         </HeaderActiveButton>
       )}
       {!auth && (
-        <HeaderActiveButton mode="login" onClick={loginHandler}>
+        <HeaderActiveButton onClick={loginHandler}>
           <FaRegUserCircle className="h-full w-full" />
         </HeaderActiveButton>
       )}

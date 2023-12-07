@@ -1,8 +1,10 @@
 import { RGBColor } from 'react-color';
 import { atom } from 'recoil';
 
+export type BgState = '수호' | '수야';
+
 // 백그라운드 캐릭터를 선택하는 상태
-export const bgState = atom<string>({
+export const bgState = atom<BgState>({
   key: 'bgState',
   default: '수호',
 });
@@ -61,7 +63,10 @@ export const menuState = atom<string>({
 
 // 그리기의 모드를 선택하는 상태
 // state : move, draw
-export const modeState = atom<string>({
+
+export type ModeState = 'move' | 'draw';
+
+export const modeState = atom<ModeState>({
   key: 'modeState',
   default: 'move',
 });
@@ -131,4 +136,3 @@ export const drawingObjectHistoryIndexState = atom<number>({
   key: 'drawingObjectHistoryIndexState',
   default: 0,
 });
-
