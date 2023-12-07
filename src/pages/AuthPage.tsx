@@ -1,9 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
 import { useEffect } from 'react';
+import { Navigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { isLogin } from '../apis/auth.api';
+import LoadingSpinner from '../components/ui/LoadingSpinner';
 import { authState, userState } from '../store/authStore';
-import { useNavigate } from 'react-router-dom';
 
 interface AuthPageProps {
   element: JSX.Element;
@@ -11,22 +12,34 @@ interface AuthPageProps {
 }
 
 const AuthPage = ({ element, privated }: AuthPageProps) => {
-  const navigate = useNavigate();
   const [auth, setAuth] = useRecoilState(authState);
   const [user, setUser] = useRecoilState(userState);
 
-  const query = useQuery({ queryKey: ['isLogin'], queryFn: isLogin });
+  const query = useQuery({
+    queryKey: ['isLogin'],
+    queryFn: isLogin,
+    retry: false,
+    refetchOnWindowFocus: false,
+  });
+
   const { data, isLoading, isError, error } = query;
 
   useEffect(() => {
-    if (data && data.statusCode === 200) {
-      setAuth(true);
-      setUser(data.user);
+    if (!isLoading) {
+      if (data && data.statusCode === 200) {
+        setAuth(true);
+        setUser(data.user);
+      }
     }
-    if (data && data.statusCode !== 200 && privated) {
-      navigate('/');
-    }
-  }, [data]);
+  }, [isLoading]);
+
+  if (isLoading) {
+    return <LoadingSpinner />;
+  }
+
+  if (isError && privated) {
+    return <Navigate to="/" />;
+  }
 
   return element;
 };
