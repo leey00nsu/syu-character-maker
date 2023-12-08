@@ -3,6 +3,10 @@ export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   important: true,
   theme: {
+    screens: {
+      ...require('tailwindcss/defaultConfig').theme.screens,
+      xs: '450px',
+    },
     extend: {},
   },
   plugins: [require('daisyui')],

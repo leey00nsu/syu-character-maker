@@ -4,24 +4,20 @@ interface HeaderContainerProps {
 
 const LeftButtons = ({ children }: HeaderContainerProps) => {
   return (
-    <div className="flex items-center gap-2 ">
-      <div className="flex items-center justify-between gap-2">{children}</div>
+    <div className=" xs:flex-nowrap flex min-w-[216px] flex-wrap items-start  gap-2">
+      {children}
     </div>
   );
 };
 
 const RightButtons = ({ children }: HeaderContainerProps) => {
-  return (
-    <div className="flex items-center gap-2 ">
-      <div className="flex items-center justify-between gap-2">{children}</div>
-    </div>
-  );
+  return <div className="flex items-start gap-2">{children}</div>;
 };
 
 const HeaderContainer = ({ children }: HeaderContainerProps) => {
   return (
-    <div className="fixed z-50 flex h-28 w-full items-center justify-between bg-base-100 px-6 py-6">
-      {children}
+    <div className="fixed z-50 flex w-full items-center justify-center  bg-base-100 px-6 py-6">
+      <div className="flex w-full justify-between">{children}</div>
     </div>
   );
 };
