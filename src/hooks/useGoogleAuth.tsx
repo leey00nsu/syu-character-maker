@@ -1,9 +1,7 @@
 import { useGoogleLogin } from '@react-oauth/google';
-import axios from 'axios';
-import React from 'react';
 import { useRecoilState } from 'recoil';
+import { logout, validateGoogleUser } from '../apis/auth.api';
 import { authState, userState } from '../store/authStore';
-import { googleLogin } from '../apis/auth.api';
 
 const useGoogleAuth = () => {
   const [auth, setAuth] = useRecoilState(authState);
@@ -15,8 +13,8 @@ const useGoogleAuth = () => {
     redirect_uri: import.meta.env.VITE_GOOGLE_REDIRECT_URL,
   });
 
-  const login = async (code: string) => {
-    const response = await googleLogin(code);
+  const googleLogin = async (code: string) => {
+    const response = await validateGoogleUser(code);
     if (response && response.statusCode === 200) {
       setAuth(true);
       setUser(response.user);
@@ -25,7 +23,17 @@ const useGoogleAuth = () => {
     }
   };
 
-  return { getGoogleCode, login };
+  const googleLogout = async () => {
+    const response = await logout();
+    setAuth(false);
+    setUser({
+      name: '',
+      email: '',
+      photo: '',
+    });
+  };
+
+  return { getGoogleCode, googleLogin, googleLogout };
 };
 
 export default useGoogleAuth;

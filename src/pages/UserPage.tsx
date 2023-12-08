@@ -1,13 +1,21 @@
-import React from 'react';
-import PageContainer from '../components/ui/PageContainer';
-import AboutHeader from '../components/header/AboutHeader';
-import Paragraph from '../components/ui/Paragraph';
-import Avatar from '../components/ui/Avatar';
 import { useRecoilState } from 'recoil';
+import AboutHeader from '../components/header/AboutHeader';
+import Avatar from '../components/ui/Avatar';
+import PageContainer from '../components/ui/PageContainer';
+import Paragraph from '../components/ui/Paragraph';
+import useGoogleAuth from '../hooks/useGoogleAuth';
 import { userState } from '../store/authStore';
+import { useNavigate } from 'react-router-dom';
 
 const UserPage = () => {
+  const navigate = useNavigate();
   const [user, setUser] = useRecoilState(userState);
+
+  const { googleLogout } = useGoogleAuth();
+
+  const logoutHandler = async () => {
+    await googleLogout();
+  };
 
   return (
     <PageContainer>
@@ -27,7 +35,9 @@ const UserPage = () => {
             <Paragraph size="md" weight="normal">
               {user.name}
             </Paragraph>
-            <button className="btn">로그아웃</button>
+            <button className="btn" onClick={logoutHandler}>
+              로그아웃
+            </button>
           </div>
         </section>
       </PageContainer.Content>

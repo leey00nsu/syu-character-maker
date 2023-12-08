@@ -7,14 +7,18 @@ const GoogleAuthPage = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
 
-  const { login } = useGoogleAuth();
+  const { googleLogin } = useGoogleAuth();
 
   const code = searchParams.get('code');
 
+  const loginProcess = async (code: string) => {
+    await googleLogin(code);
+    navigate('/');
+  };
+
   useEffect(() => {
     if (code) {
-      login(code);
-      navigate('/');
+      loginProcess(code);
     }
   }, [code]);
 
