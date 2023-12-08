@@ -2,7 +2,6 @@ import { KonvaEventObject } from 'konva/lib/Node';
 import { useRecoilState } from 'recoil';
 import {
   DrawingObject,
-  drawingObjectCountState,
   drawingObjectState,
   selectedIdState,
 } from '../store/store';
@@ -13,9 +12,6 @@ const useObjectControll = () => {
   const [selectedId, setSelectedId] = useRecoilState(selectedIdState);
   const [drawingObjects, setDrawingObjects] =
     useRecoilState(drawingObjectState);
-  const [drawingObjectCount, setDrawingObjectCount] = useRecoilState(
-    drawingObjectCountState,
-  );
 
   const { updateHistory } = useUpdateHistory();
 
@@ -28,8 +24,8 @@ const useObjectControll = () => {
         size: line.size,
         color: line.color,
         points: line.points,
-        id: `선 ${drawingObjectCount}`,
-        z: drawingObjectCount,
+        id: `선 ${prev.length}`,
+        z: prev.length,
         x: 0,
         y: 0,
         scaleX: 1,
@@ -40,8 +36,6 @@ const useObjectControll = () => {
         rotation: 0,
       },
     ]);
-
-    setDrawingObjectCount(prev => prev + 1);
   };
 
   // 선의 좌표를 업데이트
@@ -62,7 +56,7 @@ const useObjectControll = () => {
   const addImage = (image: Partial<DrawingObject>) => {
     const newImage = {
       type: 'image',
-      id: `이미지 ${drawingObjectCount}`,
+      id: `이미지 ${drawingObjects.length}`,
       url: image.url,
       x: 50,
       y: 50,
@@ -70,12 +64,11 @@ const useObjectControll = () => {
       scaleY: 1,
       skewX: 0,
       skewY: 0,
-      z: drawingObjectCount,
+      z: drawingObjects.length,
       opacity: 1,
     };
     const newObjects = [...drawingObjects, newImage];
     setDrawingObjects(newObjects);
-    setDrawingObjectCount(prev => prev + 1);
     updateHistory(newObjects);
   };
 

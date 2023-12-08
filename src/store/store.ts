@@ -1,5 +1,8 @@
 import { RGBColor } from 'react-color';
 import { atom } from 'recoil';
+import { recoilPersist } from 'recoil-persist';
+
+const { persistAtom } = recoilPersist();
 
 export type BgState = '수호' | '수야';
 
@@ -7,6 +10,7 @@ export type BgState = '수호' | '수야';
 export const bgState = atom<BgState>({
   key: 'bgState',
   default: '수호',
+  effects_UNSTABLE: [persistAtom],
 });
 
 interface BgColorState {
@@ -28,6 +32,7 @@ export const bgColorState = atom<BgColorState>({
     hex: '#ffffff',
     alpha: 1,
   },
+  effects_UNSTABLE: [persistAtom],
 });
 
 interface PenState {
@@ -53,6 +58,7 @@ export const penState = atom<PenState>({
     alpha: 1,
     hsl: '0 0% 0%',
   },
+  effects_UNSTABLE: [persistAtom],
 });
 
 // 메뉴의 상태를 선택하는 상태
@@ -74,6 +80,7 @@ export const modeState = atom<ModeState>({
 export const itemState = atom<{ item: string; itemUrl: string }[]>({
   key: 'itemState',
   default: [],
+  effects_UNSTABLE: [persistAtom],
 });
 
 export interface DrawingObject {
@@ -105,11 +112,7 @@ export const drawingObjectState = atom<DrawingObject[]>({
       z: 1,
     },
   ],
-});
-
-export const drawingObjectCountState = atom({
-  key: 'drawingObjectCountState',
-  default: 1,
+  effects_UNSTABLE: [persistAtom],
 });
 
 export const selectedIdState = atom<string[]>({
@@ -130,9 +133,11 @@ export const drawingObjectHistoryState = atom<DrawingObject[][]>({
       },
     ],
   ],
+  effects_UNSTABLE: [persistAtom],
 });
 
 export const drawingObjectHistoryIndexState = atom<number>({
   key: 'drawingObjectHistoryIndexState',
   default: 0,
+  effects_UNSTABLE: [persistAtom],
 });
