@@ -3,18 +3,16 @@ import AboutHeader from '../components/header/AboutHeader';
 import Avatar from '../components/ui/Avatar';
 import PageContainer from '../components/ui/PageContainer';
 import Paragraph from '../components/ui/Paragraph';
-import useGoogleAuth from '../hooks/useGoogleAuth';
+import useLogout from '../hooks/auth/useLogout';
 import { userState } from '../store/authStore';
-import { useNavigate } from 'react-router-dom';
 
 const UserPage = () => {
-  const navigate = useNavigate();
   const [user, setUser] = useRecoilState(userState);
 
-  const { googleLogout } = useGoogleAuth();
+  const logout = useLogout();
 
   const logoutHandler = async () => {
-    await googleLogout();
+    await logout();
   };
 
   return (

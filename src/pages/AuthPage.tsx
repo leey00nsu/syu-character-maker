@@ -1,48 +1,19 @@
-import { useQuery } from '@tanstack/react-query';
-import { useEffect, useLayoutEffect } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
-import { getUser } from '../apis/auth.api';
 import LoadingSpinner from '../components/ui/LoadingSpinner';
-import { authState, userState } from '../store/authStore';
+import useValidateAuth from '../hooks/auth/useValidateAuth';
 
 interface AuthPageProps {
   element: JSX.Element;
   privated?: boolean;
 }
 
+// 로그인 상태를 체크하는 페이지
+// privated가 true이면 로그인 상태가 아니면 '/'로 이동
 const AuthPage = ({ element, privated }: AuthPageProps) => {
-  const navigate = useNavigate();
-  const [auth, setAuth] = useRecoilState(authState);
-  const [user, setUser] = useRecoilState(userState);
-
-  const query = useQuery({
-    queryKey: ['getUser'],
-    queryFn: getUser,
-    retry: false,
-    refetchOnWindowFocus: false,
-  });
-
-  const { data, isLoading, isError, error } = query;
-
-  useLayoutEffect(() => {
-    if (!isLoading) {
-      if (data && data.statusCode === 200) {
-        setAuth(true);
-        setUser(data.user);
-      } else {
-        navigate('/');
-      }
-    }
-  }, [isLoading, auth]);
+  const { isLoading } = useValidateAuth({ element, privated });
 
   if (isLoading) {
     return <LoadingSpinner />;
   }
-
-  // if (data?.statusCode !== 200 && privated) {
-  //   return <Navigate to="/" />;
-  // }
 
   return element;
 };

@@ -33,7 +33,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/auth/google',
-    element: <AuthPage element={<GoogleAuthPage />} />,
+    element: <GoogleAuthPage />,
   },
 ]);
 

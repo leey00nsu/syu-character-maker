@@ -6,7 +6,7 @@ const Avatar = ({ photo }: AvatarProps) => {
   return (
     <div className="online avatar">
       <div className="h-full w-full rounded-full">
-        <img src={photo} />
+        <img src={photo} referrerPolicy="no-referrer" />
       </div>
     </div>
   );

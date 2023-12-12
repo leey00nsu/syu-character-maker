@@ -10,7 +10,7 @@ export const getUser = async () => {
   return response.data;
 };
 
-export const validateGoogleUser = async (code: string) => {
+export const googleLoginWithCode = async (code: string) => {
   const response = await axios.get(
     `${VITE_SERVER_HOST}/auth/google?code=${code}`,
     {

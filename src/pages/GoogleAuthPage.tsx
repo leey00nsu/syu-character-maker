@@ -1,25 +1,27 @@
-import { useParams, useSearchParams } from 'react-router-dom';
-import useGoogleAuth from '../hooks/useGoogleAuth';
 import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import useGoogleLogin from '../hooks/auth/useGoogleLogin';
 
+// google oauth callback 페이지
 const GoogleAuthPage = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
 
-  const { googleLogin } = useGoogleAuth();
-
   const code = searchParams.get('code');
 
-  const loginProcess = async (code: string) => {
-    await googleLogin(code);
-    navigate('/');
+  const googleLogin = useGoogleLogin();
+
+  const loginHandler = async () => {
+    if (!code) {
+      navigate('/');
+    }
+    if (code) {
+      googleLogin(code);
+    }
   };
 
   useEffect(() => {
-    if (code) {
-      loginProcess(code);
-    }
+    loginHandler();
   }, [code]);
 
   return <></>;

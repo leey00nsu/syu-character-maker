@@ -1,13 +1,13 @@
 import { ChromePicker, ColorResult } from 'react-color';
 import { useRecoilState } from 'recoil';
-import { bgColorState, bgState, itemState } from '../../store/store';
+import { BgState, bgColorState, bgState, itemState } from '../../store/store';
 
 const BackGround = () => {
   const [bgColor, setBgColor] = useRecoilState(bgColorState);
   const [bg, setBg] = useRecoilState(bgState);
   const [items, setItems] = useRecoilState(itemState);
 
-  const changeBgHandler = (changes: string) => {
+  const changeBgHandler = (changes: BgState) => {
     setBg(changes);
     setItems([]);
   };
