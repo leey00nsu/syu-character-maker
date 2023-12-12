@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useRecoilState } from 'recoil';
-import { itemParts } from '../../../constants/itemParts';
-import { bgState, itemState } from '../../../store/store';
+import { itemParts } from '@/constants/itemParts';
+import { bgState, itemState } from '@/store/store';
 import ItemToggleButton from './ItemToggleButton';
 
 const Items = () => {

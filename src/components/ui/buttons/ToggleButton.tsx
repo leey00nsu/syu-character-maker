@@ -1,5 +1,3 @@
-import { useRecoilState } from 'recoil';
-import { ModeState, modeState } from '../../../store/store';
 import React from 'react';
 
 interface ToggleButtonProps<T> {
@@ -14,7 +12,7 @@ const ToggleButton = ({
   isActive,
   onClick,
   children,
-}: ToggleButtonProps<ModeState>) => {
+}: ToggleButtonProps<any>) => {
   return (
     <div
       onClick={onClick.bind(this, mode)}

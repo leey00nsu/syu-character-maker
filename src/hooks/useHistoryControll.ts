@@ -5,7 +5,7 @@ import {
   drawingObjectHistoryState,
   drawingObjectState,
   selectedIdState,
-} from '../store/store';
+} from '@/store/store';
 
 // 히스토리 업데이트 커스텀 훅
 const useHistoryControll = () => {

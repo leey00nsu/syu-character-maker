@@ -1,9 +1,9 @@
+import ToggleButton from '@/components/ui/buttons/ToggleButton';
+import { ModeState, modeState } from '@/store/store';
 import { FaPencilAlt } from 'react-icons/fa';
 import { useRecoilState } from 'recoil';
-import { ModeState, modeState } from '../../../store/store';
-import ToggleButton from '../../ui/buttons/ToggleButton';
 
-const HeaderDrawButton = () => {
+export const HeaderDrawButton = () => {
   const [mode, setMode] = useRecoilState(modeState);
 
   const changeModeHandler = (changes: ModeState) => {

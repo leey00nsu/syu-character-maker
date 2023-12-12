@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
-import { authState, userState } from '../../store/authStore';
+import { authState, userState } from '@/store/authStore';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { googleLoginWithCode } from '../../apis/auth.api';
+import { googleLoginWithCode } from '@/apis/auth.api';
 import { useNavigate } from 'react-router-dom';
 
 const useGoogleLogin = () => {

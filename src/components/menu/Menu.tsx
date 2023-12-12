@@ -1,13 +1,13 @@
-import BackGround from './BackGround';
-import Image from './Image';
-import Draw from './Draw';
-import Save from './Save';
-import Items from './items/Items';
-import { bgColorState, menuState, modeState } from '../../store/store';
-import { useRecoilState } from 'recoil';
-import { menus } from '../../constants/menus';
+import { menuState, modeState } from '@/store/store';
 import Konva from 'konva';
 import { MutableRefObject } from 'react';
+import { useRecoilState } from 'recoil';
+import { menus } from '@/constants/menus';
+import BackGround from './BackGround';
+import Draw from './Draw';
+import Image from './Image';
+import Save from './Save';
+import Items from './items/Items';
 
 interface MenuProps {
   stageRef: MutableRefObject<Konva.Stage | null>;

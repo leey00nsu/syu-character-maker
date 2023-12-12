@@ -1,12 +1,12 @@
+import { drawingObjectState, selectedIdState } from '@/store/store';
 import React from 'react';
 import { useRecoilState } from 'recoil';
-import { drawingObjectState, selectedIdState } from '../../../store/store';
 
 const HeaderAlphaButton = () => {
   const [drawingObjects, setdrawingObjects] =
     useRecoilState(drawingObjectState);
   const [selectedId, setSelectedId] = useRecoilState(selectedIdState);
-  
+
   const changeOpacityHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newObject = [...drawingObjects].map(object => {
       if (object.id === selectedId[0]) {

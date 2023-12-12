@@ -1,12 +1,12 @@
-import { useRecoilState } from 'recoil';
 import {
   DrawingObject,
   menuState,
   modeState,
   selectedIdState,
-} from '../../store/store';
-import LayerUpButton from './LayerUpButton';
+} from '@/store/store';
+import { useRecoilState } from 'recoil';
 import LayerDownButton from './LayerDownButton';
+import LayerUpButton from './LayerUpButton';
 
 interface LayerProps {
   object: DrawingObject;

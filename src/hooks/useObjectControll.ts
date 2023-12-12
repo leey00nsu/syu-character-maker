@@ -4,8 +4,8 @@ import {
   DrawingObject,
   drawingObjectState,
   selectedIdState,
-} from '../store/store';
-import useUpdateHistory from './useHistoryControll';
+} from '@/store/store';
+import useHistoryControll from '@/hooks/useHistoryControll';
 
 // 오브젝트 컨트롤 커스텀 훅
 const useObjectControll = () => {
@@ -13,7 +13,7 @@ const useObjectControll = () => {
   const [drawingObjects, setDrawingObjects] =
     useRecoilState(drawingObjectState);
 
-  const { updateHistory } = useUpdateHistory();
+  const { updateHistory } = useHistoryControll();
 
   // 새로운 선 추가
   const addLine = (line: Partial<DrawingObject>) => {

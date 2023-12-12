@@ -1,7 +1,7 @@
+import { penState } from '@/store/store';
+import { useEffect } from 'react';
 import { ChromePicker, ColorResult } from 'react-color';
 import { useRecoilState } from 'recoil';
-import { penState } from '../../store/store';
-import { useEffect } from 'react';
 
 const MAX_PEN_SIZE = 200;
 

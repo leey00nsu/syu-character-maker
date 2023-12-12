@@ -1,10 +1,10 @@
 import Konva from 'konva';
 import { useRef } from 'react';
-import IndexHeader from '../components/header/IndexHeader';
-import LayerContainer from '../components/layer/LayerContainer';
-import Menu from '../components/menu/Menu';
-import Preview from '../components/preview/Preview';
-import PageContainer from '../components/ui/PageContainer';
+import IndexHeader from '@/components/header/IndexHeader';
+import LayerContainer from '@/components/layer/LayerContainer';
+import Menu from '@/components/menu/Menu';
+import Preview from '@/components/preview/Preview';
+import PageContainer from '@/components/ui/PageContainer';
 
 const IndexPage = () => {
   // canvas의 정보를 가져오기 위한 ref

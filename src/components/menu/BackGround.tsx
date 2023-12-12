@@ -1,6 +1,6 @@
+import { BgState, bgColorState, bgState, itemState } from '@/store/store';
 import { ChromePicker, ColorResult } from 'react-color';
 import { useRecoilState } from 'recoil';
-import { BgState, bgColorState, bgState, itemState } from '../../store/store';
 
 const BackGround = () => {
   const [bgColor, setBgColor] = useRecoilState(bgColorState);

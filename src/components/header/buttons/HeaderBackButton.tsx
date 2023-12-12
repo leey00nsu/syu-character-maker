@@ -1,6 +1,6 @@
+import ActiveButton from '@/components/ui/buttons/ActiveButton';
 import { FaArrowLeft } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
-import ActiveButton from '../../ui/buttons/ActiveButton';
 
 const HeaderBackButton = () => {
   const navigate = useNavigate();

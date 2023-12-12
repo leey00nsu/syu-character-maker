@@ -1,7 +1,7 @@
-import { bgState, itemState } from '../../../store/store';
+import { suhoItems } from '@/constants/suhoItems';
+import { suyaItems } from '@/constants/suyaItems';
+import { bgState, itemState } from '@/store/store';
 import { useRecoilState } from 'recoil';
-import { suyaItems } from '../../../constants/suyaItems';
-import { suhoItems } from '../../../constants/suhoItems';
 
 interface ItemToggleButtonProps {
   onClick: (item: string, itemUrl: string) => void;

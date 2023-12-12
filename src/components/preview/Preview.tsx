@@ -2,8 +2,8 @@ import Konva from 'konva';
 import { MutableRefObject, useEffect, useRef, useState } from 'react';
 import { Layer, Rect, Stage, Transformer } from 'react-konva';
 import { useRecoilState } from 'recoil';
-import useUpdateHistory from '../../hooks/useHistoryControll';
-import useObjectControll from '../../hooks/useObjectControll';
+import useUpdateHistory from '@/hooks/useHistoryControll';
+import useObjectControll from '@/hooks/useObjectControll';
 import {
   bgColorState,
   drawingObjectState,
@@ -11,8 +11,8 @@ import {
   modeState,
   penState,
   selectedIdState,
-} from '../../store/store';
-import DrawDrawingObjects from './DrawDrawingObjects';
+} from '@/store/store';
+import DrawDrawingObjects from '@/components/preview/DrawDrawingObjects';
 
 interface PreviewProps {
   stageRef: MutableRefObject<Konva.Stage | null>;

@@ -1,9 +1,9 @@
 import React, { useLayoutEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
-import { authState, userState } from '../../store/authStore';
+import { authState, userState } from '@/store/authStore';
 import { useQuery } from '@tanstack/react-query';
-import { getUser } from '../../apis/auth.api';
+import { getUser } from '@/apis/auth.api';
 
 interface UseValidateAuthProps {
   privated?: boolean;

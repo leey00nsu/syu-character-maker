@@ -1,5 +1,5 @@
+import useObjectControll from '@/hooks/useObjectControll';
 import React from 'react';
-import useObjectControll from '../../hooks/useObjectControll';
 
 const Image = () => {
   const { addImage } = useObjectControll();

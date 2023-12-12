@@ -1,10 +1,10 @@
+import Avatar from '@/components/ui/Avatar';
+import ActiveButton from '@/components/ui/buttons/ActiveButton';
+import useGetGoogleCode from '@/hooks/auth/useGetGoogleCode';
+import { authState, userState } from '@/store/authStore';
 import { FaRegUserCircle } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
-import useGetGoogleCode from '../../../hooks/auth/useGetGoogleCode';
-import { authState, userState } from '../../../store/authStore';
-import Avatar from '../../ui/Avatar';
-import ActiveButton from '../../ui/buttons/ActiveButton';
 
 const HeaderAuthButton = () => {
   const [auth, setAuth] = useRecoilState(authState);
