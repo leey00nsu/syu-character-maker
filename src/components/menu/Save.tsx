@@ -62,7 +62,7 @@ const Save = ({ stageRef }: SaveProps) => {
   };
 
   return (
-    <section className="flex w-full grow items-center justify-center  border-t border-base-300 bg-white">
+    <section className="flex w-full grow flex-col items-center justify-center  gap-2 border-t border-base-300 bg-white">
       <button onClick={saveHandler} className="btn-primary btn-wide btn">
         이미지 파일로 저장하기
       </button>

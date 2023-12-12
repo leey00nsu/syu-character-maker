@@ -1,15 +1,14 @@
-import { DrawingObject } from '@/store/store';
-import { DrawCharacter, DrawImage, DrawLine } from './drawingObjects';
+import { drawingObjectState } from '@/store/store';
+import { useRecoilState } from 'recoil';
+import { DrawCharacter, DrawImage, DrawLine } from './draws';
 
-interface DrawDrawingObjectsProps {
-  drawingObjects: DrawingObject[];
+interface DrawingObjectsProps {
   objectSelectHandler: (id: string) => void;
 }
 
-const DrawDrawingObjects = ({
-  drawingObjects,
-  objectSelectHandler,
-}: DrawDrawingObjectsProps) => {
+const DrawingObjects = ({ objectSelectHandler }: DrawingObjectsProps) => {
+  const [drawingObjects] = useRecoilState(drawingObjectState);
+
   return (
     <>
       {drawingObjects.map(object => {
@@ -45,4 +44,4 @@ const DrawDrawingObjects = ({
   );
 };
 
-export default DrawDrawingObjects;
+export default DrawingObjects;
