@@ -1,4 +1,4 @@
-import ActiveButton from '@/components/ui/buttons/ActiveButton';
+import { ActiveButton } from '@/components/ui/buttons';
 import { FaQuestion } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 

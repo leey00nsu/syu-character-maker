@@ -2,7 +2,6 @@ import { menuState, modeState } from '@/store/store';
 import Konva from 'konva';
 import { MutableRefObject } from 'react';
 import { useRecoilState } from 'recoil';
-import { menus } from '@/constants/menus';
 import BackGround from './BackGround';
 import Draw from './Draw';
 import Image from './Image';
@@ -12,6 +11,8 @@ import Items from './items/Items';
 interface MenuProps {
   stageRef: MutableRefObject<Konva.Stage | null>;
 }
+
+const MENUS = ['꾸미기', '배경', '사진', '그리기', '저장'];
 
 const Menu = ({ stageRef }: MenuProps) => {
   const [menu, setMenu] = useRecoilState(menuState);
@@ -24,7 +25,7 @@ const Menu = ({ stageRef }: MenuProps) => {
   return (
     <div className="xl:max-h-2/3 mockup-window flex min-h-[300px] w-[360px] shrink-0 flex-col border border-base-300 bg-white sm:h-[400px] sm:w-[600px] xl:h-2/3">
       <ul className="menu rounded-box menu-horizontal w-full  gap-1 bg-base-100 ">
-        {menus.map(m => (
+        {MENUS.map(m => (
           <li key={m} className="flex grow">
             <a
               onClick={changeMenuHandler.bind(this, m)}

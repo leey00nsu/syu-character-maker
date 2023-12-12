@@ -1,7 +1,5 @@
 import { DrawingObject } from '@/store/store';
-import DrawCharacter from './DrawChracter';
-import DrawImage from './DrawImage';
-import DrawLine from './DrawLine';
+import { DrawCharacter, DrawImage, DrawLine } from './drawingObjects';
 
 interface DrawDrawingObjectsProps {
   drawingObjects: DrawingObject[];

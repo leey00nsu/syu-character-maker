@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { useRecoilState } from 'recoil';
-import { itemParts } from '@/constants/itemParts';
 import { bgState, itemState } from '@/store/store';
 import ItemToggleButton from './ItemToggleButton';
+
+const ITEM_PARTS = ['머리', '얼굴', '몸', '손', '발'];
 
 const Items = () => {
   const [part, setPart] = useState('머리');
@@ -23,7 +24,7 @@ const Items = () => {
   return (
     <section className="flex w-full grow border-t border-base-300 bg-white">
       <ul className="menu menu-vertical flex h-full shrink-0 gap-1 border-r bg-base-100 p-2 ">
-        {itemParts.map(itemPart => (
+        {ITEM_PARTS.map(itemPart => (
           <li key={itemPart}>
             <a
               onClick={changePartHandler.bind(this, itemPart)}

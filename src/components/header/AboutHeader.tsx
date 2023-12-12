@@ -1,7 +1,9 @@
 import HeaderContainer from './HeaderContainer';
-import HeaderAboutButton from './buttons/HeaderAboutButton';
-import HeaderAuthButton from './buttons/HeaderAuthButton';
-import HeaderBackButton from './buttons/HeaderBackButton';
+import {
+  HeaderBackButton,
+  HeaderAuthButton,
+  HeaderAboutButton,
+} from './buttons';
 
 const AboutHeader = () => {
   return (

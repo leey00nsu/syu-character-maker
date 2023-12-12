@@ -1,8 +1,8 @@
+import useObjectControll from '@/hooks/useObjectControll';
+import { DrawingObject, menuState, modeState } from '@/store/store';
 import { Image } from 'react-konva';
 import { useRecoilState } from 'recoil';
 import useImage from 'use-image';
-import { DrawingObject, menuState, modeState } from '@/store/store';
-import useObjectControll from '@/hooks/useObjectControll';
 
 interface DrawObjectProps {
   object: DrawingObject;

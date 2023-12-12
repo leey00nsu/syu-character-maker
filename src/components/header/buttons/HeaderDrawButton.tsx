@@ -1,4 +1,4 @@
-import ToggleButton from '@/components/ui/buttons/ToggleButton';
+import { ToggleButton } from '@/components/ui/buttons';
 import { ModeState, modeState } from '@/store/store';
 import { FaPencilAlt } from 'react-icons/fa';
 import { useRecoilState } from 'recoil';

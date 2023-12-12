@@ -1,7 +1,7 @@
+import { DrawingObject, bgState, itemState } from '@/store/store';
 import { Image } from 'react-konva';
 import { useRecoilState } from 'recoil';
 import useImage from 'use-image';
-import { DrawingObject, bgState, itemState } from '@/store/store';
 import DrawItem from './DrawItem';
 
 interface DrawObjectProps {

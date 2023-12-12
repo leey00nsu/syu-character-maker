@@ -1,11 +1,13 @@
 import HeaderContainer from './HeaderContainer';
-import HeaderAboutButton from './buttons/HeaderAboutButton';
-import HeaderAuthButton from './buttons/HeaderAuthButton';
-import HeaderDrawButton from './buttons/HeaderDrawButton';
-import HeaderMoveButton from './buttons/HeaderMoveButton';
-import HeaderRedoButton from './buttons/HeaderRedoButton';
-import HeaderRemoveButton from './buttons/HeaderRemoveButton';
-import HeaderUndoButton from './buttons/HeaderUndoButton';
+import {
+  HeaderAboutButton,
+  HeaderAuthButton,
+  HeaderDrawButton,
+  HeaderMoveButton,
+  HeaderRedoButton,
+  HeaderRemoveButton,
+  HeaderUndoButton,
+} from './buttons';
 
 const IndexHeader = () => {
   return (

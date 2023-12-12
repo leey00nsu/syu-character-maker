@@ -1,4 +1,4 @@
-import ActiveButton from '@/components/ui/buttons/ActiveButton';
+import { ActiveButton } from '@/components/ui/buttons';
 import useHistoryControll from '@/hooks/useHistoryControll';
 import { FaRedoAlt } from 'react-icons/fa';
 
