@@ -1,5 +1,5 @@
 import Avatar from '@/components/ui/Avatar';
-import ActiveButton from '@/components/ui/buttons/ActiveButton';
+import ActiveButton from '@/components/ui/buttons/HeaderActiveButton';
 import useGetGoogleCode from '@/hooks/auth/useGetGoogleCode';
 import { authState, userState } from '@/store/authStore';
 import { FaRegUserCircle } from 'react-icons/fa';

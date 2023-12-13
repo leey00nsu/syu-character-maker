@@ -1,4 +1,4 @@
-import { ActiveButton } from '@/components/ui/buttons';
+import { HeaderActiveButton } from '@/components/ui/buttons';
 import useHistoryControll from '@/hooks/useHistoryControll';
 import { FaUndoAlt } from 'react-icons/fa';
 
@@ -10,9 +10,9 @@ const HeaderUndoButton = () => {
   };
 
   return (
-    <ActiveButton onClick={undoHistoryHandler}>
+    <HeaderActiveButton onClick={undoHistoryHandler}>
       <FaUndoAlt className="h-full w-full" />
-    </ActiveButton>
+    </HeaderActiveButton>
   );
 };
 

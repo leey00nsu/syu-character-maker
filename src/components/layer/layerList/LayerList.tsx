@@ -1,6 +1,6 @@
 import { drawingObjectState } from '@/store/store';
 import { useRecoilState } from 'recoil';
-import Layer from './Layer';
+import Layer from './LayerItem';
 
 const LayerList = () => {
   const [drawingObjects, setDrawingObjects] =

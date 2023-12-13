@@ -3,8 +3,8 @@ import Konva from 'konva';
 import { MutableRefObject, useRef } from 'react';
 import { Layer, Stage } from 'react-konva';
 import DrawingObjects from './DrawingObjects';
-import { DrawBackground } from './draws';
 import { ObjectSelectBox, ObjectTransformer } from './controllers';
+import { DrawBackground } from './draws';
 
 interface PreviewProps {
   stageRef: MutableRefObject<Konva.Stage | null>;
@@ -24,8 +24,6 @@ const Preview = ({ stageRef }: PreviewProps) => {
 
   const {
     clickHandler,
-    dragHandler,
-    dragEndHandler,
     objectSelectHandler,
     isMobile,
   } = useKonva({

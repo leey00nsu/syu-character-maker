@@ -1,7 +1,7 @@
 import Konva from 'konva';
 import { useRef } from 'react';
 import IndexHeader from '@/components/header/IndexHeader';
-import LayerContainer from '@/components/layer/LayerContainer';
+import Layer from '@/components/layer/Layer';
 import Menu from '@/components/menu/Menu';
 import Preview from '@/components/preview/Preview';
 import PageContainer from '@/components/ui/PageContainer';
@@ -22,7 +22,7 @@ const IndexPage = () => {
         </div>
         <div className="flex  w-full flex-col items-center gap-3 p-4 lg:h-full xl:w-1/2">
           <Menu stageRef={stageRef} />
-          <LayerContainer />
+          <Layer />
         </div>
       </PageContainer.Content>
     </PageContainer>

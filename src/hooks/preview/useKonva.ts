@@ -1,12 +1,11 @@
 import useUpdateHistory from '@/hooks/useHistoryControll';
 import useObjectControll from '@/hooks/useObjectControll';
 import {
-  bgColorState,
   drawingObjectState,
   menuState,
   modeState,
   penState,
-  selectedIdState,
+  selectedIdState
 } from '@/store/store';
 import Konva from 'konva';
 import { MutableRefObject, useEffect, useRef, useState } from 'react';
@@ -33,7 +32,6 @@ const useKonva = ({
   const [pen, setPen] = useRecoilState(penState);
   const [menu, setMenu] = useRecoilState(menuState);
   const [mode, setMode] = useRecoilState(modeState);
-  const [bgColor, setBgColor] = useRecoilState(bgColorState);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 640);
 
   const drawRef = useRef(false);

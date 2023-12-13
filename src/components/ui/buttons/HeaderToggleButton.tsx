@@ -1,18 +1,18 @@
 import React from 'react';
 
-interface ToggleButtonProps<T> {
+interface HeaderToggleButtonProps<T> {
   mode: T;
   isActive: boolean;
   onClick: (mode: T) => void;
   children?: React.ReactNode;
 }
 
-const ToggleButton = ({
+const HeaderToggleButton = ({
   mode,
   isActive,
   onClick,
   children,
-}: ToggleButtonProps<any>) => {
+}: HeaderToggleButtonProps<any>) => {
   return (
     <div
       onClick={onClick.bind(this, mode)}
@@ -27,4 +27,4 @@ const ToggleButton = ({
   );
 };
 
-export default ToggleButton;
+export default HeaderToggleButton;
