@@ -1,4 +1,4 @@
-import HeaderContainer from './HeaderContainer';
+import HeaderContainer from './ui/HeaderContainer';
 import {
   HeaderAboutButton,
   HeaderAuthButton,

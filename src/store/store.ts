@@ -4,11 +4,11 @@ import { recoilPersist } from 'recoil-persist';
 
 const { persistAtom } = recoilPersist();
 
-export type BgState = '수호' | '수야';
+export type CharacterState = '수호' | '수야';
 
 // 백그라운드 캐릭터를 선택하는 상태
-export const bgState = atom<BgState>({
-  key: 'bgState',
+export const characterState = atom<CharacterState>({
+  key: 'characterState',
   default: '수호',
   effects_UNSTABLE: [persistAtom],
 });

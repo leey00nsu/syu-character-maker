@@ -1,4 +1,4 @@
-export const suhoHeadItems = [
+export const SUHO_HEAD_ITEMS = [
   {
     part: '머리',
     item: '야구모자',
@@ -11,7 +11,7 @@ export const suhoHeadItems = [
   },
 ];
 
-export const suhoBodyItems = [
+export const SUHO_BODY_ITEMS = [
   {
     part: '몸',
     item: '과잠',
@@ -39,7 +39,7 @@ export const suhoBodyItems = [
   },
 ];
 
-export const suhoFaceItems = [
+export const SUHO_FACE_ITEMS = [
   {
     part: '얼굴',
     item: '도트선글라스',
@@ -72,7 +72,7 @@ export const suhoFaceItems = [
   },
 ];
 
-export const suhoHandItems = [
+export const SUHO_HAND_ITEMS = [
   {
     part: '손',
     item: '소주',
@@ -90,7 +90,7 @@ export const suhoHandItems = [
   },
 ];
 
-export const suhoFootItems = [
+export const SUHO_FOOT_ITEMS = [
   {
     part: '발',
     item: '샌들',
@@ -98,10 +98,10 @@ export const suhoFootItems = [
   },
 ];
 
-export const suhoItems = [
-  ...suhoHeadItems,
-  ...suhoBodyItems,
-  ...suhoFaceItems,
-  ...suhoHandItems,
-  ...suhoFootItems,
+export const SUHO_ITEMS = [
+  ...SUHO_HEAD_ITEMS,
+  ...SUHO_BODY_ITEMS,
+  ...SUHO_FACE_ITEMS,
+  ...SUHO_HAND_ITEMS,
+  ...SUHO_FOOT_ITEMS,
 ];

@@ -1,4 +1,4 @@
-export const suyaHeadItems = [
+export const SUYA_HEAD_ITEMS = [
   {
     part: '머리',
     item: '야구모자',
@@ -6,7 +6,7 @@ export const suyaHeadItems = [
   },
 ];
 
-export const suyaBodyItems = [
+export const SUYA_BODY_ITEMS = [
   {
     part: '몸',
     item: '과잠',
@@ -24,7 +24,7 @@ export const suyaBodyItems = [
   },
 ];
 
-export const suyaFaceItems = [
+export const SUYA_FACE_ITEMS = [
   {
     part: '얼굴',
     item: '도트선글라스',
@@ -57,7 +57,7 @@ export const suyaFaceItems = [
   },
 ];
 
-export const suyaHandItems = [
+export const SUYA_HAND_ITEMS = [
   {
     part: '손',
     item: '소주',
@@ -75,7 +75,7 @@ export const suyaHandItems = [
   },
 ];
 
-export const suyaFootItems = [
+export const SUYA_FOOT_ITEMS = [
   {
     part: '발',
     item: '샌들',
@@ -83,10 +83,10 @@ export const suyaFootItems = [
   },
 ];
 
-export const suyaItems = [
-  ...suyaHeadItems,
-  ...suyaBodyItems,
-  ...suyaFaceItems,
-  ...suyaHandItems,
-  ...suyaFootItems,
+export const SUYA_ITEMS = [
+  ...SUYA_HEAD_ITEMS,
+  ...SUYA_BODY_ITEMS,
+  ...SUYA_FACE_ITEMS,
+  ...SUYA_HAND_ITEMS,
+  ...SUYA_FOOT_ITEMS,
 ];

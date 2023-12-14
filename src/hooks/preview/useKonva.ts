@@ -5,7 +5,7 @@ import {
   menuState,
   modeState,
   penState,
-  selectedIdState
+  selectedIdState,
 } from '@/store/store';
 import Konva from 'konva';
 import { MutableRefObject, useEffect, useRef, useState } from 'react';
@@ -69,9 +69,11 @@ const useKonva = ({
       return;
     }
     if (mode === 'move') {
-      const clickedOnEmpty = e.target.getId() === 'background';
+      // 배경 또는 캐릭터를 클릭했을 때
+      const clickedOnEmpty = ['background', 'character'].includes(
+        e.target.getId(),
+      );
 
-      // 배경을 클릭하고 있을 때
       if (clickedOnEmpty) {
         setSelectedId([]);
 

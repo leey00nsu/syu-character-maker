@@ -8,7 +8,7 @@ import PageContainer from '@/components/ui/PageContainer';
 
 const IndexPage = () => {
   // canvas의 정보를 가져오기 위한 ref
-  const stageRef = useRef<Konva.Stage | null>(null);
+  const stageRef = useRef<Konva.Stage>(null);
 
   return (
     <PageContainer>

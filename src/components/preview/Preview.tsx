@@ -1,13 +1,13 @@
 import useKonva from '@/hooks/preview/useKonva';
 import Konva from 'konva';
-import { MutableRefObject, useRef } from 'react';
+import { MutableRefObject, RefObject, useRef } from 'react';
 import { Layer, Stage } from 'react-konva';
 import DrawingObjects from './DrawingObjects';
 import { ObjectSelectBox, ObjectTransformer } from './controllers';
 import { DrawBackground } from './draws';
 
 interface PreviewProps {
-  stageRef: MutableRefObject<Konva.Stage | null>;
+  stageRef: RefObject<Konva.Stage>;
 }
 
 // 모바일일 때 크기와 데스크탑일 때 크기를 다르게 설정하여 렌더링
