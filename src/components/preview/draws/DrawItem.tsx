@@ -1,5 +1,6 @@
 import { Image } from 'react-konva';
 import useImage from 'use-image';
+import { DEFAULT_WIDTH } from '../constants/canvas';
 
 const DrawItem = ({ ...props }) => {
   const [image] = useImage(props.url);
@@ -9,8 +10,8 @@ const DrawItem = ({ ...props }) => {
       <Image
         x={50}
         y={50}
-        width={500}
-        height={500}
+        width={DEFAULT_WIDTH - 100}
+        height={DEFAULT_WIDTH - 100}
         id={props.id}
         image={image}
       />

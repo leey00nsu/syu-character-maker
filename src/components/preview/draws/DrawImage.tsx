@@ -3,6 +3,7 @@ import { DrawingObject, menuState, modeState } from '@/store/store';
 import { Image } from 'react-konva';
 import { useRecoilState } from 'recoil';
 import useImage from 'use-image';
+import { DEFAULT_IMAGE_WIDTH } from '../constants/canvas';
 
 interface DrawObjectProps {
   object: DrawingObject;
@@ -37,8 +38,8 @@ const DrawImage = ({ object, objectSelectHandler }: DrawObjectProps) => {
         draggable={mode === 'move' && menu !== '저장'}
         onSelect={() => objectSelectHandler(object.id)}
         image={image}
-        width={200}
-        height={200 / aspect_ratio}
+        width={DEFAULT_IMAGE_WIDTH}
+        height={DEFAULT_IMAGE_WIDTH / aspect_ratio}
         onDragEnd={transformObject}
         onTransformEnd={transformObject}
       />

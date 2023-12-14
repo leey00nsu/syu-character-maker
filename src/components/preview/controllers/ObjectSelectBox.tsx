@@ -1,9 +1,9 @@
 import Konva from 'konva';
-import React, { MutableRefObject } from 'react';
+import { RefObject } from 'react';
 import { Rect } from 'react-konva';
 
 interface ObjectSelectBoxProps {
-  selectBoxRef: MutableRefObject<Konva.Rect | null>;
+  selectBoxRef: RefObject<Konva.Rect>;
 }
 
 const ObjectSelectBox = ({ selectBoxRef }: ObjectSelectBoxProps) => {

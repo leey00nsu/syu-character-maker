@@ -105,8 +105,8 @@ export const drawingObjectState = atom<DrawingObject[]>({
   key: 'drawingObjectState',
   default: [
     {
-      x: 50,
-      y: 50,
+      x: 0,
+      y: 0,
       type: 'background',
       id: 'background',
       z: 1,
@@ -125,8 +125,8 @@ export const drawingObjectHistoryState = atom<DrawingObject[][]>({
   default: [
     [
       {
-        x: 50,
-        y: 50,
+        x: 0,
+        y: 0,
         type: 'background',
         id: 'background',
         z: 1,

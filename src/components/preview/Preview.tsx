@@ -1,8 +1,9 @@
 import useKonva from '@/hooks/preview/useKonva';
 import Konva from 'konva';
-import { MutableRefObject, RefObject, useRef } from 'react';
+import { RefObject, useRef } from 'react';
 import { Layer, Stage } from 'react-konva';
 import DrawingObjects from './DrawingObjects';
+import { DEFAULT_WIDTH, MOBILE_SCALE } from './constants/canvas';
 import { ObjectSelectBox, ObjectTransformer } from './controllers';
 import { DrawBackground } from './draws';
 
@@ -10,28 +11,16 @@ interface PreviewProps {
   stageRef: RefObject<Konva.Stage>;
 }
 
-// 모바일일 때 크기와 데스크탑일 때 크기를 다르게 설정하여 렌더링
-const DEFAULT_WIDTH = 600;
-const DEFAULT_HEIGHT = 600;
-const MOBILE_WIDTH = 350;
-const DESKTOP_WIDTH = 600;
-const MOBILE_SCALE = MOBILE_WIDTH / DESKTOP_WIDTH;
-
 const Preview = ({ stageRef }: PreviewProps) => {
-  const layerRef = useRef<Konva.Layer | null>(null);
-  const selectBoxRef = useRef<Konva.Rect | null>(null);
-  const transformerRef = useRef<Konva.Transformer | null>(null);
+  const layerRef = useRef<Konva.Layer>(null);
+  const selectBoxRef = useRef<Konva.Rect>(null);
+  const transformerRef = useRef<Konva.Transformer>(null);
 
-  const {
-    clickHandler,
-    objectSelectHandler,
-    isMobile,
-  } = useKonva({
+  const { clickHandler, objectSelectHandler, isMobile } = useKonva({
     stageRef,
     layerRef,
     selectBoxRef,
     transformerRef,
-    MOBILE_SCALE,
   });
 
   return (
@@ -41,7 +30,7 @@ const Preview = ({ stageRef }: PreviewProps) => {
           ref={stageRef}
           className="h-full w-full"
           width={DEFAULT_WIDTH}
-          height={DEFAULT_HEIGHT}
+          height={DEFAULT_WIDTH}
           onMouseDown={clickHandler}
           onTouchStart={clickHandler}
           scale={
@@ -49,7 +38,7 @@ const Preview = ({ stageRef }: PreviewProps) => {
           }
         >
           <Layer>
-            <DrawBackground width={DEFAULT_WIDTH} height={DEFAULT_HEIGHT} />
+            <DrawBackground />
           </Layer>
 
           <Layer ref={layerRef}>

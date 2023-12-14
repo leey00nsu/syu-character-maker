@@ -1,15 +1,11 @@
 import { bgColorState } from '@/store/store';
 import { Rect } from 'react-konva';
 import { useRecoilState } from 'recoil';
+import { DEFAULT_WIDTH } from '../constants/canvas';
 
-interface DrawBackgroundProps {
-  width: number;
-  height: number;
-}
-
-const DrawBackground = ({ width, height }: DrawBackgroundProps) => {
+const DrawBackground = () => {
   const [bgColor] = useRecoilState(bgColorState);
-  
+
   return (
     <Rect
       name="background"
@@ -17,8 +13,8 @@ const DrawBackground = ({ width, height }: DrawBackgroundProps) => {
       z={-999}
       x={0}
       y={0}
-      width={width}
-      height={height}
+      width={DEFAULT_WIDTH}
+      height={DEFAULT_WIDTH}
       fill={bgColor.hex}
       opacity={bgColor.alpha}
       id="background"

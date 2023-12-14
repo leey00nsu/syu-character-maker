@@ -1,3 +1,7 @@
+import {
+  MOBILE_SCALE,
+  MOBILE_MIN_WIDTH,
+} from '@/components/preview/constants/canvas';
 import useUpdateHistory from '@/hooks/useHistoryControll';
 import useObjectControll from '@/hooks/useObjectControll';
 import {
@@ -8,15 +12,14 @@ import {
   selectedIdState,
 } from '@/store/store';
 import Konva from 'konva';
-import { MutableRefObject, useEffect, useRef, useState } from 'react';
+import { RefObject, useEffect, useRef, useState } from 'react';
 import { useRecoilState } from 'recoil';
 
 interface UseKonvaProps {
-  stageRef: MutableRefObject<Konva.Stage | null>;
-  layerRef: MutableRefObject<Konva.Layer | null>;
-  selectBoxRef: MutableRefObject<Konva.Rect | null>;
-  transformerRef: MutableRefObject<Konva.Transformer | null>;
-  MOBILE_SCALE: number;
+  stageRef: RefObject<Konva.Stage>;
+  layerRef: RefObject<Konva.Layer>;
+  selectBoxRef: RefObject<Konva.Rect>;
+  transformerRef: RefObject<Konva.Transformer>;
 }
 
 const useKonva = ({
@@ -24,7 +27,6 @@ const useKonva = ({
   layerRef,
   selectBoxRef,
   transformerRef,
-  MOBILE_SCALE,
 }: UseKonvaProps) => {
   const [selectedId, setSelectedId] = useRecoilState(selectedIdState);
   const [drawingObjects, setDrawingObjects] =
@@ -32,7 +34,9 @@ const useKonva = ({
   const [pen, setPen] = useRecoilState(penState);
   const [menu, setMenu] = useRecoilState(menuState);
   const [mode, setMode] = useRecoilState(modeState);
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 640);
+  const [isMobile, setIsMobile] = useState(
+    window.innerWidth <= MOBILE_MIN_WIDTH,
+  );
 
   const drawRef = useRef(false);
 
@@ -46,7 +50,7 @@ const useKonva = ({
     document.addEventListener('touchmove', dragHandler);
     document.addEventListener('touchend', dragEndHandler);
     window.addEventListener('resize', () =>
-      setIsMobile(window.innerWidth < 640),
+      setIsMobile(window.innerWidth < MOBILE_MIN_WIDTH),
     );
 
     return () => {
@@ -55,7 +59,7 @@ const useKonva = ({
       document.removeEventListener('touchmove', dragHandler);
       document.removeEventListener('touchend', dragEndHandler);
       window.removeEventListener('resize', () =>
-        setIsMobile(window.innerWidth < 640),
+        setIsMobile(window.innerWidth < MOBILE_MIN_WIDTH),
       );
     };
   }, [drawingObjects, mode, window.innerWidth]);
@@ -63,6 +67,7 @@ const useKonva = ({
   // 한 번 클릭
   const clickHandler = (e: any) => {
     if (!selectBoxRef.current) return;
+    if (!stageRef.current) return;
 
     // 저장 메뉴에서는 클릭을 무시 (transformer가 저장되지 않도록 하기 위함)
     if (menu === '저장') {
@@ -77,7 +82,7 @@ const useKonva = ({
       if (clickedOnEmpty) {
         setSelectedId([]);
 
-        const pos = stageRef.current?.getPointerPosition()!;
+        const pos = stageRef.current.getPointerPosition()!;
 
         // 모바일일 때는 스케일을 고려하여 좌표를 변경
         if (isMobile) {
@@ -85,17 +90,17 @@ const useKonva = ({
           pos.y = pos.y / MOBILE_SCALE;
         }
 
-        selectBoxRef.current?.setAttrs({
+        selectBoxRef.current.setAttrs({
           x1: pos.x,
           y1: pos.y,
           x2: pos.x,
           y2: pos.y,
         });
 
-        selectBoxRef.current?.visible(true);
+        selectBoxRef.current.visible(true);
 
-        selectBoxRef.current?.width(0);
-        selectBoxRef.current?.height(0);
+        selectBoxRef.current.width(0);
+        selectBoxRef.current.height(0);
         updateSelection();
       } else {
         // 클릭한 대상이 선, 그림이고 , 현재 선택된 요소에 포함되어 있지 않을 때 해당 요소를 선택
@@ -111,7 +116,7 @@ const useKonva = ({
       drawRef.current = true;
 
       // 현재 마우스의 위치를 받아옴
-      const pos = stageRef.current?.getPointerPosition()!;
+      const pos = stageRef.current.getPointerPosition()!;
 
       if (isMobile) {
         pos.x = pos.x / MOBILE_SCALE;
@@ -212,6 +217,7 @@ const useKonva = ({
   // 드래그 종료
   const dragEndHandler = (e: any) => {
     if (!selectBoxRef.current) return;
+    if (!stageRef.current) return;
 
     if (mode === 'move') {
       // 배경을 클릭했을 때
@@ -221,10 +227,10 @@ const useKonva = ({
 
       selectBoxRef.current.visible(false);
 
-      let selected_shapes = stageRef?.current?.find('.images')!;
-      let selected_lines = stageRef?.current?.find('.lines')!;
+      let selectedImages = stageRef.current.find('.images')!;
+      let selectedLines = stageRef.current.find('.lines')!;
 
-      let contents = [...selected_shapes, ...selected_lines];
+      let contents = [...selectedImages, ...selectedLines];
 
       let box = selectBoxRef.current.getClientRect();
 
@@ -247,14 +253,15 @@ const useKonva = ({
   // selectedId가 변경될 때마다 현재 선택된 요소를 Transformer에게 전달하여 표시
   useEffect(() => {
     if (!layerRef.current) return;
+    if (!transformerRef.current) return;
 
     if (selectedId) {
       let selectedNodes = layerRef.current.children!.filter((child: any) =>
         selectedId.includes(child.attrs.id),
       );
 
-      transformerRef.current?.nodes(selectedNodes);
-      transformerRef.current?.getLayer()?.batchDraw();
+      transformerRef.current.nodes(selectedNodes);
+      transformerRef.current.getLayer()?.batchDraw();
     }
   }, [selectedId]);
 

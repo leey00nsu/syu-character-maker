@@ -1,17 +1,18 @@
 import { selectedIdState } from '@/store/store';
 import Konva from 'konva';
-import { MutableRefObject } from 'react';
+import { RefObject } from 'react';
 import { Transformer } from 'react-konva';
 import { useRecoilState } from 'recoil';
 
 interface ObjectTransformerProps {
-  transformerRef: MutableRefObject<Konva.Transformer | null>;
+  transformerRef: RefObject<Konva.Transformer>;
 }
 
 const ObjectTransformer = ({ transformerRef }: ObjectTransformerProps) => {
   const [selectedId] = useRecoilState(selectedIdState);
 
   const isBackground = selectedId.includes('background');
+
   return (
     <>
       {!isBackground && (
