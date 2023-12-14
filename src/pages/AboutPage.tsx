@@ -1,5 +1,5 @@
 import AboutHeader from '@/components/header/AboutHeader';
-import PageContainer from '@/components/ui/PageContainer';
+import PageContainer from '@/components/ui/containers/PageContainer';
 import Paragraph from '@/components/ui/Paragraph';
 
 const AboutPage = () => {

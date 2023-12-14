@@ -5,9 +5,10 @@ interface ParagraphProps {
   children: React.ReactNode;
   size: 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl';
   weight: 'light' | 'normal' | 'medium' | 'semibold' | 'bold';
+  className?: string;
 }
 
-const Paragraph = ({ children, size, weight }: ParagraphProps) => {
+const Paragraph = ({ children, size, weight, className }: ParagraphProps) => {
   let sizeClasses = '';
   let weightClasses = '';
   switch (size) {
@@ -52,7 +53,9 @@ const Paragraph = ({ children, size, weight }: ParagraphProps) => {
       break;
   }
 
-  return <p className={twMerge(sizeClasses, weightClasses)}>{children}</p>;
+  return (
+    <p className={twMerge(sizeClasses, weightClasses, className)}>{children}</p>
+  );
 };
 
 export default Paragraph;

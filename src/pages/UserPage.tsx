@@ -1,7 +1,7 @@
 import { useRecoilState } from 'recoil';
 import AboutHeader from '@/components/header/AboutHeader';
 import Avatar from '@/components/ui/Avatar';
-import PageContainer from '@/components/ui/PageContainer';
+import PageContainer from '@/components/ui/containers/PageContainer';
 import Paragraph from '@/components/ui/Paragraph';
 import useLogout from '@/hooks/auth/useLogout';
 import { userState } from '@/store/authStore';

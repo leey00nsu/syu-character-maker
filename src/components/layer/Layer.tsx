@@ -1,14 +1,12 @@
+import WindowContainer from '../ui/containers/WindowContainer';
 import LayerList from './layerList/LayerList';
 
 const Layer = () => {
   return (
-    <section className="xl:max-h-1/3 mockup-window h-[200px]  w-[360px] border  border-base-300 bg-white sm:w-[600px]  xl:h-1/3 ">
-      <p className="absolute left-2/4 top-[14px]">레이어</p>
-
-      <div className="h-full w-full overflow-y-auto pb-10 ">
-        <LayerList />
-      </div>
-    </section>
+    <WindowContainer className="h-[300px] min-h-[200px] w-[350px] bg-white sm:w-[600px]  xl:h-[28%] xl:max-h-[28%]">
+      <WindowContainer.Header>레이어</WindowContainer.Header>
+      <LayerList />
+    </WindowContainer>
   );
 };
 

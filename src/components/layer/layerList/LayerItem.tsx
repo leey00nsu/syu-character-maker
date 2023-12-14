@@ -6,6 +6,7 @@ import {
 } from '@/store/store';
 import { useRecoilState } from 'recoil';
 import { LayerDownButton, LayerUpButton } from '../buttons';
+import Paragraph from '@/components/ui/Paragraph';
 
 interface LayerItemProps {
   object: DrawingObject;
@@ -30,12 +31,14 @@ const LayerItem = ({ object, index }: LayerItemProps) => {
     <li
       className={
         isSelected
-          ? 'btn-active flex h-full w-full flex-row justify-between rounded-lg  '
-          : 'flex h-full w-full flex-row justify-between'
+          ? 'btn-active flex w-full flex-row justify-between rounded-lg  '
+          : 'flex  w-full flex-row justify-between'
       }
       onClick={clickLayerHandler.bind(this, object.id)}
     >
-      <p className="w-full">{object.id}</p>
+      <Paragraph className="w-full" size="sm" weight="normal">
+        {object.id}
+      </Paragraph>
 
       {isSelected && isSingle && (
         <>

@@ -6,6 +6,7 @@ import DrawingObjects from './DrawingObjects';
 import { DEFAULT_WIDTH, MOBILE_SCALE } from './constants/canvas';
 import { ObjectSelectBox, ObjectTransformer } from './controllers';
 import { DrawBackground } from './draws';
+import WindowContainer from '../ui/containers/WindowContainer';
 
 interface PreviewProps {
   stageRef: RefObject<Konva.Stage>;
@@ -24,8 +25,9 @@ const Preview = ({ stageRef }: PreviewProps) => {
   });
 
   return (
-    <div className="overflow-hidden rounded-2xl border border-base-300">
-      <div className="flex h-[350px] w-[350px] justify-center sm:h-[600px] sm:w-[600px]">
+    <WindowContainer className="w-[350px] sm:w-[600px]">
+      <WindowContainer.Header>미리보기</WindowContainer.Header>
+      <div className="flex h-[350px] w-full justify-center overflow-hidden sm:h-[600px] ">
         <Stage
           ref={stageRef}
           className="h-full w-full"
@@ -48,7 +50,7 @@ const Preview = ({ stageRef }: PreviewProps) => {
           </Layer>
         </Stage>
       </div>
-    </div>
+    </WindowContainer>
   );
 };
 

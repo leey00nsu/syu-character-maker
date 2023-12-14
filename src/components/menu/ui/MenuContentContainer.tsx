@@ -26,7 +26,7 @@ const Header = ({ children }: MenuContentContainerProps) => {
 
 const MenuContentContainer = ({ children }: MenuContentContainerProps) => {
   return (
-    <section className="flex w-full grow flex-col items-center justify-center border-t border-base-300 bg-white sm:flex-row">
+    <section className="flex h-full w-full flex-col items-center justify-center border-t border-base-300 bg-white sm:flex-row">
       {children}
     </section>
   );

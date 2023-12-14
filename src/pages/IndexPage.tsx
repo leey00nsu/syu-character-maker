@@ -4,7 +4,7 @@ import IndexHeader from '@/components/header/IndexHeader';
 import Layer from '@/components/layer/Layer';
 import Menu from '@/components/menu/Menu';
 import Preview from '@/components/preview/Preview';
-import PageContainer from '@/components/ui/PageContainer';
+import PageContainer from '@/components/ui/containers/PageContainer';
 
 const IndexPage = () => {
   // canvas의 정보를 가져오기 위한 ref
