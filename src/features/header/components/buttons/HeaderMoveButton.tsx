@@ -1,7 +1,9 @@
-import { HeaderToggleButton } from '@/ui/buttons';
-import { ModeState, modeState } from '@/store/canvasStore';
 import { FaExpandArrowsAlt } from 'react-icons/fa';
 import { useRecoilState } from 'recoil';
+
+import { ModeState, modeState } from '@/store/canvasStore';
+
+import { HeaderToggleButton } from '@/ui/buttons';
 
 const HeaderMoveButton = () => {
   const [mode, setMode] = useRecoilState(modeState);

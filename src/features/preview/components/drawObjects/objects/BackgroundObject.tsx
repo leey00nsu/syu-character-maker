@@ -1,6 +1,8 @@
-import { bgColorState } from '@/store/canvasStore';
 import { Rect } from 'react-konva';
 import { useRecoilState } from 'recoil';
+
+import { bgColorState } from '@/store/canvasStore';
+
 import { DEFAULT_WIDTH } from '../../../constants/canvas';
 
 const BackgroundObject = () => {

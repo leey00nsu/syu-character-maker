@@ -1,3 +1,5 @@
+import { useRecoilState } from 'recoil';
+
 import {
   DrawingObject,
   drawingObjectHistoryIndexState,
@@ -5,7 +7,6 @@ import {
   drawingObjectState,
   selectedIdState,
 } from '@/store/canvasStore';
-import { useRecoilState } from 'recoil';
 
 // 히스토리 업데이트 커스텀 훅
 const useHistoryControll = () => {

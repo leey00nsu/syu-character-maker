@@ -1,4 +1,5 @@
 import { AboutHeader } from '@/features/header';
+
 import { PageContainer } from '@/ui/containers';
 import { Paragraph } from '@/ui/texts';
 

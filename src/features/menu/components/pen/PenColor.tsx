@@ -1,7 +1,8 @@
-import { penState } from '@/store/canvasStore';
 import { useEffect } from 'react';
 import { ChromePicker, ColorResult } from 'react-color';
 import { useRecoilState } from 'recoil';
+
+import { penState } from '@/store/canvasStore';
 
 const PenColor = () => {
   const [pen, setPen] = useRecoilState(penState);

@@ -1,8 +1,11 @@
-import useObjectControll from '@/hooks/useObjectControll';
-import { DrawingObject, menuState, modeState } from '@/store/canvasStore';
 import { Image } from 'react-konva';
 import { useRecoilState } from 'recoil';
 import useImage from 'use-image';
+
+import { DrawingObject, menuState, modeState } from '@/store/canvasStore';
+
+import useObjectControll from '@/hooks/useObjectControll';
+
 import { DEFAULT_IMAGE_WIDTH } from '../../../constants/canvas';
 
 interface ImageObjectProps {

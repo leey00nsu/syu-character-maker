@@ -1,5 +1,7 @@
-import { drawingObjectState } from '@/store/canvasStore';
 import { useRecoilState } from 'recoil';
+
+import { drawingObjectState } from '@/store/canvasStore';
+
 import {
   BackgroundObject,
   CharacterObject,

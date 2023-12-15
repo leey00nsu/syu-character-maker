@@ -1,6 +1,7 @@
 import React from 'react';
 import { twMerge } from 'tailwind-merge';
-import Paragraph from '../texts/Paragraph';
+
+import { Paragraph } from '@/ui/texts';
 
 interface WindowContainerProps {
   children?: React.ReactNode;

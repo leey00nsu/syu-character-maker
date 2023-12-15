@@ -1,5 +1,6 @@
-import useObjectControll from '@/hooks/useObjectControll';
 import { FaAngleUp } from 'react-icons/fa';
+
+import useObjectControll from '@/hooks/useObjectControll';
 
 interface LayerUpButtonProps {
   index: number;

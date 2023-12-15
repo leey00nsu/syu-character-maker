@@ -1,12 +1,15 @@
+import { useRecoilState } from 'recoil';
+
 import {
   DrawingObject,
   menuState,
   modeState,
   selectedIdState,
 } from '@/store/canvasStore';
-import { useRecoilState } from 'recoil';
-import { LayerDownButton, LayerUpButton } from '../buttons';
+
 import Paragraph from '@/ui/texts/Paragraph';
+
+import { LayerDownButton, LayerUpButton } from '../buttons';
 
 interface LayerItemProps {
   object: DrawingObject;

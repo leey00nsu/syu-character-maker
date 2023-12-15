@@ -1,5 +1,6 @@
 import { Image } from 'react-konva';
 import useImage from 'use-image';
+
 import { DEFAULT_WIDTH } from '../../../constants/canvas';
 
 interface ItemObjectProps {

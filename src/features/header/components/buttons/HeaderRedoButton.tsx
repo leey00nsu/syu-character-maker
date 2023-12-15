@@ -1,6 +1,8 @@
-import { HeaderActiveButton } from '@/ui/buttons';
-import useHistoryControll from '@/hooks/useHistoryControll';
 import { FaRedoAlt } from 'react-icons/fa';
+
+import useHistoryControll from '@/hooks/useHistoryControll';
+
+import { HeaderActiveButton } from '@/ui/buttons';
 
 const HeaderUndoButton = () => {
   const { redoHistory } = useHistoryControll();

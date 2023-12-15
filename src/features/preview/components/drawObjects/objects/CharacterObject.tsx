@@ -1,7 +1,9 @@
-import { characterState, itemState } from '@/store/canvasStore';
 import { Image } from 'react-konva';
 import { useRecoilState } from 'recoil';
 import useImage from 'use-image';
+
+import { characterState, itemState } from '@/store/canvasStore';
+
 import { DEFAULT_WIDTH } from '../../../constants/canvas';
 import ItemObject from './ItemObject';
 

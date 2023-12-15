@@ -1,6 +1,9 @@
-import { ItemToggleButton } from '@/ui/buttons';
-import { characterState, itemState } from '@/store/canvasStore';
 import { useRecoilState } from 'recoil';
+
+import { characterState, itemState } from '@/store/canvasStore';
+
+import { ItemToggleButton } from '@/ui/buttons';
+
 import { SUHO_ITEMS } from './constants/suhoItems';
 import { SUYA_ITEMS } from './constants/suyaItems';
 

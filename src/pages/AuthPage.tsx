@@ -1,4 +1,5 @@
 import useValidateAuth from '@/hooks/auth/useValidateAuth';
+
 import { LoadingSpinner } from '@/ui/spinners';
 
 interface AuthPageProps {

@@ -1,16 +1,19 @@
-import { menuState } from '@/store/canvasStore';
 import Konva from 'konva';
 import { RefObject } from 'react';
 import { useRecoilState } from 'recoil';
+
+import { menuState } from '@/store/canvasStore';
+
+import { WindowContainer } from '@/ui/containers';
+
 import {
   Background,
   Decoration,
-  MenuList,
   Image,
+  MenuList,
   Pen,
   Save,
 } from './components';
-import WindowContainer from '../../ui/containers/WindowContainer';
 
 interface MenuProps {
   stageRef: RefObject<Konva.Stage>;

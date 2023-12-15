@@ -1,7 +1,9 @@
-import useObjectControll from '@/hooks/useObjectControll';
-import { selectedIdState } from '@/store/canvasStore';
 import { FaTrashAlt } from 'react-icons/fa';
 import { useRecoilState } from 'recoil';
+
+import { selectedIdState } from '@/store/canvasStore';
+
+import useObjectControll from '@/hooks/useObjectControll';
 
 const HeaderRemoveButton = () => {
   const [selectedId, setSelectedId] = useRecoilState(selectedIdState);

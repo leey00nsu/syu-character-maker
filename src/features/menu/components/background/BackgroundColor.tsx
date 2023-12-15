@@ -1,6 +1,7 @@
-import { bgColorState } from '@/store/canvasStore';
 import { ChromePicker, ColorResult } from 'react-color';
 import { useRecoilState } from 'recoil';
+
+import { bgColorState } from '@/store/canvasStore';
 
 const BackgroundColor = () => {
   const [bgColor, setBgColor] = useRecoilState(bgColorState);

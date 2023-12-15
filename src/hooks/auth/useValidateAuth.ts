@@ -1,9 +1,11 @@
+import { useQuery } from '@tanstack/react-query';
 import React, { useLayoutEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
-import { authState, userState } from '@/store/authStore';
-import { useQuery } from '@tanstack/react-query';
+
 import { getUser } from '@/apis/auth.api';
+
+import { authState, userState } from '@/store/authStore';
 
 interface UseValidateAuthProps {
   privated?: boolean;

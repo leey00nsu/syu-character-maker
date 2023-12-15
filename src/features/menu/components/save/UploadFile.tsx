@@ -1,6 +1,7 @@
-import { uploadPost } from '@/apis/post.api';
 import Konva from 'konva';
 import { RefObject } from 'react';
+
+import { uploadPost } from '@/apis/post.api';
 
 interface UploadFileProps {
   stageRef: RefObject<Konva.Stage>;

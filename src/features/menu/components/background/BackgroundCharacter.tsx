@@ -1,6 +1,8 @@
-import { RadioButton } from '@/ui/buttons';
-import { CharacterState, characterState, itemState } from '@/store/canvasStore';
 import { useRecoilState } from 'recoil';
+
+import { CharacterState, characterState, itemState } from '@/store/canvasStore';
+
+import { RadioButton } from '@/ui/buttons';
 
 const BackgroundCharacter = () => {
   const [character, setCharacter] = useRecoilState(characterState);

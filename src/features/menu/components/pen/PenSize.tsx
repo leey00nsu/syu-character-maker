@@ -1,6 +1,8 @@
-import SliderInput from '@/ui/inputs/SliderInput';
-import { penState } from '@/store/canvasStore';
 import { useRecoilState } from 'recoil';
+
+import { penState } from '@/store/canvasStore';
+
+import SliderInput from '@/ui/inputs/SliderInput';
 
 const MIN_PEN_SIZE = 1;
 const MAX_PEN_SIZE = 200;

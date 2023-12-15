@@ -1,6 +1,7 @@
-import { HeaderActiveButton } from '@/ui/buttons';
 import { FaQuestion } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
+
+import { HeaderActiveButton } from '@/ui/buttons';
 
 const HeaderAboutButton = () => {
   const navigate = useNavigate();

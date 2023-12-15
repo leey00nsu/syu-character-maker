@@ -1,8 +1,9 @@
-import { selectedIdState } from '@/store/canvasStore';
 import Konva from 'konva';
 import { RefObject } from 'react';
 import { Transformer } from 'react-konva';
 import { useRecoilState } from 'recoil';
+
+import { selectedIdState } from '@/store/canvasStore';
 
 interface ObjectTransformerProps {
   transformerRef: RefObject<Konva.Transformer>;

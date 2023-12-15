@@ -1,6 +1,8 @@
-import { MENUS } from '../../constants/menus';
-import { menuState, modeState } from '@/store/canvasStore';
 import { useRecoilState } from 'recoil';
+
+import { menuState, modeState } from '@/store/canvasStore';
+
+import { MENUS } from '../../constants/menus';
 import MenuItem from './MenuItem';
 
 const MenuList = () => {
