@@ -1,10 +1,10 @@
-import { useRecoilState } from 'recoil';
-import AboutHeader from '@/components/header/AboutHeader';
-import Avatar from '@/components/ui/Avatar';
-import PageContainer from '@/components/ui/containers/PageContainer';
-import Paragraph from '@/components/ui/Paragraph';
+import { AboutHeader } from '@/features/header';
 import useLogout from '@/hooks/auth/useLogout';
 import { userState } from '@/store/authStore';
+import { Avatar } from '@/ui/avatars';
+import { PageContainer } from '@/ui/containers';
+import { Paragraph } from '@/ui/texts';
+import { useRecoilState } from 'recoil';
 
 const UserPage = () => {
   const [user, setUser] = useRecoilState(userState);

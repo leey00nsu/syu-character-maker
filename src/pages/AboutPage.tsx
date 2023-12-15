@@ -1,6 +1,6 @@
-import AboutHeader from '@/components/header/AboutHeader';
-import PageContainer from '@/components/ui/containers/PageContainer';
-import Paragraph from '@/components/ui/Paragraph';
+import { AboutHeader } from '@/features/header';
+import { PageContainer } from '@/ui/containers';
+import { Paragraph } from '@/ui/texts';
 
 const AboutPage = () => {
   return (

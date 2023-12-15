@@ -3,7 +3,7 @@ import {
   DrawingObject,
   drawingObjectState,
   selectedIdState,
-} from '@/store/store';
+} from '@/store/canvasStore';
 import { KonvaEventObject } from 'konva/lib/Node';
 import { useRecoilState } from 'recoil';
 

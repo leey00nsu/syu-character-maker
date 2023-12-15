@@ -4,7 +4,7 @@ import {
   drawingObjectHistoryState,
   drawingObjectState,
   selectedIdState,
-} from '@/store/store';
+} from '@/store/canvasStore';
 import { useRecoilState } from 'recoil';
 
 // 히스토리 업데이트 커스텀 훅
