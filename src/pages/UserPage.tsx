@@ -4,7 +4,7 @@ import { userState } from '@/store/authStore';
 
 import useLogout from '@/hooks/auth/useLogout';
 
-import { AboutHeader } from '@/features/header';
+import { Header } from '@/features/header';
 
 import { Avatar } from '@/ui/avatars';
 import { PageContainer } from '@/ui/containers';
@@ -22,7 +22,7 @@ const UserPage = () => {
   return (
     <PageContainer>
       <PageContainer.Header>
-        <AboutHeader />
+        <Header />
       </PageContainer.Header>
 
       <PageContainer.Content>

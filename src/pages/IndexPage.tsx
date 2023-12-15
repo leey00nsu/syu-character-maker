@@ -1,7 +1,7 @@
 import Konva from 'konva';
 import { useRef } from 'react';
 
-import { IndexHeader } from '@/features/header';
+import { Header } from '@/features/header';
 import { Layer } from '@/features/layer';
 import { Menu } from '@/features/menu';
 import { Preview } from '@/features/preview';
@@ -15,7 +15,7 @@ const IndexPage = () => {
   return (
     <PageContainer>
       <PageContainer.Header>
-        <IndexHeader />
+        <Header isCanvas />
       </PageContainer.Header>
 
       <PageContainer.Content>

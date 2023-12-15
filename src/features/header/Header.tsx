@@ -1,26 +1,26 @@
+import { HeaderCanvasButtons } from './components';
 import {
   HeaderAboutButton,
   HeaderAuthButton,
-  HeaderDrawButton,
-  HeaderMoveButton,
-  HeaderRedoButton,
-  HeaderRemoveButton,
-  HeaderUndoButton,
+  HeaderBackButton,
 } from './components/buttons';
+import HeaderBoardButton from './components/buttons/HeaderBoardButton';
 import { HeaderContainer } from './components/containers';
 
-const IndexHeader = () => {
+interface HeaderProps {
+  isCanvas?: boolean;
+}
+
+const Header = ({ isCanvas }: HeaderProps) => {
   return (
     <HeaderContainer>
       <HeaderContainer.Left>
-        <HeaderDrawButton />
-        <HeaderMoveButton />
-        <HeaderUndoButton />
-        <HeaderRedoButton />
-        <HeaderRemoveButton />
+        {isCanvas && <HeaderCanvasButtons />}
+        {!isCanvas && <HeaderBackButton />}
       </HeaderContainer.Left>
 
       <HeaderContainer.Right>
+        <HeaderBoardButton />
         <HeaderAuthButton />
         <HeaderAboutButton />
       </HeaderContainer.Right>
@@ -28,4 +28,4 @@ const IndexHeader = () => {
   );
 };
 
-export default IndexHeader;
+export default Header;

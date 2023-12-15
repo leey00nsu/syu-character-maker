@@ -1,4 +1,4 @@
-import { AboutHeader } from '@/features/header';
+import { Header } from '@/features/header';
 
 import { PageContainer } from '@/ui/containers';
 import { Paragraph } from '@/ui/texts';
@@ -7,7 +7,7 @@ const AboutPage = () => {
   return (
     <PageContainer>
       <PageContainer.Header>
-        <AboutHeader />
+        <Header />
       </PageContainer.Header>
 
       <PageContainer.Content>

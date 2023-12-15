@@ -4,7 +4,7 @@ interface HeaderContainerProps {
 
 const LeftButtons = ({ children }: HeaderContainerProps) => {
   return (
-    <div className=" xs:flex-nowrap flex min-w-[216px] flex-wrap items-start  gap-2">
+    <div className=" xs:flex-nowrap flex min-w-[1/2] flex-wrap items-start  gap-2">
       {children}
     </div>
   );
