@@ -1,6 +1,6 @@
 import useValidateAuth from '@/hooks/auth/useValidateAuth';
 
-import { LoadingSpinner } from '@/ui/spinners';
+import { LoadingSpinner } from '@/ui/loadings';
 
 interface AuthPageProps {
   element: JSX.Element;

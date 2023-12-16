@@ -7,74 +7,9 @@
   font-family: 'Noto Sans KR', sans-serif;
 }
 
-/* color picker에 의해 바뀌는 커스텀 range (daisyui) */
-.color-range {
-  height: 1.5rem /* 24px */;
-  width: 100%;
-  cursor: pointer;
-  appearance: none;
-  -webkit-appearance: none;
-  overflow: hidden;
-  background-color: transparent;
-  border-radius: var(--rounded-box, 1rem);
-}
-.color-range:focus {
-  outline: none;
-}
-.color-range:focus-visible::-webkit-slider-thumb {
-  --focus-shadow: 0 0 0 6px hsl(var(--b1)) inset,
-    0 0 0 2rem hsl(var(--range-shdw)) inset;
-}
-.color-range:focus-visible::-moz-range-thumb {
-  --focus-shadow: 0 0 0 6px hsl(var(--b1)) inset,
-    0 0 0 2rem hsl(var(--range-shdw)) inset;
-}
-.color-range::-webkit-slider-runnable-track {
-  height: 0.5rem /* 8px */;
-  width: 100%;
-  border-radius: var(--rounded-box, 1rem);
-  background-color: hsla(var(--bc) / 0.1);
-}
-.color-range::-moz-range-track {
-  height: 0.5rem /* 8px */;
-  width: 100%;
-  border-radius: var(--rounded-box, 1rem);
-  background-color: hsla(var(--bc) / 0.1);
-}
-.color-range::-webkit-slider-thumb {
-  background-color: hsl(var(--b1));
-  position: relative;
-  height: 1.5rem /* 24px */;
-  width: 1.5rem /* 24px */;
-  border-style: none;
-  border-radius: var(--rounded-box, 1rem);
-  appearance: none;
-  -webkit-appearance: none;
-  top: 50%;
-  color: hsl(var(--range-shdw));
-  transform: translateY(-50%);
-  --filler-size: 100rem /* 1600px */;
-  --filler-offset: 0.6rem /* 9.6px */;
-  box-shadow:
-    0 0 0 3px hsl(var(--range-shdw)) inset,
-    var(--focus-shadow, 0 0),
-    calc(var(--filler-size) * -1 - var(--filler-offset)) 0 0 var(--filler-size);
-}
-.color-range:focus-visible::-webkit-slider-thumb::-moz-range-thumb {
-  background-color: hsl(var(--b1));
-  position: relative;
-  height: 1.5rem /* 24px */;
-  width: 1.5rem /* 24px */;
-  border-style: none;
-  border-radius: var(--rounded-box, 1rem);
-  top: 50%;
-  color: hsl(var(--range-shdw));
-  --filler-size: 100rem /* 1600px */;
-  --filler-offset: 0.5rem /* 8px */;
-  box-shadow:
-    0 0 0 3px hsl(var(--range-shdw)) inset,
-    var(--focus-shadow, 0 0),
-    calc(var(--filler-size) * -1 - var(--filler-offset)) 0 0 var(--filler-size);
+/* 슬라이더 펜 색 */
+.range {
+  --range-shdw: var(--pen-color);
 }
 
 @keyframes bounce {
@@ -90,4 +25,8 @@
 }
 .animate-custom-bounce {
   animation: bounce 1.5s infinite !important;
+}
+
+.grid-auto-rows-max {
+  grid-auto-rows: max-content;
 }

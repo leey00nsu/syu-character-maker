@@ -1,14 +1,21 @@
 import React from 'react';
-import { twMerge } from 'tailwind-merge';
+import { twJoin, twMerge } from 'tailwind-merge';
 
 interface ParagraphProps {
   children: React.ReactNode;
   size: 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl';
   weight: 'light' | 'normal' | 'medium' | 'semibold' | 'bold';
+  isEllipsis?: boolean;
   className?: string;
 }
 
-const Paragraph = ({ children, size, weight, className }: ParagraphProps) => {
+const Paragraph = ({
+  children,
+  size,
+  weight,
+  isEllipsis,
+  className,
+}: ParagraphProps) => {
   let sizeClasses = '';
   let weightClasses = '';
   switch (size) {
@@ -53,8 +60,20 @@ const Paragraph = ({ children, size, weight, className }: ParagraphProps) => {
       break;
   }
 
+  const textEllipsis =
+    'text-ellipsis max-w-full overflow-hidden whitespace-nowrap';
+
   return (
-    <p className={twMerge(sizeClasses, weightClasses, className)}>{children}</p>
+    <p
+      className={twMerge(
+        sizeClasses,
+        weightClasses,
+        className,
+        twJoin(isEllipsis && textEllipsis),
+      )}
+    >
+      {children}
+    </p>
   );
 };
 

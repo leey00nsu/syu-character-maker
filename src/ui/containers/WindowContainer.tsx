@@ -24,7 +24,7 @@ const WindowContainer = ({ children, className }: WindowContainerProps) => {
   return (
     <section
       className={twMerge(
-        'mockup-window flex shrink-0 flex-col border border-base-300 before:shrink-0',
+        'mockup-window flex flex-col border border-base-300 before:shrink-0',
         className,
       )}
     >

@@ -19,12 +19,14 @@ const IndexPage = () => {
       </PageContainer.Header>
 
       <PageContainer.Content>
-        <div className="flex w-full  items-center justify-center p-4 xl:h-full xl:w-1/2">
-          <Preview stageRef={stageRef} />
-        </div>
-        <div className="flex  w-full flex-col items-center gap-3 p-4 lg:h-full xl:w-1/2">
-          <Menu stageRef={stageRef} />
-          <Layer />
+        <div className="flex w-full h-full flex-col xl:flex-row">
+          <div className="flex w-full  items-center justify-center p-4 xl:h-full xl:w-1/2">
+            <Preview stageRef={stageRef} />
+          </div>
+          <div className="flex  w-full flex-col items-center gap-3 p-4 lg:h-full xl:w-1/2">
+            <Menu stageRef={stageRef} />
+            <Layer />
+          </div>
         </div>
       </PageContainer.Content>
     </PageContainer>

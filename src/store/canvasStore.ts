@@ -40,7 +40,6 @@ interface PenState {
   rgb: RGBColor;
   hex: string;
   alpha: number;
-  hsl: string;
 }
 
 // 펜의 색상과 굵기를 선택하는 상태
@@ -56,7 +55,6 @@ export const penState = atom<PenState>({
     },
     hex: '#000000',
     alpha: 1,
-    hsl: '0 0% 0%',
   },
   effects_UNSTABLE: [persistAtom],
 });

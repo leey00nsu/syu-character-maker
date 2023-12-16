@@ -9,7 +9,7 @@ const PenColor = () => {
 
   // 펜 색상 변경시 css 변수 변경
   useEffect(() => {
-    document.documentElement.style.setProperty('--range-shdw', pen.hsl);
+    document.documentElement.style.setProperty('--pen-color', pen.hex);
   }, [pen]);
 
   const changePenColorHandler = (color: ColorResult) => {
@@ -18,7 +18,6 @@ const PenColor = () => {
       rgb: color.rgb,
       hex: color.hex,
       alpha: color.rgb.a ?? 1,
-      hsl: `${color.hsl.h} ${color.hsl.s * 100}% ${color.hsl.l * 100}%`,
     });
   };
 

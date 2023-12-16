@@ -3,8 +3,8 @@ import {
   HeaderAboutButton,
   HeaderAuthButton,
   HeaderBackButton,
+  HeaderGalleryButton,
 } from './components/buttons';
-import HeaderBoardButton from './components/buttons/HeaderBoardButton';
 import { HeaderContainer } from './components/containers';
 
 interface HeaderProps {
@@ -20,7 +20,7 @@ const Header = ({ isCanvas }: HeaderProps) => {
       </HeaderContainer.Left>
 
       <HeaderContainer.Right>
-        <HeaderBoardButton />
+        <HeaderGalleryButton />
         <HeaderAuthButton />
         <HeaderAboutButton />
       </HeaderContainer.Right>

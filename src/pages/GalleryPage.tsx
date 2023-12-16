@@ -1,8 +1,9 @@
+import { Gallery } from '@/features/gallery';
 import { Header } from '@/features/header';
 
 import { PageContainer } from '@/ui/containers';
 
-const BoardPage = () => {
+const GalleryPage = () => {
   return (
     <PageContainer>
       <PageContainer.Header>
@@ -10,10 +11,12 @@ const BoardPage = () => {
       </PageContainer.Header>
 
       <PageContainer.Content>
-        <div>asda</div>
+        <div className="flex w-full h-full p-2">
+          <Gallery />
+        </div>
       </PageContainer.Content>
     </PageContainer>
   );
 };
 
-export default BoardPage;
+export default GalleryPage;

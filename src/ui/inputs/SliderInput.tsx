@@ -24,7 +24,7 @@ const SliderInput = ({ min, max, value, changeHandler }: SliderInputProps) => {
         max={max}
         value={value}
         onChange={changeHandler}
-        className="color-range"
+        className="range"
       />
     </div>
   );

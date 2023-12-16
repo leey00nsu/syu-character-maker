@@ -10,7 +10,7 @@ const Header = ({ children }: PageContainerProps) => {
 
 const Content = ({ children }: PageContainerProps) => {
   return (
-    <div className="xs:pt-28 flex h-screen max-h-screen w-full flex-col pt-36 xl:flex-row">
+    <div className="xs:pt-28 flex h-[100svh]  w-full flex-col pt-36 ">
       {children}
     </div>
   );
@@ -24,7 +24,7 @@ const PageContainer = ({ children }: PageContainerProps) => {
   return (
     <div
       onContextMenu={disableRightClick}
-      className="flex h-screen w-screen flex-col "
+      className="flex max-w-[100svw] flex-col"
     >
       {children}
     </div>

@@ -5,7 +5,7 @@ interface MenuContentContainerProps {
 }
 
 const Row = ({ children }: MenuContentContainerProps) => {
-  return <div className="flex h-full w-full">{children}</div>;
+  return <div className="flex  h-full w-full">{children}</div>;
 };
 
 const Column = ({ children }: MenuContentContainerProps) => {

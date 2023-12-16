@@ -3,11 +3,11 @@ import { useNavigate } from 'react-router-dom';
 
 import { HeaderActiveButton } from '@/ui/buttons';
 
-const HeaderBoardButton = () => {
+const HeaderGalleryButton = () => {
   const navigate = useNavigate();
 
   const changePageHandler = () => {
-    navigate('/board');
+    navigate('/gallery');
   };
 
   return (
@@ -17,4 +17,4 @@ const HeaderBoardButton = () => {
   );
 };
 
-export default HeaderBoardButton;
+export default HeaderGalleryButton;

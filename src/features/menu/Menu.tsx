@@ -23,7 +23,7 @@ const Menu = ({ stageRef }: MenuProps) => {
   const [menu, setMenu] = useRecoilState(menuState);
 
   return (
-    <WindowContainer className="xl:max-h-2/3 min-h-[400px] w-[350px] bg-white sm:h-[400px] sm:w-[600px] xl:h-2/3">
+    <WindowContainer className="min-h-[400px] w-[350px] bg-white sm:h-[400px] sm:w-[600px] xl:h-2/3 ">
       <WindowContainer.Header>메뉴</WindowContainer.Header>
       <MenuList />
       {menu === '꾸미기' && <Decoration />}

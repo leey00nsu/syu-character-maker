@@ -11,7 +11,7 @@ import { RecoilRoot } from 'recoil';
 import './index.css';
 import AboutPage from './pages/AboutPage';
 import AuthPage from './pages/AuthPage';
-import BoardPage from './pages/BoardPage';
+import GalleryPage from './pages/GalleryPage';
 import GoogleAuthPage from './pages/GoogleAuthPage';
 import IndexPage from './pages/IndexPage';
 import UserPage from './pages/UserPage';
@@ -38,8 +38,8 @@ const router = createBrowserRouter([
     element: <GoogleAuthPage />,
   },
   {
-    path: '/board',
-    element: <AuthPage element={<BoardPage />} />,
+    path: '/gallery',
+    element: <AuthPage element={<GalleryPage />} />,
   },
 ]);
 
