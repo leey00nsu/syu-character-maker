@@ -1,8 +1,8 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 
-import { logout } from '@/apis/auth.api';
+import { logout } from '@/apis/auth/auth.api';
 
 import { authState, userState } from '@/store/authStore';
 
@@ -12,7 +12,7 @@ const useLogout = () => {
   const queryClient = useQueryClient();
 
   const {
-    data: logoutData,
+    data: response,
     isError,
     error,
     mutateAsync,
@@ -26,8 +26,9 @@ const useLogout = () => {
     if (isError) {
       console.log(error);
     }
-    if (logoutData) {
-      if (logoutData.statusCode === 200) {
+    if (response) {
+      if (response.statusCode === 200) {
+        console.log('logout');
         queryClient.removeQueries({ queryKey: ['validateAuth'] });
         setAuth(false);
         setUser({
@@ -36,10 +37,10 @@ const useLogout = () => {
           photo: '',
         });
       } else {
-        console.log(logoutData.message);
+        console.log(response.message);
       }
     }
-  }, [isError, logoutData]);
+  }, [isError, response]);
 
   return mutateAsync;
 };

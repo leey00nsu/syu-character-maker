@@ -10,7 +10,7 @@ const Header = ({ children }: PageContainerProps) => {
 
 const Content = ({ children }: PageContainerProps) => {
   return (
-    <div className="xs:pt-28 flex h-[100svh]  w-full flex-col pt-36 ">
+    <div className="xs:pt-28 flex h-[100svh] w-full flex-col pt-36 ">
       {children}
     </div>
   );

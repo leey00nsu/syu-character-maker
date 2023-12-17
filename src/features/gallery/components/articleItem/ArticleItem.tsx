@@ -3,14 +3,14 @@ import { Card } from '@/ui/cards';
 import { Image } from '@/ui/images';
 import { Paragraph } from '@/ui/texts';
 
-interface PostItemProps {
+interface ArticleItemProps {
   imgUrl: string;
   likeCount: number;
   author: string;
   isLiked: boolean;
 }
 
-const PostItem = ({ imgUrl, author, likeCount, isLiked }: PostItemProps) => {
+const ArticleItem = ({ imgUrl, author, likeCount, isLiked }: ArticleItemProps) => {
   const toggleLikeHandler = () => {};
   return (
     <Card>
@@ -36,4 +36,4 @@ const PostItem = ({ imgUrl, author, likeCount, isLiked }: PostItemProps) => {
   );
 };
 
-export default PostItem;
+export default ArticleItem;

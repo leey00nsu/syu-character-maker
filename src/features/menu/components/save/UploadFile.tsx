@@ -1,7 +1,7 @@
 import Konva from 'konva';
 import { RefObject } from 'react';
 
-import { uploadPost } from '@/apis/post.api';
+import { uploadArticle } from '@/apis/article/article.api';
 
 interface UploadFileProps {
   stageRef: RefObject<Konva.Stage>;
@@ -25,7 +25,7 @@ const UploadFile = ({ stageRef }: UploadFileProps) => {
     const formData = new FormData();
     formData.append('file', blob);
 
-    const response = await uploadPost(formData);
+    const response = await uploadArticle(formData);
 
     Konva.autoDrawEnabled = true;
   };

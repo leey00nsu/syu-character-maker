@@ -1,9 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
-import React, { useLayoutEffect } from 'react';
+import { useLayoutEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 
-import { getUser } from '@/apis/auth.api';
+import { getUser } from '@/apis/auth/auth.api';
 
 import { authState, userState } from '@/store/authStore';
 
@@ -17,7 +17,7 @@ const useValidateAuth = ({ privated, element }: UseValidateAuthProps) => {
   const [auth, setAuth] = useRecoilState(authState);
   const [user, setUser] = useRecoilState(userState);
 
-  const { data: userData, isLoading } = useQuery({
+  const { data: response, isLoading } = useQuery({
     queryKey: ['validateAuth'],
     queryFn: getUser,
     retry: false,
@@ -26,9 +26,9 @@ const useValidateAuth = ({ privated, element }: UseValidateAuthProps) => {
 
   useLayoutEffect(() => {
     if (!isLoading) {
-      if (userData && userData.statusCode === 200) {
+      if (response && response.data && response.statusCode === 200) {
         setAuth(true);
-        setUser(userData.user);
+        setUser(response.data);
       } else {
         if (privated) {
           navigate('/');

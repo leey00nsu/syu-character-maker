@@ -1,2 +1,2 @@
-export { default as PostItem } from './postItem/PostItem';
-export { default as PostList } from './postList/PostList';
+export { default as ArticleItem } from './articleItem/ArticleItem';
+export { default as ArticleList } from './articleList/ArticleList';

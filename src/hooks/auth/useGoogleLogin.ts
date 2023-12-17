@@ -1,9 +1,9 @@
-import { useMutation, useQuery } from '@tanstack/react-query';
-import React, { useEffect } from 'react';
+import { useMutation } from '@tanstack/react-query';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 
-import { googleLoginWithCode } from '@/apis/auth.api';
+import { googleLoginWithCode } from '@/apis/auth/auth.api';
 
 import { authState, userState } from '@/store/authStore';
 
@@ -13,7 +13,7 @@ const useGoogleLogin = () => {
   const [user, setUser] = useRecoilState(userState);
 
   const {
-    data: loginData,
+    data: response,
     isError,
     error,
     mutateAsync,
@@ -28,16 +28,16 @@ const useGoogleLogin = () => {
       console.log(error);
       navigate('/');
     }
-    if (loginData) {
-      if (loginData.statusCode === 200) {
+    if (response) {
+      if (response.statusCode === 200 && response.data) {
         setAuth(true);
-        setUser(loginData.user);
+        setUser(response.data);
         navigate('/');
       } else {
-        console.log(loginData.message);
+        console.log(response.message);
       }
     }
-  }, [isError, loginData]);
+  }, [isError, response]);
 
   return mutateAsync;
 };
