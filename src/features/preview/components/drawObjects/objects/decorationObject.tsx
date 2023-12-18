@@ -1,12 +1,12 @@
 import { Image } from 'react-konva';
 import useImage from 'use-image';
 
-import { DrawingObject } from '@/store/canvasStore';
+import { CanvasObject } from '@/store/canvasStore';
 
-import { DEFAULT_WIDTH } from '../../../constants/canvas';
+import { DEFAULT_WIDTH } from '@/features/preview/constants/canvas';
 
 interface DecorationObjectProps {
-  object: DrawingObject;
+  object: CanvasObject;
 }
 
 const DecorationObject = ({ object }: DecorationObjectProps) => {

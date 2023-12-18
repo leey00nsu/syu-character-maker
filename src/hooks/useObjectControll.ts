@@ -2,9 +2,9 @@ import { KonvaEventObject } from 'konva/lib/Node';
 import { useRecoilState } from 'recoil';
 
 import {
-  DrawingObject,
-  drawingObjectState,
-  selectedObjectIdState,
+  CanvasObject,
+  canvasObjectsState,
+  selectedObjectIdsState,
 } from '@/store/canvasStore';
 
 import useHistoryControll from '@/hooks/useHistoryControll';
@@ -14,17 +14,16 @@ import { IMMUTABLE_OBJECTS } from '@/features/preview/constants/canvas';
 
 // 오브젝트 컨트롤 커스텀 훅
 const useObjectControll = () => {
-  const [selectedObjectId, setSelectedObjectId] = useRecoilState(
-    selectedObjectIdState,
+  const [selectedObjectIds, setSelectedObjectIds] = useRecoilState(
+    selectedObjectIdsState,
   );
-  const [drawingObjects, setDrawingObjects] =
-    useRecoilState(drawingObjectState);
+  const [canvasObjects, setCanvasObjects] = useRecoilState(canvasObjectsState);
 
   const { updateHistory } = useHistoryControll();
 
   // 새로운 선 추가
-  const addLine = (line: Partial<DrawingObject>) => {
-    setDrawingObjects(prev => [
+  const addLine = (line: Partial<CanvasObject>) => {
+    setCanvasObjects(prev => [
       ...prev,
       {
         name: 'line',
@@ -47,8 +46,8 @@ const useObjectControll = () => {
 
   // 선의 좌표를 업데이트
   const updateLine = (x: number, y: number) => {
-    const newObjects = drawingObjects.map((object, index) => {
-      if (index === drawingObjects.length - 1) {
+    const newCanvasObjects = canvasObjects.map((object, index) => {
+      if (index === canvasObjects.length - 1) {
         return {
           ...object,
           points: [...object.points!, x, y],
@@ -57,14 +56,14 @@ const useObjectControll = () => {
       return object;
     });
 
-    setDrawingObjects(newObjects);
+    setCanvasObjects(newCanvasObjects);
   };
 
   // 새로운 이미지 추가
-  const addImage = (image: Partial<DrawingObject>) => {
+  const addImage = (image: Partial<CanvasObject>) => {
     const newImage = {
       name: 'image',
-      id: `이미지 ${drawingObjects.length}`,
+      id: `이미지 ${canvasObjects.length}`,
       url: image.url,
       x: 50,
       y: 50,
@@ -72,12 +71,12 @@ const useObjectControll = () => {
       scaleY: 1,
       skewX: 0,
       skewY: 0,
-      z: drawingObjects.length,
+      z: canvasObjects.length,
       opacity: 1,
     };
-    const newObjects = [...drawingObjects, newImage];
-    setDrawingObjects(newObjects);
-    updateHistory(newObjects);
+    const newCanvasObjects = [...canvasObjects, newImage];
+    setCanvasObjects(newCanvasObjects);
+    updateHistory(newCanvasObjects);
   };
 
   // 꾸미기 아이템 추가
@@ -86,37 +85,38 @@ const useObjectControll = () => {
       name: 'decoration',
       id: decoration.item,
       url: decoration.url,
-      z: drawingObjects.length,
+      z: canvasObjects.length,
     };
-    const newObjects = [...drawingObjects, newImage];
-    setDrawingObjects(newObjects);
-    updateHistory(newObjects);
+    const newCanvasObjects = [...canvasObjects, newImage];
+    setCanvasObjects(newCanvasObjects);
+    updateHistory(newCanvasObjects);
   };
 
   // 꾸미기 오브젝트 삭제
   const removeDecoration = (decoration: Decoration) => {
-    const newDrawingObjects = drawingObjects.filter(
-      drawingObject => drawingObject.id !== decoration.item,
+    const newCanvasObjects = canvasObjects.filter(
+      canvasObject => canvasObject.id !== decoration.item,
     );
-    setDrawingObjects(newDrawingObjects);
-    setSelectedObjectId([]);
-    updateHistory(newDrawingObjects);
+    setCanvasObjects(newCanvasObjects);
+    setSelectedObjectIds([]);
+    updateHistory(newCanvasObjects);
   };
 
   // 선택된 오브젝트 삭제
   const removeObject = () => {
-    const newDrawingObjects = drawingObjects.filter(
-      drawingObject => !selectedObjectId.includes(drawingObject.id),
+    const newCanvasObjects = canvasObjects.filter(
+      canvasObject => !selectedObjectIds.includes(canvasObject.id),
     );
-    setDrawingObjects(newDrawingObjects);
-    setSelectedObjectId([]);
-    updateHistory(newDrawingObjects);
+    setCanvasObjects(newCanvasObjects);
+    setSelectedObjectIds([]);
+    updateHistory(newCanvasObjects);
   };
 
   // 오브젝트 상태 업데이트
   const transformObject = (e: KonvaEventObject<any>) => {
     const { x, y, id, scaleX, scaleY, skewX, skewY, rotation } = e.target.attrs;
-    const newObjects: DrawingObject[] = drawingObjects.map(object => {
+
+    const newCanvasObjects: CanvasObject[] = canvasObjects.map(object => {
       if (object.id === id) {
         return {
           ...object,
@@ -133,37 +133,37 @@ const useObjectControll = () => {
       }
     });
 
-    setDrawingObjects(newObjects);
+    setCanvasObjects(newCanvasObjects);
 
     // 현재 선택된 오브젝트 중에서 가장 마지막의 오브젝트가 변경되었을 때 히스토리에 저장
     // (현재 선택된 오브젝트가 여러개일 수 있기 때문에 히스토리가 중복되는 것을 방지하기 위함)
-    if (id === selectedObjectId.at(-1)) {
-      updateHistory(newObjects);
+    if (id === selectedObjectIds.at(-1)) {
+      updateHistory(newCanvasObjects);
     }
   };
 
   // 오브젝트의 인덱스 변경
   const changeObjectIndex = (index: number, direction: string) => {
     if (direction === 'up' && index !== 0) {
-      const newObjects = [...drawingObjects].reverse();
-      const temp = newObjects[index - 1];
-      newObjects[index - 1] = newObjects[index];
-      newObjects[index] = temp;
-      newObjects.reverse();
+      const newCanvasObjects = [...canvasObjects].reverse();
+      const temp = newCanvasObjects[index - 1];
+      newCanvasObjects[index - 1] = newCanvasObjects[index];
+      newCanvasObjects[index] = temp;
+      newCanvasObjects.reverse();
 
-      setDrawingObjects(newObjects);
-      updateHistory(newObjects);
+      setCanvasObjects(newCanvasObjects);
+      updateHistory(newCanvasObjects);
     }
 
-    if (direction === 'down' && index !== drawingObjects.length - 1) {
-      const newObjects = [...drawingObjects].reverse();
-      const temp = newObjects[index + 1];
-      newObjects[index + 1] = newObjects[index];
-      newObjects[index] = temp;
-      newObjects.reverse();
+    if (direction === 'down' && index !== canvasObjects.length - 1) {
+      const newCanvasObjects = [...canvasObjects].reverse();
+      const temp = newCanvasObjects[index + 1];
+      newCanvasObjects[index + 1] = newCanvasObjects[index];
+      newCanvasObjects[index] = temp;
+      newCanvasObjects.reverse();
 
-      setDrawingObjects(newObjects);
-      updateHistory(newObjects);
+      setCanvasObjects(newCanvasObjects);
+      updateHistory(newCanvasObjects);
     }
   };
 
@@ -172,42 +172,42 @@ const useObjectControll = () => {
     const imageUrl = character === '수호' ? '/suho.png' : '/suya.png';
 
     // 캐릭터 변경 시 기존 캐릭터의 이미지를 변경 및 꾸미기 아이템 삭제
-    const newDrawingObjects = drawingObjects
-      .map(drawingObject => {
-        if (drawingObject.name === 'character') {
+    const newCanvasObjects = canvasObjects
+      .map(canvasObject => {
+        if (canvasObject.name === 'character') {
           return {
-            ...drawingObject,
+            ...canvasObject,
             id: character,
             url: imageUrl,
           };
         }
-        return drawingObject;
+        return canvasObject;
       })
-      .filter(drawingObject => drawingObject.name !== 'decoration');
+      .filter(canvasObject => canvasObject.name !== 'decoration');
 
-    setDrawingObjects(newDrawingObjects);
-    setSelectedObjectId([]);
-    updateHistory(newDrawingObjects);
+    setCanvasObjects(newCanvasObjects);
+    setSelectedObjectIds([]);
+    updateHistory(newCanvasObjects);
   };
 
   // 모든 꾸미기 아이템 삭제
   const clearAllDecorations = () => {
-    const newDrawingObjects = drawingObjects.filter(
-      drawingObject => drawingObject.name !== 'decoration',
+    const newCanvasObjects = canvasObjects.filter(
+      canvasObject => canvasObject.name !== 'decoration',
     );
-    setDrawingObjects(newDrawingObjects);
-    setSelectedObjectId([]);
-    updateHistory(newDrawingObjects);
+    setCanvasObjects(newCanvasObjects);
+    setSelectedObjectIds([]);
+    updateHistory(newCanvasObjects);
   };
 
   // 모든 선, 이미지 삭제
-  const clearAllDrawingObjects = () => {
-    const newDrawingObjects = drawingObjects.filter(drawingObject =>
-      IMMUTABLE_OBJECTS.includes(drawingObject.name),
+  const clearAllcanvasObjects = () => {
+    const newCanvasObjects = canvasObjects.filter(canvasObject =>
+      IMMUTABLE_OBJECTS.includes(canvasObject.name),
     );
-    setDrawingObjects(newDrawingObjects);
-    setSelectedObjectId([]);
-    updateHistory(newDrawingObjects);
+    setCanvasObjects(newCanvasObjects);
+    setSelectedObjectIds([]);
+    updateHistory(newCanvasObjects);
   };
 
   return {
@@ -220,7 +220,7 @@ const useObjectControll = () => {
     transformObject,
     changeObjectIndex,
     clearAllDecorations,
-    clearAllDrawingObjects,
+    clearAllcanvasObjects,
     changeCharacter,
   };
 };

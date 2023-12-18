@@ -1,12 +1,12 @@
 import { Line } from 'react-konva';
 import { useRecoilState } from 'recoil';
 
-import { DrawingObject, menuState, modeState } from '@/store/canvasStore';
+import { CanvasObject, menuState, modeState } from '@/store/canvasStore';
 
 import useObjectControll from '@/hooks/useObjectControll';
 
 interface DrawObjectProps {
-  object: DrawingObject;
+  object: CanvasObject;
   objectSelectHandler: (id: string) => void;
 }
 

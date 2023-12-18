@@ -1,10 +1,10 @@
 import { useRecoilState } from 'recoil';
 
 import {
-  DrawingObject,
+  CanvasObject,
   menuState,
   modeState,
-  selectedObjectIdState,
+  selectedObjectIdsState,
 } from '@/store/canvasStore';
 
 import Paragraph from '@/ui/texts/Paragraph';
@@ -12,23 +12,25 @@ import Paragraph from '@/ui/texts/Paragraph';
 import { LayerDownButton, LayerUpButton } from '../buttons';
 
 interface LayerItemProps {
-  object: DrawingObject;
+  object: CanvasObject;
   index: number;
 }
 const LayerItem = ({ object, index }: LayerItemProps) => {
   const [menu, setMenu] = useRecoilState(menuState);
   const [mode, setMode] = useRecoilState(modeState);
-  const [selectedObjectId, setSelectedObjectId] = useRecoilState(selectedObjectIdState);
+  const [selectedObjectIds, setSelectedObjectIds] = useRecoilState(
+    selectedObjectIdsState,
+  );
 
   const clickLayerHandler = (objectId: string) => {
     if (menu !== '저장') {
-      setSelectedObjectId([objectId]);
+      setSelectedObjectIds([objectId]);
       setMode('move');
     }
   };
 
-  const isSelected = selectedObjectId.includes(object.id);
-  const isSingle = selectedObjectId.length === 1;
+  const isSelected = selectedObjectIds.includes(object.id);
+  const isSingle = selectedObjectIds.length === 1;
 
   return (
     <li

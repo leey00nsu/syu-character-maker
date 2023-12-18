@@ -1,16 +1,18 @@
 import React from 'react';
 import { useRecoilState } from 'recoil';
 
-import { drawingObjectState, selectedObjectIdState } from '@/store/canvasStore';
+import {
+  canvasObjectsState,
+  selectedObjectIdsState,
+} from '@/store/canvasStore';
 
 const HeaderAlphaButton = () => {
-  const [drawingObjects, setdrawingObjects] =
-    useRecoilState(drawingObjectState);
-  const [selectedObjectId] = useRecoilState(selectedObjectIdState);
+  const [canvasObjects, setCanvasObjects] = useRecoilState(canvasObjectsState);
+  const [selectedObjectIds] = useRecoilState(selectedObjectIdsState);
 
   const changeOpacityHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newObject = [...drawingObjects].map(object => {
-      if (object.id === selectedObjectId[0]) {
+    const newObject = [...canvasObjects].map(object => {
+      if (object.id === selectedObjectIds[0]) {
         return {
           ...object,
           opacity: Number(e.target.value),
@@ -18,17 +20,17 @@ const HeaderAlphaButton = () => {
       }
       return object;
     });
-    setdrawingObjects(newObject);
+    setCanvasObjects(newObject);
   };
 
-  const selectedObject = drawingObjects.filter(
-    object => object.id === selectedObjectId[0],
+  const selectedObject = canvasObjects.filter(
+    object => object.id === selectedObjectIds[0],
   )[0];
 
   return (
     <>
-      {selectedObjectId.length === 1 &&
-        selectedObjectId[0] !== 'background' && (
+      {selectedObjectIds.length === 1 &&
+        selectedObjectIds[0] !== 'background' && (
           <div className="flex flex-col items-center">
             <p>투명도</p>
             <input

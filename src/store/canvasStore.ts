@@ -66,7 +66,7 @@ export const modeState = atom<ModeState>({
   default: 'move',
 });
 
-export interface DrawingObject {
+export interface CanvasObject {
   name: string;
   id: string;
   x?: number;
@@ -84,8 +84,8 @@ export interface DrawingObject {
   opacity?: number;
 }
 
-export const drawingObjectState = atom<DrawingObject[]>({
-  key: 'drawingObjectState',
+export const canvasObjectsState = atom<CanvasObject[]>({
+  key: 'canvasObjectsState',
   default: [
     {
       name: 'character',
@@ -97,13 +97,13 @@ export const drawingObjectState = atom<DrawingObject[]>({
   effects_UNSTABLE: [persistAtom],
 });
 
-export const selectedObjectIdState = atom<string[]>({
-  key: 'selectedObjectIdState',
+export const selectedObjectIdsState = atom<string[]>({
+  key: 'selectedObjectsIdsState',
   default: [],
 });
 
-export const drawingObjectHistoryState = atom<DrawingObject[][]>({
-  key: 'drawingObjectHistoryState',
+export const canvasObjectHistoryState = atom<CanvasObject[][]>({
+  key: 'canvasObjectHistoryState',
   default: [
     [
       {
@@ -117,8 +117,8 @@ export const drawingObjectHistoryState = atom<DrawingObject[][]>({
   effects_UNSTABLE: [persistAtom],
 });
 
-export const drawingObjectHistoryIndexState = atom<number>({
-  key: 'drawingObjectHistoryIndexState',
+export const canvasObjectHistoryIndexState = atom<number>({
+  key: 'canvasObjectHistoryIndexState',
   default: 0,
   effects_UNSTABLE: [persistAtom],
 });

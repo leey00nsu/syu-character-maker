@@ -1,6 +1,6 @@
 import { useRecoilState } from 'recoil';
 
-import { drawingObjectState } from '@/store/canvasStore';
+import { canvasObjectsState } from '@/store/canvasStore';
 
 import {
   BackgroundObject,
@@ -15,12 +15,12 @@ interface DrawObjectsProps {
 }
 
 const DrawObjects = ({ objectSelectHandler }: DrawObjectsProps) => {
-  const [drawingObjects] = useRecoilState(drawingObjectState);
+  const [canvasObjects] = useRecoilState(canvasObjectsState);
 
   return (
     <>
       <BackgroundObject />
-      {drawingObjects.map(object => {
+      {canvasObjects.map(object => {
         if (object.name === 'character') {
           return <CharacterObject object={object} key={object.id} />;
         }

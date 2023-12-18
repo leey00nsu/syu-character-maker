@@ -1,45 +1,45 @@
 import { useRecoilState } from 'recoil';
 
 import {
-  DrawingObject,
-  drawingObjectHistoryIndexState,
-  drawingObjectHistoryState,
-  drawingObjectState,
-  selectedObjectIdState,
+  CanvasObject,
+  canvasObjectHistoryIndexState,
+  canvasObjectHistoryState,
+  canvasObjectsState,
+  selectedObjectIdsState,
 } from '@/store/canvasStore';
 
 // 히스토리 업데이트 커스텀 훅
 const useHistoryControll = () => {
-  const [, setDrawingObjects] = useRecoilState(drawingObjectState);
-  const [, setSelectedObjectId] = useRecoilState(selectedObjectIdState);
-  const [drawingObjectHistory, setDrawingObjectHistory] = useRecoilState(
-    drawingObjectHistoryState,
+  const [, setCanvasObjects] = useRecoilState(canvasObjectsState);
+  const [, setSelectedObjectId] = useRecoilState(selectedObjectIdsState);
+  const [canvasObjectHistory, setCanvasObjectHistory] = useRecoilState(
+    canvasObjectHistoryState,
   );
-  const [drawingObjectHistoryIndex, setDrawingObjectHistoryIndex] =
-    useRecoilState(drawingObjectHistoryIndexState);
+  const [canvasObjectHistoryIndex, setCanvasObjectHistoryIndex] =
+    useRecoilState(canvasObjectHistoryIndexState);
 
-  // drawingObjectHistory에 변경 내역 최대 20개까지 저장
-  const updateHistory = (newObject: DrawingObject[]) => {
-    const newHistory = [...drawingObjectHistory.slice(-19), newObject];
-    setDrawingObjectHistory(newHistory);
-    setDrawingObjectHistoryIndex(newHistory.length - 1);
+  // canvasObjectHistory에 변경 내역 최대 20개까지 저장
+  const updateHistory = (newObject: CanvasObject[]) => {
+    const newHistory = [...canvasObjectHistory.slice(-19), newObject];
+    setCanvasObjectHistory(newHistory);
+    setCanvasObjectHistoryIndex(newHistory.length - 1);
   };
 
   const undoHistory = () => {
-    if (drawingObjectHistoryIndex > 0) {
+    if (canvasObjectHistoryIndex > 0) {
       setSelectedObjectId([]);
-      const prevHistory = drawingObjectHistory[drawingObjectHistoryIndex - 1];
-      setDrawingObjectHistoryIndex(prev => prev - 1);
-      setDrawingObjects(prevHistory);
+      const prevHistory = canvasObjectHistory[canvasObjectHistoryIndex - 1];
+      setCanvasObjectHistoryIndex(prev => prev - 1);
+      setCanvasObjects(prevHistory);
     }
   };
 
   const redoHistory = () => {
-    if (drawingObjectHistoryIndex < drawingObjectHistory.length - 1) {
+    if (canvasObjectHistoryIndex < canvasObjectHistory.length - 1) {
       setSelectedObjectId([]);
-      const nextHistory = drawingObjectHistory[drawingObjectHistoryIndex + 1];
-      setDrawingObjectHistoryIndex(prev => prev + 1);
-      setDrawingObjects(nextHistory);
+      const nextHistory = canvasObjectHistory[canvasObjectHistoryIndex + 1];
+      setCanvasObjectHistoryIndex(prev => prev + 1);
+      setCanvasObjects(nextHistory);
     }
   };
 

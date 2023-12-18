@@ -3,7 +3,7 @@ import { useRecoilState } from 'recoil';
 
 import { bgColorState } from '@/store/canvasStore';
 
-import { DEFAULT_WIDTH } from '../../../constants/canvas';
+import { DEFAULT_WIDTH } from '@/features/preview/constants/canvas';
 
 const BackgroundObject = () => {
   const [bgColor] = useRecoilState(bgColorState);

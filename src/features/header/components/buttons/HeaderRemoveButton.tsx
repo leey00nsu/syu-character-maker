@@ -1,20 +1,23 @@
 import { FaTrashAlt } from 'react-icons/fa';
 import { useRecoilState } from 'recoil';
 
-import { drawingObjectState, selectedObjectIdState } from '@/store/canvasStore';
+import {
+  canvasObjectsState,
+  selectedObjectIdsState,
+} from '@/store/canvasStore';
 
 import useObjectControll from '@/hooks/useObjectControll';
 
 import { MUTABLE_OBJECTS } from '@/features/preview/constants/canvas';
 
 const HeaderRemoveButton = () => {
-  const [drawingObjects] = useRecoilState(drawingObjectState);
-  const [selectedObjectId] = useRecoilState(selectedObjectIdState);
+  const [canvasObjects] = useRecoilState(canvasObjectsState);
+  const [selectedObjectIds] = useRecoilState(selectedObjectIdsState);
 
   const { removeObject } = useObjectControll();
 
-  const selectedObject = selectedObjectId
-    .map(id => drawingObjects.find(object => object.id === id))
+  const selectedObject = selectedObjectIds
+    .map(id => canvasObjects.find(object => object.id === id))
     .filter(object => object !== undefined);
 
   const isRemovable =
