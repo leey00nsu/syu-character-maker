@@ -142,6 +142,7 @@ const useObjectControll = () => {
     }
   };
 
+  // 오브젝트의 인덱스 변경
   const changeObjectIndex = (index: number, direction: string) => {
     if (direction === 'up' && index !== 0) {
       const newObjects = [...drawingObjects].reverse();
@@ -149,18 +150,44 @@ const useObjectControll = () => {
       newObjects[index - 1] = newObjects[index];
       newObjects[index] = temp;
       newObjects.reverse();
-      setDrawingObjects([...newObjects]);
+
+      setDrawingObjects(newObjects);
       updateHistory(newObjects);
     }
+
     if (direction === 'down' && index !== drawingObjects.length - 1) {
       const newObjects = [...drawingObjects].reverse();
       const temp = newObjects[index + 1];
       newObjects[index + 1] = newObjects[index];
       newObjects[index] = temp;
       newObjects.reverse();
-      setDrawingObjects([...newObjects]);
+
+      setDrawingObjects(newObjects);
       updateHistory(newObjects);
     }
+  };
+
+  // 캐릭터 변경
+  const changeCharacter = (character: string) => {
+    const imageUrl = character === '수호' ? '/suho.png' : '/suya.png';
+
+    // 캐릭터 변경 시 기존 캐릭터의 이미지를 변경 및 꾸미기 아이템 삭제
+    const newDrawingObjects = drawingObjects
+      .map(drawingObject => {
+        if (drawingObject.name === 'character') {
+          return {
+            ...drawingObject,
+            id: character,
+            url: imageUrl,
+          };
+        }
+        return drawingObject;
+      })
+      .filter(drawingObject => drawingObject.name !== 'decoration');
+
+    setDrawingObjects(newDrawingObjects);
+    setSelectedObjectId([]);
+    updateHistory(newDrawingObjects);
   };
 
   // 모든 꾸미기 아이템 삭제
@@ -194,6 +221,7 @@ const useObjectControll = () => {
     changeObjectIndex,
     clearAllDecorations,
     clearAllDrawingObjects,
+    changeCharacter,
   };
 };
 

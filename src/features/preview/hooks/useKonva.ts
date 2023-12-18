@@ -36,11 +36,10 @@ const useKonva = ({
   const [selectedObjectId, setSelectedObjectId] = useRecoilState(
     selectedObjectIdState,
   );
-  const [drawingObjects, setDrawingObjects] =
-    useRecoilState(drawingObjectState);
-  const [pen, setPen] = useRecoilState(penState);
-  const [menu, setMenu] = useRecoilState(menuState);
-  const [mode, setMode] = useRecoilState(modeState);
+  const [drawingObjects] = useRecoilState(drawingObjectState);
+  const [pen] = useRecoilState(penState);
+  const [menu] = useRecoilState(menuState);
+  const [mode] = useRecoilState(modeState);
   const [isMobile, setIsMobile] = useState(
     window.innerWidth <= MOBILE_MIN_WIDTH,
   );
@@ -82,9 +81,7 @@ const useKonva = ({
     }
     if (mode === 'move') {
       // 움직일 수 없는 오브젝트를 클릭했을 때
-      const clickedOnEmpty = IMMUTABLE_OBJECTS.includes(
-        e.target.getName(),
-      );
+      const clickedOnEmpty = IMMUTABLE_OBJECTS.includes(e.target.getName());
 
       if (clickedOnEmpty) {
         setSelectedObjectId([]);
@@ -112,7 +109,7 @@ const useKonva = ({
       } else {
         const isSelectable = MUTABLE_OBJECTS.includes(e.target.getName());
         const isSelected = selectedObjectId.includes(e.target.getId());
-        
+
         // 클릭한 대상이 선, 그림이고 , 현재 선택된 요소에 포함되어 있지 않을 때 해당 요소를 선택
         if (isSelectable && !isSelected) {
           setSelectedObjectId([e.target.getId()]);

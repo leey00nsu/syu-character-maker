@@ -4,15 +4,6 @@ import { recoilPersist } from 'recoil-persist';
 
 const { persistAtom } = recoilPersist();
 
-export type CharacterState = '수호' | '수야';
-
-// 백그라운드 캐릭터를 선택하는 상태
-export const characterState = atom<CharacterState>({
-  key: 'characterState',
-  default: '수호',
-  effects_UNSTABLE: [persistAtom],
-});
-
 interface BgColorState {
   rgb: RGBColor;
   hex: string;
@@ -98,7 +89,8 @@ export const drawingObjectState = atom<DrawingObject[]>({
   default: [
     {
       name: 'character',
-      id: '캐릭터',
+      id: '수호',
+      url: '/suho.png',
       z: 1,
     },
   ],
@@ -116,7 +108,8 @@ export const drawingObjectHistoryState = atom<DrawingObject[][]>({
     [
       {
         name: 'character',
-        id: '캐릭터',
+        id: '수호',
+        url: '/suho.png',
         z: 1,
       },
     ],

@@ -18,9 +18,9 @@ const useHistoryControll = () => {
   const [drawingObjectHistoryIndex, setDrawingObjectHistoryIndex] =
     useRecoilState(drawingObjectHistoryIndexState);
 
-  // drawingObjectHistory에 변경 내역 최대 10개까지 저장
+  // drawingObjectHistory에 변경 내역 최대 20개까지 저장
   const updateHistory = (newObject: DrawingObject[]) => {
-    const newHistory = [...drawingObjectHistory.slice(-9), newObject];
+    const newHistory = [...drawingObjectHistory.slice(-19), newObject];
     setDrawingObjectHistory(newHistory);
     setDrawingObjectHistoryIndex(newHistory.length - 1);
   };

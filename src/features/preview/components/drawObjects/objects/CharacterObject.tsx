@@ -1,8 +1,7 @@
 import { Image } from 'react-konva';
-import { useRecoilState } from 'recoil';
 import useImage from 'use-image';
 
-import { DrawingObject, characterState } from '@/store/canvasStore';
+import { DrawingObject } from '@/store/canvasStore';
 
 import { DEFAULT_WIDTH } from '../../../constants/canvas';
 
@@ -11,16 +10,13 @@ interface CharacterObjectProps {
 }
 
 const CharacterObject = ({ object }: CharacterObjectProps) => {
-  const [character, setCharacter] = useRecoilState(characterState);
-
-  const [characterImage] =
-    character === '수야' ? useImage('/suya.png') : useImage('/suho.png');
+  const [image] = useImage(object.url || '');
 
   return (
     <Image
       x={50} // 이미지를 중앙에 위치시키기 위해 50px을 더해줌
       y={50}
-      image={characterImage}
+      image={image}
       id={object.id}
       opacity={1}
       name={object.name}

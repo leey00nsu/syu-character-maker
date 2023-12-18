@@ -1,7 +1,8 @@
 import { useRecoilState } from 'recoil';
 
-import { characterState, drawingObjectState } from '@/store/canvasStore';
+import { drawingObjectState } from '@/store/canvasStore';
 
+import useCharacter from '@/hooks/useCharacter';
 import useObjectControll from '@/hooks/useObjectControll';
 
 import { ItemToggleButton } from '@/ui/buttons';
@@ -15,9 +16,9 @@ interface DecorationListProps {
 }
 
 const DecorationList = ({ part }: DecorationListProps) => {
+  const { character } = useCharacter();
   const [drawingObjects, setDrawingObjects] =
     useRecoilState(drawingObjectState);
-  const [character, setCharacter] = useRecoilState(characterState);
 
   const { addDecoration, removeDecoration } = useObjectControll();
 
