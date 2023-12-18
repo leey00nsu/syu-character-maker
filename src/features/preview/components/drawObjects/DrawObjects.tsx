@@ -5,6 +5,7 @@ import { drawingObjectState } from '@/store/canvasStore';
 import {
   BackgroundObject,
   CharacterObject,
+  DecorationObject,
   ImageObject,
   LineObject,
 } from './objects';
@@ -20,10 +21,13 @@ const DrawObjects = ({ objectSelectHandler }: DrawObjectsProps) => {
     <>
       <BackgroundObject />
       {drawingObjects.map(object => {
-        if (object.type === 'background') {
-          return <CharacterObject key={object.id} />;
+        if (object.name === 'character') {
+          return <CharacterObject object={object} key={object.id} />;
         }
-        if (object.type === 'line') {
+        if (object.name === 'decoration') {
+          return <DecorationObject object={object} key={object.id} />;
+        }
+        if (object.name === 'line') {
           return (
             <LineObject
               key={object.id}
@@ -32,7 +36,7 @@ const DrawObjects = ({ objectSelectHandler }: DrawObjectsProps) => {
             />
           );
         }
-        if (object.type === 'image') {
+        if (object.name === 'image') {
           return (
             <ImageObject
               key={object.id}

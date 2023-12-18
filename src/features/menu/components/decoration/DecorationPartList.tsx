@@ -1,4 +1,4 @@
-import { ITEM_PARTS } from './constants/itemParts';
+import { DECORATION_PARTS } from './constants/decorationParts';
 
 interface DecorationPartListProps {
   part: string;
@@ -10,14 +10,14 @@ const DecorationPartList = ({
   changePartHandler,
 }: DecorationPartListProps) => {
   return (
-    <ul className="menu menu-vertical gap-1 border-r p-2 ">
-      {ITEM_PARTS.map(itemPart => (
-        <li key={itemPart}>
+    <ul className="menu menu-vertical gap-1 border-r p-2 shrink-0">
+      {DECORATION_PARTS.map(decorationPart => (
+        <li key={decorationPart}>
           <a
-            onClick={changePartHandler.bind(this, itemPart)}
-            className={part == itemPart ? 'active px-10 ' : 'px-10 '}
+            onClick={changePartHandler.bind(this, decorationPart)}
+            className={part == decorationPart ? 'active px-10 ' : 'px-10 '}
           >
-            {itemPart}
+            {decorationPart}
           </a>
         </li>
       ))}

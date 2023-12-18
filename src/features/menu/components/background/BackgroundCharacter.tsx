@@ -1,16 +1,19 @@
 import { useRecoilState } from 'recoil';
 
-import { CharacterState, characterState, itemState } from '@/store/canvasStore';
+import { CharacterState, characterState } from '@/store/canvasStore';
+
+import useObjectControll from '@/hooks/useObjectControll';
 
 import { RadioButton } from '@/ui/buttons';
 
 const BackgroundCharacter = () => {
   const [character, setCharacter] = useRecoilState(characterState);
-  const [items, setItems] = useRecoilState(itemState);
+
+  const { clearAllDecorations } = useObjectControll();
 
   const changeCharacterHandler = (changes: CharacterState) => {
+    clearAllDecorations();
     setCharacter(changes);
-    setItems([]);
   };
 
   return (

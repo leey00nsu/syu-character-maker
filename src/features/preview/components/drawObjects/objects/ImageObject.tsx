@@ -35,7 +35,7 @@ const ImageObject = ({ object, objectSelectHandler }: ImageObjectProps) => {
         url={object.url}
         id={object.id}
         opacity={object.opacity}
-        name="images"
+        name={object.name}
         key={object.id}
         onDragStart={() => objectSelectHandler(object.id)}
         draggable={mode === 'move' && menu !== '저장'}

@@ -4,7 +4,7 @@ import {
   DrawingObject,
   menuState,
   modeState,
-  selectedIdState,
+  selectedObjectIdState,
 } from '@/store/canvasStore';
 
 import Paragraph from '@/ui/texts/Paragraph';
@@ -18,17 +18,17 @@ interface LayerItemProps {
 const LayerItem = ({ object, index }: LayerItemProps) => {
   const [menu, setMenu] = useRecoilState(menuState);
   const [mode, setMode] = useRecoilState(modeState);
-  const [selectedId, setSelectedId] = useRecoilState(selectedIdState);
+  const [selectedObjectId, setSelectedObjectId] = useRecoilState(selectedObjectIdState);
 
   const clickLayerHandler = (objectId: string) => {
     if (menu !== '저장') {
-      setSelectedId([objectId]);
+      setSelectedObjectId([objectId]);
       setMode('move');
     }
   };
 
-  const isSelected = selectedId.includes(object.id);
-  const isSingle = selectedId.length === 1;
+  const isSelected = selectedObjectId.includes(object.id);
+  const isSingle = selectedObjectId.length === 1;
 
   return (
     <li

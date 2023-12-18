@@ -26,7 +26,7 @@ const LineObject = ({ object, objectSelectHandler }: DrawObjectProps) => {
       x={object.x}
       y={object.y}
       id={object.id}
-      name="lines"
+      name={object.name}
       key={object.id}
       points={object.points}
       stroke={object.color}

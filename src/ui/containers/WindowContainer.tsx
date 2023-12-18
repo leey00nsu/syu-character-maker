@@ -13,7 +13,7 @@ const Header = ({ children }: WindowContainerProps) => {
     <Paragraph
       size="md"
       weight="medium"
-      className="absolute left-1/2 top-[14px] -translate-x-1/2 "
+      className="absolute left-1/2 top-[10px] -translate-x-1/2 "
     >
       {children}
     </Paragraph>

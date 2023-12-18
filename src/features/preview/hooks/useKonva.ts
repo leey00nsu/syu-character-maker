@@ -7,15 +7,17 @@ import {
   menuState,
   modeState,
   penState,
-  selectedIdState,
+  selectedObjectIdState,
 } from '@/store/canvasStore';
 
 import useUpdateHistory from '@/hooks/useHistoryControll';
 import useObjectControll from '@/hooks/useObjectControll';
 
 import {
+  IMMUTABLE_OBJECTS,
   MOBILE_MIN_WIDTH,
   MOBILE_SCALE,
+  MUTABLE_OBJECTS,
 } from '@/features/preview/constants/canvas';
 
 interface UseKonvaProps {
@@ -31,7 +33,9 @@ const useKonva = ({
   selectBoxRef,
   transformerRef,
 }: UseKonvaProps) => {
-  const [selectedId, setSelectedId] = useRecoilState(selectedIdState);
+  const [selectedObjectId, setSelectedObjectId] = useRecoilState(
+    selectedObjectIdState,
+  );
   const [drawingObjects, setDrawingObjects] =
     useRecoilState(drawingObjectState);
   const [pen, setPen] = useRecoilState(penState);
@@ -77,13 +81,13 @@ const useKonva = ({
       return;
     }
     if (mode === 'move') {
-      // 배경 또는 캐릭터를 클릭했을 때
-      const clickedOnEmpty = ['background', 'character'].includes(
-        e.target.getId(),
+      // 움직일 수 없는 오브젝트를 클릭했을 때
+      const clickedOnEmpty = IMMUTABLE_OBJECTS.includes(
+        e.target.getName(),
       );
 
       if (clickedOnEmpty) {
-        setSelectedId([]);
+        setSelectedObjectId([]);
 
         const pos = stageRef.current.getPointerPosition()!;
 
@@ -106,12 +110,12 @@ const useKonva = ({
         selectBoxRef.current.height(0);
         updateSelection();
       } else {
+        const isSelectable = MUTABLE_OBJECTS.includes(e.target.getName());
+        const isSelected = selectedObjectId.includes(e.target.getId());
+        
         // 클릭한 대상이 선, 그림이고 , 현재 선택된 요소에 포함되어 있지 않을 때 해당 요소를 선택
-        if (
-          ['lines', 'images'].includes(e.target.getName()) &&
-          !selectedId.includes(e.target.getId())
-        ) {
-          setSelectedId([e.target.getId()]);
+        if (isSelectable && !isSelected) {
+          setSelectedObjectId([e.target.getId()]);
         }
       }
     }
@@ -230,8 +234,8 @@ const useKonva = ({
 
       selectBoxRef.current.visible(false);
 
-      let selectedImages = stageRef.current.find('.images')!;
-      let selectedLines = stageRef.current.find('.lines')!;
+      let selectedImages = stageRef.current.find('.image')!;
+      let selectedLines = stageRef.current.find('.line')!;
 
       let contents = [...selectedImages, ...selectedLines];
 
@@ -241,9 +245,9 @@ const useKonva = ({
         Konva.Util.haveIntersection(box, shape.getClientRect()),
       );
 
-      let selectedId = selected.map((child: any) => child.attrs.id);
+      let selectedObjectId = selected.map((child: any) => child.attrs.id);
 
-      setSelectedId(selectedId);
+      setSelectedObjectId(selectedObjectId);
     }
 
     if (mode === 'draw') {
@@ -253,25 +257,27 @@ const useKonva = ({
     }
   };
 
-  // selectedId가 변경될 때마다 현재 선택된 요소를 Transformer에게 전달하여 표시
+  // selectedObjectId가 변경될 때마다 현재 선택된 요소를 Transformer에게 전달하여 표시
   useEffect(() => {
     if (!layerRef.current) return;
     if (!transformerRef.current) return;
 
-    if (selectedId) {
-      let selectedNodes = layerRef.current.children!.filter((child: any) =>
-        selectedId.includes(child.attrs.id),
+    if (selectedObjectId) {
+      let selectedNodes = layerRef.current.children!.filter(
+        (child: any) =>
+          selectedObjectId.includes(child.attrs.id) &&
+          MUTABLE_OBJECTS.includes(child.attrs.name),
       );
 
       transformerRef.current.nodes(selectedNodes);
       transformerRef.current.getLayer()?.batchDraw();
     }
-  }, [selectedId]);
+  }, [selectedObjectId]);
 
-  // mode가 변경될 때마다 selectedId를 초기화
+  // mode가 변경될 때마다 selectedObjectId를 초기화
   useEffect(() => {
     if (mode === 'draw') {
-      setSelectedId([]);
+      setSelectedObjectId([]);
     }
   }, [mode]);
 
@@ -282,17 +288,17 @@ const useKonva = ({
     stageRef.current.batchDraw();
   }, [isMobile]);
 
-  // menu가 변경될 때마다 selectedId를 초기화
+  // menu가 변경될 때마다 selectedObjectId를 초기화
   useEffect(() => {
     if (menu === '저장') {
-      setSelectedId([]);
+      setSelectedObjectId([]);
     }
   }, [menu]);
 
-  // 오브젝트가 드래그 되거나 선택되면 , selectedId에 추가
+  // 오브젝트가 드래그 되거나 선택되면 , selectedObjectId에 추가
   const objectSelectHandler = (objectId: string) => {
-    if (!selectedId.includes(objectId)) {
-      setSelectedId([objectId]);
+    if (!selectedObjectId.includes(objectId)) {
+      setSelectedObjectId([objectId]);
     }
   };
 

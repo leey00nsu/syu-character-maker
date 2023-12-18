@@ -4,14 +4,19 @@ import { useRecoilState } from 'recoil';
 import {
   DrawingObject,
   drawingObjectState,
-  selectedIdState,
+  selectedObjectIdState,
 } from '@/store/canvasStore';
 
 import useHistoryControll from '@/hooks/useHistoryControll';
 
+import { Decoration } from '@/features/menu/components/decoration/constants/decoration.type';
+import { IMMUTABLE_OBJECTS } from '@/features/preview/constants/canvas';
+
 // 오브젝트 컨트롤 커스텀 훅
 const useObjectControll = () => {
-  const [selectedId, setSelectedId] = useRecoilState(selectedIdState);
+  const [selectedObjectId, setSelectedObjectId] = useRecoilState(
+    selectedObjectIdState,
+  );
   const [drawingObjects, setDrawingObjects] =
     useRecoilState(drawingObjectState);
 
@@ -22,7 +27,7 @@ const useObjectControll = () => {
     setDrawingObjects(prev => [
       ...prev,
       {
-        type: 'line',
+        name: 'line',
         size: line.size,
         color: line.color,
         points: line.points,
@@ -55,9 +60,10 @@ const useObjectControll = () => {
     setDrawingObjects(newObjects);
   };
 
+  // 새로운 이미지 추가
   const addImage = (image: Partial<DrawingObject>) => {
     const newImage = {
-      type: 'image',
+      name: 'image',
       id: `이미지 ${drawingObjects.length}`,
       url: image.url,
       x: 50,
@@ -74,13 +80,36 @@ const useObjectControll = () => {
     updateHistory(newObjects);
   };
 
+  // 꾸미기 아이템 추가
+  const addDecoration = (decoration: Decoration) => {
+    const newImage = {
+      name: 'decoration',
+      id: decoration.item,
+      url: decoration.url,
+      z: drawingObjects.length,
+    };
+    const newObjects = [...drawingObjects, newImage];
+    setDrawingObjects(newObjects);
+    updateHistory(newObjects);
+  };
+
+  // 꾸미기 오브젝트 삭제
+  const removeDecoration = (decoration: Decoration) => {
+    const newDrawingObjects = drawingObjects.filter(
+      drawingObject => drawingObject.id !== decoration.item,
+    );
+    setDrawingObjects(newDrawingObjects);
+    setSelectedObjectId([]);
+    updateHistory(newDrawingObjects);
+  };
+
   // 선택된 오브젝트 삭제
   const removeObject = () => {
     const newDrawingObjects = drawingObjects.filter(
-      drawingObject => !selectedId.includes(drawingObject.id),
+      drawingObject => !selectedObjectId.includes(drawingObject.id),
     );
     setDrawingObjects(newDrawingObjects);
-    setSelectedId([]);
+    setSelectedObjectId([]);
     updateHistory(newDrawingObjects);
   };
 
@@ -108,7 +137,7 @@ const useObjectControll = () => {
 
     // 현재 선택된 오브젝트 중에서 가장 마지막의 오브젝트가 변경되었을 때 히스토리에 저장
     // (현재 선택된 오브젝트가 여러개일 수 있기 때문에 히스토리가 중복되는 것을 방지하기 위함)
-    if (id === selectedId.at(-1)) {
+    if (id === selectedObjectId.at(-1)) {
       updateHistory(newObjects);
     }
   };
@@ -134,13 +163,37 @@ const useObjectControll = () => {
     }
   };
 
+  // 모든 꾸미기 아이템 삭제
+  const clearAllDecorations = () => {
+    const newDrawingObjects = drawingObjects.filter(
+      drawingObject => drawingObject.name !== 'decoration',
+    );
+    setDrawingObjects(newDrawingObjects);
+    setSelectedObjectId([]);
+    updateHistory(newDrawingObjects);
+  };
+
+  // 모든 선, 이미지 삭제
+  const clearAllDrawingObjects = () => {
+    const newDrawingObjects = drawingObjects.filter(drawingObject =>
+      IMMUTABLE_OBJECTS.includes(drawingObject.name),
+    );
+    setDrawingObjects(newDrawingObjects);
+    setSelectedObjectId([]);
+    updateHistory(newDrawingObjects);
+  };
+
   return {
     addLine,
     updateLine,
     addImage,
+    addDecoration,
     removeObject,
+    removeDecoration,
     transformObject,
     changeObjectIndex,
+    clearAllDecorations,
+    clearAllDrawingObjects,
   };
 };
 

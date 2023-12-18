@@ -1,49 +1,65 @@
 import { useRecoilState } from 'recoil';
 
-import { characterState, itemState } from '@/store/canvasStore';
+import { characterState, drawingObjectState } from '@/store/canvasStore';
+
+import useObjectControll from '@/hooks/useObjectControll';
 
 import { ItemToggleButton } from '@/ui/buttons';
 
-import { SUHO_ITEMS } from './constants/suhoItems';
-import { SUYA_ITEMS } from './constants/suyaItems';
+import { Decoration } from './constants/decoration.type';
+import { SUHO_DECORATIONS } from './constants/suhoDecorations';
+import { SUYA_DECORATIONS } from './constants/suyaDecorations';
 
 interface DecorationListProps {
   part: string;
 }
 
 const DecorationList = ({ part }: DecorationListProps) => {
+  const [drawingObjects, setDrawingObjects] =
+    useRecoilState(drawingObjectState);
   const [character, setCharacter] = useRecoilState(characterState);
-  const [items, setItems] = useRecoilState(itemState);
 
-  let currentItems = [];
+  const { addDecoration, removeDecoration } = useObjectControll();
+
+  let partDecorations = [];
 
   if (character === '수호') {
-    currentItems = SUHO_ITEMS.filter(suhoItem => suhoItem.part === part);
+    partDecorations = SUHO_DECORATIONS.filter(
+      suhoDecoration => suhoDecoration.part === part,
+    );
   } else {
-    currentItems = SUYA_ITEMS.filter(suyaItem => suyaItem.part === part);
+    partDecorations = SUYA_DECORATIONS.filter(
+      suyaDecoration => suyaDecoration.part === part,
+    );
   }
 
-  const toggleItemHandler = (item: string, itemUrl: string) => {
-    if (items.find(i => i.item === item)) {
-      setItems(prev => prev.filter(i => i.item !== item));
+  const currentDecorations = drawingObjects.filter(
+    object => object.name === 'decoration',
+  );
+
+  const isActiveDecoration = (decoration: Decoration) => {
+    return !!currentDecorations.find(
+      currentDecoration => currentDecoration.id === decoration.item,
+    );
+  };
+
+  const toggleDecorationHandler = (decoration: Decoration) => {
+    if (isActiveDecoration(decoration)) {
+      removeDecoration(decoration);
     } else {
-      setItems(prev => [...prev, { item: item, itemUrl: itemUrl }]);
+      addDecoration(decoration);
     }
   };
 
   return (
-    <div className="flex grow-0 flex-wrap content-start items-start gap-2 p-2">
-      {currentItems.map(currentItem => (
+    <div className="w-full grid grid-auto-rows-max grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 gap-4 p-4 overflow-y-auto">
+      {partDecorations.map(decoration => (
         <ItemToggleButton
-          key={currentItem.item}
-          toggleHandler={toggleItemHandler.bind(
-            this,
-            currentItem.item,
-            currentItem.itemUrl,
-          )}
-          isActive={!!items.find(i => i.item === currentItem.item)}
+          key={decoration.item}
+          toggleHandler={toggleDecorationHandler.bind(this, decoration)}
+          isActive={isActiveDecoration(decoration)}
         >
-          {currentItem.item}
+          {decoration.item}
         </ItemToggleButton>
       ))}
     </div>

@@ -5,14 +5,13 @@ import {
   drawingObjectHistoryIndexState,
   drawingObjectHistoryState,
   drawingObjectState,
-  selectedIdState,
+  selectedObjectIdState,
 } from '@/store/canvasStore';
 
 // 히스토리 업데이트 커스텀 훅
 const useHistoryControll = () => {
-  const [drawingObjects, setDrawingObjects] =
-    useRecoilState(drawingObjectState);
-  const [selectedId, setSelectedId] = useRecoilState(selectedIdState);
+  const [, setDrawingObjects] = useRecoilState(drawingObjectState);
+  const [, setSelectedObjectId] = useRecoilState(selectedObjectIdState);
   const [drawingObjectHistory, setDrawingObjectHistory] = useRecoilState(
     drawingObjectHistoryState,
   );
@@ -28,7 +27,7 @@ const useHistoryControll = () => {
 
   const undoHistory = () => {
     if (drawingObjectHistoryIndex > 0) {
-      setSelectedId([]);
+      setSelectedObjectId([]);
       const prevHistory = drawingObjectHistory[drawingObjectHistoryIndex - 1];
       setDrawingObjectHistoryIndex(prev => prev - 1);
       setDrawingObjects(prevHistory);
@@ -37,7 +36,7 @@ const useHistoryControll = () => {
 
   const redoHistory = () => {
     if (drawingObjectHistoryIndex < drawingObjectHistory.length - 1) {
-      setSelectedId([]);
+      setSelectedObjectId([]);
       const nextHistory = drawingObjectHistory[drawingObjectHistoryIndex + 1];
       setDrawingObjectHistoryIndex(prev => prev + 1);
       setDrawingObjects(nextHistory);

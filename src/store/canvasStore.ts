@@ -75,19 +75,8 @@ export const modeState = atom<ModeState>({
   default: 'move',
 });
 
-export interface Item {
-  item: string;
-  itemUrl: string;
-}
-
-export const itemState = atom<Item[]>({
-  key: 'itemState',
-  default: [],
-  effects_UNSTABLE: [persistAtom],
-});
-
 export interface DrawingObject {
-  type: string;
+  name: string;
   id: string;
   x?: number;
   y?: number;
@@ -108,18 +97,16 @@ export const drawingObjectState = atom<DrawingObject[]>({
   key: 'drawingObjectState',
   default: [
     {
-      x: 0,
-      y: 0,
-      type: 'background',
-      id: 'background',
+      name: 'character',
+      id: '캐릭터',
       z: 1,
     },
   ],
   effects_UNSTABLE: [persistAtom],
 });
 
-export const selectedIdState = atom<string[]>({
-  key: 'selectedIdState',
+export const selectedObjectIdState = atom<string[]>({
+  key: 'selectedObjectIdState',
   default: [],
 });
 
@@ -128,10 +115,8 @@ export const drawingObjectHistoryState = atom<DrawingObject[][]>({
   default: [
     [
       {
-        x: 0,
-        y: 0,
-        type: 'background',
-        id: 'background',
+        name: 'character',
+        id: '캐릭터',
         z: 1,
       },
     ],
