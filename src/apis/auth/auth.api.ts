@@ -17,8 +17,9 @@ export const getUser = async () => {
 };
 
 export const googleLoginWithCode = async (code: string) => {
-  const response = await axios.get<ApiResponse<User>>(
+  const response = await axios.post<ApiResponse<User>>(
     `${VITE_SERVER_HOST}/auth/google?code=${code}`,
+    null,
     {
       withCredentials: true,
     },
@@ -28,8 +29,9 @@ export const googleLoginWithCode = async (code: string) => {
 };
 
 export const logout = async () => {
-  const response = await axios.get<ApiResponse<unknown>>(
+  const response = await axios.post<ApiResponse<unknown>>(
     `${VITE_SERVER_HOST}/auth/logout`,
+    null,
     {
       withCredentials: true,
     },

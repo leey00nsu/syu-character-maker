@@ -30,3 +30,15 @@ export const getArticleList = async () => {
 
   return response.data;
 };
+
+export const toggleLikeArticle = async (articleId: number) => {
+  const response = await axios.post<ApiResponse<unknown>>(
+    `${VITE_SERVER_HOST}/article/${articleId}/like`,
+    null,
+    {
+      withCredentials: true,
+    },
+  );
+
+  return response.data;
+};

@@ -7,7 +7,9 @@ export interface ListArticle {
 
   imageUrl: string;
 
-  likedBy: LikedBy[];
+  isLiked: boolean;
+
+  likeCount: number;
 
   createdAt: Date;
 }
