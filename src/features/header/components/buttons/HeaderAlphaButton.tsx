@@ -1,14 +1,11 @@
 import React from 'react';
-import { useRecoilState } from 'recoil';
 
-import {
-  canvasObjectsState,
-  selectedObjectIdsState,
-} from '@/store/canvasStore';
+import { useCanvasStore } from '@/store/canvasStore';
 
 const HeaderAlphaButton = () => {
-  const [canvasObjects, setCanvasObjects] = useRecoilState(canvasObjectsState);
-  const [selectedObjectIds] = useRecoilState(selectedObjectIdsState);
+  const canvasObjects = useCanvasStore(state => state.canvasObjects);
+  const setCanvasObjects = useCanvasStore(state => state.setCanvasObjects);
+  const selectedObjectIds = useCanvasStore(state => state.selectedObjectIds);
 
   const changeOpacityHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newObject = [...canvasObjects].map(object => {

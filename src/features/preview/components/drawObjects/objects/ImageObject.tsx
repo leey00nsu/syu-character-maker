@@ -1,8 +1,7 @@
 import { Image } from 'react-konva';
-import { useRecoilState } from 'recoil';
 import useImage from 'use-image';
 
-import { CanvasObject, menuState, modeState } from '@/store/canvasStore';
+import { CanvasObject, useCanvasStore } from '@/store/canvasStore';
 
 import useObjectControll from '@/hooks/useObjectControll';
 
@@ -14,11 +13,12 @@ interface ImageObjectProps {
 }
 
 const ImageObject = ({ object, objectSelectHandler }: ImageObjectProps) => {
-  const [mode, setMode] = useRecoilState(modeState);
-  const [menu, setMenu] = useRecoilState(menuState);
+  const mode = useCanvasStore(state => state.mode);
 
   const [image] = useImage(object.url || '');
   const { transformObject } = useObjectControll();
+
+  const isDraggable = mode === 'move';
 
   if (image) {
     let aspect_ratio = image.width / image.height;
@@ -38,7 +38,7 @@ const ImageObject = ({ object, objectSelectHandler }: ImageObjectProps) => {
         name={object.name}
         key={object.id}
         onDragStart={() => objectSelectHandler(object.id)}
-        draggable={mode === 'move' && menu !== '저장'}
+        draggable={isDraggable}
         onSelect={() => objectSelectHandler(object.id)}
         image={image}
         width={DEFAULT_IMAGE_WIDTH}

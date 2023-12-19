@@ -1,16 +1,15 @@
 import { useMutation } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
 
 import { googleLoginWithCode } from '@/apis/auth/auth.api';
 
-import { authState, userState } from '@/store/authStore';
+import { useAuthStore } from '@/store/authStore';
 
 const useGoogleLogin = () => {
   const navigate = useNavigate();
-  const [auth, setAuth] = useRecoilState(authState);
-  const [user, setUser] = useRecoilState(userState);
+  const setAuth = useAuthStore(state => state.setAuth);
+  const setUser = useAuthStore(state => state.setUser);
 
   const {
     data: response,

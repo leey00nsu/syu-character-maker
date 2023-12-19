@@ -1,14 +1,13 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useEffect } from 'react';
-import { useRecoilState } from 'recoil';
 
 import { logout } from '@/apis/auth/auth.api';
 
-import { authState, userState } from '@/store/authStore';
+import { useAuthStore } from '@/store/authStore';
 
 const useLogout = () => {
-  const [auth, setAuth] = useRecoilState(authState);
-  const [user, setUser] = useRecoilState(userState);
+  const setAuth = useAuthStore(state => state.setAuth);
+  const setUser = useAuthStore(state => state.setUser);
   const queryClient = useQueryClient();
 
   const {

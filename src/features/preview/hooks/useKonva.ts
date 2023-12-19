@@ -1,14 +1,7 @@
 import Konva from 'konva';
 import { RefObject, useEffect, useRef, useState } from 'react';
-import { useRecoilState } from 'recoil';
 
-import {
-  canvasObjectsState,
-  menuState,
-  modeState,
-  penState,
-  selectedObjectIdsState,
-} from '@/store/canvasStore';
+import { useCanvasStore } from '@/store/canvasStore';
 
 import useUpdateHistory from '@/hooks/useHistoryControll';
 import useObjectControll from '@/hooks/useObjectControll';
@@ -33,13 +26,15 @@ const useKonva = ({
   selectBoxRef,
   transformerRef,
 }: UseKonvaProps) => {
-  const [selectedObjectIds, setSelectedObjectIds] = useRecoilState(
-    selectedObjectIdsState,
+  const selectedObjectIds = useCanvasStore(state => state.selectedObjectIds);
+  const setSelectedObjectIds = useCanvasStore(
+    state => state.setSelectedObjectIds,
   );
-  const [canvasObjects] = useRecoilState(canvasObjectsState);
-  const [pen] = useRecoilState(penState);
-  const [menu] = useRecoilState(menuState);
-  const [mode] = useRecoilState(modeState);
+  const canvasObjects = useCanvasStore(state => state.canvasObjects);
+  const penSize = useCanvasStore(state => state.penSize);
+  const penColor = useCanvasStore(state => state.penColor);
+  const mode = useCanvasStore(state => state.mode);
+
   const [isMobile, setIsMobile] = useState(
     window.innerWidth <= MOBILE_MIN_WIDTH,
   );
@@ -75,10 +70,6 @@ const useKonva = ({
     if (!selectBoxRef.current) return;
     if (!stageRef.current) return;
 
-    // 저장 메뉴에서는 클릭을 무시 (transformer가 저장되지 않도록 하기 위함)
-    if (menu === '저장') {
-      return;
-    }
     if (mode === 'move') {
       // 움직일 수 없는 오브젝트를 클릭했을 때
       const clickedOnEmpty = IMMUTABLE_OBJECTS.includes(e.target.getName());
@@ -128,9 +119,9 @@ const useKonva = ({
       }
 
       addLine({
-        size: pen.size,
-        color: pen.hex,
-        opacity: pen.alpha,
+        size: penSize,
+        color: penColor.hex,
+        opacity: penColor.alpha,
         points: [pos.x, pos.y, pos.x + 0.0001, pos.y], // 점을 찍을 때 표시가 안될때가 있어 임의로 0.0001을 더해줌
       });
     }
@@ -285,12 +276,12 @@ const useKonva = ({
     stageRef.current.batchDraw();
   }, [isMobile]);
 
-  // menu가 변경될 때마다 selectedObjectIds를 초기화
-  useEffect(() => {
-    if (menu === '저장') {
-      setSelectedObjectIds([]);
-    }
-  }, [menu]);
+  // // menu가 변경될 때마다 selectedObjectIds를 초기화
+  // useEffect(() => {
+  //   if (menu === '저장') {
+  //     setSelectedObjectIds([]);
+  //   }
+  // }, [menu]);
 
   // 오브젝트가 드래그 되거나 선택되면 , selectedObjectIds에 추가
   const objectSelectHandler = (objectId: string) => {

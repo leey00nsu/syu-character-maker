@@ -1,21 +1,36 @@
-import { atom } from 'recoil';
+import { StateCreator, create } from 'zustand';
 
-interface UserState {
-  name: string;
-  email: string;
-  photo: string;
+import { User } from '@/apis/auth/auth.type';
+
+interface AuthSlice {
+  isAuth: boolean;
+  setAuth: (changes: boolean) => void;
 }
 
-export const authState = atom<boolean>({
-  key: 'authState',
-  default: false,
+const createAuthSlice: StateCreator<AuthSlice> = set => ({
+  isAuth: false,
+  setAuth: (changes: boolean) => set(state => ({ isAuth: changes })),
 });
 
-export const userState = atom<UserState>({
-  key: 'userState',
-  default: {
-    name: '',
-    email: '',
-    photo: '',
-  },
+interface UserSlice {
+  user: Pick<User, 'name' | 'email' | 'photo'>;
+  setUser: (changes: Pick<User, 'name' | 'email' | 'photo'>) => void;
+}
+
+const DEFAULT_USER: Pick<User, 'name' | 'email' | 'photo'> = {
+  name: '',
+  email: '',
+  photo: '',
+};
+
+const createUserSlice: StateCreator<UserSlice> = set => ({
+  user: DEFAULT_USER,
+  setUser: (changes: Pick<User, 'name' | 'email' | 'photo'>) =>
+    set(state => ({ user: changes })),
+  removeUser: () => set(state => ({ user: DEFAULT_USER })),
 });
+
+export const useAuthStore = create<UserSlice & AuthSlice>()((...a) => ({
+  ...createAuthSlice(...a),
+  ...createUserSlice(...a),
+}));

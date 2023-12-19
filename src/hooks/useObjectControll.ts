@@ -1,11 +1,6 @@
 import { KonvaEventObject } from 'konva/lib/Node';
-import { useRecoilState } from 'recoil';
 
-import {
-  CanvasObject,
-  canvasObjectsState,
-  selectedObjectIdsState,
-} from '@/store/canvasStore';
+import { CanvasObject, useCanvasStore } from '@/store/canvasStore';
 
 import useHistoryControll from '@/hooks/useHistoryControll';
 
@@ -14,24 +9,26 @@ import { IMMUTABLE_OBJECTS } from '@/features/preview/constants/canvas';
 
 // 오브젝트 컨트롤 커스텀 훅
 const useObjectControll = () => {
-  const [selectedObjectIds, setSelectedObjectIds] = useRecoilState(
-    selectedObjectIdsState,
+  const selectedObjectIds = useCanvasStore(state => state.selectedObjectIds);
+  const setSelectedObjectIds = useCanvasStore(
+    state => state.setSelectedObjectIds,
   );
-  const [canvasObjects, setCanvasObjects] = useRecoilState(canvasObjectsState);
+  const canvasObjects = useCanvasStore(state => state.canvasObjects);
+  const setCanvasObjects = useCanvasStore(state => state.setCanvasObjects);
 
   const { updateHistory } = useHistoryControll();
 
   // 새로운 선 추가
   const addLine = (line: Partial<CanvasObject>) => {
-    setCanvasObjects(prev => [
-      ...prev,
+    setCanvasObjects([
+      ...canvasObjects,
       {
         name: 'line',
         size: line.size,
         color: line.color,
         points: line.points,
-        id: `선 ${prev.length}`,
-        z: prev.length,
+        id: `선 ${canvasObjects.length}`,
+        z: canvasObjects.length,
         x: 0,
         y: 0,
         scaleX: 1,

@@ -1,19 +1,12 @@
-import { useRecoilState } from 'recoil';
-
-import { menuState, modeState } from '@/store/canvasStore';
-
 import { MENUS } from '../../constants/menus';
 import MenuItem from './MenuItem';
 
-const MenuList = () => {
-  const [menu, setMenu] = useRecoilState(menuState);
-  const [mode, setMode] = useRecoilState(modeState);
+interface MenuListProps {
+  menu: string;
+  changeMenuHandler: (menu: string) => void;
+}
 
-  const changeMenuHandler = (changes: string) => {
-    setMenu(changes);
-    setMode('move');
-  };
-
+const MenuList = ({ menu, changeMenuHandler }: MenuListProps) => {
   return (
     <ul className="menu rounded-box menu-horizontal w-full  gap-1 bg-base-100 ">
       {MENUS.map(menuName => (

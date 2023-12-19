@@ -1,12 +1,11 @@
 import { Rect } from 'react-konva';
-import { useRecoilState } from 'recoil';
 
-import { bgColorState } from '@/store/canvasStore';
+import { useCanvasStore } from '@/store/canvasStore';
 
 import { DEFAULT_WIDTH } from '@/features/preview/constants/canvas';
 
 const BackgroundObject = () => {
-  const [bgColor] = useRecoilState(bgColorState);
+  const backgroundColor = useCanvasStore(state => state.backgroundColor);
 
   return (
     <Rect
@@ -17,8 +16,8 @@ const BackgroundObject = () => {
       y={0}
       width={DEFAULT_WIDTH}
       height={DEFAULT_WIDTH}
-      fill={bgColor.hex}
-      opacity={bgColor.alpha}
+      fill={backgroundColor.hex}
+      opacity={backgroundColor.alpha}
       id="background"
     />
   );

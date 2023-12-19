@@ -1,6 +1,4 @@
-import { useRecoilState } from 'recoil';
-
-import { penState } from '@/store/canvasStore';
+import { useCanvasStore } from '@/store/canvasStore';
 
 import SliderInput from '@/ui/inputs/SliderInput';
 
@@ -8,29 +6,27 @@ const MIN_PEN_SIZE = 1;
 const MAX_PEN_SIZE = 200;
 
 const PenSize = () => {
-  const [pen, setPen] = useRecoilState(penState);
+  const penSize = useCanvasStore(state => state.penSize);
+  const setPenSize = useCanvasStore(state => state.setPenSize);
 
   const changePenSizeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let value = Number(e.target.value);
+    let size = Number(e.target.value);
 
-    if (value > MAX_PEN_SIZE) {
-      value = MAX_PEN_SIZE;
+    if (size > MAX_PEN_SIZE) {
+      size = MAX_PEN_SIZE;
     }
-    if (value < MIN_PEN_SIZE) {
-      value = MIN_PEN_SIZE;
+    if (size < MIN_PEN_SIZE) {
+      size = MIN_PEN_SIZE;
     }
 
-    setPen({
-      ...pen,
-      size: value,
-    });
+    setPenSize(size);
   };
 
   return (
     <SliderInput
       min={1}
       max={MAX_PEN_SIZE}
-      value={pen.size}
+      value={penSize}
       changeHandler={changePenSizeHandler}
     />
   );

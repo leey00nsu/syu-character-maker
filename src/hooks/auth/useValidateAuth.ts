@@ -1,11 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
 import { useLayoutEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
 
 import { getUser } from '@/apis/auth/auth.api';
 
-import { authState, userState } from '@/store/authStore';
+import { useAuthStore } from '@/store/authStore';
 
 interface UseValidateAuthProps {
   privated?: boolean;
@@ -14,8 +13,8 @@ interface UseValidateAuthProps {
 
 const useValidateAuth = ({ privated, element }: UseValidateAuthProps) => {
   const navigate = useNavigate();
-  const [auth, setAuth] = useRecoilState(authState);
-  const [user, setUser] = useRecoilState(userState);
+  const setAuth = useAuthStore(state => state.setAuth);
+  const setUser = useAuthStore(state => state.setUser);
 
   const { data: response, isLoading } = useQuery({
     queryKey: ['validateAuth'],

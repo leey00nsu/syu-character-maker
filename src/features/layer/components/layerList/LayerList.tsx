@@ -1,11 +1,9 @@
-import { useRecoilState } from 'recoil';
-
-import { canvasObjectsState } from '@/store/canvasStore';
+import { useCanvasStore } from '@/store/canvasStore';
 
 import LayerItem from './LayerItem';
 
 const LayerList = () => {
-  const [canvasObjects] = useRecoilState(canvasObjectsState);
+  const canvasObjects = useCanvasStore(state => state.canvasObjects);
 
   const reversedCanvasObjects = [...canvasObjects].reverse();
 

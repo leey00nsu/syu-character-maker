@@ -1,6 +1,4 @@
-import { useRecoilState } from 'recoil';
-
-import { canvasObjectsState } from '@/store/canvasStore';
+import { useCanvasStore } from '@/store/canvasStore';
 
 import {
   BackgroundObject,
@@ -15,7 +13,7 @@ interface DrawObjectsProps {
 }
 
 const DrawObjects = ({ objectSelectHandler }: DrawObjectsProps) => {
-  const [canvasObjects] = useRecoilState(canvasObjectsState);
+  const canvasObjects = useCanvasStore(state => state.canvasObjects);
 
   return (
     <>

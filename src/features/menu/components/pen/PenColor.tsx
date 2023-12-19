@@ -1,20 +1,19 @@
 import { useEffect } from 'react';
 import { ChromePicker, ColorResult } from 'react-color';
-import { useRecoilState } from 'recoil';
 
-import { penState } from '@/store/canvasStore';
+import { useCanvasStore } from '@/store/canvasStore';
 
 const PenColor = () => {
-  const [pen, setPen] = useRecoilState(penState);
+  const penColor = useCanvasStore(state => state.penColor);
+  const setPenColor = useCanvasStore(state => state.setPenColor);
 
   // 펜 색상 변경시 css 변수 변경
   useEffect(() => {
-    document.documentElement.style.setProperty('--pen-color', pen.hex);
-  }, [pen]);
+    document.documentElement.style.setProperty('--pen-color', penColor.hex);
+  }, [penColor]);
 
   const changePenColorHandler = (color: ColorResult) => {
-    setPen({
-      ...pen,
+    setPenColor({
       rgb: color.rgb,
       hex: color.hex,
       alpha: color.rgb.a ?? 1,
@@ -24,7 +23,7 @@ const PenColor = () => {
   return (
     <ChromePicker
       className="overflow-hidden rounded-xl border shadow-none"
-      color={pen.rgb}
+      color={penColor.rgb}
       onChange={changePenColorHandler}
     />
   );

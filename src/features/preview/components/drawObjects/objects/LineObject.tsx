@@ -1,7 +1,6 @@
 import { Line } from 'react-konva';
-import { useRecoilState } from 'recoil';
 
-import { CanvasObject, menuState, modeState } from '@/store/canvasStore';
+import { CanvasObject, useCanvasStore } from '@/store/canvasStore';
 
 import useObjectControll from '@/hooks/useObjectControll';
 
@@ -11,10 +10,11 @@ interface DrawObjectProps {
 }
 
 const LineObject = ({ object, objectSelectHandler }: DrawObjectProps) => {
-  const [mode, setMode] = useRecoilState(modeState);
-  const [menu, setMenu] = useRecoilState(menuState);
+  const mode = useCanvasStore(state => state.mode);
 
   const { transformObject } = useObjectControll();
+
+  const isDraggable = mode === 'move';
 
   return (
     <Line
@@ -36,7 +36,7 @@ const LineObject = ({ object, objectSelectHandler }: DrawObjectProps) => {
       lineCap="round"
       lineJoin="round"
       onDragStart={() => objectSelectHandler(object.id)}
-      draggable={mode === 'move' && menu !== '저장'}
+      draggable={isDraggable}
       globalCompositeOperation={'source-over'}
       onSelect={() => objectSelectHandler(object.id)}
       onDragEnd={transformObject}

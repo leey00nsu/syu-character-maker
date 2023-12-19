@@ -1,11 +1,4 @@
-import { useRecoilState } from 'recoil';
-
-import {
-  CanvasObject,
-  menuState,
-  modeState,
-  selectedObjectIdsState,
-} from '@/store/canvasStore';
+import { CanvasObject, useCanvasStore } from '@/store/canvasStore';
 
 import Paragraph from '@/ui/texts/Paragraph';
 
@@ -16,17 +9,15 @@ interface LayerItemProps {
   index: number;
 }
 const LayerItem = ({ object, index }: LayerItemProps) => {
-  const [menu, setMenu] = useRecoilState(menuState);
-  const [mode, setMode] = useRecoilState(modeState);
-  const [selectedObjectIds, setSelectedObjectIds] = useRecoilState(
-    selectedObjectIdsState,
+  const setMode = useCanvasStore(state => state.setMode);
+  const selectedObjectIds = useCanvasStore(state => state.selectedObjectIds);
+  const setSelectedObjectIds = useCanvasStore(
+    state => state.setSelectedObjectIds,
   );
 
   const clickLayerHandler = (objectId: string) => {
-    if (menu !== '저장') {
-      setSelectedObjectIds([objectId]);
-      setMode('move');
-    }
+    setSelectedObjectIds([objectId]);
+    setMode('move');
   };
 
   const isSelected = selectedObjectIds.includes(object.id);

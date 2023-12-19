@@ -1,22 +1,24 @@
-import { useRecoilState } from 'recoil';
-
-import {
-  CanvasObject,
-  canvasObjectHistoryIndexState,
-  canvasObjectHistoryState,
-  canvasObjectsState,
-  selectedObjectIdsState,
-} from '@/store/canvasStore';
+import { CanvasObject, useCanvasStore } from '@/store/canvasStore';
 
 // 히스토리 업데이트 커스텀 훅
 const useHistoryControll = () => {
-  const [, setCanvasObjects] = useRecoilState(canvasObjectsState);
-  const [, setSelectedObjectId] = useRecoilState(selectedObjectIdsState);
-  const [canvasObjectHistory, setCanvasObjectHistory] = useRecoilState(
-    canvasObjectHistoryState,
+  const setCanvasObjects = useCanvasStore(state => state.setCanvasObjects);
+  const setSelectedObjectIds = useCanvasStore(
+    state => state.setSelectedObjectIds,
   );
-  const [canvasObjectHistoryIndex, setCanvasObjectHistoryIndex] =
-    useRecoilState(canvasObjectHistoryIndexState);
+  const canvasObjectHistory = useCanvasStore(
+    state => state.canvasObjectHistory,
+  );
+  const setCanvasObjectHistory = useCanvasStore(
+    state => state.setCanvasObjectHistory,
+  );
+
+  const canvasObjectHistoryIndex = useCanvasStore(
+    state => state.canvasObjectHistoryIndex,
+  );
+  const setCanvasObjectHistoryIndex = useCanvasStore(
+    state => state.setCanvasObjectHistoryIndex,
+  );
 
   // canvasObjectHistory에 변경 내역 최대 20개까지 저장
   const updateHistory = (newObject: CanvasObject[]) => {
@@ -27,18 +29,18 @@ const useHistoryControll = () => {
 
   const undoHistory = () => {
     if (canvasObjectHistoryIndex > 0) {
-      setSelectedObjectId([]);
+      setSelectedObjectIds([]);
       const prevHistory = canvasObjectHistory[canvasObjectHistoryIndex - 1];
-      setCanvasObjectHistoryIndex(prev => prev - 1);
+      setCanvasObjectHistoryIndex(canvasObjectHistoryIndex - 1);
       setCanvasObjects(prevHistory);
     }
   };
 
   const redoHistory = () => {
     if (canvasObjectHistoryIndex < canvasObjectHistory.length - 1) {
-      setSelectedObjectId([]);
+      setSelectedObjectIds([]);
       const nextHistory = canvasObjectHistory[canvasObjectHistoryIndex + 1];
-      setCanvasObjectHistoryIndex(prev => prev + 1);
+      setCanvasObjectHistoryIndex(canvasObjectHistoryIndex + 1);
       setCanvasObjects(nextHistory);
     }
   };

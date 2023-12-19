@@ -1,6 +1,4 @@
-import { useRecoilState } from 'recoil';
-
-import { userState } from '@/store/authStore';
+import { useAuthStore } from '@/store/authStore';
 
 import useLogout from '@/hooks/auth/useLogout';
 
@@ -11,7 +9,7 @@ import { PageContainer } from '@/ui/containers';
 import { Paragraph } from '@/ui/texts';
 
 const UserPage = () => {
-  const [user, setUser] = useRecoilState(userState);
+  const user = useAuthStore(state => state.user);
 
   const logout = useLogout();
 

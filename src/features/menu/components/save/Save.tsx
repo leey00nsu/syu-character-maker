@@ -1,8 +1,7 @@
 import Konva from 'konva';
 import { RefObject } from 'react';
-import { useRecoilState } from 'recoil';
 
-import { authState } from '@/store/authStore';
+import { useAuthStore } from '@/store/authStore';
 
 import MenuContentContainer from '../containers/MenuContentContainer';
 import SaveFile from './SaveFile';
@@ -13,7 +12,7 @@ interface SaveProps {
 }
 
 const Save = ({ stageRef }: SaveProps) => {
-  const [auth, setAuth] = useRecoilState(authState);
+  const auth = useAuthStore(state => state.isAuth);
 
   return (
     <MenuContentContainer>

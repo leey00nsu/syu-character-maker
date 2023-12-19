@@ -6,7 +6,6 @@ import {
   RouterProvider,
   createBrowserRouter,
 } from 'react-router-dom';
-import { RecoilRoot } from 'recoil';
 
 import './index.css';
 import AboutPage from './pages/AboutPage';
@@ -45,10 +44,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <QueryClientProvider client={queryClient}>
-    <RecoilRoot>
-      <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
-        <RouterProvider router={router} />
-      </GoogleOAuthProvider>
-    </RecoilRoot>
+    <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
+      <RouterProvider router={router} />
+    </GoogleOAuthProvider>
   </QueryClientProvider>,
 );

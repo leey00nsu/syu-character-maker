@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 
 import { getArticleList } from '@/apis/article/article.api';
 
-import ArticleItem from '../articleItem/ArticleItem';
+import ArticleItem from './ArticleItem';
 
 const ArticleList = () => {
   const { data: response } = useQuery({

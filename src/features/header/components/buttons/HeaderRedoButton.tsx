@@ -1,20 +1,18 @@
 import { FaRedoAlt } from 'react-icons/fa';
-import { useRecoilState } from 'recoil';
 import { twJoin } from 'tailwind-merge';
 
-import {
-  canvasObjectHistoryIndexState,
-  canvasObjectHistoryState,
-} from '@/store/canvasStore';
+import { useCanvasStore } from '@/store/canvasStore';
 
 import useHistoryControll from '@/hooks/useHistoryControll';
 
 import { HeaderActiveButton } from '@/ui/buttons';
 
 const HeaderUndoButton = () => {
-  const [canvasObjectHistory] = useRecoilState(canvasObjectHistoryState);
-  const [canvasObjectHistoryIndex] = useRecoilState(
-    canvasObjectHistoryIndexState,
+  const canvasObjectHistory = useCanvasStore(
+    state => state.canvasObjectHistory,
+  );
+  const canvasObjectHistoryIndex = useCanvasStore(
+    state => state.canvasObjectHistoryIndex,
   );
 
   const { redoHistory } = useHistoryControll();

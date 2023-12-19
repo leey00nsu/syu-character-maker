@@ -1,11 +1,10 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useRecoilState } from 'recoil';
 
 import { toggleLikeArticle } from '@/apis/article/article.api';
 import { ListArticle } from '@/apis/article/article.type';
 import { ApiResponse } from '@/apis/response.type';
 
-import { authState } from '@/store/authStore';
+import { useAuthStore } from '@/store/authStore';
 
 import LikeToggleButton from '@/ui/buttons/LikeToggleButton';
 import { Card } from '@/ui/cards';
@@ -28,7 +27,7 @@ const ArticleItem = ({
   isLiked,
 }: ArticleItemProps) => {
   const queryClient = useQueryClient();
-  const [auth] = useRecoilState(authState);
+  const auth = useAuthStore(state => state.isAuth);
   const { mutateAsync: toggleLike } = useMutation({
     mutationKey: ['toggleLikeArticle'],
     retry: false,
