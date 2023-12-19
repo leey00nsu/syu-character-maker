@@ -1,6 +1,21 @@
+import { del, get, set } from 'idb-keyval';
 import { RGBColor } from 'react-color';
 import { StateCreator, create } from 'zustand';
-import { createJSONStorage, persist } from 'zustand/middleware';
+import { createDebouncedJSONStorage } from 'zustand-debounce';
+import { StateStorage, persist } from 'zustand/middleware';
+
+// 커스텀 IndexdDB 스토리지
+const IDBstorage: StateStorage = {
+  getItem: async (name: string): Promise<string | null> => {
+    return (await get(name)) || null;
+  },
+  setItem: async (name: string, value: string): Promise<void> => {
+    await set(name, value);
+  },
+  removeItem: async (name: string): Promise<void> => {
+    await del(name);
+  },
+};
 
 const DEFAULT_BACKGROUND_COLOR = {
   rgb: {
@@ -135,7 +150,18 @@ export const useCanvasStore = create<
     }),
     {
       name: 'canvas',
-      storage: createJSONStorage(() => sessionStorage),
+      storage: createDebouncedJSONStorage(IDBstorage, {
+        debounceTime: 1000,
+      }),
+      partialize: (state: any) => ({
+        backgroundColor: state.backgroundColor,
+        penSize: state.penSize,
+        penColor: state.penColor,
+        mode: state.mode,
+        canvasObjects: state.canvasObjects,
+        canvasObjectHistory: state.canvasObjectHistory,
+        canvasObjectHistoryIndex: state.canvasObjectHistoryIndex,
+      }),
     },
   ),
 );

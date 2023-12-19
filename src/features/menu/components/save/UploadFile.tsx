@@ -21,7 +21,13 @@ const UploadFile = ({ stageRef }: UploadFileProps) => {
     if (isPending) return;
     if (!stageRef.current) return;
 
+    // 자동으로 렌더링 되는 것을 방지
+    // 원래 비율로 저장하기 위해 scale을 1로 설정하는데
+    // 이를 렌더링하지 않도록 함
     Konva.autoDrawEnabled = false;
+
+    // transformer 숨기기
+    stageRef.current.find('.transformer')[0].hide();
 
     stageRef.current.scale({ x: 1, y: 1 });
 

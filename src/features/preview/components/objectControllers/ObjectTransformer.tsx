@@ -10,6 +10,7 @@ const ObjectTransformer = ({ transformerRef }: ObjectTransformerProps) => {
   return (
     <Transformer
       id="transformer"
+      name="transformer"
       shouldOverdrawWholeArea
       ref={transformerRef}
     />

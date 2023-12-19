@@ -276,13 +276,6 @@ const useKonva = ({
     stageRef.current.batchDraw();
   }, [isMobile]);
 
-  // // menu가 변경될 때마다 selectedObjectIds를 초기화
-  // useEffect(() => {
-  //   if (menu === '저장') {
-  //     setSelectedObjectIds([]);
-  //   }
-  // }, [menu]);
-
   // 오브젝트가 드래그 되거나 선택되면 , selectedObjectIds에 추가
   const objectSelectHandler = (objectId: string) => {
     if (!selectedObjectIds.includes(objectId)) {

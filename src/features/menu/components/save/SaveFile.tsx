@@ -15,6 +15,9 @@ const SaveFile = ({ stageRef }: SaveFileProps) => {
     // 이를 렌더링하지 않도록 함
     Konva.autoDrawEnabled = false;
 
+    // transformer 숨기기
+    stageRef.current.find('.transformer')[0].hide();
+
     stageRef.current.scale({ x: 1, y: 1 });
 
     const dataURL = stageRef.current.toDataURL({
