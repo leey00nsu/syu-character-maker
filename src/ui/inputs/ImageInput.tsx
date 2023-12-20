@@ -8,7 +8,7 @@ const ImageInput = ({ uploadHandler }: ImageInputProps) => {
       onChange={uploadHandler}
       type="file"
       accept="image/*"
-      className="file-input-bordered file-input-primary file-input"
+      className="file-input-bordered file-input-primary file-input max-w-xs"
     />
   );
 };

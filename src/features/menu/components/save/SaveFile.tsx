@@ -34,11 +34,13 @@ const SaveFile = ({ stageRef }: SaveFileProps) => {
     link.click();
     document.body.removeChild(link);
 
+    stageRef.current.find('.transformer')[0].show();
+
     Konva.autoDrawEnabled = true;
   };
 
   return (
-    <button onClick={saveHandler} className="btn-primary btn-wide btn">
+    <button onClick={saveHandler} className="btn-primary btn btn-wide">
       이미지 파일로 저장하기
     </button>
   );

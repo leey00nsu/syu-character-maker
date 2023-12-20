@@ -8,7 +8,7 @@ interface MenuListProps {
 
 const MenuList = ({ menu, changeMenuHandler }: MenuListProps) => {
   return (
-    <ul className="menu rounded-box menu-horizontal w-full  gap-1 bg-base-100 ">
+    <ul className="menu menu-horizontal w-full gap-1  rounded-box bg-base-100 ">
       {MENUS.map(menuName => (
         <MenuItem
           key={menuName}

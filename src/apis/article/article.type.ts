@@ -17,10 +17,6 @@ export interface ListArticle {
 export interface Article {
   id: number;
 
-  title: string;
-
-  content: string;
-
   author: User;
 
   imageUrl: string;
@@ -35,3 +31,14 @@ export interface LikedBy {
 
   articleId?: Article;
 }
+
+export interface ArticlePagination {
+  articles: ListArticle[];
+  meta: {
+    total: number;
+    page: number;
+    lastPage: number;
+  };
+}
+
+export type ArticleOrder = 'ASC' | 'DESC';

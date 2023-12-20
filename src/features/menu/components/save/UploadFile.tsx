@@ -45,6 +45,8 @@ const UploadFile = ({ stageRef }: UploadFileProps) => {
 
     await upload(formData);
 
+    stageRef.current.find('.transformer')[0].show();
+
     Konva.autoDrawEnabled = true;
   };
 

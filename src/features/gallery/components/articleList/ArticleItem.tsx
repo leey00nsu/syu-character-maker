@@ -1,7 +1,12 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import {
+  InfiniteData,
+  useMutation,
+  useQueryClient,
+} from '@tanstack/react-query';
+import { produce } from 'immer';
 
 import { toggleLikeArticle } from '@/apis/article/article.api';
-import { ListArticle } from '@/apis/article/article.type';
+import { ArticlePagination } from '@/apis/article/article.type';
 import { ApiResponse } from '@/apis/response.type';
 
 import { useAuthStore } from '@/store/authStore';
@@ -37,46 +42,44 @@ const ArticleItem = ({
       await queryClient.cancelQueries({ queryKey: ['getArticleList'] });
 
       // 이전 쿼리 캐시를 저장한다.
-      const previousArticleList = queryClient.getQueryData<
-        ApiResponse<ListArticle[]>
-      >(['getArticleList']);
+      const [queries] = queryClient.getQueriesData<
+        InfiniteData<ApiResponse<ArticlePagination>>
+      >({ queryKey: ['getArticleList'] });
+
+      const queryKeys = queries[0];
+      const previousInfiniteQuery = queries[1];
 
       // 쿼리 데이터에 대하여 좋아요 상태를 업데이트한다.
-      const updatedArticleList = previousArticleList?.data?.map(article => {
-        if (article.id === id) {
-          return {
-            ...article,
-            isLiked: !article.isLiked,
-            likeCount: article.isLiked
-              ? article.likeCount - 1
-              : article.likeCount + 1,
-          };
-        }
-
-        return article;
+      const updatedArticleList = produce(previousInfiniteQuery, draft => {
+        draft?.pages.forEach(page => {
+          page.data?.articles.forEach(article => {
+            if (article.id === id) {
+              article.isLiked = !article.isLiked;
+              article.likeCount += article.isLiked ? 1 : -1;
+            }
+          });
+        });
       });
 
       // 쿼리 데이터를 낙관적 업데이트한다.
       queryClient.setQueryData(
-        ['getArticleList'],
-        (old: ApiResponse<ListArticle[]>) => ({
+        queryKeys,
+        (old: InfiniteData<ApiResponse<ArticlePagination>>) => ({
           ...old,
-          data: updatedArticleList,
+          pages: updatedArticleList?.pages,
         }),
       );
 
       // Return a context object with the snapshotted value
-      return { previousArticleList };
+      return { previousInfiniteQuery };
     },
     onError: (err, _, context) => {
-      // 에러 발생시 이전 데이터로 캐시 저장
-      queryClient.setQueryData(['getArticleList'], {
-        ...context?.previousArticleList,
-      });
+      // 에러 발생시 쿼리 재요청
+      queryClient.invalidateQueries({ queryKey: ['getArticleList'] });
     },
     onSettled: () => {
       // 쿼리를 다시 요청한다.
-      queryClient.invalidateQueries({ queryKey: ['getAllArticles'] });
+      queryClient.invalidateQueries({ queryKey: ['getArticleList'] });
     },
   });
 
@@ -89,14 +92,14 @@ const ArticleItem = ({
   return (
     <Card>
       <Image imgUrl={imgUrl} />
-      <div className="flex flex-col absolute w-full h-full justify-end text-end p-4 gap-1">
-        <div className="flex justify-end bg-white bg-opacity-80 rounded-2xl ">
+      <div className="absolute flex h-full w-full flex-col justify-end gap-1 p-4 text-end">
+        <div className="flex justify-end rounded-2xl bg-white bg-opacity-80 ">
           <Paragraph size="sm" weight="medium" isEllipsis>
             {author}
           </Paragraph>
         </div>
 
-        <div className="flex flex-row justify-end gap-1 bg-white bg-opacity-80 rounded-2xl">
+        <div className="flex flex-row justify-end gap-1 rounded-2xl bg-white bg-opacity-80">
           <Paragraph size="sm" weight="medium" isEllipsis>
             {likeCount}
           </Paragraph>
