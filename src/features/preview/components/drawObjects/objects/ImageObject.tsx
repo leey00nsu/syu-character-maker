@@ -3,7 +3,7 @@ import useImage from 'use-image';
 
 import { CanvasObject, useCanvasStore } from '@/store/canvasStore';
 
-import useObjectControll from '@/hooks/useObjectControll';
+import useObjectControll from '@/hooks/canvas/useObjectControll';
 
 import { DEFAULT_IMAGE_WIDTH } from '@/features/preview/constants/canvas';
 

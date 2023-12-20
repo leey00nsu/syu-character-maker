@@ -1,6 +1,6 @@
 import { FaAngleDown } from 'react-icons/fa';
 
-import useObjectControll from '@/hooks/useObjectControll';
+import useObjectControll from '@/hooks/canvas/useObjectControll';
 
 interface LayerDownButtonProps {
   index: number;

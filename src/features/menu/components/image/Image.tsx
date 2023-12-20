@@ -1,6 +1,6 @@
 import React from 'react';
 
-import useObjectControll from '@/hooks/useObjectControll';
+import useObjectControll from '@/hooks/canvas/useObjectControll';
 
 import ImageInput from '@/ui/inputs/ImageInput';
 

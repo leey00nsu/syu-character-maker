@@ -1,7 +1,7 @@
 import { useCanvasStore } from '@/store/canvasStore';
 
-import useCharacter from '@/hooks/useCharacter';
-import useObjectControll from '@/hooks/useObjectControll';
+import useCharacter from '@/hooks/canvas/useCharacter';
+import useObjectControll from '@/hooks/canvas/useObjectControll';
 
 import { ItemToggleButton } from '@/ui/buttons';
 
@@ -50,7 +50,7 @@ const DecorationList = ({ part }: DecorationListProps) => {
   };
 
   return (
-    <div className="w-full grid grid-auto-rows-max grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 gap-4 p-4 overflow-y-auto">
+    <div className="grid-auto-rows-max grid w-full grid-cols-1 gap-4 overflow-y-auto p-4 xs:grid-cols-2 sm:grid-cols-3">
       {partDecorations.map(decoration => (
         <ItemToggleButton
           key={decoration.item}

@@ -1,18 +1,10 @@
-import { useInfiniteQuery } from '@tanstack/react-query';
 import React, { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 
-import { getArticleList } from '@/apis/article/article.api';
-
-import { useFilterStore } from '@/store/galleryStore';
-
+import useGetArticleList from '../../hooks/useGetArticleList';
 import ArticleItem from './ArticleItem';
 
 const ArticleList = () => {
-  const orderBy = useFilterStore(state => state.orderBy);
-  const dateOrder = useFilterStore(state => state.dateOrder);
-  const likeOrder = useFilterStore(state => state.likeOrder);
-
   const {
     ref: observerRef,
     inView,
@@ -21,33 +13,14 @@ const ArticleList = () => {
     threshold: 0.5,
   });
 
-  const {
-    data: response,
-    fetchNextPage,
-    refetch,
-    isLoading,
-  } = useInfiniteQuery({
-    queryKey: ['getArticleList', orderBy, dateOrder, likeOrder],
-    queryFn: ({ pageParam }) =>
-      getArticleList({
-        pageParam,
-        orderBy,
-        order: orderBy === 'date' ? dateOrder : likeOrder,
-      }),
-    initialPageParam: 1,
-    getNextPageParam: (lastPage, pages, lastPageParam) => {
-      return lastPage.data?.meta.lastPage === lastPageParam
-        ? undefined
-        : lastPageParam + 1;
-    },
-  });
+  const { response, fetchNextPage, isLoading, isError } = useGetArticleList();
 
   useEffect(() => {
-    if (!isLoading && inView) fetchNextPage();
-  }, [isLoading, inView]);
+    if (!isError && !isLoading && inView) fetchNextPage();
+  }, [isError, isLoading, inView]);
 
   return (
-    <div className="grid-auto-rows-max grid grid-cols-1 gap-4 overflow-y-auto p-4 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+    <div className="grid-auto-rows-max grid grid-cols-1 gap-4 overflow-y-scroll p-4 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
       {response?.pages?.map((page, index) => (
         <React.Fragment key={index}>
           {page?.data?.articles.map(article => (

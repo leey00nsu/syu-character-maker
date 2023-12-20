@@ -2,7 +2,7 @@ import { KonvaEventObject } from 'konva/lib/Node';
 
 import { CanvasObject, useCanvasStore } from '@/store/canvasStore';
 
-import useHistoryControll from '@/hooks/useHistoryControll';
+import useHistoryControll from '@/hooks/canvas/useHistoryControll';
 
 import { Decoration } from '@/features/menu/components/decoration/constants/decoration.type';
 import { IMMUTABLE_OBJECTS } from '@/features/preview/constants/canvas';

@@ -3,8 +3,8 @@ import { RefObject, useEffect, useRef, useState } from 'react';
 
 import { useCanvasStore } from '@/store/canvasStore';
 
-import useUpdateHistory from '@/hooks/useHistoryControll';
-import useObjectControll from '@/hooks/useObjectControll';
+import useUpdateHistory from '@/hooks/canvas/useHistoryControll';
+import useObjectControll from '@/hooks/canvas/useObjectControll';
 
 import {
   IMMUTABLE_OBJECTS,

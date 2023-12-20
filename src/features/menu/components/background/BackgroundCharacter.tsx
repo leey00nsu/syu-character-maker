@@ -1,5 +1,5 @@
-import useCharacter from '@/hooks/useCharacter';
-import useObjectControll from '@/hooks/useObjectControll';
+import useCharacter from '@/hooks/canvas/useCharacter';
+import useObjectControll from '@/hooks/canvas/useObjectControll';
 
 import { RadioButton } from '@/ui/buttons';
 
