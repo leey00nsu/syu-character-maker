@@ -1,12 +1,14 @@
 import { FaImage } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { HeaderActiveButton } from '@/ui/buttons';
 
 const HeaderGalleryButton = () => {
+  const location = useLocation();
   const navigate = useNavigate();
 
   const changePageHandler = () => {
+    if (location.pathname === '/gallery') return;
     navigate('/gallery');
   };
 

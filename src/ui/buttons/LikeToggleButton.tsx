@@ -1,7 +1,7 @@
 import { twJoin, twMerge } from 'tailwind-merge';
 
 interface LikeToggleButtonProps {
-  toggleHandler: () => void;
+  toggleHandler: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
   isLiked: boolean;
 }
 

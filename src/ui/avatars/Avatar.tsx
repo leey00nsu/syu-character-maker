@@ -1,3 +1,5 @@
+import React from 'react';
+
 interface AvatarProps {
   photo: string;
 }
@@ -12,4 +14,4 @@ const Avatar = ({ photo }: AvatarProps) => {
   );
 };
 
-export default Avatar;
+export default React.memo(Avatar);

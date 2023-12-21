@@ -10,8 +10,6 @@ const useGetArticleList = () => {
   const dateOrder = useFilterStore(state => state.dateOrder);
   const likeOrder = useFilterStore(state => state.likeOrder);
 
-  const setIsAnimation = useFilterStore(state => state.setIsAnimation);
-
   const {
     data: response,
     fetchNextPage,

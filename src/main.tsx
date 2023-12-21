@@ -9,6 +9,7 @@ import {
 
 import './index.css';
 import AboutPage from './pages/AboutPage';
+import ArticleDetailPage from './pages/ArticleDetailPage';
 import AuthPage from './pages/AuthPage';
 import GalleryPage from './pages/GalleryPage';
 import GoogleAuthPage from './pages/GoogleAuthPage';
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
   {
     path: '/gallery',
     element: <AuthPage element={<GalleryPage />} />,
+  },
+  {
+    path: '/gallery/:articleId',
+    element: <AuthPage element={<ArticleDetailPage />} />,
   },
 ]);
 

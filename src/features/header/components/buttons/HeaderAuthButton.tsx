@@ -1,5 +1,5 @@
 import { FaRegUserCircle } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { useAuthStore } from '@/store/authStore';
 
@@ -9,13 +9,15 @@ import Avatar from '@/ui/avatars/Avatar';
 import ActiveButton from '@/ui/buttons/HeaderActiveButton';
 
 const HeaderAuthButton = () => {
-  const auth = useAuthStore(state => state.isAuth);
+  const isAuth = useAuthStore(state => state.isAuth);
   const user = useAuthStore(state => state.user);
 
+  const location = useLocation();
   const navigate = useNavigate();
   const getGoogleCode = useGetGoogleCode();
 
   const navigateUserPageHandler = () => {
+    if (location.pathname === '/user') return;
     navigate('/user');
   };
 
@@ -25,12 +27,12 @@ const HeaderAuthButton = () => {
 
   return (
     <>
-      {auth && (
+      {isAuth && (
         <ActiveButton onClick={navigateUserPageHandler}>
           <Avatar photo={user.photo} />
         </ActiveButton>
       )}
-      {!auth && (
+      {!isAuth && (
         <ActiveButton onClick={loginHandler}>
           <FaRegUserCircle className="h-full w-full" />
         </ActiveButton>

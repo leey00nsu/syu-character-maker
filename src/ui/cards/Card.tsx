@@ -2,12 +2,14 @@ import { motion } from 'framer-motion';
 import React from 'react';
 
 interface CardProps {
+  clickHandler?: () => void;
   children?: React.ReactNode;
 }
 
-const Card = ({ children }: CardProps) => {
+const Card = ({ children, clickHandler }: CardProps) => {
   return (
     <motion.div
+      onClick={clickHandler}
       transition={{ delay: 0.05 }}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}

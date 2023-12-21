@@ -1,13 +1,15 @@
-import { useState } from 'react';
+import { motion } from 'framer-motion';
+import { HTMLAttributeReferrerPolicy, useState } from 'react';
 import { twJoin } from 'tailwind-merge';
 
 import { LoadingDots } from '../loadings';
 
 interface ImageProps {
   imgUrl: string;
+  referrerPolicy?: HTMLAttributeReferrerPolicy;
 }
 
-const Image = ({ imgUrl }: ImageProps) => {
+const Image = ({ imgUrl, referrerPolicy }: ImageProps) => {
   const [imageStatus, setImageStatus] = useState('loading');
 
   const loadHandler = () => {
@@ -22,12 +24,16 @@ const Image = ({ imgUrl }: ImageProps) => {
   return (
     <>
       {imageStatus === 'loading' && <LoadingDots />}
-      <img
+      <motion.img
+        referrerPolicy={referrerPolicy}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.1 }}
         src={imgUrl}
         onError={errorHandler}
         onLoad={loadHandler}
         className={twJoin(
-          'w-full h-full p-2 object-contain',
+          'h-full w-full object-contain ',
           imageStatus === 'loaded' ? 'block' : 'hidden',
         )}
       />

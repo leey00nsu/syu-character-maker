@@ -13,6 +13,7 @@ interface UseValidateAuthProps {
 
 const useValidateAuth = ({ privated, element }: UseValidateAuthProps) => {
   const navigate = useNavigate();
+  const isAuth = useAuthStore(state => state.isAuth);
   const setAuth = useAuthStore(state => state.setAuth);
   const setUser = useAuthStore(state => state.setUser);
 
@@ -21,13 +22,18 @@ const useValidateAuth = ({ privated, element }: UseValidateAuthProps) => {
     queryFn: getUser,
     retry: false,
     staleTime: 1000 * 60 * 60,
+    select(data) {
+      return data.data;
+    },
   });
 
   useLayoutEffect(() => {
     if (!isLoading) {
-      if (response && response.data && response.statusCode === 200) {
-        setAuth(true);
-        setUser(response.data);
+      if (response) {
+        if (!isAuth) {
+          setAuth(true);
+          setUser(response);
+        }
       } else {
         if (privated) {
           navigate('/');

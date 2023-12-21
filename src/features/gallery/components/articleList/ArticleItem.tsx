@@ -1,3 +1,5 @@
+import { useNavigate } from 'react-router-dom';
+
 import { useAuthStore } from '@/store/authStore';
 
 import LikeToggleButton from '@/ui/buttons/LikeToggleButton';
@@ -24,32 +26,36 @@ const ArticleItem = ({
   isLiked,
   createdAt,
 }: ArticleItemProps) => {
+  const navigate = useNavigate();
   const auth = useAuthStore(state => state.isAuth);
 
-  const { toggleLike } = useToggleLikeArticle();
+  const { toggleListLike } = useToggleLikeArticle();
 
-  const toggleLikeHandler = async () => {
+  const toggleLikeHandler = async (
+    event: React.MouseEvent<HTMLElement, MouseEvent>,
+  ) => {
+    event.stopPropagation();
     if (auth) {
-      await toggleLike(id);
+      await toggleListLike(id);
     }
   };
 
-  const formattedDate = new Intl.DateTimeFormat('ko', {
-    dateStyle: 'long',
-  }).format(new Date(createdAt));
+  const clickCardHandler = () => {
+    navigate(`/gallery/${id}`);
+  };
 
   return (
-    <Card>
+    <Card clickHandler={clickCardHandler}>
       <Image imgUrl={imgUrl} />
       <div className="absolute flex h-full w-full flex-col justify-end gap-1 p-4 text-end">
-        <div className="flex justify-end rounded-2xl bg-white bg-opacity-80 ">
-          <Paragraph size="sm" weight="medium" isEllipsis>
+        <div className="flex justify-end rounded-2xl bg-white bg-opacity-80 px-2 ">
+          <Paragraph size="sm" weight="light" isEllipsis>
             {author}
           </Paragraph>
         </div>
 
-        <div className="flex flex-row justify-end gap-1 rounded-2xl bg-white bg-opacity-80">
-          <Paragraph size="sm" weight="medium" isEllipsis>
+        <div className="flex flex-row items-center justify-end gap-1 rounded-2xl bg-white bg-opacity-80 px-2">
+          <Paragraph size="sm" weight="light" isEllipsis>
             {likeCount}
           </Paragraph>
           <LikeToggleButton

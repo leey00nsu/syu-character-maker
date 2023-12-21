@@ -6,7 +6,7 @@ import { WindowContainer } from '@/ui/containers';
 import {
   Background,
   Decoration,
-  Image,
+  AddImage,
   MenuList,
   Pen,
   Save,
@@ -29,7 +29,7 @@ const Menu = ({ stageRef }: MenuProps) => {
       <MenuList menu={menu} changeMenuHandler={changeMenuHandler} />
       {menu === '꾸미기' && <Decoration />}
       {menu === '배경' && <Background />}
-      {menu === '이미지' && <Image />}
+      {menu === '이미지' && <AddImage />}
       {menu === '펜' && <Pen />}
       {menu === '저장' && <Save stageRef={stageRef} />}
     </WindowContainer>

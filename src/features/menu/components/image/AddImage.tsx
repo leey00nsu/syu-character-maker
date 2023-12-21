@@ -6,7 +6,7 @@ import ImageInput from '@/ui/inputs/ImageInput';
 
 import MenuContentContainer from '../containers/MenuContentContainer';
 
-const Image = () => {
+const AddImage = () => {
   const { addImage } = useObjectControll();
 
   // 이미지 리사이징
@@ -82,4 +82,4 @@ const Image = () => {
   );
 };
 
-export default Image;
+export default AddImage;

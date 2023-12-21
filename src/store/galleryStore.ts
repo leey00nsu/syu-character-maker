@@ -15,7 +15,7 @@ interface FilterSlice {
 
 const createFilterSlice: StateCreator<FilterSlice> = set => ({
   orderBy: 'date',
-  dateOrder: 'ASC',
+  dateOrder: 'DESC',
   likeOrder: 'DESC',
   setOrderBy: (changes: Order) => set(state => ({ orderBy: changes })),
   setDateOrder: (changes: ArticleOrder) =>

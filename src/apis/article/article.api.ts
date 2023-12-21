@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 import { ApiResponse } from '../response.type';
-import { ArticleOrder, ArticlePagination } from './article.type';
+import { ArticleOrder, ArticlePagination, ListArticle } from './article.type';
 
 const { VITE_SERVER_HOST } = import.meta.env;
 
@@ -31,6 +31,17 @@ export const getArticleList = async ({
 }) => {
   const response = await axios.get<ApiResponse<ArticlePagination>>(
     `${VITE_SERVER_HOST}/article?page=${pageParam}&orderBy=${orderBy}&order=${order}`,
+    {
+      withCredentials: true,
+    },
+  );
+
+  return response.data;
+};
+
+export const getArticle = async ({ articleId }: { articleId: number }) => {
+  const response = await axios.get<ApiResponse<ListArticle>>(
+    `${VITE_SERVER_HOST}/article/${articleId}`,
     {
       withCredentials: true,
     },

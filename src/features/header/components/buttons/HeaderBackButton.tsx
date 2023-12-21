@@ -7,7 +7,7 @@ const HeaderBackButton = () => {
   const navigate = useNavigate();
 
   const changePageHandler = () => {
-    navigate('/');
+    navigate('..', { relative: 'path' });
   };
 
   return (
