@@ -26,18 +26,15 @@ const ArticleList = () => {
     }
   }, [isError, isLoading, inView]);
 
+  console.log(response);
+
   return (
     <>
-      <div className="grid-auto-rows-max 3xl:grid-cols-6 grid grid-cols-1 gap-4 overflow-y-scroll p-4  xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5">
+      <div className="grid-auto-rows-max grid grid-cols-1 gap-4 overflow-y-scroll p-4 xs:grid-cols-2  md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 3xl:grid-cols-6">
         {response?.map((article, index) => (
           <ArticleItem
             key={likeOrder + dateOrder + orderBy + index}
-            id={article.id}
-            imgUrl={article.imageUrl}
-            isLiked={article.isLiked}
-            likeCount={article.likeCount}
-            author={article.author.name}
-            createdAt={article.createdAt}
+            article={article}
           />
         ))}
         {hasNextPage && (

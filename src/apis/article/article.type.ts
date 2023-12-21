@@ -3,6 +3,8 @@ import { User } from '../auth/auth.type';
 export interface ListArticle {
   id: number;
 
+  canvasName: string;
+
   author: User;
 
   imageUrl: string;

@@ -1,8 +1,11 @@
 import { useMutation } from '@tanstack/react-query';
 import Konva from 'konva';
 import { RefObject } from 'react';
+import { twJoin } from 'tailwind-merge';
 
 import { uploadArticle } from '@/apis/article/article.api';
+
+import { useCanvasStore } from '@/store/canvasStore';
 
 import { LoadingDots } from '@/ui/loadings';
 
@@ -11,6 +14,9 @@ interface UploadFileProps {
 }
 
 const UploadFile = ({ stageRef }: UploadFileProps) => {
+  const canvasName = useCanvasStore(state => state.canvasName);
+  const setCanvasName = useCanvasStore(state => state.setCanvasName);
+
   const { mutateAsync: upload, isPending } = useMutation({
     mutationKey: ['uploadArticle'],
     retry: false,
@@ -18,6 +24,7 @@ const UploadFile = ({ stageRef }: UploadFileProps) => {
   });
 
   const uploadHandler = async () => {
+    if (!canvasName) return;
     if (isPending) return;
     if (!stageRef.current) return;
 
@@ -42,8 +49,11 @@ const UploadFile = ({ stageRef }: UploadFileProps) => {
 
     const formData = new FormData();
     formData.append('file', blob);
+    formData.append('canvasName', canvasName);
 
     await upload(formData);
+
+    setCanvasName('');
 
     stageRef.current.find('.transformer')[0].show();
 
@@ -51,9 +61,16 @@ const UploadFile = ({ stageRef }: UploadFileProps) => {
   };
 
   return (
-    <button onClick={uploadHandler} className="btn-primary btn-wide btn">
+    <button
+      onClick={uploadHandler}
+      className={twJoin(
+        'btn-primary btn btn-wide',
+        !canvasName && 'btn-disabled',
+      )}
+    >
       {isPending && <LoadingDots />}
-      {!isPending && <div>업로드 하기</div>}
+      {!isPending && canvasName && <div>업로드 하기</div>}
+      {!canvasName && <div>작품명을 입력해주세요!</div>}
     </button>
   );
 };

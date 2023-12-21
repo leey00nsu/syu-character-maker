@@ -113,9 +113,11 @@ const DEFAULT_CANVAS_OBJECT: CanvasObject = {
 };
 
 interface CanvasObjectSlice {
+  canvasName: string;
   canvasObjects: CanvasObject[];
   canvasObjectHistory: CanvasObject[][];
   canvasObjectHistoryIndex: number;
+  setCanvasName: (changes: string) => void;
   setCanvasObjects: (changes: CanvasObject[]) => void;
   setCanvasObjectHistory: (changes: CanvasObject[][]) => void;
   setCanvasObjectHistoryIndex: (changes: number) => void;
@@ -124,10 +126,12 @@ interface CanvasObjectSlice {
 }
 
 const createCanvasObjectSlice: StateCreator<CanvasObjectSlice> = set => ({
+  canvasName: '',
   canvasObjects: [DEFAULT_CANVAS_OBJECT],
   canvasObjectHistory: [[DEFAULT_CANVAS_OBJECT]],
   canvasObjectHistoryIndex: 0,
   selectedObjectIds: [],
+  setCanvasName: (changes: string) => set(state => ({ canvasName: changes })),
   setCanvasObjects: (changes: CanvasObject[]) =>
     set(state => ({ canvasObjects: changes })),
   setCanvasObjectHistory: (changes: CanvasObject[][]) =>

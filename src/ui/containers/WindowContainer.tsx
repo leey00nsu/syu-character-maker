@@ -8,12 +8,21 @@ interface WindowContainerProps {
   className?: string;
 }
 
+const HeaderDiv = ({ children }: WindowContainerProps) => {
+  return (
+    <div className="absolute left-1/2 top-[10px] -translate-x-1/2 ">
+      {children}
+    </div>
+  );
+};
+
 const Header = ({ children }: WindowContainerProps) => {
   return (
     <Paragraph
       size="md"
       weight="medium"
       className="absolute left-1/2 top-[10px] -translate-x-1/2 "
+      isEllipsis
     >
       {children}
     </Paragraph>
@@ -34,5 +43,6 @@ const WindowContainer = ({ children, className }: WindowContainerProps) => {
 };
 
 WindowContainer.Header = Header;
+WindowContainer.HeaderDiv = HeaderDiv;
 
 export default WindowContainer;

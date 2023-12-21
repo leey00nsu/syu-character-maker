@@ -1,11 +1,15 @@
 import Konva from 'konva';
 import { RefObject } from 'react';
 
+import { useCanvasStore } from '@/store/canvasStore';
+
 interface SaveFileProps {
   stageRef: RefObject<Konva.Stage>;
 }
 
 const SaveFile = ({ stageRef }: SaveFileProps) => {
+  const canvasName = useCanvasStore(state => state.canvasName);
+
   // 현재 Stage를 이미지 파일로 저장하기
   const saveHandler = () => {
     if (!stageRef.current) return;
@@ -28,7 +32,7 @@ const SaveFile = ({ stageRef }: SaveFileProps) => {
     });
 
     var link = document.createElement('a');
-    link.download = 'save';
+    link.download = canvasName ?? 'image.png';
     link.href = dataURL;
     document.body.appendChild(link);
     link.click();

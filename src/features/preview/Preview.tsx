@@ -7,6 +7,7 @@ import useKonva from '@/features/preview/hooks/useKonva';
 import { WindowContainer } from '@/ui/containers';
 
 import { DrawObjects } from './components';
+import CanvasNameInput from './components/canvasNameInput/CanvasNameInput';
 import {
   ObjectSelectBox,
   ObjectTransformer,
@@ -31,7 +32,9 @@ const Preview = ({ stageRef }: PreviewProps) => {
 
   return (
     <WindowContainer className="w-[350px] sm:w-[600px]">
-      <WindowContainer.Header>미리보기</WindowContainer.Header>
+      <WindowContainer.HeaderDiv>
+        <CanvasNameInput />
+      </WindowContainer.HeaderDiv>
       <div className="flex h-[350px] w-full justify-center overflow-hidden sm:h-[600px] ">
         <Stage
           ref={stageRef}

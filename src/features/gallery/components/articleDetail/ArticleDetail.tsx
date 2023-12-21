@@ -35,7 +35,7 @@ const ArticleDetail = () => {
 
   return (
     <WindowContainer className=" h-[498px] w-[350px]  sm:h-[752px] sm:w-[600px]">
-      {/* <WindowContainer.Header>상세 페이지</WindowContainer.Header> */}
+      <WindowContainer.Header>{response.canvasName}</WindowContainer.Header>
       <div className="flex h-full w-full  ">
         <Image imgUrl={response.imageUrl} />
       </div>

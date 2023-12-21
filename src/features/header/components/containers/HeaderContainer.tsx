@@ -4,19 +4,17 @@ interface HeaderContainerProps {
 
 const LeftButtons = ({ children }: HeaderContainerProps) => {
   return (
-    <div className=" xs:flex-nowrap flex min-w-[1/2] flex-wrap items-start  gap-2">
-      {children}
-    </div>
+    <div className="grid grid-cols-3 gap-2 xs:grid-cols-5 ">{children}</div>
   );
 };
 
 const RightButtons = ({ children }: HeaderContainerProps) => {
-  return <div className="flex items-start gap-2">{children}</div>;
+  return <div className="grid grid-cols-3 gap-2">{children}</div>;
 };
 
 const HeaderContainer = ({ children }: HeaderContainerProps) => {
   return (
-    <div className="fixed z-50 flex w-full items-center justify-center  bg-base-100 px-6 py-6">
+    <div className="sticky z-50 flex w-full items-center justify-center bg-base-100 px-6 py-6">
       <div className="flex w-full justify-between">{children}</div>
     </div>
   );
