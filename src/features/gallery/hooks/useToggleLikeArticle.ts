@@ -16,7 +16,7 @@ const useToggleLikeArticle = () => {
     mutationKey: ['toggleLikeArticle'],
     retry: false,
     mutationFn: toggleLikeArticle,
-    onMutate: async (id) => {
+    onMutate: async id => {
       // 모든 쿼리를 취소한다. (낙관적 업데이트가 덮어쓰지 않도록)
       await queryClient.cancelQueries({ queryKey: ['getArticleList'] });
 
@@ -57,7 +57,7 @@ const useToggleLikeArticle = () => {
     },
     onSettled: () => {
       // 완료시 쿼리를 다시 요청한다.
-      queryClient.invalidateQueries({ queryKey: ['getArticleList'] });
+      // queryClient.invalidateQueries({ queryKey: ['getArticleList'] });
     },
   });
   return {

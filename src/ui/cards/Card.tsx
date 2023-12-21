@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import React from 'react';
 
 interface CardProps {
@@ -6,9 +7,14 @@ interface CardProps {
 
 const Card = ({ children }: CardProps) => {
   return (
-    <div className="relative aspect-square border-base-300 border rounded-2xl bg-white flex overflow-hidden hover:cursor-pointer">
+    <motion.div
+      transition={{ delay: 0.05 }}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="relative flex aspect-square overflow-hidden rounded-2xl border border-base-300 bg-white hover:cursor-pointer"
+    >
       {children}
-    </div>
+    </motion.div>
   );
 };
 

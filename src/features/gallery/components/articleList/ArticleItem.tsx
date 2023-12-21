@@ -13,6 +13,7 @@ interface ArticleItemProps {
   likeCount: number;
   author: string;
   isLiked: boolean;
+  createdAt: Date;
 }
 
 const ArticleItem = ({
@@ -21,6 +22,7 @@ const ArticleItem = ({
   author,
   likeCount,
   isLiked,
+  createdAt,
 }: ArticleItemProps) => {
   const auth = useAuthStore(state => state.isAuth);
 
@@ -31,6 +33,10 @@ const ArticleItem = ({
       await toggleLike(id);
     }
   };
+
+  const formattedDate = new Intl.DateTimeFormat('ko', {
+    dateStyle: 'long',
+  }).format(new Date(createdAt));
 
   return (
     <Card>

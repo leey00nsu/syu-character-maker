@@ -6,6 +6,7 @@ export default {
     screens: {
       ...require('tailwindcss/defaultConfig').theme.screens,
       xs: '450px',
+      '3xl': '1920px',
     },
     extend: {},
   },

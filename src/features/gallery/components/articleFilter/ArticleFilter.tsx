@@ -1,3 +1,5 @@
+import { useQueryClient } from '@tanstack/react-query';
+
 import { Order, useFilterStore } from '@/store/galleryStore';
 
 import ArticleDateFilter from './ArticleDateFilter';
@@ -11,7 +13,12 @@ const ArticleFilter = () => {
   const likeOrder = useFilterStore(state => state.likeOrder);
   const setLikeOrder = useFilterStore(state => state.setLikeOrder);
 
+  const queryClient = useQueryClient();
+
   const changeOrderHandler = (changes: Order) => {
+    queryClient.removeQueries({
+      queryKey: ['getArticleList'],
+    });
     // 현재 정렬 기준과 같은 경우, 정렬 순서를 바꿔준다.
     if (changes === orderBy) {
       if (changes === 'date')

@@ -1,4 +1,4 @@
-import { create } from 'zustand';
+import { StateCreator, create } from 'zustand';
 
 import { ArticleOrder } from '@/apis/article/article.type';
 
@@ -13,7 +13,7 @@ interface FilterSlice {
   setLikeOrder: (changes: ArticleOrder) => void;
 }
 
-export const useFilterStore = create<FilterSlice>(set => ({
+const createFilterSlice: StateCreator<FilterSlice> = set => ({
   orderBy: 'date',
   dateOrder: 'ASC',
   likeOrder: 'DESC',
@@ -22,4 +22,8 @@ export const useFilterStore = create<FilterSlice>(set => ({
     set(state => ({ dateOrder: changes })),
   setLikeOrder: (changes: ArticleOrder) =>
     set(state => ({ likeOrder: changes })),
+});
+
+export const useFilterStore = create<FilterSlice>()((...a) => ({
+  ...createFilterSlice(...a),
 }));

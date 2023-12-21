@@ -1,42 +1,50 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
+
+import { useFilterStore } from '@/store/galleryStore';
+
+import { LoadingDots } from '@/ui/loadings';
 
 import useGetArticleList from '../../hooks/useGetArticleList';
 import ArticleItem from './ArticleItem';
 
 const ArticleList = () => {
-  const {
-    ref: observerRef,
-    inView,
-    entry,
-  } = useInView({
-    threshold: 0.5,
+  const { ref: observerRef, inView } = useInView({
+    threshold: 0.2,
   });
 
-  const { response, fetchNextPage, isLoading, isError } = useGetArticleList();
+  const orderBy = useFilterStore(state => state.orderBy);
+  const likeOrder = useFilterStore(state => state.likeOrder);
+  const dateOrder = useFilterStore(state => state.dateOrder);
+
+  const { response, fetchNextPage, isLoading, isError, hasNextPage } =
+    useGetArticleList();
 
   useEffect(() => {
-    if (!isError && !isLoading && inView) fetchNextPage();
+    if (!isError && !isLoading && inView) {
+      fetchNextPage();
+    }
   }, [isError, isLoading, inView]);
 
   return (
-    <div className="grid-auto-rows-max grid grid-cols-1 gap-4 overflow-y-scroll p-4 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
-      {response?.pages?.map((page, index) => (
-        <React.Fragment key={index}>
-          {page?.data?.articles.map(article => (
-            <ArticleItem
-              key={article.id}
-              id={article.id}
-              imgUrl={article.imageUrl}
-              isLiked={article.isLiked}
-              likeCount={article.likeCount}
-              author={article.author.name}
-            />
-          ))}
-        </React.Fragment>
-      ))}
-      <div ref={observerRef}></div>
-    </div>
+    <>
+      <div className="grid-auto-rows-max 3xl:grid-cols-6 grid grid-cols-1 gap-4 overflow-y-scroll p-4  xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5">
+        {response?.map((article, index) => (
+          <ArticleItem
+            key={likeOrder + dateOrder + orderBy + index}
+            id={article.id}
+            imgUrl={article.imageUrl}
+            isLiked={article.isLiked}
+            likeCount={article.likeCount}
+            author={article.author.name}
+            createdAt={article.createdAt}
+          />
+        ))}
+        {hasNextPage && (
+          <div ref={observerRef}>{isLoading && <LoadingDots />}</div>
+        )}
+      </div>
+    </>
   );
 };
 
