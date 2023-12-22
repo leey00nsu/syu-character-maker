@@ -1,7 +1,7 @@
 import { FaQuestion } from 'react-icons/fa';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { HeaderActiveButton } from '@/ui/buttons';
+import { ActiveButton } from '@/ui/buttons';
 
 const HeaderAboutButton = () => {
   const location = useLocation();
@@ -13,9 +13,12 @@ const HeaderAboutButton = () => {
   };
 
   return (
-    <HeaderActiveButton onClick={changePageHandler}>
+    <ActiveButton
+      clickHandler={changePageHandler}
+      className="btn-ghost h-12 w-12 sm:h-16 sm:w-16"
+    >
       <FaQuestion className="h-full w-full" />
-    </HeaderActiveButton>
+    </ActiveButton>
   );
 };
 

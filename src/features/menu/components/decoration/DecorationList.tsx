@@ -3,8 +3,7 @@ import { useCanvasStore } from '@/store/canvasStore';
 import useCharacter from '@/hooks/canvas/useCharacter';
 import useObjectControll from '@/hooks/canvas/useObjectControll';
 
-import { ItemToggleButton } from '@/ui/buttons';
-
+import { DecorationToggleButton } from './buttons';
 import { Decoration } from './constants/decoration.type';
 import { SUHO_DECORATIONS } from './constants/suhoDecorations';
 import { SUYA_DECORATIONS } from './constants/suyaDecorations';
@@ -52,13 +51,13 @@ const DecorationList = ({ part }: DecorationListProps) => {
   return (
     <div className="grid-auto-rows-max grid w-full grid-cols-1 gap-4 overflow-y-auto p-4 xs:grid-cols-2 sm:grid-cols-3">
       {partDecorations.map(decoration => (
-        <ItemToggleButton
+        <DecorationToggleButton
           key={decoration.item}
           toggleHandler={toggleDecorationHandler.bind(this, decoration)}
           isActive={isActiveDecoration(decoration)}
         >
           {decoration.item}
-        </ItemToggleButton>
+        </DecorationToggleButton>
       ))}
     </div>
   );

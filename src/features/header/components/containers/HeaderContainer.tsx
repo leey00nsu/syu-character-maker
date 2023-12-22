@@ -2,25 +2,27 @@ interface HeaderContainerProps {
   children?: React.ReactNode;
 }
 
-const LeftButtons = ({ children }: HeaderContainerProps) => {
+const ResponsiveColumn = ({ children }: HeaderContainerProps) => {
   return (
-    <div className="grid grid-cols-3 gap-2 xs:grid-cols-5 ">{children}</div>
-  );
-};
-
-const RightButtons = ({ children }: HeaderContainerProps) => {
-  return <div className="grid grid-cols-3 gap-2">{children}</div>;
-};
-
-const HeaderContainer = ({ children }: HeaderContainerProps) => {
-  return (
-    <div className="sticky top-0 z-[998] flex w-full items-center justify-center bg-base-100 p-6 ">
-      <div className="flex w-full justify-between">{children}</div>
+    <div className="grid h-full grid-cols-2 grid-rows-2 gap-2 xs:grid-cols-4 sm:grid-cols-5 sm:grid-rows-1">
+      {children}
     </div>
   );
 };
 
-HeaderContainer.Left = LeftButtons;
-HeaderContainer.Right = RightButtons;
+const FixedColumn = ({ children }: HeaderContainerProps) => {
+  return <div className="grid h-full grid-cols-3 gap-2">{children}</div>;
+};
+
+const HeaderContainer = ({ children }: HeaderContainerProps) => {
+  return (
+    <div className=" sticky top-0 z-[998] flex w-full items-start justify-between bg-base-100 p-6">
+      {children}
+    </div>
+  );
+};
+
+HeaderContainer.ResponsiveColumn = ResponsiveColumn;
+HeaderContainer.FixedColumn = FixedColumn;
 
 export default HeaderContainer;

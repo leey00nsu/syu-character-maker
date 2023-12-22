@@ -14,16 +14,22 @@ interface HeaderProps {
 const Header = ({ isCanvas }: HeaderProps) => {
   return (
     <HeaderContainer>
-      <HeaderContainer.Left>
-        {isCanvas && <HeaderCanvasButtons />}
-        {!isCanvas && <HeaderBackButton />}
-      </HeaderContainer.Left>
+      {isCanvas && (
+        <HeaderContainer.ResponsiveColumn>
+          <HeaderCanvasButtons />
+        </HeaderContainer.ResponsiveColumn>
+      )}
+      {!isCanvas && (
+        <HeaderContainer.FixedColumn>
+          <HeaderBackButton />
+        </HeaderContainer.FixedColumn>
+      )}
 
-      <HeaderContainer.Right>
+      <HeaderContainer.FixedColumn>
         <HeaderGalleryButton />
         <HeaderAuthButton />
         <HeaderAboutButton />
-      </HeaderContainer.Right>
+      </HeaderContainer.FixedColumn>
     </HeaderContainer>
   );
 };

@@ -2,7 +2,7 @@ import { FaExpandArrowsAlt } from 'react-icons/fa';
 
 import { ModeState, useCanvasStore } from '@/store/canvasStore';
 
-import { HeaderToggleButton } from '@/ui/buttons';
+import { ToggleButton } from '@/ui/buttons';
 
 const HeaderMoveButton = () => {
   const mode = useCanvasStore(state => state.mode);
@@ -15,13 +15,13 @@ const HeaderMoveButton = () => {
   const isActive = mode === 'move';
 
   return (
-    <HeaderToggleButton
-      mode="move"
+    <ToggleButton
       isActive={isActive}
-      onClick={changeModeHandler}
+      clickHandler={changeModeHandler.bind(this, 'move')}
+      className="btn-ghost h-12 w-12 sm:h-16 sm:w-16"
     >
       <FaExpandArrowsAlt className="h-full w-full" />
-    </HeaderToggleButton>
+    </ToggleButton>
   );
 };
 

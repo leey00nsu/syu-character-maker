@@ -4,7 +4,6 @@ import { useAuthStore } from '@/store/authStore';
 
 import useModal from '@/hooks/modal/useModal';
 
-import LikeToggleButton from '@/ui/buttons/LikeToggleButton';
 import { WindowContainer } from '@/ui/containers';
 import { Image } from '@/ui/images';
 import { LoadingSpinner } from '@/ui/loadings';
@@ -13,7 +12,7 @@ import { Paragraph } from '@/ui/texts';
 import useGetArticle from '../../hooks/useGetArticle';
 import useRemoveArticle from '../../hooks/useRemoveArticle';
 import useToggleLikeArticle from '../../hooks/useToggleLikeArticle';
-import ArticleRemoveButton from './ArticleRemoveButton';
+import { ArticleLikeToggleButton, ArticleRemoveButton } from '../buttons';
 
 const ArticleDetail = () => {
   const auth = useAuthStore(state => state.isAuth);
@@ -51,7 +50,7 @@ const ArticleDetail = () => {
   }).format(new Date(response.createdAt));
 
   return (
-    <WindowContainer className=" h-[550px] w-[350px]  justify-between sm:h-[700px] sm:w-[500px]">
+    <WindowContainer className=" h-[550px] w-[350px]  justify-between sm:h-[650px] sm:w-[500px]">
       <WindowContainer.Header>
         <Paragraph
           className="translate-y-1"
@@ -84,7 +83,7 @@ const ArticleDetail = () => {
           <Paragraph size="xl" weight="light" ellipsis>
             {response.likeCount}
           </Paragraph>
-          <LikeToggleButton
+          <ArticleLikeToggleButton
             isLiked={response.isLiked}
             toggleHandler={toggleLikeHandler}
           />

@@ -5,7 +5,7 @@ import { useCanvasStore } from '@/store/canvasStore';
 
 import useHistoryControll from '@/hooks/canvas/useHistoryControll';
 
-import { HeaderActiveButton } from '@/ui/buttons';
+import { ActiveButton } from '@/ui/buttons';
 
 const HeaderUndoButton = () => {
   const canvasObjectHistoryIndex = useCanvasStore(
@@ -20,14 +20,17 @@ const HeaderUndoButton = () => {
   const isUndoAbled = canvasObjectHistoryIndex !== 0;
 
   return (
-    <HeaderActiveButton onClick={undoHistoryHandler}>
+    <ActiveButton
+      clickHandler={undoHistoryHandler}
+      className="btn-ghost h-12 w-12 sm:h-16 sm:w-16"
+    >
       <FaUndoAlt
         className={twJoin(
           'h-full w-full  ',
           isUndoAbled ? 'text-accent' : 'text-black',
         )}
       />
-    </HeaderActiveButton>
+    </ActiveButton>
   );
 };
 

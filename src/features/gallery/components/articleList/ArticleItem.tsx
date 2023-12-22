@@ -4,12 +4,12 @@ import { ListArticle } from '@/apis/article/article.type';
 
 import { useAuthStore } from '@/store/authStore';
 
-import LikeToggleButton from '@/ui/buttons/LikeToggleButton';
 import { Card } from '@/ui/cards';
 import { Image } from '@/ui/images';
 import { Paragraph } from '@/ui/texts';
 
 import useToggleLikeArticle from '../../hooks/useToggleLikeArticle';
+import { ArticleLikeToggleButton } from '../buttons';
 
 interface ArticleItemProps {
   article: ListArticle;
@@ -48,7 +48,7 @@ const ArticleItem = ({ article }: ArticleItemProps) => {
           <Paragraph size="sm" weight="light" ellipsis>
             {article.likeCount}
           </Paragraph>
-          <LikeToggleButton
+          <ArticleLikeToggleButton
             isLiked={article.isLiked}
             toggleHandler={toggleLikeHandler}
           />

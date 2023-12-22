@@ -1,4 +1,3 @@
-export { default as HeaderActiveButton } from './HeaderActiveButton';
-export { default as HeaderToggleButton } from './HeaderToggleButton';
-export { default as ItemToggleButton } from './ItemToggleButton';
+export { default as ActiveButton } from './ActiveButton';
 export { default as RadioButton } from './RadioButton';
+export { default as ToggleButton } from './ToggleButton';

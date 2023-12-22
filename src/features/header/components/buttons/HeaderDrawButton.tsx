@@ -2,7 +2,7 @@ import { FaPencilAlt } from 'react-icons/fa';
 
 import { ModeState, useCanvasStore } from '@/store/canvasStore';
 
-import { HeaderToggleButton } from '@/ui/buttons';
+import { ToggleButton } from '@/ui/buttons';
 
 export const HeaderDrawButton = () => {
   const mode = useCanvasStore(state => state.mode);
@@ -15,13 +15,13 @@ export const HeaderDrawButton = () => {
   const isActive = mode === 'draw';
 
   return (
-    <HeaderToggleButton
-      mode="draw"
+    <ToggleButton
       isActive={isActive}
-      onClick={changeModeHandler}
+      clickHandler={changeModeHandler.bind(this, 'draw')}
+      className="btn-ghost h-12 w-12 sm:h-16 sm:w-16"
     >
       <FaPencilAlt className="h-full w-full" />
-    </HeaderToggleButton>
+    </ToggleButton>
   );
 };
 

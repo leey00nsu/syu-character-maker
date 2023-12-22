@@ -1,7 +1,7 @@
 import { FaArrowLeft } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 
-import { HeaderActiveButton } from '@/ui/buttons';
+import { ActiveButton } from '@/ui/buttons';
 
 const HeaderBackButton = () => {
   const navigate = useNavigate();
@@ -11,9 +11,12 @@ const HeaderBackButton = () => {
   };
 
   return (
-    <HeaderActiveButton onClick={changePageHandler}>
+    <ActiveButton
+      clickHandler={changePageHandler}
+      className="btn-ghost h-12 w-12 sm:h-16 sm:w-16"
+    >
       <FaArrowLeft className="h-full w-full" />
-    </HeaderActiveButton>
+    </ActiveButton>
   );
 };
 
