@@ -7,6 +7,8 @@ import { uploadArticle } from '@/apis/article/article.api';
 
 import { useCanvasStore } from '@/store/canvasStore';
 
+import useModal from '@/hooks/modal/useModal';
+
 import { LoadingDots } from '@/ui/loadings';
 
 interface UploadFileProps {
@@ -16,6 +18,17 @@ interface UploadFileProps {
 const UploadFile = ({ stageRef }: UploadFileProps) => {
   const canvasName = useCanvasStore(state => state.canvasName);
   const setCanvasName = useCanvasStore(state => state.setCanvasName);
+
+  const { addModal } = useModal();
+
+  const showUploadModal = () => {
+    addModal({
+      type: 'confirm',
+      title: '업로드',
+      content: '지금 그림을 업로드할까요?',
+      callback: uploadHandler,
+    });
+  };
 
   const { mutateAsync: upload, isPending } = useMutation({
     mutationKey: ['uploadArticle'],
@@ -60,17 +73,19 @@ const UploadFile = ({ stageRef }: UploadFileProps) => {
     Konva.autoDrawEnabled = true;
   };
 
+  const isUploadable = canvasName && !isPending;
+
   return (
     <button
-      onClick={uploadHandler}
+      onClick={isUploadable ? showUploadModal : undefined}
       className={twJoin(
         'btn-primary btn btn-wide',
-        !canvasName && 'btn-disabled',
+        !isUploadable && 'btn-disabled',
       )}
     >
       {isPending && <LoadingDots />}
       {!isPending && canvasName && <div>업로드 하기</div>}
-      {!canvasName && <div>작품명을 입력해주세요!</div>}
+      {!isPending && !canvasName && <div>작품명을 입력해주세요!</div>}
     </button>
   );
 };

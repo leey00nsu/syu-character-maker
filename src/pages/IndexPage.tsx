@@ -7,7 +7,6 @@ import { Menu } from '@/features/menu';
 import { Preview } from '@/features/preview';
 
 import { PageContainer } from '@/ui/containers';
-import Modal from '@/ui/modals/Modal';
 
 const IndexPage = () => {
   // canvas의 정보를 가져오기 위한 ref
@@ -15,8 +14,6 @@ const IndexPage = () => {
 
   return (
     <PageContainer>
-      <Modal label="UploadModal" />
-
       <PageContainer.Header>
         <Header isCanvas />
       </PageContainer.Header>

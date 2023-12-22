@@ -1,5 +1,7 @@
 import React from 'react';
 
+import ModalList from '../modals/ModalList';
+
 interface PageContainerProps {
   children: React.ReactNode;
 }
@@ -22,6 +24,7 @@ const PageContainer = ({ children }: PageContainerProps) => {
       onContextMenu={disableRightClick}
       className="flex h-[100svh] max-w-[100svw] flex-col"
     >
+      <ModalList />
       {children}
     </div>
   );
