@@ -11,7 +11,7 @@ const GalleryPage = () => {
       </PageContainer.Header>
 
       <PageContainer.Content>
-        <div className="flex w-full h-full p-2">
+        <div className="flex h-full w-full p-2">
           <Gallery />
         </div>
       </PageContainer.Content>

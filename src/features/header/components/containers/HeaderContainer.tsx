@@ -14,7 +14,7 @@ const RightButtons = ({ children }: HeaderContainerProps) => {
 
 const HeaderContainer = ({ children }: HeaderContainerProps) => {
   return (
-    <div className="sticky z-50 flex w-full items-center justify-center bg-base-100 px-6 py-6">
+    <div className="sticky top-0 z-[998] flex w-full items-center justify-center bg-base-100 p-6 ">
       <div className="flex w-full justify-between">{children}</div>
     </div>
   );

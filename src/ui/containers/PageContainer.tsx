@@ -11,7 +11,11 @@ const Header = ({ children }: PageContainerProps) => {
 };
 
 const Content = ({ children }: PageContainerProps) => {
-  return <div className="flex  h-full w-full flex-col ">{children}</div>;
+  return (
+    <div className="flex h-[calc(100%-152px)] w-full flex-col xs:h-[calc(100%-96px)] sm:h-[calc(100%-112px)] ">
+      {children}
+    </div>
+  );
 };
 
 const PageContainer = ({ children }: PageContainerProps) => {
