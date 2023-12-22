@@ -1,4 +1,5 @@
-import { twJoin, twMerge } from 'tailwind-merge';
+import { FaHeart } from 'react-icons/fa';
+import { twJoin } from 'tailwind-merge';
 
 interface LikeToggleButtonProps {
   toggleHandler: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
@@ -10,16 +11,17 @@ const LikeToggleButton = ({
   toggleHandler,
 }: LikeToggleButtonProps) => {
   return (
-    <div className="rating" onClick={toggleHandler}>
-      <input
-        type="radio"
-        name="rating-3"
-        className={twMerge(
-          'mask mask-heart',
-          twJoin(isLiked ? 'bg-red-600' : 'bg-slate-400'),
+    <button
+      className="btn-ghost btn h-6 min-h-0 w-6 p-0 hover:bg-transparent"
+      onClick={toggleHandler}
+    >
+      <FaHeart
+        className={twJoin(
+          'h-full w-full',
+          isLiked ? 'text-accent' : 'text-slate-400',
         )}
       />
-    </div>
+    </button>
   );
 };
 

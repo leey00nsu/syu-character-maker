@@ -38,14 +38,14 @@ const ArticleItem = ({ article }: ArticleItemProps) => {
     <Card clickHandler={clickCardHandler}>
       <Image imgUrl={article.imageUrl} />
       <div className="absolute flex h-full w-full flex-col justify-end gap-1 p-4 text-end">
-        <div className="flex justify-end rounded-2xl bg-white bg-opacity-80 px-2 ">
-          <Paragraph size="sm" weight="light" isEllipsis>
+        <div className="flex h-6 items-center justify-end rounded-2xl bg-white bg-opacity-80 px-2 ">
+          <Paragraph size="sm" weight="light" ellipsis>
             {article.canvasName}
           </Paragraph>
         </div>
 
-        <div className="flex flex-row items-center justify-end gap-1 rounded-2xl bg-white bg-opacity-80 px-2">
-          <Paragraph size="sm" weight="light" isEllipsis>
+        <div className="flex h-6 flex-row items-center justify-end gap-1 rounded-2xl bg-white bg-opacity-80 px-2">
+          <Paragraph size="sm" weight="light" ellipsis>
             {article.likeCount}
           </Paragraph>
           <LikeToggleButton

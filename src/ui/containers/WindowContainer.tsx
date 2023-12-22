@@ -1,31 +1,22 @@
 import React from 'react';
 import { twMerge } from 'tailwind-merge';
 
-import { Paragraph } from '@/ui/texts';
-
 interface WindowContainerProps {
   children?: React.ReactNode;
   className?: string;
 }
 
-const HeaderDiv = ({ children }: WindowContainerProps) => {
+const Header = ({ children }: WindowContainerProps) => {
   return (
-    <div className="absolute left-1/2 top-[10px] -translate-x-1/2 ">
+    <div className="absolute left-1/2 top-[0.6rem] -translate-x-1/2   ">
       {children}
     </div>
   );
 };
 
-const Header = ({ children }: WindowContainerProps) => {
+const HeaderButton = ({ children }: WindowContainerProps) => {
   return (
-    <Paragraph
-      size="md"
-      weight="medium"
-      className="absolute left-1/2 top-[10px] -translate-x-1/2 "
-      isEllipsis
-    >
-      {children}
-    </Paragraph>
+    <div className="absolute right-0 top-[0.6rem] flex p-2">{children}</div>
   );
 };
 
@@ -43,6 +34,6 @@ const WindowContainer = ({ children, className }: WindowContainerProps) => {
 };
 
 WindowContainer.Header = Header;
-WindowContainer.HeaderDiv = HeaderDiv;
+WindowContainer.HeaderButton = HeaderButton;
 
 export default WindowContainer;

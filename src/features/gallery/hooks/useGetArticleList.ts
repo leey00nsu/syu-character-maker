@@ -18,7 +18,7 @@ const useGetArticleList = () => {
     hasNextPage,
   } = useInfiniteQuery({
     queryKey: ['getArticleList', orderBy, dateOrder, likeOrder],
-    retry: 1,
+    retry: false,
     queryFn: ({ pageParam }) =>
       getArticleList({
         pageParam,

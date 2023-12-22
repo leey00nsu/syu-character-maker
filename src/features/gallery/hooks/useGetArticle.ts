@@ -12,7 +12,7 @@ const useGetArticle = () => {
     isError,
   } = useQuery({
     queryKey: ['getArticle', articleId],
-    retry: 1,
+    retry: false,
     queryFn: () => getArticle({ articleId }),
     select(data) {
       return data.data;

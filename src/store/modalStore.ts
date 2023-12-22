@@ -6,7 +6,7 @@ export interface Modal {
   type: ModalType;
   title: string;
   content: string;
-  callback: () => void;
+  callback: Function;
 }
 
 interface ModalSlice {

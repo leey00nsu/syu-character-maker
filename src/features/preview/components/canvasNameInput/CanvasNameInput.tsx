@@ -1,6 +1,6 @@
 import { useCanvasStore } from '@/store/canvasStore';
 
-const MAX_CANVAS_NAME_LENGTH = 20;
+import { MAX_CANVAS_NAME_LENGTH } from '../../constants/canvas';
 
 const CanvasNameInput = () => {
   const canvasName = useCanvasStore(state => state.canvasName);

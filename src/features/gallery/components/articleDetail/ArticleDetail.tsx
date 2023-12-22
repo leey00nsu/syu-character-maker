@@ -1,4 +1,8 @@
+import { Navigate } from 'react-router-dom';
+
 import { useAuthStore } from '@/store/authStore';
+
+import useModal from '@/hooks/modal/useModal';
 
 import LikeToggleButton from '@/ui/buttons/LikeToggleButton';
 import { WindowContainer } from '@/ui/containers';
@@ -7,19 +11,23 @@ import { LoadingSpinner } from '@/ui/loadings';
 import { Paragraph } from '@/ui/texts';
 
 import useGetArticle from '../../hooks/useGetArticle';
+import useRemoveArticle from '../../hooks/useRemoveArticle';
 import useToggleLikeArticle from '../../hooks/useToggleLikeArticle';
+import ArticleRemoveButton from './ArticleRemoveButton';
 
 const ArticleDetail = () => {
   const auth = useAuthStore(state => state.isAuth);
 
-  const { response, isLoading } = useGetArticle();
+  const { response, isLoading, isError } = useGetArticle();
+  const { remove } = useRemoveArticle();
   const { toggleLike } = useToggleLikeArticle();
+  const { addModal } = useModal();
 
-  if (isLoading) {
-    return <LoadingSpinner />;
+  if (isError) {
+    return <Navigate to="/gallery" />;
   }
 
-  if (!response) {
+  if (isLoading || !response) {
     return <LoadingSpinner />;
   }
 
@@ -29,25 +37,51 @@ const ArticleDetail = () => {
     }
   };
 
+  const removeArticleHandler = () => {
+    addModal({
+      type: 'confirm',
+      title: '게시글 삭제',
+      content: '게시글을 삭제하시겠습니까?',
+      callback: remove.bind(this, { articleId: response.id }),
+    });
+  };
+
   const formattedDate = new Intl.DateTimeFormat('ko', {
     dateStyle: 'long',
   }).format(new Date(response.createdAt));
 
   return (
-    <WindowContainer className=" h-[498px] w-[350px]  sm:h-[752px] sm:w-[600px]">
-      <WindowContainer.Header>{response.canvasName}</WindowContainer.Header>
+    <WindowContainer className=" h-[550px] w-[350px]  justify-between sm:h-[700px] sm:w-[500px]">
+      <WindowContainer.Header>
+        <Paragraph
+          className="translate-y-1"
+          size="md"
+          weight="medium"
+          ellipsis
+          fixSize
+        >
+          {response.canvasName}
+        </Paragraph>
+      </WindowContainer.Header>
+
+      {response.isOwner && (
+        <WindowContainer.HeaderButton>
+          <ArticleRemoveButton removeArticleHandler={removeArticleHandler} />
+        </WindowContainer.HeaderButton>
+      )}
+
       <div className="flex h-full w-full  ">
         <Image imgUrl={response.imageUrl} />
       </div>
       <div className="flex w-full flex-col justify-end p-2 text-end">
-        <Paragraph size="lg" weight="light" isEllipsis>
+        <Paragraph size="lg" weight="light" ellipsis>
           {response.author.name}
         </Paragraph>
-        <Paragraph size="lg" weight="light" isEllipsis>
+        <Paragraph size="lg" weight="light" ellipsis>
           {formattedDate}
         </Paragraph>
         <div className="flex flex-row items-center justify-end gap-1 rounded-xl bg-white bg-opacity-80 ">
-          <Paragraph size="xl" weight="light" isEllipsis>
+          <Paragraph size="xl" weight="light" ellipsis>
             {response.likeCount}
           </Paragraph>
           <LikeToggleButton
@@ -56,29 +90,6 @@ const ArticleDetail = () => {
           />
         </div>
       </div>
-
-      {/* <div className="absolute right-0 flex w-full max-w-full flex-col justify-start gap-1  p-4 pt-8 text-end ">
-        <div className="flex  justify-end rounded-xl bg-white bg-opacity-80 px-4 ">
-          <Paragraph size="xl" weight="light" isEllipsis>
-            asdasdsadsadasdsadasd1sa5d1sa5d1sa65d1as
-          </Paragraph>
-        </div>
-        <div className="flex  justify-end rounded-xl bg-white bg-opacity-80 px-4">
-          <Paragraph size="md" weight="light" isEllipsis>
-            {formattedDate}
-          </Paragraph>
-        </div>
-
-        <div className="flex flex-row items-center justify-end gap-1 rounded-xl bg-white bg-opacity-80 px-4">
-          <Paragraph size="xl" weight="light" isEllipsis>
-            {response.likeCount}
-          </Paragraph>
-          <LikeToggleButton
-            isLiked={response.isLiked}
-            toggleHandler={toggleLikeHandler}
-          />
-        </div>
-      </div> */}
     </WindowContainer>
   );
 };

@@ -50,6 +50,17 @@ export const getArticle = async ({ articleId }: { articleId: number }) => {
   return response.data;
 };
 
+export const removeArticle = async ({ articleId }: { articleId: number }) => {
+  const response = await axios.delete<ApiResponse<unknown>>(
+    `${VITE_SERVER_HOST}/article/${articleId}`,
+    {
+      withCredentials: true,
+    },
+  );
+
+  return response.data;
+};
+
 export const toggleLikeArticle = async (articleId: number) => {
   const response = await axios.post<ApiResponse<unknown>>(
     `${VITE_SERVER_HOST}/article/${articleId}/like`,

@@ -5,7 +5,8 @@ interface ParagraphProps {
   children: React.ReactNode;
   size: 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl';
   weight: 'light' | 'normal' | 'medium' | 'semibold' | 'bold';
-  isEllipsis?: boolean;
+  ellipsis?: boolean;
+  fixSize?: boolean;
   className?: string;
 }
 
@@ -13,32 +14,33 @@ const Paragraph = ({
   children,
   size,
   weight,
-  isEllipsis,
+  ellipsis,
   className,
+  fixSize,
 }: ParagraphProps) => {
   let sizeClasses = '';
   let weightClasses = '';
   switch (size) {
     case 'sm':
-      sizeClasses = 'text-sm sm:text-base';
+      sizeClasses = twJoin('text-sm', !fixSize && 'sm:text-base');
       break;
     case 'md':
-      sizeClasses = 'text-base sm:text-lg';
+      sizeClasses = twJoin('text-ba', !fixSize && 'sm:text-lg');
       break;
     case 'lg':
-      sizeClasses = 'text-lg sm:text-xl';
+      sizeClasses = twJoin('text-lg', !fixSize && 'sm:text-xl');
       break;
     case 'xl':
-      sizeClasses = 'text-xl sm:text-2xl';
+      sizeClasses = twJoin('text-xl', !fixSize && 'sm:text-2xl');
       break;
     case '2xl':
-      sizeClasses = 'text-2xl sm:text-3xl';
+      sizeClasses = twJoin('text-2xl', !fixSize && ' sm:text-3xl');
       break;
     case '3xl':
-      sizeClasses = 'text-3xl sm:text-4xl';
+      sizeClasses = twJoin('text-3xl', !fixSize && ' sm:text-4xl');
       break;
     case '4xl':
-      sizeClasses = 'text-4xl sm:text-5xl';
+      sizeClasses = twJoin('text-4xl', !fixSize && ' sm:text-5xl');
       break;
   }
 
@@ -69,7 +71,7 @@ const Paragraph = ({
         sizeClasses,
         weightClasses,
         className,
-        twJoin(isEllipsis && textEllipsis),
+        twJoin(ellipsis && textEllipsis),
       )}
     >
       {children}

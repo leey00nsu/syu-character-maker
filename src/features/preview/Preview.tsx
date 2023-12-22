@@ -32,9 +32,9 @@ const Preview = ({ stageRef }: PreviewProps) => {
 
   return (
     <WindowContainer className="w-[350px] sm:w-[600px]">
-      <WindowContainer.HeaderDiv>
+      <WindowContainer.Header>
         <CanvasNameInput />
-      </WindowContainer.HeaderDiv>
+      </WindowContainer.Header>
       <div className="flex h-[350px] w-full justify-center overflow-hidden sm:h-[600px] ">
         <Stage
           ref={stageRef}

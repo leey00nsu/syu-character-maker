@@ -7,3 +7,4 @@ export const DEFAULT_IMAGE_WIDTH = 200;
 
 export const IMMUTABLE_OBJECTS = ['background', 'character', 'decoration'];
 export const MUTABLE_OBJECTS = ['line', 'image'];
+export const MAX_CANVAS_NAME_LENGTH = 15
