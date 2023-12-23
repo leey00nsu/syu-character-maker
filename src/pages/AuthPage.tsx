@@ -8,13 +8,10 @@ interface AuthPageProps {
 }
 
 // 로그인 상태를 체크하는 페이지
-// privated가 true이면 로그인 상태가 아니면 '/'로 이동
 const AuthPage = ({ element, privated }: AuthPageProps) => {
-  const { isLoading } = useValidateAuth({ element, privated });
+  const { isLoading } = useValidateAuth({ privated });
 
-  if (isLoading) {
-    return <LoadingSpinner />;
-  }
+  if (isLoading) return <LoadingSpinner />;
 
   return element;
 };

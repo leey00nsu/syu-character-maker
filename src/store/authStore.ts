@@ -1,4 +1,5 @@
 import { StateCreator, create } from 'zustand';
+import { createJSONStorage, persist } from 'zustand/middleware';
 
 import { User } from '@/apis/auth/auth.type';
 
@@ -30,7 +31,15 @@ const createUserSlice: StateCreator<UserSlice> = set => ({
   removeUser: () => set(state => ({ user: DEFAULT_USER })),
 });
 
-export const useAuthStore = create<UserSlice & AuthSlice>()((...a) => ({
-  ...createAuthSlice(...a),
-  ...createUserSlice(...a),
-}));
+export const useAuthStore = create<UserSlice & AuthSlice>()(
+  persist(
+    (...a) => ({
+      ...createAuthSlice(...a),
+      ...createUserSlice(...a),
+    }),
+    {
+      name: 'auth-storage',
+      storage: createJSONStorage(() => localStorage),
+    },
+  ),
+);

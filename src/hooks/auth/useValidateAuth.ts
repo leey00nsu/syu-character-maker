@@ -1,46 +1,32 @@
-import { useQuery } from '@tanstack/react-query';
-import { useLayoutEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-
-import { getUser } from '@/apis/auth/auth.api';
+import { useEffect, useLayoutEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { useAuthStore } from '@/store/authStore';
 
 interface UseValidateAuthProps {
   privated?: boolean;
-  element: JSX.Element;
 }
 
-const useValidateAuth = ({ privated, element }: UseValidateAuthProps) => {
-  const navigate = useNavigate();
+const useValidateAuth = ({ privated }: UseValidateAuthProps) => {
+  const [isLoading, setIsLoading] = useState(true);
   const isAuth = useAuthStore(state => state.isAuth);
-  const setAuth = useAuthStore(state => state.setAuth);
-  const setUser = useAuthStore(state => state.setUser);
 
-  const { data: response, isLoading } = useQuery({
-    queryKey: ['validateAuth'],
-    queryFn: getUser,
-    retry: false,
-    staleTime: 1000 * 60 * 60,
-    select(data) {
-      return data.data;
-    },
-  });
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useLayoutEffect(() => {
-    if (!isLoading) {
-      if (response) {
-        if (!isAuth) {
-          setAuth(true);
-          setUser(response);
-        }
-      } else {
-        if (privated) {
-          navigate('/');
-        }
-      }
+    setIsLoading(true);
+  }, [isAuth, location.pathname]);
+
+  useEffect(() => {
+    useAuthStore.persist.rehydrate();
+
+    if (!isAuth && privated) {
+      navigate('/', { replace: true });
     }
-  }, [isLoading, element]);
+
+    setIsLoading(false);
+  }, [isAuth, location.pathname]);
 
   return { isLoading };
 };

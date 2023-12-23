@@ -24,14 +24,13 @@ const useGoogleLogin = () => {
 
   useEffect(() => {
     if (isError) {
-      console.log(error);
-      navigate('/');
+      navigate('/', { replace: true });
     }
     if (response) {
       if (response.statusCode === 200 && response.data) {
         setAuth(true);
         setUser(response.data);
-        navigate('/');
+        navigate('/', { replace: true });
       } else {
         console.log(response.message);
       }

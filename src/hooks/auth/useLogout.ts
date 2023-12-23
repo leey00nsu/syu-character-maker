@@ -25,24 +25,27 @@ const useLogout = () => {
   });
 
   useEffect(() => {
-    if (isError) {
-      console.log(error);
-    }
-    if (response) {
-      if (response.statusCode === 200) {
-        console.log('logout');
-        queryClient.resetQueries({ queryKey: ['validateAuth'] });
-        setAuth(false);
-        setUser({
-          name: '',
-          email: '',
-          photo: '',
-        });
-        navigate('/');
-      } else {
-        console.log(response.message);
+    const logout = async () => {
+      if (isError) {
+        console.log(error);
       }
-    }
+      if (response) {
+        if (response.statusCode === 200) {
+          console.log('logout');
+          setAuth(false);
+          setUser({
+            name: '',
+            email: '',
+            photo: '',
+          });
+          navigate('/', { replace: true });
+        } else {
+          console.log(response.message);
+        }
+      }
+    };
+
+    logout();
   }, [isError, response]);
 
   return mutateAsync;

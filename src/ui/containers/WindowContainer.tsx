@@ -16,7 +16,7 @@ const Header = ({ children }: WindowContainerProps) => {
 
 const HeaderButton = ({ children }: WindowContainerProps) => {
   return (
-    <div className="absolute right-0 top-[0.6rem] flex p-2">{children}</div>
+    <div className="absolute right-0 top-[0.3rem] flex p-2">{children}</div>
   );
 };
 

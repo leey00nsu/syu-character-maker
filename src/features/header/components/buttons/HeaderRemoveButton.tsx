@@ -27,7 +27,7 @@ const HeaderRemoveButton = () => {
       {isRemovable && (
         <ActiveButton
           clickHandler={removeObject}
-          className="h-12 w-12 border-0 bg-transparent hover:btn-accent hover:bg-accent hover:text-white sm:h-16 sm:w-16"
+          className=" btn-outline h-12 w-12 border-0 hover:btn-accent hover:bg-accent hover:text-white sm:h-16 sm:w-16"
         >
           <FaTrashAlt className="h-full w-full" />
         </ActiveButton>

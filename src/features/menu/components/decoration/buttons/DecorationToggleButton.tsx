@@ -18,8 +18,8 @@ const DecorationToggleButton = ({
       isActive={isActive}
       clickHandler={toggleHandler}
       className="rounded-lg"
-      inActiveClassName="btn-ghost border-base-300"
-      activeClassName="btn-success border-success"
+      inActiveClassName="btn-ghost border-base-300 "
+      activeClassName="btn-neutral border-0"
     >
       {children}
     </ToggleButton>
