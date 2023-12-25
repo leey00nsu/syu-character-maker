@@ -4,7 +4,7 @@ const useGetGoogleCode = () => {
   const getGoogleCode = useGoogleLogin({
     flow: 'auth-code',
     ux_mode: 'redirect',
-    redirect_uri: import.meta.env.VITE_GOOGLE_REDIRECT_URL,
+    redirect_uri: window.location.origin + '/auth/google',
   });
   return getGoogleCode;
 };

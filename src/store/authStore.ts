@@ -1,7 +1,23 @@
+import { EncryptStorage } from 'encrypt-storage';
 import { StateCreator, create } from 'zustand';
-import { createJSONStorage, persist } from 'zustand/middleware';
+import { StateStorage, createJSONStorage, persist } from 'zustand/middleware';
 
 import { User } from '@/apis/auth/auth.type';
+
+const encryptStorage = new EncryptStorage(import.meta.env.VITE_ENCRYPT_KEY);
+
+// 커스텀 encrypted 스토리지
+const encryptPersistStorage: StateStorage = {
+  getItem: (name: string) => {
+    return encryptStorage.getItem(name) || null;
+  },
+  setItem: (name: string, value: string) => {
+    encryptStorage.setItem(name, value);
+  },
+  removeItem: (name: string) => {
+    encryptStorage.removeItem(name);
+  },
+};
 
 interface AuthSlice {
   isAuth: boolean;
@@ -38,8 +54,8 @@ export const useAuthStore = create<UserSlice & AuthSlice>()(
       ...createUserSlice(...a),
     }),
     {
-      name: 'auth-storage',
-      storage: createJSONStorage(() => localStorage),
+      name: 'as',
+      storage: createJSONStorage(() => encryptPersistStorage),
     },
   ),
 );
