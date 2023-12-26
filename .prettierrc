@@ -9,5 +9,23 @@
   "arrowParens": "avoid",
   "proseWrap": "never",
   "endOfLine": "auto",
-  "plugins": ["prettier-plugin-tailwindcss"]
+
+  "importOrder": [
+    "<THIRD_PARTY_MODULES>",
+    "^@/constants/(.*)$",
+    "^@/apis/(.*)$",
+    "^@/store/(.*)$",
+    "^@/hooks/(.*)$",
+    "^@/pages/(.*)$",
+    "^@/features/(.*)$",
+    "^@/components/(.*)$",
+    "^@/ui/(.*)$",
+    "^[./]"
+  ],
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true,
+  "plugins": [
+    "@trivago/prettier-plugin-sort-imports",
+    "prettier-plugin-tailwindcss"
+  ]
 }

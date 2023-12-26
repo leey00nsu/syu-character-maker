@@ -1,17 +1,18 @@
-import AboutHeader from '../components/header/AboutHeader';
-import PageContainer from '../components/ui/PageContainer';
-import Paragraph from '../components/ui/Paragraph';
+import { Header } from '@/features/header';
+
+import { PageContainer } from '@/ui/containers';
+import { Paragraph } from '@/ui/texts';
 
 const AboutPage = () => {
   return (
     <PageContainer>
       <PageContainer.Header>
-        <AboutHeader />
+        <Header />
       </PageContainer.Header>
 
       <PageContainer.Content>
         <section className="flex w-full flex-col items-center gap-4 p-4 py-10">
-          <div className="flex ">
+          <div className="flex">
             <img
               className="animate-custom-bounce h-[150px] w-[150px] sm:h-[300px] sm:w-[300px]"
               src="/suya.png"
