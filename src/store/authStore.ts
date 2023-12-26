@@ -4,7 +4,9 @@ import { StateStorage, createJSONStorage, persist } from 'zustand/middleware';
 
 import { User } from '@/apis/auth/auth.type';
 
-const encryptStorage = new EncryptStorage(import.meta.env.VITE_ENCRYPT_KEY);
+const encryptStorage = new EncryptStorage(import.meta.env.VITE_ENCRYPT_KEY, {
+  stateManagementUse: true, // persist 설정 시 필요
+});
 
 // 커스텀 encrypted 스토리지
 const encryptPersistStorage: StateStorage = {
