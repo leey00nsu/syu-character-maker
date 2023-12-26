@@ -27,6 +27,8 @@ const useGetArticleList = () => {
       }),
     initialPageParam: 1,
     getNextPageParam: (lastPage, pages, lastPageParam) => {
+      if(!lastPage.data?.meta.lastPage) return undefined;
+      
       return lastPage.data?.meta.lastPage === lastPageParam
         ? undefined
         : lastPageParam + 1;
