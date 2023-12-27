@@ -14,7 +14,7 @@ const ArticleToggleLikeButton = ({
   toggleHandler,
 }: ArticleToggleLikeButtonProps) => {
   const classNames = tw(
-    'w-6 h-6 p-0 bg-transparent border-0 min-h-0',
+    'btn-ghost btn h-6 min-h-0 w-6 p-0 bg-transparent',
     isLiked ? 'text-accent' : 'text-slate-400',
   );
 
