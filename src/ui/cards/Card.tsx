@@ -9,7 +9,7 @@ const Card = ({ children, clickHandler }: CardProps) => {
   return (
     <div
       onClick={clickHandler}
-      className="relative flex aspect-square overflow-hidden rounded-2xl border border-base-300 bg-white hover:cursor-pointer"
+      className="relative flex aspect-square h-full w-full overflow-hidden rounded-2xl border border-base-300 bg-white hover:cursor-pointer"
     >
       {children}
     </div>
