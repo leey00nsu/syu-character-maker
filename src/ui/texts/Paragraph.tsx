@@ -1,10 +1,28 @@
+import tw from '@/utils/tw';
 import React from 'react';
-import { twJoin, twMerge } from 'tailwind-merge';
+import { twJoin } from 'tailwind-merge';
 
+export type ParagraphSize =
+  | 'sm'
+  | 'md'
+  | 'lg'
+  | 'xl'
+  | '2xl'
+  | '3xl'
+  | '4xl'
+  | '5xl'
+  | '6xl';
+
+export type ParagraphWeight =
+  | 'light'
+  | 'normal'
+  | 'medium'
+  | 'semibold'
+  | 'bold';
 interface ParagraphProps {
   children: React.ReactNode;
-  size: 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl';
-  weight: 'light' | 'normal' | 'medium' | 'semibold' | 'bold';
+  size: ParagraphSize;
+  weight: ParagraphWeight;
   ellipsis?: boolean;
   fixSize?: boolean;
   className?: string;
@@ -42,6 +60,12 @@ const Paragraph = ({
     case '4xl':
       sizeClasses = twJoin('text-4xl', !fixSize && ' sm:text-5xl');
       break;
+    case '5xl':
+      sizeClasses = twJoin('text-5xl', !fixSize && ' sm:text-6xl');
+      break;
+    case '6xl':
+      sizeClasses = twJoin('text-6xl', !fixSize && ' sm:text-7xl');
+      break;
   }
 
   switch (weight) {
@@ -67,11 +91,11 @@ const Paragraph = ({
 
   return (
     <p
-      className={twMerge(
+      className={tw(
         sizeClasses,
         weightClasses,
         className,
-        twJoin(ellipsis && textEllipsis),
+        ellipsis && textEllipsis,
       )}
     >
       {children}

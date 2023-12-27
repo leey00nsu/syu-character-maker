@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 
 import { ListArticle } from '@/apis/article/article.type';
@@ -35,26 +36,32 @@ const ArticleItem = ({ article }: ArticleItemProps) => {
   };
 
   return (
-    <Card clickHandler={clickCardHandler}>
-      <Image imgUrl={article.imageUrl} />
-      <div className="absolute flex h-full w-full flex-col justify-end gap-1 p-4 text-end">
-        <div className="flex h-6 items-center justify-end rounded-2xl bg-white bg-opacity-80 px-2 ">
-          <Paragraph size="sm" weight="light" ellipsis>
-            {article.canvasName}
-          </Paragraph>
-        </div>
+    <motion.div
+      transition={{ delay: 0.05 }}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+    >
+      <Card clickHandler={clickCardHandler}>
+        <Image imgUrl={article.imageUrl} />
+        <div className="absolute flex h-full w-full flex-col justify-end gap-1 p-4 text-end">
+          <div className="flex h-6 items-center justify-end rounded-2xl bg-white bg-opacity-80 px-2 ">
+            <Paragraph size="sm" weight="light" ellipsis>
+              {article.canvasName}
+            </Paragraph>
+          </div>
 
-        <div className="flex h-6 flex-row items-center justify-end gap-1 rounded-2xl bg-white bg-opacity-80 px-2">
-          <Paragraph size="sm" weight="light" ellipsis>
-            {article.likeCount}
-          </Paragraph>
-          <ArticleLikeToggleButton
-            isLiked={article.isLiked}
-            toggleHandler={toggleLikeHandler}
-          />
+          <div className="flex h-6 flex-row items-center justify-end gap-1 rounded-2xl bg-white bg-opacity-80 px-2">
+            <Paragraph size="sm" weight="light" ellipsis>
+              {article.likeCount}
+            </Paragraph>
+            <ArticleLikeToggleButton
+              isLiked={article.isLiked}
+              toggleHandler={toggleLikeHandler}
+            />
+          </div>
         </div>
-      </div>
-    </Card>
+      </Card>
+    </motion.div>
   );
 };
 

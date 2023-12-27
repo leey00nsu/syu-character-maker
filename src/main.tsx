@@ -11,9 +11,9 @@ import './index.css';
 import AboutPage from './pages/AboutPage';
 import ArticleDetailPage from './pages/ArticleDetailPage';
 import AuthPage from './pages/AuthPage';
+import CanvasPage from './pages/CanvasPage';
 import GalleryPage from './pages/GalleryPage';
 import GoogleAuthPage from './pages/GoogleAuthPage';
-import IndexPage from './pages/IndexPage';
 import UserPage from './pages/UserPage';
 
 const queryClient = new QueryClient();
@@ -22,7 +22,7 @@ const router = createBrowserRouter([
   {
     path: '/',
     index: true,
-    element: <AuthPage element={<IndexPage />} />,
+    element: <AuthPage element={<CanvasPage />} />,
     errorElement: <Navigate to="/" />,
   },
   {

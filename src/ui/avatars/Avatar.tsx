@@ -6,7 +6,7 @@ interface AvatarProps {
 
 const Avatar = ({ photo }: AvatarProps) => {
   return (
-    <div className="online avatar">
+    <div className="online avatar h-full w-full">
       <div className="h-full w-full rounded-full">
         <img src={photo} referrerPolicy="no-referrer" />
       </div>

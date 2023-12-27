@@ -44,3 +44,106 @@
 .grid-auto-rows-max {
   grid-auto-rows: max-content;
 }
+
+/* 드래그 애니메이션을 위한 transformer 상자 */
+.transformer-box {
+  position: relative;
+}
+
+.transformer-box:before {
+  content: '';
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  border: 1px dashed #01a0ff;
+}
+
+.transformer-box-left-top:after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top: 0%;
+  left: 0%;
+  transform: translateX(-50%) translateY(-50%);
+  background-color: white;
+  border: 1px solid #01a0ff;
+}
+.transformer-box-top:after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top: 0%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  background-color: white;
+  border: 1px solid #01a0ff;
+}
+.transformer-box-right-top:after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top: 0%;
+  left: 100%;
+  transform: translateX(-50%) translateY(-50%);
+  background-color: white;
+  border: 1px solid #01a0ff;
+}
+.transformer-box-right:after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top: 50%;
+  left: 100%;
+  transform: translateX(-50%) translateY(-50%);
+  background-color: white;
+  border: 1px solid #01a0ff;
+}
+.transformer-box-right-bottom:after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top: 100%;
+  left: 100%;
+  transform: translateX(-50%) translateY(-50%);
+  background-color: white;
+  border: 1px solid #01a0ff;
+}
+.transformer-box-bottom:after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  background-color: white;
+  border: 1px solid #01a0ff;
+}
+.transformer-box-left-bottom:after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top: 100%;
+  left: 0%;
+  transform: translateX(-50%) translateY(-50%);
+  background-color: white;
+  border: 1px solid #01a0ff;
+}
+.transformer-box-left:after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top: 50%;
+  left: 0%;
+  transform: translateX(-50%) translateY(-50%);
+  background-color: white;
+  border: 1px solid #01a0ff;
+}
+/*  */
