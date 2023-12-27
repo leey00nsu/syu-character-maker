@@ -7,6 +7,7 @@ import useKonva from '@/features/preview/hooks/useKonva';
 import { WindowContainer } from '@/ui/containers';
 
 import { DrawObjects } from './components';
+import { CanvasResetButton } from './components/buttons';
 import CanvasNameInput from './components/canvasNameInput/CanvasNameInput';
 import {
   ObjectSelectBox,
@@ -35,10 +36,13 @@ const Preview = ({ stageRef }: PreviewProps) => {
       <WindowContainer.Header>
         <CanvasNameInput />
       </WindowContainer.Header>
+      <WindowContainer.HeaderButton>
+        <CanvasResetButton />
+      </WindowContainer.HeaderButton>
       <div className="flex h-[350px] w-full justify-center overflow-hidden sm:h-[600px] ">
         <Stage
           ref={stageRef}
-          className="h-full w-full"
+          className="transparency-grid h-full w-full"
           width={DEFAULT_WIDTH}
           height={DEFAULT_WIDTH}
           onMouseDown={clickHandler}

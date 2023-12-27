@@ -26,6 +26,13 @@
   --range-shdw: var(--pen-color);
 }
 
+/* 캔버스 배경 투명 그리드 */
+.transparency-grid {
+  background: rgba(50, 50, 50, 0.25)
+    repeating-conic-gradient(rgba(50, 50, 50, 0.25) 0% 25%, transparent 0% 50%)
+    50% / 10px 10px;
+}
+
 @keyframes bounce {
   0%,
   100% {

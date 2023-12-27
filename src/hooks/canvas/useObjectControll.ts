@@ -5,7 +5,10 @@ import { CanvasObject, useCanvasStore } from '@/store/canvasStore';
 import useHistoryControll from '@/hooks/canvas/useHistoryControll';
 
 import { Decoration } from '@/features/menu/components/decoration/constants/decoration.type';
-import { IMMUTABLE_OBJECTS } from '@/features/preview/constants/canvas';
+import {
+  IMMUTABLE_OBJECTS,
+  MUTABLE_OBJECTS,
+} from '@/features/preview/constants/canvas';
 
 // 오브젝트 컨트롤 커스텀 훅
 const useObjectControll = () => {
@@ -188,7 +191,7 @@ const useObjectControll = () => {
   };
 
   // 모든 꾸미기 아이템 삭제
-  const clearAllDecorations = () => {
+  const clearDecorations = () => {
     const newCanvasObjects = canvasObjects.filter(
       canvasObject => canvasObject.name !== 'decoration',
     );
@@ -198,7 +201,7 @@ const useObjectControll = () => {
   };
 
   // 모든 선, 이미지 삭제
-  const clearAllcanvasObjects = () => {
+  const clearDrawingObjects = () => {
     const newCanvasObjects = canvasObjects.filter(canvasObject =>
       IMMUTABLE_OBJECTS.includes(canvasObject.name),
     );
@@ -206,6 +209,11 @@ const useObjectControll = () => {
     setSelectedObjectIds([]);
     updateHistory(newCanvasObjects);
   };
+
+  const isDrawingObjectsEmpty =
+    canvasObjects.filter(canvasObject =>
+      MUTABLE_OBJECTS.includes(canvasObject.name),
+    ).length === 0;
 
   return {
     addLine,
@@ -216,9 +224,10 @@ const useObjectControll = () => {
     removeDecoration,
     transformObject,
     changeObjectIndex,
-    clearAllDecorations,
-    clearAllcanvasObjects,
+    clearDecorations,
+    clearDrawingObjects,
     changeCharacter,
+    isDrawingObjectsEmpty,
   };
 };
 
