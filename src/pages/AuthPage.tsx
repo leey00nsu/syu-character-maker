@@ -10,6 +10,7 @@ interface AuthPageProps {
 // 로그인 상태를 체크하는 페이지
 const AuthPage = ({ element, privated }: AuthPageProps) => {
   const { isLoading } = useValidateAuth({ privated });
+  
 
   if (isLoading) return <LoadingSpinner />;
 

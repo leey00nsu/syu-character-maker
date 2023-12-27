@@ -1,6 +1,7 @@
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import ReactDOM from 'react-dom/client';
+import ReactGA from 'react-ga4';
 import {
   Navigate,
   RouterProvider,
@@ -17,6 +18,12 @@ import GoogleAuthPage from './pages/GoogleAuthPage';
 import UserPage from './pages/UserPage';
 
 const queryClient = new QueryClient();
+
+ReactGA.initialize([
+  {
+    trackingId: import.meta.env.VITE_GA_TRACKING_ID,
+  },
+]);
 
 const router = createBrowserRouter([
   {
