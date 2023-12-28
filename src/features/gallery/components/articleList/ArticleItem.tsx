@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { FaUserEdit } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 
 import { ListArticle } from '@/apis/article/article.type';
@@ -43,8 +44,13 @@ const ArticleItem = ({ article }: ArticleItemProps) => {
     >
       <Card clickHandler={clickCardHandler}>
         <Image imgUrl={article.imageUrl} />
+        {article.isAuthor && (
+          <div className="absolute right-0 top-0 flex p-4">
+            <FaUserEdit className="h-6 w-6 text-neutral" />
+          </div>
+        )}
         <div className="absolute flex h-full w-full flex-col justify-end gap-1 p-4 text-end">
-          <div className="flex h-6 items-center justify-end rounded-2xl bg-white bg-opacity-80 px-2 ">
+          <div className="flex h-6 items-center justify-end rounded-2xl bg-white bg-opacity-80 px-2">
             <Paragraph size="sm" weight="light" ellipsis>
               {article.canvasName}
             </Paragraph>

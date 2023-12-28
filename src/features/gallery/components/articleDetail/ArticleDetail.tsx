@@ -63,7 +63,7 @@ const ArticleDetail = () => {
         </Paragraph>
       </WindowContainer.Header>
 
-      {response.isOwner && (
+      {response.isAuthor && (
         <WindowContainer.HeaderButton>
           <ArticleRemoveButton removeArticleHandler={removeArticleHandler} />
         </WindowContainer.HeaderButton>

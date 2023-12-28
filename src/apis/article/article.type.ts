@@ -11,7 +11,7 @@ export interface ListArticle {
 
   isLiked: boolean;
 
-  isOwner: boolean;
+  isAuthor: boolean;
 
   likeCount: number;
 
