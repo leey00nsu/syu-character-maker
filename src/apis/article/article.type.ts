@@ -26,5 +26,3 @@ export interface ArticlePagination {
     lastPage: number;
   };
 }
-
-export type ArticleOrder = 'ASC' | 'DESC';

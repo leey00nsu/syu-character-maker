@@ -17,8 +17,11 @@ const Gallery = () => {
           갤러리
         </Paragraph>
       </WindowContainer.Header>
-      <ArticleFilter />
-      <ArticleList />
+
+      <div className="flex h-full w-full flex-col gap-4 p-4 py-6">
+        <ArticleFilter />
+        <ArticleList />
+      </div>
     </WindowContainer>
   );
 };

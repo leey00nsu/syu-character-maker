@@ -1,49 +1,29 @@
-import { useQueryClient } from '@tanstack/react-query';
-
-import { Order, useFilterStore } from '@/store/galleryStore';
-
+import useArticleFilter from '../../hooks/useArticleFilter';
+import ArticleAuthorFilter from './ArticleAuthorFilter';
 import ArticleDateFilter from './ArticleDateFilter';
-import ArticleLikeFilter from './ArticleLikeFilter';
+import ArticleLikeCountFilter from './ArticleLikeCountFilter';
 
 const ArticleFilter = () => {
-  const orderBy = useFilterStore(state => state.orderBy);
-  const setOrderBy = useFilterStore(state => state.setOrderBy);
-  const dateOrder = useFilterStore(state => state.dateOrder);
-  const setDateOrder = useFilterStore(state => state.setDateOrder);
-  const likeOrder = useFilterStore(state => state.likeOrder);
-  const setLikeOrder = useFilterStore(state => state.setLikeOrder);
-
-  const queryClient = useQueryClient();
-
-  const changeOrderHandler = (changes: Order) => {
-    queryClient.removeQueries({
-      queryKey: ['getArticleList'],
-    });
-    // 현재 정렬 기준과 같은 경우, 정렬 순서를 바꿔준다.
-    if (changes === orderBy) {
-      if (changes === 'date')
-        setDateOrder(dateOrder === 'DESC' ? 'ASC' : 'DESC');
-      if (changes === 'like')
-        setLikeOrder(likeOrder === 'DESC' ? 'ASC' : 'DESC');
-    }
-    setOrderBy(changes);
-  };
+  const { filter, currentOrderBy, changeOrderBy, toggleOption } =
+    useArticleFilter();
 
   return (
-    <div className="w-full p-4">
-      <ul className="menu menu-horizontal w-full justify-start gap-2 rounded-box bg-base-200 p-4">
-        <ArticleDateFilter
-          changeOrderHandler={changeOrderHandler.bind(this, 'date')}
-          orderBy={orderBy}
-          dateOrder={dateOrder}
-        />
-        <ArticleLikeFilter
-          changeOrderHandler={changeOrderHandler.bind(this, 'like')}
-          orderBy={orderBy}
-          likeOrder={likeOrder}
-        />
-      </ul>
-    </div>
+    <ul className="menu menu-horizontal w-full justify-between rounded-box bg-base-200 p-4 sm:justify-start sm:gap-2">
+      <ArticleDateFilter
+        changeOrderByHandler={changeOrderBy.bind(this, 'date')}
+        isActive={currentOrderBy === 'date'}
+        order={filter.dateOrder}
+      />
+      <ArticleLikeCountFilter
+        changeOrderByHandler={changeOrderBy.bind(this, 'likeCount')}
+        isActive={currentOrderBy === 'likeCount'}
+        order={filter.likeCountOrder}
+      />
+      <ArticleAuthorFilter
+        changeOrderByHandler={toggleOption.bind(this, 'author')}
+        isActive={filter.author}
+      />
+    </ul>
   );
 };
 

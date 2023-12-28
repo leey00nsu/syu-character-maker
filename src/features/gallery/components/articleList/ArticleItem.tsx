@@ -49,14 +49,14 @@ const ArticleItem = ({ article }: ArticleItemProps) => {
             <FaUserEdit className="h-6 w-6 text-neutral" />
           </div>
         )}
-        <div className="absolute flex h-full w-full flex-col justify-end gap-1 p-4 text-end">
-          <div className="flex h-6 items-center justify-end rounded-2xl bg-white bg-opacity-80 px-2">
+
+        <div className="absolute bottom-0 flex h-16 w-full flex-col justify-center bg-white/80 p-2  ">
+          <div className="flex w-full justify-end">
             <Paragraph size="sm" weight="light" ellipsis>
               {article.canvasName}
             </Paragraph>
           </div>
-
-          <div className="flex h-6 flex-row items-center justify-end gap-1 rounded-2xl bg-white bg-opacity-80 px-2">
+          <div className="flex flex-row justify-end gap-1">
             <Paragraph size="sm" weight="light" ellipsis>
               {article.likeCount}
             </Paragraph>

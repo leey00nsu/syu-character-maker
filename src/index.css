@@ -154,3 +154,11 @@
   border: 1px solid #01a0ff;
 }
 /*  */
+
+.hidden-scroll {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+.hidden-scroll::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera*/
+}

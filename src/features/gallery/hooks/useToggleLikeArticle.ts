@@ -9,7 +9,11 @@ import { toggleLikeArticle } from '@/apis/article/article.api';
 import { ArticlePagination, ListArticle } from '@/apis/article/article.type';
 import { ApiResponse } from '@/apis/response.type';
 
+import useArticleFilter from './useArticleFilter';
+
 const useToggleLikeArticle = () => {
+  const { filter, currentOrderBy, currentOrder } = useArticleFilter();
+
   const queryClient = useQueryClient();
 
   // 리스트에서 좋아요 토글
@@ -18,13 +22,27 @@ const useToggleLikeArticle = () => {
     retry: false,
     mutationFn: toggleLikeArticle,
     onMutate: async id => {
-      // 모든 쿼리를 취소한다. (낙관적 업데이트가 덮어쓰지 않도록)
-      await queryClient.cancelQueries({ queryKey: ['getArticleList'] }); // 리스트 쿼리 취소
+      // 리스트 쿼리를 취소한다. (낙관적 업데이트가 덮어쓰지 않도록)
+      await queryClient.cancelQueries({
+        queryKey: [
+          'getArticleList',
+          currentOrderBy,
+          currentOrder,
+          filter.author,
+        ],
+      });
 
       // 이전 쿼리 캐시를 저장한다.
       const [queries] = queryClient.getQueriesData<
         InfiniteData<ApiResponse<ArticlePagination>>
-      >({ queryKey: ['getArticleList'] });
+      >({
+        queryKey: [
+          'getArticleList',
+          currentOrderBy,
+          currentOrder,
+          filter.author,
+        ],
+      });
 
       const queryKeys = queries[0]; // 쿼리 키
       const previousInfiniteQuery = queries[1]; // 이전 쿼리 데이터
@@ -54,7 +72,14 @@ const useToggleLikeArticle = () => {
     },
     onError: (err, _, context) => {
       // 에러 발생시 쿼리 재요청
-      queryClient.invalidateQueries({ queryKey: ['getArticleList'] });
+      queryClient.invalidateQueries({
+        queryKey: [
+          'getArticleList',
+          currentOrderBy,
+          currentOrder,
+          filter.author,
+        ],
+      });
     },
   });
 
@@ -64,8 +89,8 @@ const useToggleLikeArticle = () => {
     retry: false,
     mutationFn: toggleLikeArticle,
     onMutate: async id => {
-      // 모든 쿼리를 취소한다. (낙관적 업데이트가 덮어쓰지 않도록)
-      await queryClient.cancelQueries({ queryKey: ['getArticle', id] }); // 상세 쿼리 취소
+      // // 상세 쿼리를 취소한다. (낙관적 업데이트가 덮어쓰지 않도록)
+      await queryClient.cancelQueries({ queryKey: ['getArticle', id] });
 
       const previousArticle = queryClient.getQueryData<
         ApiResponse<ListArticle>

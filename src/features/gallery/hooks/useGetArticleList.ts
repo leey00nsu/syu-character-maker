@@ -3,32 +3,32 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import { getArticleList } from '@/apis/article/article.api';
 import { ListArticle } from '@/apis/article/article.type';
 
-import { useFilterStore } from '@/store/galleryStore';
+import useArticleFilter from './useArticleFilter';
 
 const useGetArticleList = () => {
-  const orderBy = useFilterStore(state => state.orderBy);
-  const dateOrder = useFilterStore(state => state.dateOrder);
-  const likeOrder = useFilterStore(state => state.likeOrder);
+  const { filter, currentOrderBy, currentOrder } = useArticleFilter();
 
   const {
     data: response,
     fetchNextPage,
     isLoading,
     isError,
+    isFetching,
     hasNextPage,
   } = useInfiniteQuery({
-    queryKey: ['getArticleList', orderBy, dateOrder, likeOrder],
+    queryKey: ['getArticleList', currentOrderBy, currentOrder, filter.author],
     retry: false,
     queryFn: ({ pageParam }) =>
       getArticleList({
         pageParam,
-        orderBy,
-        order: orderBy === 'date' ? dateOrder : likeOrder,
+        orderBy: currentOrderBy,
+        order: currentOrder,
+        author: filter.author,
       }),
     initialPageParam: 1,
     getNextPageParam: (lastPage, pages, lastPageParam) => {
-      if(!lastPage.data?.meta.lastPage) return undefined;
-      
+      if (!lastPage.data?.meta.lastPage) return undefined;
+
       return lastPage.data?.meta.lastPage === lastPageParam
         ? undefined
         : lastPageParam + 1;
@@ -46,6 +46,7 @@ const useGetArticleList = () => {
   return {
     response,
     fetchNextPage,
+    isFetching,
     isLoading,
     isError,
     hasNextPage,

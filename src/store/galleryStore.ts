@@ -1,27 +1,31 @@
 import { StateCreator, create } from 'zustand';
 
-import { ArticleOrder } from '@/apis/article/article.type';
-
-export type Order = 'date' | 'like';
+export type ArticleOrder = 'ASC' | 'DESC';
+export type ArticleOrderBy = 'date' | 'likeCount';
+export type ArticleOption = 'author';
 
 interface FilterSlice {
-  orderBy: Order;
-  dateOrder: ArticleOrder;
-  likeOrder: ArticleOrder;
-  setOrderBy: (changes: Order) => void;
-  setDateOrder: (changes: ArticleOrder) => void;
-  setLikeOrder: (changes: ArticleOrder) => void;
+  filter: Filter;
+  setFilter: (changes: Filter) => void;
 }
 
-const createFilterSlice: StateCreator<FilterSlice> = set => ({
+interface Filter {
+  orderBy: ArticleOrderBy;
+  dateOrder: ArticleOrder;
+  likeCountOrder: ArticleOrder;
+  author: boolean;
+}
+
+const DEFAULT_Filter: Filter = {
   orderBy: 'date',
   dateOrder: 'DESC',
-  likeOrder: 'DESC',
-  setOrderBy: (changes: Order) => set(state => ({ orderBy: changes })),
-  setDateOrder: (changes: ArticleOrder) =>
-    set(state => ({ dateOrder: changes })),
-  setLikeOrder: (changes: ArticleOrder) =>
-    set(state => ({ likeOrder: changes })),
+  likeCountOrder: 'DESC',
+  author: false,
+};
+
+const createFilterSlice: StateCreator<FilterSlice> = set => ({
+  filter: DEFAULT_Filter,
+  setFilter: (changes: Filter) => set(state => ({ filter: changes })),
 });
 
 export const useFilterStore = create<FilterSlice>()((...a) => ({

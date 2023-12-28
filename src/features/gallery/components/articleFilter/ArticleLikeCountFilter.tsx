@@ -1,32 +1,31 @@
 import tw from '@/utils/tw';
-import { FaRegClock } from 'react-icons/fa';
+import { FaHeart } from 'react-icons/fa';
 
 import { ArticleOrder } from '@/store/galleryStore';
 
-interface ArticleDateFilterProps {
+interface ArticleLikeCountFilterProps {
   isActive: boolean;
   order: ArticleOrder;
   changeOrderByHandler: () => void;
 }
 
-const ArticleDateFilter = ({
+const ArticleLikeCountFilter = ({
   isActive,
   order,
   changeOrderByHandler,
-}: ArticleDateFilterProps) => {
-  const dateButtonDescription = order === 'ASC' ? '오래된순' : '최신순';
+}: ArticleLikeCountFilterProps) => {
+  const likeCountButtonDescription = order === 'ASC' ? '좋아요 ↓' : '좋아요 ↑';
 
   const classNames = tw(isActive && 'active hover:cursor-pointer');
 
   return (
     <li onClick={changeOrderByHandler}>
       <a className={classNames}>
-        <FaRegClock className="h-6 w-6 " />
-
-        {dateButtonDescription}
+        <FaHeart className="h-6 w-6 text-accent" />
+        {likeCountButtonDescription}
       </a>
     </li>
   );
 };
 
-export default ArticleDateFilter;
+export default ArticleLikeCountFilter;
