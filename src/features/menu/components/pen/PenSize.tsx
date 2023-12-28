@@ -1,5 +1,6 @@
 import { useCanvasStore } from '@/store/canvasStore';
 
+import { NumberInput } from '@/ui/inputs';
 import SliderInput from '@/ui/inputs/SliderInput';
 
 const MIN_PEN_SIZE = 1;
@@ -23,12 +24,22 @@ const PenSize = () => {
   };
 
   return (
-    <SliderInput
-      min={1}
-      max={MAX_PEN_SIZE}
-      value={penSize}
-      changeHandler={changePenSizeHandler}
-    />
+    <div className="flex w-full flex-col items-center gap-2">
+      <NumberInput
+        min={1}
+        max={MAX_PEN_SIZE}
+        value={penSize}
+        changeHandler={changePenSizeHandler}
+        className="w-1/2"
+      />
+      <SliderInput
+        min={1}
+        max={MAX_PEN_SIZE}
+        value={penSize}
+        changeHandler={changePenSizeHandler}
+        className="pen-range"
+      />
+    </div>
   );
 };
 

@@ -14,22 +14,24 @@ const HeaderRemoveButton = () => {
 
   const { removeObject } = useObjectControll();
 
-  const selectedObject = selectedObjectIds
+  // 선택된 objectId를 통해 선택된 object를 찾아낸다.
+  const selectedObjects = selectedObjectIds
     .map(id => canvasObjects.find(object => object.id === id))
     .filter(object => object !== undefined);
 
+  // 선택된 object가 모두 삭제 가능하면 삭제 버튼을 보여준다.
   const isRemovable =
-    selectedObject.length > 0 &&
-    selectedObject.every(object => MUTABLE_OBJECTS.includes(object!.name));
+    selectedObjects.length > 0 &&
+    selectedObjects.every(object => MUTABLE_OBJECTS.includes(object!.name));
 
   return (
     <>
       {isRemovable && (
         <ActiveButton
           clickHandler={removeObject}
-          className=" btn-outline h-12 w-12 border-0 hover:btn-accent hover:bg-accent hover:text-white sm:h-16 sm:w-16"
+          className=" btn-outline h-12 w-12 border-0 text-accent hover:btn-accent  hover:bg-accent hover:text-white sm:h-16 sm:w-16"
         >
-          <FaTrashAlt className="h-full w-full" />
+          <FaTrashAlt className="h-full w-full " />
         </ActiveButton>
       )}
     </>

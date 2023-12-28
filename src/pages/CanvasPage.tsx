@@ -18,7 +18,7 @@ const CanvasPage = () => {
         <Header isCanvas />
       </PageContainer.Header>
 
-      <PageContainer.Content>
+      <PageContainer.Content isCanvas>
         <div className="flex h-full w-full flex-col xl:flex-row">
           <div className="flex w-full items-center justify-center p-4 xl:h-full xl:w-1/2">
             <Preview stageRef={stageRef} />

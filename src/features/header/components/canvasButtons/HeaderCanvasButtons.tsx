@@ -1,4 +1,5 @@
 import {
+  HeaderAlphaButton,
   HeaderDrawButton,
   HeaderMoveButton,
   HeaderRedoButton,
@@ -14,6 +15,7 @@ const HeaderCanvasButtons = () => {
       <HeaderUndoButton />
       <HeaderRedoButton />
       <HeaderRemoveButton />
+      <HeaderAlphaButton />
     </>
   );
 };

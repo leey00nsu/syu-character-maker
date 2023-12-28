@@ -2,45 +2,60 @@ import React from 'react';
 
 import { useCanvasStore } from '@/store/canvasStore';
 
+import useHistoryControll from '@/hooks/canvas/useHistoryControll';
+import useObjectControll from '@/hooks/canvas/useObjectControll';
+
+import { MUTABLE_OBJECTS } from '@/features/preview/constants/canvas';
+
+import { SliderInput } from '@/ui/inputs';
+import { Paragraph } from '@/ui/texts';
+
 const HeaderAlphaButton = () => {
   const canvasObjects = useCanvasStore(state => state.canvasObjects);
-  const setCanvasObjects = useCanvasStore(state => state.setCanvasObjects);
   const selectedObjectIds = useCanvasStore(state => state.selectedObjectIds);
 
+  const { changeObjectOpacity } = useObjectControll();
+  const { updateHistory } = useHistoryControll();
+
+  // 선택된 objectId를 통해 선택된 object를 찾아낸다.
+  const selectedObjects = selectedObjectIds
+    .map(id => canvasObjects.find(object => object.id === id))
+    .filter(object => object !== undefined);
+
+  // 선택된 object가 모두 삭제 가능하면 삭제 버튼을 보여준다.
+  const isTransformable =
+    selectedObjects.length === 1 &&
+    selectedObjects.every(object => MUTABLE_OBJECTS.includes(object!.name));
+
   const changeOpacityHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newObject = [...canvasObjects].map(object => {
-      if (object.id === selectedObjectIds[0]) {
-        return {
-          ...object,
-          opacity: Number(e.target.value),
-        };
-      }
-      return object;
-    });
-    setCanvasObjects(newObject);
+    const newOpacity = Number(e.target.value);
+
+    changeObjectOpacity(newOpacity);
   };
 
-  const selectedObject = canvasObjects.filter(
-    object => object.id === selectedObjectIds[0],
-  )[0];
+  const updateOpacityHistoryHandler = () => {
+    console.log('updateOpacityHistoryHandler');
+    updateHistory(canvasObjects);
+  };
 
   return (
     <>
-      {selectedObjectIds.length === 1 &&
-        selectedObjectIds[0] !== 'background' && (
-          <div className="flex flex-col items-center">
-            <p>투명도</p>
-            <input
-              type="range"
-              min={0}
-              max={1}
-              step={0.1}
-              value={selectedObject?.opacity}
-              onChange={changeOpacityHandler}
-              className="range "
-            />
-          </div>
-        )}
+      {isTransformable && (
+        <div className="col-span-1 flex  w-12 flex-col items-center xs:col-span-2 xs:w-24">
+          <Paragraph size="sm" weight="light">
+            투명도
+          </Paragraph>
+          <SliderInput
+            min={0}
+            max={1}
+            step={0.1}
+            onMouseUp={updateOpacityHistoryHandler}
+            value={selectedObjects[0]?.opacity}
+            changeHandler={changeOpacityHandler}
+            className="range "
+          />
+        </div>
+      )}
     </>
   );
 };

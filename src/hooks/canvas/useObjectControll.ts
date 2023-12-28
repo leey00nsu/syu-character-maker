@@ -75,6 +75,7 @@ const useObjectControll = () => {
       opacity: 1,
     };
     const newCanvasObjects = [...canvasObjects, newImage];
+
     setCanvasObjects(newCanvasObjects);
     updateHistory(newCanvasObjects);
   };
@@ -88,6 +89,7 @@ const useObjectControll = () => {
       z: canvasObjects.length,
     };
     const newCanvasObjects = [...canvasObjects, newImage];
+
     setCanvasObjects(newCanvasObjects);
     updateHistory(newCanvasObjects);
   };
@@ -97,6 +99,7 @@ const useObjectControll = () => {
     const newCanvasObjects = canvasObjects.filter(
       canvasObject => canvasObject.id !== decoration.item,
     );
+
     setCanvasObjects(newCanvasObjects);
     setSelectedObjectIds([]);
     updateHistory(newCanvasObjects);
@@ -107,6 +110,7 @@ const useObjectControll = () => {
     const newCanvasObjects = canvasObjects.filter(
       canvasObject => !selectedObjectIds.includes(canvasObject.id),
     );
+
     setCanvasObjects(newCanvasObjects);
     setSelectedObjectIds([]);
     updateHistory(newCanvasObjects);
@@ -167,6 +171,24 @@ const useObjectControll = () => {
     }
   };
 
+  // 오브젝트의 투명도 변경
+  // 이 함수는 자동적으로 히스토리에 저장하지 않습니다. : 슬라이더를 움직일 때마다 히스토리가 저장되는 것을 방지하기 위함
+  // HeaderAlphaButton 참고
+  const changeObjectOpacity = (opacity: number) => {
+    const newCanvasObjects = canvasObjects.map(object => {
+      if (selectedObjectIds.includes(object.id)) {
+        return {
+          ...object,
+          opacity: opacity,
+        };
+      } else {
+        return object;
+      }
+    });
+
+    setCanvasObjects(newCanvasObjects);
+  };
+
   // 캐릭터 변경
   const changeCharacter = (character: string) => {
     const imageUrl = character === '수호' ? '/suho.png' : '/suya.png';
@@ -210,6 +232,7 @@ const useObjectControll = () => {
     updateHistory(newCanvasObjects);
   };
 
+  // 현재 그려진 선, 이미지가 없는지 확인
   const isDrawingObjectsEmpty =
     canvasObjects.filter(canvasObject =>
       MUTABLE_OBJECTS.includes(canvasObject.name),
@@ -223,6 +246,7 @@ const useObjectControll = () => {
     removeObject,
     removeDecoration,
     transformObject,
+    changeObjectOpacity,
     changeObjectIndex,
     clearDecorations,
     clearDrawingObjects,

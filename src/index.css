@@ -22,7 +22,7 @@
 }
 
 /* 슬라이더 펜 색 */
-.range {
+.pen-range {
   --range-shdw: var(--pen-color);
 }
 
@@ -155,10 +155,10 @@
 }
 /*  */
 
-.hidden-scroll {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+.custom-scroll-bar::-webkit-scrollbar {
+  width: 4px;
 }
-.hidden-scroll::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera*/
+.custom-scroll-bar::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background-color: rgba(50, 50, 50, 0.25);
 }

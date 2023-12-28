@@ -1,8 +1,7 @@
 import { FormEvent, useEffect, useRef } from 'react';
+import { useEventListener } from 'usehooks-ts';
 
 import { Modal } from '@/store/modalStore';
-
-import useEventListener from '@/hooks/useEventListener';
 
 interface ConfirmModalProps {
   index: number;

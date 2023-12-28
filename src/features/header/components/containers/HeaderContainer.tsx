@@ -4,7 +4,7 @@ interface HeaderContainerProps {
 
 const ResponsiveColumn = ({ children }: HeaderContainerProps) => {
   return (
-    <div className="grid h-full grid-cols-3 grid-rows-2 gap-2 xs:grid-cols-4 sm:grid-cols-5 sm:grid-rows-1">
+    <div className="grid h-full grid-cols-3 grid-rows-2 gap-2 xs:grid-cols-4 md:grid-cols-7 md:grid-rows-1">
       {children}
     </div>
   );
