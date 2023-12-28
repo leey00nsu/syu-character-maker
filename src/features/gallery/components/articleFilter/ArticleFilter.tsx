@@ -4,11 +4,11 @@ import ArticleDateFilter from './ArticleDateFilter';
 import ArticleLikeCountFilter from './ArticleLikeCountFilter';
 
 const ArticleFilter = () => {
-  const { filter, currentOrderBy, changeOrderBy, toggleOption } =
+  const { filter, currentOrderBy, changeOrderBy, toggleOption, authorOption } =
     useArticleFilter();
 
   return (
-    <ul className="menu menu-horizontal w-full justify-between rounded-box bg-base-200 p-4 sm:justify-start sm:gap-2">
+    <ul className="menu menu-vertical w-full justify-between gap-2 rounded-box bg-base-200 xs:menu-horizontal xs:justify-start">
       <ArticleDateFilter
         changeOrderByHandler={changeOrderBy.bind(this, 'date')}
         isActive={currentOrderBy === 'date'}
@@ -21,7 +21,7 @@ const ArticleFilter = () => {
       />
       <ArticleAuthorFilter
         changeOrderByHandler={toggleOption.bind(this, 'author')}
-        isActive={filter.author}
+        isActive={authorOption}
       />
     </ul>
   );

@@ -6,7 +6,7 @@ import { ListArticle } from '@/apis/article/article.type';
 import useArticleFilter from './useArticleFilter';
 
 const useGetArticleList = () => {
-  const { filter, currentOrderBy, currentOrder } = useArticleFilter();
+  const { currentOrderBy, currentOrder, authorOption } = useArticleFilter();
 
   const {
     data: response,
@@ -16,14 +16,14 @@ const useGetArticleList = () => {
     isFetching,
     hasNextPage,
   } = useInfiniteQuery({
-    queryKey: ['getArticleList', currentOrderBy, currentOrder, filter.author],
+    queryKey: ['getArticleList', currentOrderBy, currentOrder, authorOption],
     retry: false,
     queryFn: ({ pageParam }) =>
       getArticleList({
         pageParam,
         orderBy: currentOrderBy,
         order: currentOrder,
-        author: filter.author,
+        author: authorOption,
       }),
     initialPageParam: 1,
     getNextPageParam: (lastPage, pages, lastPageParam) => {

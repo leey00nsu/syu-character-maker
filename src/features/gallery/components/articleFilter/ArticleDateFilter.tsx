@@ -22,7 +22,6 @@ const ArticleDateFilter = ({
     <li onClick={changeOrderByHandler}>
       <a className={classNames}>
         <FaRegClock className="h-6 w-6 " />
-
         {dateButtonDescription}
       </a>
     </li>
