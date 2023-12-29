@@ -17,7 +17,7 @@ const ArticleDetail = ({ response, toggleLikeHandler }: ArticleDetailProps) => {
 
   return (
     <>
-      <div className="flex h-full w-full  ">
+      <div className="flex aspect-square w-full min-w-full">
         <Image imgUrl={response.imageUrl} />
       </div>
       <div className="flex w-full flex-col justify-end p-2 text-end">
