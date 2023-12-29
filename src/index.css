@@ -48,10 +48,6 @@
   animation: bounce 1.5s infinite !important;
 }
 
-.grid-auto-rows-max {
-  grid-auto-rows: max-content;
-}
-
 /* 드래그 애니메이션을 위한 transformer 상자 */
 .transformer-box {
   position: relative;

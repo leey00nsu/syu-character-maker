@@ -35,7 +35,6 @@ const useGetArticleList = () => {
     },
     select(data) {
       const articles: ListArticle[] = [];
-
       // articles 평탄화
       data.pages.forEach(page => articles.push(...page?.data?.articles!));
 

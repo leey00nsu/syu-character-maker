@@ -23,7 +23,7 @@ const useValidateAuth = ({ privated }: UseValidateAuthProps) => {
 
   useLayoutEffect(() => {
     setIsLoading(true);
-  }, [isAuth, location.pathname]);
+  }, [isAuth]);
 
   useEffect(() => {
     useAuthStore.persist.rehydrate();
