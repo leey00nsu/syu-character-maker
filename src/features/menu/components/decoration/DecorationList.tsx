@@ -49,7 +49,7 @@ const DecorationList = ({ part }: DecorationListProps) => {
   };
 
   return (
-    <div className="grid-auto-rows-max grid w-full grid-cols-1 gap-4 overflow-y-auto p-4 xs:grid-cols-2 sm:grid-cols-3">
+    <div className="grid w-full auto-rows-max grid-cols-2 gap-4 overflow-y-auto p-4 sm:grid-cols-3">
       {partDecorations.map(decoration => (
         <DecorationToggleButton
           key={decoration.item}
