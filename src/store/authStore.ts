@@ -32,11 +32,13 @@ const createAuthSlice: StateCreator<AuthSlice> = set => ({
 });
 
 interface UserSlice {
-  user: Pick<User, 'name' | 'email' | 'photo'>;
-  setUser: (changes: Pick<User, 'name' | 'email' | 'photo'>) => void;
+  user: User;
+  expiredAt: Date | null;
+  setUser: (changes: User) => void;
+  setExpiredAt: (changes: Date | null) => void;
 }
 
-const DEFAULT_USER: Pick<User, 'name' | 'email' | 'photo'> = {
+const DEFAULT_USER: User = {
   name: '',
   email: '',
   photo: '',
@@ -44,9 +46,10 @@ const DEFAULT_USER: Pick<User, 'name' | 'email' | 'photo'> = {
 
 const createUserSlice: StateCreator<UserSlice> = set => ({
   user: DEFAULT_USER,
-  setUser: (changes: Pick<User, 'name' | 'email' | 'photo'>) =>
-    set(state => ({ user: changes })),
-  removeUser: () => set(state => ({ user: DEFAULT_USER })),
+  expiredAt: null,
+  setUser: (changes: User) => set(state => ({ user: changes })),
+  setExpiredAt: (changes: Date | null) =>
+    set(state => ({ expiredAt: changes })),
 });
 
 export const useAuthStore = create<UserSlice & AuthSlice>()(

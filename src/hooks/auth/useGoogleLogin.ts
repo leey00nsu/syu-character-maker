@@ -10,6 +10,7 @@ const useGoogleLogin = () => {
   const navigate = useNavigate();
   const setAuth = useAuthStore(state => state.setAuth);
   const setUser = useAuthStore(state => state.setUser);
+  const setExpiredAt = useAuthStore(state => state.setExpiredAt);
 
   const {
     data: response,
@@ -30,6 +31,8 @@ const useGoogleLogin = () => {
       if (response.statusCode === 200 && response.data) {
         setAuth(true);
         setUser(response.data);
+        setExpiredAt(new Date(new Date().getTime() + 1000 * 60 * 60 * 24));
+
         navigate('/', { replace: true });
       } else {
         console.log(response.message);

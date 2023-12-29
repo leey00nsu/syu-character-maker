@@ -1,4 +1,4 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -8,16 +8,16 @@ import { useAuthStore } from '@/store/authStore';
 
 const useLogout = () => {
   const navigate = useNavigate();
-  const queryClient = useQueryClient();
 
   const setAuth = useAuthStore(state => state.setAuth);
   const setUser = useAuthStore(state => state.setUser);
+  const setExpiredAt = useAuthStore(state => state.setExpiredAt);
 
   const {
     data: response,
     isError,
     error,
-    mutateAsync,
+    mutateAsync: logoutMutation,
   } = useMutation({
     mutationKey: ['logout'],
     retry: false,
@@ -27,28 +27,23 @@ const useLogout = () => {
   useEffect(() => {
     const logout = async () => {
       if (isError) {
-        console.log(error);
       }
       if (response) {
-        if (response.statusCode === 200) {
-          console.log('logout');
-          setAuth(false);
-          setUser({
-            name: '',
-            email: '',
-            photo: '',
-          });
-          navigate('/', { replace: true });
-        } else {
-          console.log(response.message);
-        }
+        setAuth(false);
+        setUser({
+          name: '',
+          email: '',
+          photo: '',
+        });
+        setExpiredAt(null);
+        navigate('/', { replace: true });
       }
     };
 
     logout();
   }, [isError, response]);
 
-  return mutateAsync;
+  return { logoutMutation };
 };
 
 export default useLogout;

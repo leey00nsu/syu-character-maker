@@ -11,10 +11,10 @@ import { Paragraph } from '@/ui/texts';
 const UserPage = () => {
   const user = useAuthStore(state => state.user);
 
-  const logout = useLogout();
+  const { logoutMutation } = useLogout();
 
   const logoutHandler = async () => {
-    await logout();
+    await logoutMutation();
   };
 
   return (

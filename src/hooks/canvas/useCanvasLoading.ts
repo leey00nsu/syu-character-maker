@@ -7,14 +7,14 @@ const useCanvasLoading = () => {
   const setIsCanvasLoading = useCanvasStore(state => state.setIsCanvasLoading);
 
   useEffect(() => {
-    if (!useCanvasStore.persist.hasHydrated()) {
+    if (isCanvasLoading) {
       useCanvasStore.persist.rehydrate();
-    }
 
-    // canvasStore가 hydrate되기 전까지 로딩 화면을 보여준다.
-    useCanvasStore.persist.onFinishHydration(() => {
-      setIsCanvasLoading(false);
-    });
+      // canvasStore가 hydrate되기 전까지 로딩 화면을 보여준다.
+      useCanvasStore.persist.onFinishHydration(() => {
+        setIsCanvasLoading(false);
+      });
+    }
   }, []);
 
   return { isCanvasLoading };
