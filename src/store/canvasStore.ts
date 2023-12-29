@@ -113,10 +113,12 @@ const DEFAULT_CANVAS_OBJECT: CanvasObject = {
 };
 
 interface CanvasObjectSlice {
+  isCanvasLoading: boolean;
   canvasName: string;
   canvasObjects: CanvasObject[];
   canvasObjectHistory: CanvasObject[][];
   canvasObjectHistoryIndex: number;
+  setIsCanvasLoading: (changes: boolean) => void;
   setCanvasName: (changes: string) => void;
   setCanvasObjects: (changes: CanvasObject[]) => void;
   setCanvasObjectHistory: (changes: CanvasObject[][]) => void;
@@ -126,11 +128,14 @@ interface CanvasObjectSlice {
 }
 
 const createCanvasObjectSlice: StateCreator<CanvasObjectSlice> = set => ({
+  isCanvasLoading: true,
   canvasName: '',
   canvasObjects: [DEFAULT_CANVAS_OBJECT],
   canvasObjectHistory: [[DEFAULT_CANVAS_OBJECT]],
   canvasObjectHistoryIndex: 0,
   selectedObjectIds: [],
+  setIsCanvasLoading: (changes: boolean) =>
+    set(state => ({ isCanvasLoading: changes })),
   setCanvasName: (changes: string) => set(state => ({ canvasName: changes })),
   setCanvasObjects: (changes: CanvasObject[]) =>
     set(state => ({ canvasObjects: changes })),

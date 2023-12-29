@@ -1,5 +1,4 @@
 import { useEffect, useLayoutEffect, useState } from 'react';
-import ReactGA from 'react-ga4';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { useAuthStore } from '@/store/authStore';
@@ -18,14 +17,6 @@ const useValidateAuth = ({ privated }: UseValidateAuthProps) => {
   useLayoutEffect(() => {
     setIsLoading(true);
   }, [isAuth, location.pathname]);
-
-  // GA4
-  useEffect(() => {
-    if (!import.meta.env.DEV) {
-      ReactGA.set({ page: location.pathname });
-      ReactGA.send('pageview');
-    }
-  }, [location.pathname]);
 
   useEffect(() => {
     useAuthStore.persist.rehydrate();

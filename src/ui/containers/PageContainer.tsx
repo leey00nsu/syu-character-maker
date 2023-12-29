@@ -1,5 +1,7 @@
 import tw from '@/utils/tw';
-import React from 'react';
+import React, { useEffect } from 'react';
+import ReactGA from 'react-ga4';
+import { useLocation } from 'react-router-dom';
 
 import ModalList from '../modals/ModalList';
 
@@ -23,6 +25,16 @@ const Content = ({ children, isCanvas }: PageContainerProps) => {
 };
 
 const PageContainer = ({ children }: PageContainerProps) => {
+  const location = useLocation();
+
+  // GA4
+  useEffect(() => {
+    if (!import.meta.env.DEV) {
+      ReactGA.set({ page: location.pathname });
+      ReactGA.send('pageview');
+    }
+  }, [location.pathname]);
+
   const disableRightClick = (event: any) => {
     event.preventDefault();
   };
