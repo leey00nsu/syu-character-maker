@@ -22,7 +22,7 @@ const HeaderAlphaButton = () => {
     .map(id => canvasObjects.find(object => object.id === id))
     .filter(object => object !== undefined);
 
-  // 선택된 object가 모두 삭제 가능하면 삭제 버튼을 보여준다.
+  // 선택된 object가 한 개이고 변경 가능하면 투명도 슬라이더를 보여준다.
   const isTransformable =
     selectedObjects.length === 1 &&
     selectedObjects.every(object => MUTABLE_OBJECTS.includes(object!.name));
@@ -34,7 +34,6 @@ const HeaderAlphaButton = () => {
   };
 
   const updateOpacityHistoryHandler = () => {
-    console.log('updateOpacityHistoryHandler');
     updateHistory(canvasObjects);
   };
 

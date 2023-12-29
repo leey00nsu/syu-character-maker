@@ -1,5 +1,6 @@
 import Konva from 'konva';
 import { RefObject, useEffect, useRef, useState } from 'react';
+import { useEventListener } from 'usehooks-ts';
 
 import { useCanvasStore } from '@/store/canvasStore';
 
@@ -43,27 +44,6 @@ const useKonva = ({
 
   const { updateHistory } = useUpdateHistory();
   const { addLine, updateLine } = useObjectControll();
-
-  // 브라우저의 모든 부분에서 마우스 움직임을 감지하기 위하여 따로 할당
-  useEffect(() => {
-    document.addEventListener('mousemove', dragHandler);
-    document.addEventListener('mouseup', dragEndHandler);
-    document.addEventListener('touchmove', dragHandler);
-    document.addEventListener('touchend', dragEndHandler);
-    window.addEventListener('resize', () =>
-      setIsMobile(window.innerWidth < MOBILE_MIN_WIDTH),
-    );
-
-    return () => {
-      document.removeEventListener('mousemove', dragHandler);
-      document.removeEventListener('mouseup', dragEndHandler);
-      document.removeEventListener('touchmove', dragHandler);
-      document.removeEventListener('touchend', dragEndHandler);
-      window.removeEventListener('resize', () =>
-        setIsMobile(window.innerWidth < MOBILE_MIN_WIDTH),
-      );
-    };
-  }, [canvasObjects, mode, window.innerWidth]);
 
   // 한 번 클릭
   const clickHandler = (e: any) => {
@@ -282,6 +262,14 @@ const useKonva = ({
       setSelectedObjectIds([objectId]);
     }
   };
+
+  useEventListener('mousemove', dragHandler);
+  useEventListener('mouseup', dragEndHandler);
+  useEventListener('touchmove', dragHandler);
+  useEventListener('touchend', dragEndHandler);
+  useEventListener('resize', () =>
+    setIsMobile(window.innerWidth < MOBILE_MIN_WIDTH),
+  );
 
   return {
     clickHandler,

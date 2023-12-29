@@ -1,9 +1,12 @@
+import { useAuthStore } from '@/store/authStore';
+
 import useArticleFilter from '../../hooks/useArticleFilter';
 import ArticleAuthorFilter from './ArticleAuthorFilter';
 import ArticleDateFilter from './ArticleDateFilter';
 import ArticleLikeCountFilter from './ArticleLikeCountFilter';
 
 const ArticleFilter = () => {
+  const { isAuth } = useAuthStore();
   const { filter, currentOrderBy, changeOrderBy, toggleOption, authorOption } =
     useArticleFilter();
 
@@ -19,10 +22,12 @@ const ArticleFilter = () => {
         isActive={currentOrderBy === 'likeCount'}
         order={filter.likeCountOrder}
       />
-      <ArticleAuthorFilter
-        changeOrderByHandler={toggleOption.bind(this, 'author')}
-        isActive={authorOption}
-      />
+      {isAuth && (
+        <ArticleAuthorFilter
+          changeOrderByHandler={toggleOption.bind(this, 'author')}
+          isActive={authorOption}
+        />
+      )}
     </ul>
   );
 };
