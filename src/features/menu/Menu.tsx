@@ -1,5 +1,4 @@
-import Konva from 'konva';
-import { RefObject, useState } from 'react';
+import { useState } from 'react';
 
 import { WindowContainer } from '@/ui/containers';
 import { Paragraph } from '@/ui/texts';
@@ -13,11 +12,7 @@ import {
   Save,
 } from './components';
 
-interface MenuProps {
-  stageRef: RefObject<Konva.Stage>;
-}
-
-const Menu = ({ stageRef }: MenuProps) => {
+const Menu = () => {
   const [menu, setMenu] = useState('꾸미기');
 
   const changeMenuHandler = (changes: string) => {
@@ -42,7 +37,7 @@ const Menu = ({ stageRef }: MenuProps) => {
       {menu === '배경' && <Background />}
       {menu === '이미지' && <AddImage />}
       {menu === '펜' && <Pen />}
-      {menu === '저장' && <Save stageRef={stageRef} />}
+      {menu === '저장' && <Save />}
     </WindowContainer>
   );
 };

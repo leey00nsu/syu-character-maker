@@ -3,7 +3,7 @@ import useImage from 'use-image';
 
 import { CanvasObject } from '@/store/canvasStore';
 
-import { DEFAULT_WIDTH } from '@/features/preview/constants/canvas';
+import { DEFAULT_WIDTH } from '@/features/canvas/constants/canvas';
 
 interface CharacterObjectProps {
   object: CanvasObject;

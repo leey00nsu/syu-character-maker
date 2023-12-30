@@ -2,10 +2,9 @@ import React from 'react';
 
 import { useCanvasStore } from '@/store/canvasStore';
 
-import useHistoryControll from '@/hooks/canvas/useHistoryControll';
-import useObjectControll from '@/hooks/canvas/useObjectControll';
-
-import { MUTABLE_OBJECTS } from '@/features/preview/constants/canvas';
+import { MUTABLE_OBJECTS } from '@/features/canvas/constants/canvas';
+import useHistoryControll from '@/features/canvas/hooks/useHistoryControll';
+import useObjectControll from '@/features/canvas/hooks/useObjectControll';
 
 import { SliderInput } from '@/ui/inputs';
 import { Paragraph } from '@/ui/texts';

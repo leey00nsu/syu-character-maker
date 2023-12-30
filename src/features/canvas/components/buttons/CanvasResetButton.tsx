@@ -1,8 +1,9 @@
 import tw from '@/utils/tw';
 import { IoSparkles } from 'react-icons/io5';
 
-import useObjectControll from '@/hooks/canvas/useObjectControll';
 import useModal from '@/hooks/modal/useModal';
+
+import useObjectControll from '@/features/canvas/hooks/useObjectControll';
 
 import { ActiveButton } from '@/ui/buttons';
 

@@ -2,7 +2,7 @@ import { Line } from 'react-konva';
 
 import { CanvasObject, useCanvasStore } from '@/store/canvasStore';
 
-import useObjectControll from '@/hooks/canvas/useObjectControll';
+import useObjectControll from '@/features/canvas/hooks/useObjectControll';
 
 interface DrawObjectProps {
   object: CanvasObject;

@@ -1,24 +1,17 @@
-import Konva from 'konva';
-import { RefObject } from 'react';
-
 import { useAuthStore } from '@/store/authStore';
 
 import MenuContentContainer from '../containers/MenuContentContainer';
-import SaveFile from './SaveFile';
-import UploadFile from './UploadFile';
+import { UploadArticleButton } from './buttons';
+import SaveImageButton from './buttons/SaveFileButton';
 
-interface SaveProps {
-  stageRef: RefObject<Konva.Stage>;
-}
-
-const Save = ({ stageRef }: SaveProps) => {
+const Save = () => {
   const auth = useAuthStore(state => state.isAuth);
 
   return (
     <MenuContentContainer>
       <MenuContentContainer.Column>
-        <SaveFile stageRef={stageRef} />
-        {auth && <UploadFile stageRef={stageRef} />}
+        <SaveImageButton />
+        {auth && <UploadArticleButton />}
       </MenuContentContainer.Column>
     </MenuContentContainer>
   );

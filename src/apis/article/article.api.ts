@@ -3,7 +3,7 @@ import axios from 'axios';
 import { ArticleOrder, ArticleOrderBy } from '@/store/galleryStore';
 
 import { ApiResponse } from '../response.type';
-import { ArticlePagination, ListArticle } from './article.type';
+import { ArticleLimit, ArticlePagination, ListArticle } from './article.type';
 
 const { VITE_SERVER_HOST } = import.meta.env;
 
@@ -69,6 +69,17 @@ export const toggleLikeArticle = async (articleId: number) => {
   const response = await axios.post<ApiResponse<unknown>>(
     `${VITE_SERVER_HOST}/article/${articleId}/like`,
     null,
+    {
+      withCredentials: true,
+    },
+  );
+
+  return response.data;
+};
+
+export const getArticleLimit = async () => {
+  const response = await axios.get<ApiResponse<ArticleLimit>>(
+    `${VITE_SERVER_HOST}/article/limit`,
     {
       withCredentials: true,
     },

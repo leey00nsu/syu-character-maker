@@ -4,29 +4,28 @@ import { useEventListener } from 'usehooks-ts';
 
 import { useCanvasStore } from '@/store/canvasStore';
 
-import useUpdateHistory from '@/hooks/canvas/useHistoryControll';
-import useObjectControll from '@/hooks/canvas/useObjectControll';
-
 import {
   IMMUTABLE_OBJECTS,
   MOBILE_MIN_WIDTH,
   MOBILE_SCALE,
   MUTABLE_OBJECTS,
-} from '@/features/preview/constants/canvas';
+} from '@/features/canvas/constants/canvas';
+import useUpdateHistory from '@/features/canvas/hooks/useHistoryControll';
+import useObjectControll from '@/features/canvas/hooks/useObjectControll';
 
-interface UseKonvaProps {
+interface UseCanvasProps {
   stageRef: RefObject<Konva.Stage>;
   layerRef: RefObject<Konva.Layer>;
   selectBoxRef: RefObject<Konva.Rect>;
   transformerRef: RefObject<Konva.Transformer>;
 }
 
-const useKonva = ({
+const useCanvas = ({
   stageRef,
   layerRef,
   selectBoxRef,
   transformerRef,
-}: UseKonvaProps) => {
+}: UseCanvasProps) => {
   const selectedObjectIds = useCanvasStore(state => state.selectedObjectIds);
   const setSelectedObjectIds = useCanvasStore(
     state => state.setSelectedObjectIds,
@@ -36,6 +35,8 @@ const useKonva = ({
   const penColor = useCanvasStore(state => state.penColor);
   const mode = useCanvasStore(state => state.mode);
 
+  const setCanvasRef = useCanvasStore(state => state.setCanvasRef);
+
   const [isMobile, setIsMobile] = useState(
     window.innerWidth <= MOBILE_MIN_WIDTH,
   );
@@ -44,6 +45,17 @@ const useKonva = ({
 
   const { updateHistory } = useUpdateHistory();
   const { addLine, updateLine } = useObjectControll();
+
+  // stageRef, layerRef, selectBoxRef, transformerRef를 canvasRef에 저장
+  // 이를 통해 다른 컴포넌트에서도 커스텀 훅 접근 가능
+  useEffect(() => {
+    setCanvasRef({
+      stageRef: stageRef,
+      layerRef: layerRef,
+      selectBoxRef: selectBoxRef,
+      transformerRef: transformerRef,
+    });
+  }, []);
 
   // 한 번 클릭
   const clickHandler = (e: any) => {
@@ -273,11 +285,9 @@ const useKonva = ({
 
   return {
     clickHandler,
-    dragHandler,
-    dragEndHandler,
     objectSelectHandler,
     isMobile,
   };
 };
 
-export default useKonva;
+export default useCanvas;

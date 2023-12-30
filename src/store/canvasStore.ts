@@ -1,4 +1,5 @@
 import { del, get, set } from 'idb-keyval';
+import Konva from 'konva';
 import { RGBColor } from 'react-color';
 import { StateCreator, create } from 'zustand';
 import { createDebouncedJSONStorage } from 'zustand-debounce';
@@ -147,8 +148,29 @@ const createCanvasObjectSlice: StateCreator<CanvasObjectSlice> = set => ({
     set(state => ({ selectedObjectIds: changes })),
 });
 
+interface CanvasRefSlice {
+  stageRef: null | React.RefObject<Konva.Stage>;
+  layerRef: null | React.RefObject<Konva.Layer>;
+  selectBoxRef: null | React.RefObject<Konva.Rect>;
+  transformerRef: null | React.RefObject<Konva.Transformer>;
+  setCanvasRef: (changes: Partial<CanvasRefSlice>) => void;
+}
+
+const createCanvasRefSlice: StateCreator<CanvasRefSlice> = set => ({
+  stageRef: null,
+  layerRef: null,
+  selectBoxRef: null,
+  transformerRef: null,
+  setCanvasRef: (changes: Partial<CanvasRefSlice>) =>
+    set(state => ({ ...changes })),
+});
+
 export const useCanvasStore = create<
-  BackgroundColorSlice & PenSlice & ModeSlice & CanvasObjectSlice
+  BackgroundColorSlice &
+    PenSlice &
+    ModeSlice &
+    CanvasObjectSlice &
+    CanvasRefSlice
 >()(
   persist(
     (...a) => ({
@@ -156,6 +178,7 @@ export const useCanvasStore = create<
       ...createPenSlice(...a),
       ...createModeSlice(...a),
       ...createCanvasObjectSlice(...a),
+      ...createCanvasRefSlice(...a),
     }),
     {
       name: 'canvas',

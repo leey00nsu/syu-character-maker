@@ -3,9 +3,8 @@ import useImage from 'use-image';
 
 import { CanvasObject, useCanvasStore } from '@/store/canvasStore';
 
-import useObjectControll from '@/hooks/canvas/useObjectControll';
-
-import { DEFAULT_IMAGE_WIDTH } from '@/features/preview/constants/canvas';
+import { DEFAULT_IMAGE_WIDTH } from '@/features/canvas/constants/canvas';
+import useObjectControll from '@/features/canvas/hooks/useObjectControll';
 
 interface ImageObjectProps {
   object: CanvasObject;

@@ -2,7 +2,7 @@ import { Rect } from 'react-konva';
 
 import { useCanvasStore } from '@/store/canvasStore';
 
-import { DEFAULT_WIDTH } from '@/features/preview/constants/canvas';
+import { DEFAULT_WIDTH } from '@/features/canvas/constants/canvas';
 
 const BackgroundObject = () => {
   const backgroundColor = useCanvasStore(state => state.backgroundColor);

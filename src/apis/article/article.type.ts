@@ -26,3 +26,9 @@ export interface ArticlePagination {
     lastPage: number;
   };
 }
+
+export interface ArticleLimit {
+  availableCount: number;
+  maxLimit: number;
+  isAvailable: boolean;
+}

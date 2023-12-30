@@ -3,7 +3,7 @@ import { twJoin } from 'tailwind-merge';
 
 import { useCanvasStore } from '@/store/canvasStore';
 
-import useHistoryControll from '@/hooks/canvas/useHistoryControll';
+import useHistoryControll from '@/features/canvas/hooks/useHistoryControll';
 
 import { ActiveButton } from '@/ui/buttons';
 

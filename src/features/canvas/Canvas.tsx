@@ -1,8 +1,8 @@
 import Konva from 'konva';
-import { RefObject, useRef } from 'react';
+import { useRef } from 'react';
 import { Layer, Stage } from 'react-konva';
 
-import useKonva from '@/features/preview/hooks/useKonva';
+import useKonva from '@/features/canvas/hooks/useCanvas';
 
 import { WindowContainer } from '@/ui/containers';
 
@@ -15,11 +15,8 @@ import {
 } from './components/objectControllers';
 import { DEFAULT_WIDTH, MOBILE_SCALE } from './constants/canvas';
 
-interface PreviewProps {
-  stageRef: RefObject<Konva.Stage>;
-}
-
-const Preview = ({ stageRef }: PreviewProps) => {
+const Canvas = () => {
+  const stageRef = useRef<Konva.Stage>(null);
   const layerRef = useRef<Konva.Layer>(null);
   const selectBoxRef = useRef<Konva.Rect>(null);
   const transformerRef = useRef<Konva.Transformer>(null);
@@ -62,4 +59,4 @@ const Preview = ({ stageRef }: PreviewProps) => {
   );
 };
 
-export default Preview;
+export default Canvas;
