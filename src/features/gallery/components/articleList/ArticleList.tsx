@@ -50,12 +50,16 @@ const ArticleList = () => {
     <div
       ref={articleListRef}
       onScroll={scrollHandler}
-      className="custom-scroll-bar grid grid-cols-1 gap-4 overflow-y-scroll p-4 xs:grid-cols-2  md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5"
+      className="custom-scroll-bar grid grid-cols-2 gap-4 overflow-y-scroll p-4 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5"
     >
       {response?.map((article, index) => (
         <ArticleItem
           key={
-            currentOrderBy + currentOrder + authorOption + article.id + index
+            currentOrderBy +
+            currentOrder +
+            authorOption +
+            `article.id = ${article.id}` +
+            index
           }
           article={article}
         />

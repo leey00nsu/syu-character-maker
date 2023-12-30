@@ -16,12 +16,13 @@ const ArticleLikeCountFilter = ({
 }: ArticleLikeCountFilterProps) => {
   const likeCountButtonDescription = order === 'ASC' ? '좋아요 ↓' : '좋아요 ↑';
 
+  const iconClassNames = tw('h-3 w-3 xs:h-6 xs:w-6 text-accent');
   const classNames = tw(isActive && 'active hover:cursor-pointer');
 
   return (
     <li onClick={changeOrderByHandler}>
       <a className={classNames}>
-        <FaHeart className="h-6 w-6 text-accent" />
+        <FaHeart className={iconClassNames} />
         {likeCountButtonDescription}
       </a>
     </li>

@@ -16,12 +16,13 @@ const ArticleDateFilter = ({
 }: ArticleDateFilterProps) => {
   const dateButtonDescription = order === 'ASC' ? '오래된순' : '최신순';
 
+  const iconClassNames = tw('h-3 w-3 xs:h-6 xs:w-6');
   const classNames = tw(isActive && 'active hover:cursor-pointer');
 
   return (
     <li onClick={changeOrderByHandler}>
       <a className={classNames}>
-        <FaRegClock className="h-6 w-6 " />
+        <FaRegClock className={iconClassNames} />
         {dateButtonDescription}
       </a>
     </li>

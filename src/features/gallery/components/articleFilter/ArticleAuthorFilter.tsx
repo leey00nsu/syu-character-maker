@@ -12,12 +12,13 @@ const ArticleAuthorFilter = ({
 }: ArticleAuthorFilterProps) => {
   const likeCountButtonDescription = '내 그림';
 
+  const iconClassNames = tw('h-3 w-3 xs:h-6 xs:w-6');
   const classNames = tw(isActive && 'active hover:cursor-pointer');
 
   return (
     <li onClick={changeOrderByHandler}>
       <a className={classNames}>
-        <FaUserEdit className="h-6 w-6 " />
+        <FaUserEdit className={iconClassNames} />
         {likeCountButtonDescription}
       </a>
     </li>

@@ -11,7 +11,7 @@ const ArticleFilter = () => {
     useArticleFilter();
 
   return (
-    <ul className="menu menu-vertical w-full justify-between gap-2 rounded-box bg-base-200 xs:menu-horizontal xs:justify-start">
+    <ul className="menu menu-horizontal w-full justify-between gap-2 rounded-box bg-base-200 xs:justify-start">
       <ArticleDateFilter
         changeOrderByHandler={changeOrderBy.bind(this, 'date')}
         isActive={currentOrderBy === 'date'}
