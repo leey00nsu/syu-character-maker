@@ -5,7 +5,7 @@ import { ArticleFilter, ArticleList } from './components';
 
 const Gallery = () => {
   return (
-    <WindowContainer className="h-full w-full shrink-0">
+    <WindowContainer className="grow">
       <WindowContainer.Header>
         <Paragraph
           className="translate-y-1"
@@ -18,7 +18,7 @@ const Gallery = () => {
         </Paragraph>
       </WindowContainer.Header>
 
-      <div className="flex h-full w-full flex-col gap-4 p-4 py-6">
+      <div className="flex h-full flex-col gap-4 p-4 py-6">
         <ArticleFilter />
         <ArticleList />
       </div>

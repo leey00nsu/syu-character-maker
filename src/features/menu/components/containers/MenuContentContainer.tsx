@@ -5,18 +5,18 @@ interface MenuContentContainerProps {
 }
 
 const Row = ({ children }: MenuContentContainerProps) => {
-  return <div className="flex  h-full w-full">{children}</div>;
+  return <div className="flex grow flex-row">{children}</div>;
 };
 
 const Column = ({ children }: MenuContentContainerProps) => {
   return (
-    <div className="flex h-full w-full flex-col items-center justify-center gap-2 p-2 ">
+    <div className="flex grow basis-full flex-col items-center justify-center gap-2 p-2">
       {children}
     </div>
   );
 };
 
-const Header = ({ children }: MenuContentContainerProps) => {
+const Label = ({ children }: MenuContentContainerProps) => {
   return (
     <Paragraph size="lg" weight="medium">
       {children}
@@ -26,7 +26,7 @@ const Header = ({ children }: MenuContentContainerProps) => {
 
 const MenuContentContainer = ({ children }: MenuContentContainerProps) => {
   return (
-    <section className="flex h-full w-full flex-col items-center justify-center border-t border-base-300 bg-white sm:flex-row">
+    <section className="flex grow flex-col  border-t border-base-300 bg-white sm:flex-row">
       {children}
     </section>
   );
@@ -34,6 +34,6 @@ const MenuContentContainer = ({ children }: MenuContentContainerProps) => {
 
 MenuContentContainer.Row = Row;
 MenuContentContainer.Column = Column;
-MenuContentContainer.Header = Header;
+MenuContentContainer.Label = Label;
 
 export default MenuContentContainer;

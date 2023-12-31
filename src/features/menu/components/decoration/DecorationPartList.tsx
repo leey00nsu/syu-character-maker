@@ -10,7 +10,7 @@ const DecorationPartList = ({
   changePartHandler,
 }: DecorationPartListProps) => {
   return (
-    <ul className="menu menu-vertical gap-1 border-r p-2 shrink-0">
+    <ul className="menu menu-vertical shrink-0 gap-1 border-r p-2">
       {DECORATION_PARTS.map(decorationPart => (
         <li key={decorationPart}>
           <a

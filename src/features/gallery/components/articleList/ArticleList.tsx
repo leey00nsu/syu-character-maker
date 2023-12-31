@@ -20,16 +20,7 @@ const ArticleList = () => {
 
   // 필터가 변경될 때마다 스크롤을 맨 위로 올림
   useEffect(() => {
-    articleListRef.current?.scrollTo(0, 0);
-  }, [currentOrderBy, currentOrder, authorOption]);
-
-  // 저장된 스크롤 위치로 이동
-  useEffect(() => {
-    const srollY = sessionStorage.getItem('scrollY');
-
-    if (srollY) {
-      articleListRef.current?.scrollTo(0, Number(srollY));
-    }
+    window.scrollTo(0, 0);
   }, []);
 
   useEffect(() => {
@@ -38,19 +29,10 @@ const ArticleList = () => {
     }
   }, [isError, isFetching, inView]);
 
-  // 스크롤 위치 저장
-  const scrollHandler = () => {
-    sessionStorage.setItem(
-      'scrollY',
-      articleListRef.current?.scrollTop.toString() || '0',
-    );
-  };
-
   return (
     <div
       ref={articleListRef}
-      onScroll={scrollHandler}
-      className="custom-scroll-bar grid grid-cols-2 gap-4 overflow-y-scroll p-4 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5"
+      className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5"
     >
       {response?.map((article, index) => (
         <ArticleItem
@@ -58,8 +40,8 @@ const ArticleList = () => {
             currentOrderBy +
             currentOrder +
             authorOption +
-            `article.id = ${article.id}` +
-            index
+            `article.id=${article.id}` +
+            `index=${index}`
           }
           article={article}
         />

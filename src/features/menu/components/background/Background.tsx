@@ -6,12 +6,12 @@ const Background = () => {
   return (
     <MenuContentContainer>
       <MenuContentContainer.Column>
-        <MenuContentContainer.Header>캐릭터</MenuContentContainer.Header>
+        <MenuContentContainer.Label>캐릭터</MenuContentContainer.Label>
         <BackgroundCharacter />
       </MenuContentContainer.Column>
 
       <MenuContentContainer.Column>
-        <MenuContentContainer.Header>배경색</MenuContentContainer.Header>
+        <MenuContentContainer.Label>배경색</MenuContentContainer.Label>
         <BackgroundColor />
       </MenuContentContainer.Column>
     </MenuContentContainer>

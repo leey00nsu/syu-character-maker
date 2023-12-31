@@ -15,7 +15,12 @@ const CanvasNameInput = () => {
   };
 
   return (
-    <div className="relative flex w-[160px] sm:w-[300px]">
+    <div className="relative flex w-full">
+      <label className="label absolute -right-12">
+        <span className="label-text-alt">
+          {`${canvasName.length} / ${MAX_CANVAS_NAME_LENGTH}`}
+        </span>
+      </label>
       <input
         type="text"
         placeholder="작품명을 입력해주세요."
@@ -24,11 +29,6 @@ const CanvasNameInput = () => {
         maxLength={MAX_CANVAS_NAME_LENGTH}
         className="input-bordered input input-sm w-full max-w-xs"
       />
-      <label className="label absolute -right-12">
-        <span className="label-text-alt">
-          {`${canvasName.length} / ${MAX_CANVAS_NAME_LENGTH}`}
-        </span>
-      </label>
     </div>
   );
 };

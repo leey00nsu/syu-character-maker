@@ -1,3 +1,5 @@
+import tw from '@/utils/tw';
+
 import { useAuthStore } from '@/store/authStore';
 
 import useArticleFilter from '../../hooks/useArticleFilter';
@@ -10,8 +12,13 @@ const ArticleFilter = () => {
   const { filter, currentOrderBy, changeOrderBy, toggleOption, authorOption } =
     useArticleFilter();
 
+  const classNames = tw(
+    'menu menu-vertical xs:menu-horizontal w-full justify-between gap-2 rounded-box bg-base-200 xs:justify-start',
+    !isAuth && 'justify-start',
+  );
+
   return (
-    <ul className="menu menu-horizontal w-full justify-between gap-2 rounded-box bg-base-200 xs:justify-start">
+    <ul className={classNames}>
       <ArticleDateFilter
         changeOrderByHandler={changeOrderBy.bind(this, 'date')}
         isActive={currentOrderBy === 'date'}

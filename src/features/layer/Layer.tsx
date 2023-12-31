@@ -5,7 +5,7 @@ import { LayerList } from './components';
 
 const Layer = () => {
   return (
-    <WindowContainer className="h-[300px] min-h-[200px] w-[350px] bg-white sm:w-[600px]  xl:h-[28%] ">
+    <WindowContainer className="h-[300px] min-h-[200px] w-[350px] bg-white sm:w-[600px]   ">
       <WindowContainer.Header>
         <Paragraph
           className="translate-y-1"

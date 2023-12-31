@@ -10,12 +10,8 @@ const GalleryDetailPage = () => {
         <Header />
       </PageContainer.Header>
 
-      <PageContainer.Content>
-        <div className="flex h-full w-full flex-col ">
-          <div className="flex w-full items-center justify-center p-4 ">
-            <GalleryDetail />
-          </div>
-        </div>
+      <PageContainer.Content className="flex flex-col items-center justify-start p-4">
+        <GalleryDetail />
       </PageContainer.Content>
     </PageContainer>
   );

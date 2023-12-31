@@ -6,7 +6,6 @@ import useModal from '@/hooks/modal/useModal';
 
 import { WindowContainer } from '@/ui/containers';
 import { LoadingSpinner } from '@/ui/loadings';
-import { Paragraph } from '@/ui/texts';
 
 import ArticleDetail from './components/articleDetail/ArticleDetail';
 import { ArticleRemoveButton } from './components/buttons';
@@ -46,19 +45,7 @@ const GalleryDetail = () => {
   };
 
   return (
-    <WindowContainer className=" h-[550px] w-[350px]  justify-between sm:h-[650px] sm:w-[500px]">
-      <WindowContainer.Header>
-        <Paragraph
-          className="translate-y-1"
-          size="md"
-          weight="medium"
-          ellipsis
-          fixSize
-        >
-          {response.canvasName}
-        </Paragraph>
-      </WindowContainer.Header>
-
+    <WindowContainer className="w-full max-w-[500px]">
       {response.isAuthor && (
         <WindowContainer.HeaderButton>
           <ArticleRemoveButton removeArticleHandler={removeArticleHandler} />

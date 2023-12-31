@@ -19,8 +19,23 @@ const Menu = () => {
     setMenu(changes);
   };
 
+  const context = () => {
+    switch (menu) {
+      case '꾸미기':
+        return <Decoration />;
+      case '배경':
+        return <Background />;
+      case '이미지':
+        return <AddImage />;
+      case '펜':
+        return <Pen />;
+      case '저장':
+        return <Save />;
+    }
+  };
+
   return (
-    <WindowContainer className="min-h-[400px] w-[350px] bg-white sm:h-[400px] sm:w-[600px] xl:h-2/3 ">
+    <WindowContainer className="min-h-[400px] w-[350px] bg-white sm:min-h-[400px] sm:w-[600px]  ">
       <WindowContainer.Header>
         <Paragraph
           className="translate-y-1"
@@ -33,11 +48,7 @@ const Menu = () => {
         </Paragraph>
       </WindowContainer.Header>
       <MenuList menu={menu} changeMenuHandler={changeMenuHandler} />
-      {menu === '꾸미기' && <Decoration />}
-      {menu === '배경' && <Background />}
-      {menu === '이미지' && <AddImage />}
-      {menu === '펜' && <Pen />}
-      {menu === '저장' && <Save />}
+      {context()}
     </WindowContainer>
   );
 };

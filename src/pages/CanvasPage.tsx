@@ -18,15 +18,13 @@ const CanvasPage = () => {
         <Header isCanvas />
       </PageContainer.Header>
 
-      <PageContainer.Content isCanvas>
-        <div className="flex h-full w-full flex-col xl:flex-row">
-          <div className="flex w-full items-center justify-center p-4 xl:h-full xl:w-1/2">
-            <Canvas />
-          </div>
-          <div className="flex  w-full flex-col items-center gap-3 p-4 lg:h-full xl:w-1/2">
-            <Menu />
-            <Layer />
-          </div>
+      <PageContainer.Content className="flex flex-col gap-4 p-4 xl:flex-row">
+        <div className="flex items-center justify-center xl:w-1/2">
+          <Canvas />
+        </div>
+        <div className="flex flex-col items-center justify-center gap-4 xl:w-1/2">
+          <Menu />
+          <Layer />
         </div>
       </PageContainer.Content>
     </PageContainer>

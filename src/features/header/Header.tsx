@@ -31,24 +31,6 @@ const Header = ({ isCanvas }: HeaderProps) => {
         <HeaderAboutButton />
       </HeaderContainer.FixedColumn>
     </HeaderContainer>
-    // <HeaderContainer>
-    //   {isCanvas && (
-    //     <HeaderContainer.ResponsiveColumn>
-    //       <HeaderCanvasButtons />
-    //     </HeaderContainer.ResponsiveColumn>
-    //   )}
-    //   {!isCanvas && (
-    //     <HeaderContainer.FixedColumn>
-    //       <HeaderBackButton />
-    //     </HeaderContainer.FixedColumn>
-    //   )}
-
-    //   <HeaderContainer.FixedColumn>
-    //     <HeaderGalleryButton />
-    //     <HeaderAuthButton />
-    //     <HeaderAboutButton />
-    //   </HeaderContainer.FixedColumn>
-    // </HeaderContainer>
   );
 };
 

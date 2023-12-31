@@ -17,15 +17,6 @@ const UploadArticleButton = () => {
   const { uploadHandler, isPending } = useUploadArticle();
   const { addModal } = useModal();
 
-  const showUploadModal = () => {
-    addModal({
-      type: 'confirm',
-      title: '업로드',
-      content: '지금 그림을 업로드할까요?',
-      callback: uploadHandler,
-    });
-  };
-
   const { availableCount, maxLimit, isAvailable } = response ?? {};
 
   // 업로드 가능 횟수가 남아있고 , 캔버스 이름이 존재하고 , 업로드 중이 아니면 -> 업로드 가능
@@ -36,8 +27,19 @@ const UploadArticleButton = () => {
     !isUploadable && 'btn-disabled',
   );
 
+  const showUploadModal = () => {
+    if (!isUploadable) return;
+
+    addModal({
+      type: 'confirm',
+      title: '업로드',
+      content: '지금 그림을 업로드할까요?',
+      callback: uploadHandler,
+    });
+  };
+
   const context = () => {
-    if (isPending) {
+    if (isPending || !response) {
       return <LoadingDots />;
     }
 
@@ -53,10 +55,7 @@ const UploadArticleButton = () => {
   };
 
   return (
-    <ActiveButton
-      clickHandler={isUploadable ? showUploadModal : () => {}}
-      className={classNames}
-    >
+    <ActiveButton clickHandler={showUploadModal} className={classNames}>
       {context()}
     </ActiveButton>
   );

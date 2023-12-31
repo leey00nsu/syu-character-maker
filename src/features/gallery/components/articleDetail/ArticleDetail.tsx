@@ -16,11 +16,18 @@ const ArticleDetail = ({ response, toggleLikeHandler }: ArticleDetailProps) => {
   }).format(new Date(response.createdAt));
 
   return (
-    <>
-      <div className="flex aspect-square w-full min-w-full">
+    <div className="flex flex-col justify-between gap-2">
+      <div className="flex justify-center">
+        <Paragraph size="md" weight="medium" ellipsis>
+          {response.canvasName}
+        </Paragraph>
+      </div>
+
+      <div className="flex aspect-square ">
         <Image imgUrl={response.imageUrl} />
       </div>
-      <div className="flex w-full flex-col justify-end p-2 text-end">
+
+      <div className="flex flex-col justify-end p-2 text-end">
         <Paragraph size="lg" weight="light" ellipsis>
           {response.author.name}
         </Paragraph>
@@ -37,7 +44,7 @@ const ArticleDetail = ({ response, toggleLikeHandler }: ArticleDetailProps) => {
           />
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

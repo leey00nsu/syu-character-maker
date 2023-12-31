@@ -75,7 +75,7 @@ const AddImage = () => {
   return (
     <MenuContentContainer>
       <MenuContentContainer.Column>
-        <MenuContentContainer.Header>이미지 추가</MenuContentContainer.Header>
+        <MenuContentContainer.Label>이미지 추가</MenuContentContainer.Label>
         <ImageInput uploadHandler={uploadHandler} />
       </MenuContentContainer.Column>
     </MenuContentContainer>

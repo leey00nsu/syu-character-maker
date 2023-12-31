@@ -16,9 +16,9 @@ const FixedColumn = ({ children }: HeaderContainerProps) => {
 
 const HeaderContainer = ({ children }: HeaderContainerProps) => {
   return (
-    <div className=" sticky top-0 z-[998] flex w-full items-start justify-between bg-base-100 p-6">
+    <header className=" sticky top-0 z-[998] flex w-full items-start justify-between bg-base-100 p-6">
       {children}
-    </div>
+    </header>
   );
 };
 
