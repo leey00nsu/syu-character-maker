@@ -4,6 +4,7 @@ import {
   useQueryClient,
 } from '@tanstack/react-query';
 import { produce } from 'immer';
+import toast from 'react-hot-toast';
 
 import { toggleLikeArticle } from '@/apis/article/article.api';
 import { ArticlePagination, ListArticle } from '@/apis/article/article.type';
@@ -46,6 +47,7 @@ const useToggleLikeArticle = () => {
 
       const queryKeys = queries[0]; // 쿼리 키
       const previousInfiniteQuery = queries[1]; // 이전 쿼리 데이터
+      let isLiked;
 
       // 쿼리 데이터에 대하여 좋아요 상태를 업데이트한다.
       const updatedArticleList = produce(previousInfiniteQuery, draft => {
@@ -53,6 +55,7 @@ const useToggleLikeArticle = () => {
           page.data?.articles.forEach(article => {
             if (article.id === id) {
               article.isLiked = !article.isLiked;
+              isLiked = article.isLiked;
               article.likeCount += article.isLiked ? 1 : -1;
             }
           });
@@ -68,7 +71,7 @@ const useToggleLikeArticle = () => {
         }),
       );
 
-      return { previousInfiniteQuery };
+      return { previousInfiniteQuery, isLiked };
     },
     onError: (err, _, context) => {
       // 에러 발생시 쿼리 재요청
@@ -80,6 +83,18 @@ const useToggleLikeArticle = () => {
           filter.author,
         ],
       });
+    },
+    onSuccess: (err, _, context) => {
+      if (context?.isLiked) {
+        toast('좋아요!', {
+          icon: '❤️',
+        });
+      }
+      if (!context?.isLiked) {
+        toast('좋아요를 취소했습니다.', {
+          icon: '💔',
+        });
+      }
     },
   });
 
@@ -96,11 +111,14 @@ const useToggleLikeArticle = () => {
         ApiResponse<ListArticle>
       >(['getArticle', id]);
 
+      let isLiked;
+
       // 쿼리 데이터에 대하여 좋아요 상태를 업데이트한다.
       const uploadArticle = produce(previousArticle, draft => {
         const article = draft?.data;
         if (article) {
           article.isLiked = !article?.isLiked;
+          isLiked = article.isLiked;
           article.likeCount += article?.isLiked ? 1 : -1;
         }
       });
@@ -108,11 +126,23 @@ const useToggleLikeArticle = () => {
       // 쿼리 데이터를 낙관적 업데이트한다.
       queryClient.setQueryData(['getArticle', id], uploadArticle);
 
-      return { previousArticle, id };
+      return { previousArticle, id, isLiked };
     },
     onError: (err, _, context) => {
       // 에러 발생시 쿼리 재요청
       queryClient.invalidateQueries({ queryKey: ['getArticle', context?.id] });
+    },
+    onSuccess: (err, _, context) => {
+      if (context?.isLiked) {
+        toast('좋아요!', {
+          icon: '❤️',
+        });
+      }
+      if (!context?.isLiked) {
+        toast('좋아요를 취소했습니다.', {
+          icon: '💔',
+        });
+      }
     },
   });
 

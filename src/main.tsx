@@ -2,6 +2,7 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import ReactDOM from 'react-dom/client';
 import ReactGA from 'react-ga4';
+import { Toaster } from 'react-hot-toast';
 import { RouterProvider } from 'react-router-dom';
 
 import './index.css';
@@ -18,6 +19,7 @@ ReactGA.initialize([
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <QueryClientProvider client={queryClient}>
     <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
+      <Toaster />
       <RouterProvider router={router} />
     </GoogleOAuthProvider>
   </QueryClientProvider>,

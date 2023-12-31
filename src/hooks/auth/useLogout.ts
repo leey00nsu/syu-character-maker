@@ -1,5 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import { useEffect } from 'react';
+import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
 import { logout } from '@/apis/auth/auth.api';
@@ -36,6 +37,7 @@ const useLogout = () => {
           photo: '',
         });
         setExpiredAt(null);
+        toast.success('로그아웃 되었습니다.');
         navigate('/', { replace: true });
       }
     };

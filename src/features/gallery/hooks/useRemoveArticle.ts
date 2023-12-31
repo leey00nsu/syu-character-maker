@@ -1,4 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
+import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
 import { removeArticle } from '@/apis/article/article.api';
@@ -12,6 +13,7 @@ const useRemoveArticle = () => {
     mutationFn: removeArticle,
     onSuccess: () => {
       navigate('/gallery');
+      toast.success('그림을 삭제했습니다.');
     },
   });
 
