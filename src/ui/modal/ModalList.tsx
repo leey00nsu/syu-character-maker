@@ -7,8 +7,6 @@ const ModalList = () => {
 
   if (!isModalOpen) return null;
 
-  console.log(reversedModals);
-
   return (
     <>
       {reversedModals.map((modal, index) => (
