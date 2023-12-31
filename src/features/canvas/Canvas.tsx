@@ -2,11 +2,11 @@ import Konva from 'konva';
 import { useRef } from 'react';
 import { Layer, Stage } from 'react-konva';
 
-import useKonva from '@/features/canvas/hooks/useCanvas';
+import useCanvas from '@/features/canvas/hooks/useCanvas';
 
 import { WindowContainer } from '@/ui/containers';
 
-import { DrawObjects } from './components';
+import { CanvasObjects } from './components';
 import { CanvasResetButton } from './components/buttons';
 import CanvasNameInput from './components/canvasNameInput/CanvasNameInput';
 import {
@@ -21,7 +21,7 @@ const Canvas = () => {
   const selectBoxRef = useRef<Konva.Rect>(null);
   const transformerRef = useRef<Konva.Transformer>(null);
 
-  const { clickHandler, objectSelectHandler, isMobile } = useKonva({
+  const { clickHandler, objectSelectHandler, isMobile } = useCanvas({
     stageRef,
     layerRef,
     selectBoxRef,
@@ -49,7 +49,7 @@ const Canvas = () => {
           }
         >
           <Layer ref={layerRef}>
-            <DrawObjects objectSelectHandler={objectSelectHandler} />
+            <CanvasObjects objectSelectHandler={objectSelectHandler} />
             <ObjectSelectBox selectBoxRef={selectBoxRef} />
             <ObjectTransformer transformerRef={transformerRef} />
           </Layer>

@@ -1,1 +1,1 @@
-export { default as DrawObjects } from './drawObjects/DrawObjects';
+export { default as CanvasObjects } from './CanvasObjects/CanvasObjects';
