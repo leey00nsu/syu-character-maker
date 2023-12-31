@@ -7,7 +7,7 @@ import { removeArticle } from '@/apis/article/article.api';
 const useRemoveArticle = () => {
   const navigate = useNavigate();
   // 상세에서 좋아요 토글
-  const { mutateAsync: remove } = useMutation({
+  const { mutateAsync: removeMutate } = useMutation({
     mutationKey: ['removeArticle'],
     retry: false,
     mutationFn: removeArticle,
@@ -18,7 +18,7 @@ const useRemoveArticle = () => {
   });
 
   return {
-    remove,
+    removeMutate,
   };
 };
 

@@ -10,14 +10,14 @@ const GoogleAuthPage = () => {
 
   const code = searchParams.get('code');
 
-  const googleLogin = useGoogleLogin();
+  const { googleLoginMutate } = useGoogleLogin();
 
   const loginHandler = async () => {
     if (!code) {
       navigate('/');
     }
     if (code) {
-      googleLogin(code);
+      googleLoginMutate(code);
     }
   };
 

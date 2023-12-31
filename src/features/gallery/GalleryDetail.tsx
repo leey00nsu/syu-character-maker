@@ -17,8 +17,8 @@ const GalleryDetail = () => {
   const auth = useAuthStore(state => state.isAuth);
 
   const { response, isLoading, isError } = useGetArticle();
-  const { remove } = useRemoveArticle();
-  const { toggleLike } = useToggleLikeArticle();
+  const { removeMutate } = useRemoveArticle();
+  const { toggleLikeMutate } = useToggleLikeArticle();
   const { addModal } = useModal();
 
   if (isError) {
@@ -31,7 +31,7 @@ const GalleryDetail = () => {
 
   const toggleLikeHandler = async () => {
     if (auth) {
-      await toggleLike(response.id);
+      await toggleLikeMutate(response.id);
     }
   };
 
@@ -40,7 +40,7 @@ const GalleryDetail = () => {
       type: 'confirm',
       title: '게시글 삭제',
       content: '게시글을 삭제하시겠습니까?',
-      callback: remove.bind(this, { articleId: response.id }),
+      callback: removeMutate.bind(this, { articleId: response.id }),
     });
   };
 

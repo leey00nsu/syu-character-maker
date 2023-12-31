@@ -3,11 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { getArticleLimit } from '@/apis/article/article.api';
 
 const useGetArticleLimit = () => {
-  const {
-    data: response,
-    isLoading,
-    isError,
-  } = useQuery({
+  const { data: response } = useQuery({
     queryKey: ['articleLimit'],
     retry: false,
     queryFn: getArticleLimit,

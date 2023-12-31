@@ -14,7 +14,7 @@ const useUploadArticle = () => {
   const { exportCanvasToBlob } = useExportCanvas();
   const queryClient = useQueryClient();
 
-  const { mutateAsync: upload, isPending } = useMutation({
+  const { mutateAsync: uploadMutate, isPending } = useMutation({
     mutationKey: ['uploadArticle'],
     retry: false,
     mutationFn: uploadArticle,
@@ -34,7 +34,7 @@ const useUploadArticle = () => {
     formData.append('file', blob);
     formData.append('canvasName', canvasName);
 
-    upload(formData);
+    uploadMutate(formData);
 
     setCanvasName('');
   };

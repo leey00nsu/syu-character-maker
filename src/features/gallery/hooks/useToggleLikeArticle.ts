@@ -18,7 +18,7 @@ const useToggleLikeArticle = () => {
   const queryClient = useQueryClient();
 
   // 리스트에서 좋아요 토글
-  const { mutateAsync: toggleListLike } = useMutation({
+  const { mutateAsync: toggleListLikeMutate } = useMutation({
     mutationKey: ['toggleListLikeArticle'],
     retry: false,
     mutationFn: toggleLikeArticle,
@@ -99,7 +99,7 @@ const useToggleLikeArticle = () => {
   });
 
   // 상세에서 좋아요 토글
-  const { mutateAsync: toggleLike } = useMutation({
+  const { mutateAsync: toggleLikeMutate } = useMutation({
     mutationKey: ['toggleLikeArticle'],
     retry: false,
     mutationFn: toggleLikeArticle,
@@ -147,8 +147,8 @@ const useToggleLikeArticle = () => {
   });
 
   return {
-    toggleListLike,
-    toggleLike,
+    toggleListLikeMutate,
+    toggleLikeMutate,
   };
 };
 

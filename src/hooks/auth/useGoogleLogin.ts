@@ -17,7 +17,7 @@ const useGoogleLogin = () => {
     data: response,
     isError,
     error,
-    mutateAsync,
+    mutateAsync: googleLoginMutate,
   } = useMutation({
     mutationKey: ['googleLoginWithCode'],
     retry: false,
@@ -28,21 +28,18 @@ const useGoogleLogin = () => {
     if (isError) {
       navigate('/', { replace: true });
     }
-    if (response) {
-      if (response.statusCode === 200 && response.data) {
-        setAuth(true);
-        setUser(response.data);
-        setExpiredAt(new Date(new Date().getTime() + 1000 * 60 * 60 * 24));
 
-        toast.success('로그인 되었습니다.');
-        navigate('/', { replace: true });
-      } else {
-        console.log(response.message);
-      }
+    if (response && response.data) {
+      setAuth(true);
+      setUser(response.data);
+      setExpiredAt(new Date(new Date().getTime() + 1000 * 60 * 60 * 24));
+
+      toast.success('로그인 되었습니다.');
+      navigate('/', { replace: true });
     }
   }, [isError, response]);
 
-  return mutateAsync;
+  return { googleLoginMutate };
 };
 
 export default useGoogleLogin;

@@ -21,14 +21,14 @@ const ArticleItem = ({ article }: ArticleItemProps) => {
   const navigate = useNavigate();
   const auth = useAuthStore(state => state.isAuth);
 
-  const { toggleListLike } = useToggleLikeArticle();
+  const { toggleListLikeMutate } = useToggleLikeArticle();
 
   const toggleLikeHandler = async (
     event: React.MouseEvent<HTMLElement, MouseEvent>,
   ) => {
     event.stopPropagation();
     if (auth) {
-      await toggleListLike(article.id);
+      await toggleListLikeMutate(article.id);
     }
   };
 

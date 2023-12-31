@@ -17,8 +17,7 @@ const useLogout = () => {
   const {
     data: response,
     isError,
-    error,
-    mutateAsync: logoutMutation,
+    mutateAsync: logoutMutate,
   } = useMutation({
     mutationKey: ['logout'],
     retry: false,
@@ -27,8 +26,6 @@ const useLogout = () => {
 
   useEffect(() => {
     const logout = async () => {
-      if (isError) {
-      }
       if (response) {
         setAuth(false);
         setUser({
@@ -37,6 +34,7 @@ const useLogout = () => {
           photo: '',
         });
         setExpiredAt(null);
+
         toast.success('로그아웃 되었습니다.');
         navigate('/', { replace: true });
       }
@@ -45,7 +43,7 @@ const useLogout = () => {
     logout();
   }, [isError, response]);
 
-  return { logoutMutation };
+  return { logoutMutate };
 };
 
 export default useLogout;
