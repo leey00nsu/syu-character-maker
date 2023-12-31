@@ -3,16 +3,17 @@ import { useEventListener } from 'usehooks-ts';
 
 import { Modal } from '@/store/modalStore';
 
+import useModal from '@/hooks/modal/useModal';
+
 interface ConfirmModalProps {
-  index: number;
   modal: Modal;
-  removeHandler: () => void;
 }
 
-const ConfirmModal = ({ modal, index, removeHandler }: ConfirmModalProps) => {
+const ConfirmModal = ({ modal }: ConfirmModalProps) => {
+  const { removeModal } = useModal();
   const modalRef = useRef<HTMLDialogElement>(null);
 
-  useEventListener('close', removeHandler, modalRef);
+  useEventListener('close', removeModal, modalRef);
 
   useEffect(() => {
     if (modalRef.current) {
@@ -23,11 +24,11 @@ const ConfirmModal = ({ modal, index, removeHandler }: ConfirmModalProps) => {
   const confirmHandler = (e: FormEvent) => {
     e.preventDefault();
     modal.callback();
-    removeHandler();
+    removeModal();
   };
 
   return (
-    <dialog ref={modalRef} id={'modal' + index} className="modal">
+    <dialog ref={modalRef} className="modal">
       <div className="modal-box">
         <h3 className="text-lg font-bold">{modal.title}</h3>
         <p className="py-4">{modal.content}</p>

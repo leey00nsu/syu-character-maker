@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import ReactGA from 'react-ga4';
 import { useLocation } from 'react-router-dom';
 
-import ModalList from '../modals/ModalList';
+import { ModalList } from '../modal';
 
 interface PageContainerProps {
   children: React.ReactNode;
