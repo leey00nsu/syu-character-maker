@@ -3,10 +3,12 @@ import { motion } from 'framer-motion';
 import { Paragraph } from '@/ui/texts';
 
 import { DESCRIPTION_TEXTS, HEADER_TEXT } from '../../constants/description';
+import TotalArticleCount from '../totalCount/TotalArticleCount';
+import TotalUserCount from '../totalCount/TotalUserCount';
 
 const Description = () => {
   return (
-    <div className="flex flex-col items-center gap-2">
+    <div className="flex flex-col items-center gap-4">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -19,6 +21,10 @@ const Description = () => {
           {HEADER_TEXT}
         </Paragraph>
       </motion.div>
+      <div>
+        <TotalUserCount />
+        <TotalArticleCount />
+      </div>
       <div className="flex flex-col gap-1 text-neutral">
         {DESCRIPTION_TEXTS.map((text, index) => (
           <motion.div

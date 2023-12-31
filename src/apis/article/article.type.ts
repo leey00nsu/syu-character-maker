@@ -32,3 +32,7 @@ export interface ArticleLimit {
   maxLimit: number;
   isAvailable: boolean;
 }
+
+export interface TotalArticleCount {
+  count: number;
+}

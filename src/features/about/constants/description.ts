@@ -37,7 +37,7 @@ export const DESCRIPTION_TEXTS: DESCRIPTION_TEXT[] = [
   {
     size: 'md',
     weight: 'light',
-    text: 'special thanks to : ov***,ez***',
+    text: 'special thanks to ov***,ez***',
   },
   {
     size: 'md',
