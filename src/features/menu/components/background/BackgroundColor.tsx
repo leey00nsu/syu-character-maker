@@ -1,6 +1,8 @@
-import { ChromePicker, ColorResult } from 'react-color';
+import { ColorResult } from 'react-color';
 
 import { useCanvasStore } from '@/store/canvasStore';
+
+import { ColorPicker } from '@/ui/inputs';
 
 const BackgroundColor = () => {
   const backgroundColor = useCanvasStore(state => state.backgroundColor);
@@ -15,10 +17,9 @@ const BackgroundColor = () => {
   };
 
   return (
-    <ChromePicker
-      className="overflow-hidden rounded-xl border shadow-none"
+    <ColorPicker
       color={backgroundColor.rgb}
-      onChange={changeColorHandler}
+      changeHandler={changeColorHandler}
     />
   );
 };

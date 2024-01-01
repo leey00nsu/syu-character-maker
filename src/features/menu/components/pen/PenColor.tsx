@@ -1,7 +1,9 @@
 import { useEffect } from 'react';
-import { ChromePicker, ColorResult } from 'react-color';
+import { ColorResult } from 'react-color';
 
 import { useCanvasStore } from '@/store/canvasStore';
+
+import { ColorPicker } from '@/ui/inputs';
 
 const PenColor = () => {
   const penColor = useCanvasStore(state => state.penColor);
@@ -12,7 +14,7 @@ const PenColor = () => {
     document.documentElement.style.setProperty('--pen-color', penColor.hex);
   }, [penColor]);
 
-  const changePenColorHandler = (color: ColorResult) => {
+  const changeColorHandler = (color: ColorResult) => {
     setPenColor({
       rgb: color.rgb,
       hex: color.hex,
@@ -21,11 +23,7 @@ const PenColor = () => {
   };
 
   return (
-    <ChromePicker
-      className="overflow-hidden rounded-xl border shadow-none"
-      color={penColor.rgb}
-      onChange={changePenColorHandler}
-    />
+    <ColorPicker color={penColor.rgb} changeHandler={changeColorHandler} />
   );
 };
 
