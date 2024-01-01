@@ -9,6 +9,11 @@ export const SUHO_HEAD_DECORATIONS = [
     item: '더벅머리',
     url: '/suho/suho_messy_hair.png',
   },
+  {
+    part: '머리',
+    item: '에어팟',
+    url: '/suho/suho_airpods.png',
+  },
 ];
 
 export const SUHO_BODY_DECORATIONS = [
@@ -87,6 +92,11 @@ export const SUHO_HAND_DECORATIONS = [
     part: '손',
     item: '노트북',
     url: '/suho/suho_laptop.png',
+  },
+  {
+    part: '손',
+    item: '두유',
+    url: '/suho/suho_soy_milk.png',
   },
 ];
 

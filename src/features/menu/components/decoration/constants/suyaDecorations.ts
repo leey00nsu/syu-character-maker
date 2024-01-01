@@ -4,6 +4,11 @@ export const SUYA_HEAD_DECORATIONS = [
     item: '야구모자',
     url: '/suya/suya_baseball_hat.png',
   },
+  {
+    part: '머리',
+    item: '에어팟',
+    url: '/suya/suya_airpods.png',
+  },
 ];
 
 export const SUYA_BODY_DECORATIONS = [
@@ -72,6 +77,16 @@ export const SUYA_HAND_DECORATIONS = [
     part: '손',
     item: '노트북',
     url: '/suya/suya_laptop.png',
+  },
+  {
+    part: '손',
+    item: '맥북',
+    url: '/suya/suya_macbook.png',
+  },
+  {
+    part: '손',
+    item: '두유',
+    url: '/suya/suya_soy_milk.png',
   },
 ];
 
