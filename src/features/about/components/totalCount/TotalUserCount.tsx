@@ -1,35 +1,20 @@
-import {
-  AnimationPlaybackControls,
-  animate,
-  motion,
-  useMotionValue,
-  useSpring,
-  useTransform,
-} from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useEffect } from 'react';
 
 import { Paragraph } from '@/ui/texts';
 
 import useGetTotalUserCount from '../../hooks/useGetTotalUserCount';
+import useMotionCount from '../hooks/useMotionCount';
 
 const TotalUserCount = () => {
-  const count = useMotionValue(0);
-  const springCount = useSpring(count, { stiffness: 100, damping: 100 });
-  const roundedCount = useTransform(springCount, value => Math.round(value));
-
   const { totalUserCount } = useGetTotalUserCount();
 
-  useEffect(() => {
-    let animation: AnimationPlaybackControls | undefined;
-    if (totalUserCount) {
-      animation = animate(count, totalUserCount.count, {
-        duration: 0.3,
-      });
-    }
+  const { currentCount, startAnimation } = useMotionCount(0);
 
-    return () => {
-      animation?.stop();
-    };
+  useEffect(() => {
+    if (totalUserCount) {
+      startAnimation(totalUserCount.count);
+    }
   }, [totalUserCount]);
 
   return (
@@ -46,9 +31,9 @@ const TotalUserCount = () => {
         className=" w-24 text-3xl font-semibold"
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: totalUserCount ? 1 : 0, y: 0 }}
-        transition={{ duration: 0.5, delay: 1 }}
+        transition={{ duration: 1, delay: 0.5 }}
       >
-        {roundedCount}
+        {currentCount}
       </motion.p>
       <Paragraph size="lg" weight="medium">
         명

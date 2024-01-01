@@ -1,6 +1,6 @@
 import { ParagraphSize, ParagraphWeight } from '@/ui/texts/Paragraph';
 
-export const HEADER_TEXT = '나만의 수야 수호 만들기.';
+export const DESCRIPTION_TITLE = '나만의 수야 수호 만들기.';
 
 interface DESCRIPTION_TEXT {
   size: ParagraphSize;

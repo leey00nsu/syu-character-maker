@@ -3,6 +3,7 @@ import React from 'react';
 import { twJoin } from 'tailwind-merge';
 
 export type ParagraphSize =
+  | 'xs'
   | 'sm'
   | 'md'
   | 'lg'
@@ -39,6 +40,9 @@ const Paragraph = ({
   let sizeClasses = '';
   let weightClasses = '';
   switch (size) {
+    case 'xs':
+      sizeClasses = twJoin('text-xs', !fixSize && 'sm:text-sm');
+      break;
     case 'sm':
       sizeClasses = twJoin('text-sm', !fixSize && 'sm:text-base');
       break;
