@@ -36,7 +36,8 @@ const Canvas = () => {
       <WindowContainer.HeaderButton>
         <CanvasResetButton />
       </WindowContainer.HeaderButton>
-      <div className="flex h-[350px] w-full justify-center overflow-hidden sm:h-[600px] ">
+      
+      <WindowContainer.Content className="flex h-[350px] w-full justify-center overflow-hidden sm:h-[600px] ">
         <Stage
           ref={stageRef}
           className="transparency-grid h-full w-full"
@@ -54,7 +55,7 @@ const Canvas = () => {
             <ObjectTransformer transformerRef={transformerRef} />
           </Layer>
         </Stage>
-      </div>
+      </WindowContainer.Content>
     </WindowContainer>
   );
 };

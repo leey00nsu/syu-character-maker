@@ -17,7 +17,10 @@ const Layer = () => {
           레이어
         </Paragraph>
       </WindowContainer.Header>
-      <LayerList />
+
+      <WindowContainer.Content className="custom-scroll-bar grow overflow-y-auto">
+        <LayerList />
+      </WindowContainer.Content>
     </WindowContainer>
   );
 };

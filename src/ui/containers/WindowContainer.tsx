@@ -21,6 +21,12 @@ const HeaderButton = ({ children }: WindowContainerProps) => {
   );
 };
 
+const Content = ({ children, className }: WindowContainerProps) => {
+  const classNames = tw(className);
+
+  return <div className={classNames}>{children}</div>;
+};
+
 const WindowContainer = ({ children, className }: WindowContainerProps) => {
   const classNames = tw(
     'mockup-window flex border border-base-300 ',
@@ -32,5 +38,6 @@ const WindowContainer = ({ children, className }: WindowContainerProps) => {
 
 WindowContainer.Header = Header;
 WindowContainer.HeaderButton = HeaderButton;
+WindowContainer.Content = Content;
 
 export default WindowContainer;

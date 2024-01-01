@@ -47,8 +47,11 @@ const Menu = () => {
           메뉴
         </Paragraph>
       </WindowContainer.Header>
-      <MenuList menu={menu} changeMenuHandler={changeMenuHandler} />
-      {context()}
+
+      <WindowContainer.Content className="flex grow flex-col">
+        <MenuList menu={menu} changeMenuHandler={changeMenuHandler} />
+        {context()}
+      </WindowContainer.Content>
     </WindowContainer>
   );
 };

@@ -8,7 +8,7 @@ const LayerList = () => {
   const reversedCanvasObjects = [...canvasObjects].reverse();
 
   return (
-    <ul className="custom-scroll-bar menu menu-vertical h-full max-h-full w-full flex-nowrap gap-1 overflow-y-auto p-2 pb-10">
+    <ul className="menu menu-vertical w-full flex-nowrap gap-1 p-2 py-4">
       {reversedCanvasObjects.map((object, index) => (
         <LayerItem key={object.id} object={object} index={index} />
       ))}

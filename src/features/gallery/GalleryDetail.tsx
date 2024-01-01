@@ -52,10 +52,12 @@ const GalleryDetail = () => {
         </WindowContainer.HeaderButton>
       )}
 
-      <ArticleDetail
-        response={response}
-        toggleLikeHandler={toggleLikeHandler}
-      />
+      <WindowContainer.Content>
+        <ArticleDetail
+          response={response}
+          toggleLikeHandler={toggleLikeHandler}
+        />
+      </WindowContainer.Content>
     </WindowContainer>
   );
 };
