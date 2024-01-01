@@ -2,12 +2,14 @@ export const SUYA_HEAD_DECORATIONS = [
   {
     part: '머리',
     item: '야구모자',
-    url: '/suya/suya_baseball_hat.png',
+    url: '/suya/suya_baseball_cap.png',
+    originColor: '#3486fc',
   },
   {
     part: '머리',
     item: '에어팟',
     url: '/suya/suya_airpods.png',
+    originColor: '#ffffff',
   },
 ];
 
@@ -16,16 +18,19 @@ export const SUYA_BODY_DECORATIONS = [
     part: '몸',
     item: '과잠',
     url: '/suya/suya_baseball_jumper.png',
+    originColor: '#0a1ffa',
   },
   {
     part: '몸',
     item: '가방1',
     url: '/suya/suya_backpack1.png',
+    originColor: '#000000',
   },
   {
     part: '몸',
     item: '가방2',
     url: '/suya/suya_backpack2.png',
+    originColor: '#000000',
   },
 ];
 
@@ -34,11 +39,13 @@ export const SUYA_FACE_DECORATIONS = [
     part: '얼굴',
     item: '도트선글라스',
     url: '/suya/suya_pixel_sunglasses.png',
+    originColor: '#191919',
   },
   {
     part: '얼굴',
     item: '동그란안경',
     url: '/suya/suya_circle_glasses.png',
+    originColor: '#000000',
   },
   {
     part: '얼굴',
@@ -49,16 +56,19 @@ export const SUYA_FACE_DECORATIONS = [
     part: '얼굴',
     item: '눈썹1',
     url: '/suya/suya_eyebrow1.png',
+    originColor: '#000000',
   },
   {
     part: '얼굴',
     item: '눈썹2',
     url: '/suya/suya_eyebrow2.png',
+    originColor: '#000000',
   },
   {
     part: '얼굴',
     item: '홍조',
     url: '/suya/suya_blush.png',
+    originColor: '#bf6a69',
   },
 ];
 
@@ -95,6 +105,7 @@ export const SUYA_FOOT_DECORATIONS = [
     part: '발',
     item: '샌들',
     url: '/suya/suya_sandle.png',
+    originColor: '#000000',
   },
 ];
 

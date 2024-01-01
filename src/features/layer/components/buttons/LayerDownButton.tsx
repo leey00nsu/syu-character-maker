@@ -18,7 +18,7 @@ const LayerDownButton = ({ index }: LayerDownButtonProps) => {
       onClick={layerDownHandler.bind(this, index)}
       className="absolute right-0 flex h-full w-8 items-center justify-center"
     >
-      <FaAngleDown className="h-full w-8 shrink-0" />
+      <FaAngleDown className="h-6 w-6 shrink-0" />
     </button>
   );
 };

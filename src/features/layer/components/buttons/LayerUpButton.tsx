@@ -18,7 +18,7 @@ const LayerUpButton = ({ index }: LayerUpButtonProps) => {
       onClick={layerUpHandler.bind(this, index)}
       className="absolute right-8 flex h-full w-8 items-center justify-center"
     >
-      <FaAngleUp className="h-full w-8 shrink-0" />
+      <FaAngleUp className="h-6 w-6 shrink-0" />
     </button>
   );
 };

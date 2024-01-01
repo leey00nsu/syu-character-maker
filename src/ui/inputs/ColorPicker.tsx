@@ -16,6 +16,9 @@ const ColorPicker = ({ color, changeHandler }: ColorPickerProps) => {
       e.preventDefault();
     },
     colorPickerRef,
+    {
+      passive: false,
+    },
   );
 
   return (

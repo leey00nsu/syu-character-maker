@@ -86,6 +86,8 @@ const useObjectControll = () => {
       id: decoration.item,
       url: decoration.url,
       z: canvasObjects.length,
+      color: decoration.originColor ?? undefined,
+      originColor: decoration.originColor ?? undefined,
     };
     const newCanvasObjects = [...canvasObjects, newImage];
 
@@ -115,7 +117,8 @@ const useObjectControll = () => {
     updateHistory(newCanvasObjects);
   };
 
-  // 오브젝트 상태 업데이트
+  // Konva 이벤트에 의한 오브젝트 상태 업데이트
+  // 주로 오브젝트 드래그 및 리사이징 이벤트에 사용됨
   const transformObject = (e: KonvaEventObject<any>) => {
     const { x, y, id, scaleX, scaleY, skewX, skewY, rotation } = e.target.attrs;
 
@@ -188,6 +191,23 @@ const useObjectControll = () => {
     setCanvasObjects(newCanvasObjects);
   };
 
+  // 오브젝트의 색 변경
+  const changeObjectColor = (color: string) => {
+    const newCanvasObjects = canvasObjects.map(object => {
+      if (selectedObjectIds.includes(object.id)) {
+        return {
+          ...object,
+          color: color,
+        };
+      } else {
+        return object;
+      }
+    });
+
+    setCanvasObjects(newCanvasObjects);
+    updateHistory(newCanvasObjects);
+  };
+
   // 캐릭터 변경
   const changeCharacter = (character: string) => {
     const imageUrl = character === '수호' ? '/suho.png' : '/suya.png';
@@ -247,6 +267,7 @@ const useObjectControll = () => {
     transformObject,
     changeObjectOpacity,
     changeObjectIndex,
+    changeObjectColor,
     clearDecorations,
     clearDrawingObjects,
     changeCharacter,

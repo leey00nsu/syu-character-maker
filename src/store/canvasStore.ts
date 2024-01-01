@@ -104,6 +104,7 @@ export interface CanvasObject {
   url?: string;
   z: number;
   opacity?: number;
+  originColor?: string;
 }
 
 const DEFAULT_CANVAS_OBJECT: CanvasObject = {

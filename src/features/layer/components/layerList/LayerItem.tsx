@@ -3,6 +3,7 @@ import { CanvasObject, useCanvasStore } from '@/store/canvasStore';
 import Paragraph from '@/ui/texts/Paragraph';
 
 import { LayerDownButton, LayerUpButton } from '../buttons';
+import LayerColorButton from '../buttons/LayerColorButton';
 
 interface LayerItemProps {
   object: CanvasObject;
@@ -32,12 +33,13 @@ const LayerItem = ({ object, index }: LayerItemProps) => {
       }
       onClick={clickLayerHandler.bind(this, object.id)}
     >
-      <Paragraph className="w-full" size="sm" weight="normal">
+      <Paragraph className="grow" size="sm" weight="normal">
         {object.id}
       </Paragraph>
 
       {isSelected && isSingle && (
         <>
+          {object.originColor && <LayerColorButton object={object} />}
           <LayerUpButton index={index} />
           <LayerDownButton index={index} />
         </>

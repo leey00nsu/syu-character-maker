@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 
-export type ModalType = 'confirm' | 'alert' | 'delete';
+export type ModalType = 'confirm' | 'colorPicker';
 
 export interface Modal {
   type: ModalType;
