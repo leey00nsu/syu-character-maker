@@ -3,8 +3,6 @@ import React, { useEffect } from 'react';
 import ReactGA from 'react-ga4';
 import { useLocation } from 'react-router-dom';
 
-import { ModalList } from '../modal';
-
 interface PageContainerProps {
   children: React.ReactNode;
   className?: string;
@@ -40,8 +38,6 @@ const PageContainer = ({ children }: PageContainerProps) => {
       onContextMenu={disableRightClick}
       className="flex min-h-[100svh] max-w-[100svw] flex-col"
     >
-      <ModalList />
-
       {children}
     </div>
   );

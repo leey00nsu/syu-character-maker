@@ -15,6 +15,7 @@ interface ModalSlice {
   setIsModalOpen: (changes: boolean) => void;
   addModal: (changes: Modal) => void;
   removeModal: () => void;
+  removeAllModals: () => void;
 }
 
 export const useModalStore = create<ModalSlice>(set => ({
@@ -25,4 +26,5 @@ export const useModalStore = create<ModalSlice>(set => ({
   addModal: (changes: Modal) =>
     set(state => ({ modals: [...state.modals, changes] })),
   removeModal: () => set(state => ({ modals: state.modals.slice(0, -1) })),
+  removeAllModals: () => set(state => ({ modals: [] })),
 }));

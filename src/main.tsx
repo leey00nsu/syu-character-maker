@@ -7,6 +7,7 @@ import { RouterProvider } from 'react-router-dom';
 
 import './index.css';
 import { router } from './router';
+import { ModalList } from './ui/modal';
 
 const queryClient = new QueryClient();
 
@@ -20,6 +21,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <QueryClientProvider client={queryClient}>
     <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
       <Toaster />
+      <ModalList />
       <RouterProvider router={router} />
     </GoogleOAuthProvider>
   </QueryClientProvider>,
