@@ -3,6 +3,8 @@ import { useCanvasStore } from '@/store/canvasStore';
 import useCharacter from '@/features/canvas/hooks/useCharacter';
 import useObjectControll from '@/features/canvas/hooks/useObjectControll';
 
+import { Paragraph } from '@/ui/texts';
+
 import { DecorationToggleButton } from './buttons';
 import { Decoration } from './constants/decoration.type';
 import { SUHO_DECORATIONS } from './constants/suhoDecorations';
@@ -49,7 +51,7 @@ const DecorationList = ({ part }: DecorationListProps) => {
   };
 
   return (
-    <div className="grid w-full auto-rows-max grid-cols-2 gap-4 overflow-y-auto p-4 sm:grid-cols-3">
+    <div className="relative grid w-full auto-rows-max grid-cols-2 gap-4 overflow-y-auto p-4 sm:grid-cols-3">
       {partDecorations.map(decoration => (
         <DecorationToggleButton
           key={decoration.item}
@@ -59,6 +61,13 @@ const DecorationList = ({ part }: DecorationListProps) => {
           {decoration.item}
         </DecorationToggleButton>
       ))}
+      <Paragraph
+        className="absolute bottom-0 w-full py-4 text-center"
+        size="xs"
+        weight="light"
+      >
+        레이어를 클릭해 색상을 변경할 수 있어요!
+      </Paragraph>
     </div>
   );
 };
