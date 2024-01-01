@@ -2,6 +2,8 @@ import tw from '@/utils/tw';
 
 import { useAuthStore } from '@/store/authStore';
 
+import { Paragraph } from '@/ui/texts';
+
 import useArticleFilter from '../../hooks/useArticleFilter';
 import ArticleAuthorFilter from './ArticleAuthorFilter';
 import ArticleDateFilter from './ArticleDateFilter';
@@ -13,7 +15,7 @@ const ArticleFilter = () => {
     useArticleFilter();
 
   const classNames = tw(
-    'menu menu-vertical xs:menu-horizontal w-full justify-between gap-2 rounded-box bg-base-200 xs:justify-start',
+    'relative menu menu-vertical xs:menu-horizontal w-full justify-between gap-2 rounded-box bg-base-200 xs:justify-start',
     !isAuth && 'justify-start',
   );
 
@@ -35,6 +37,13 @@ const ArticleFilter = () => {
           isActive={authorOption}
         />
       )}
+      <Paragraph
+        className="absolute -top-10 w-full py-4 text-start"
+        size="xs"
+        weight="light"
+      >
+        필터를 두 번 누르면 기준을 변경할 수 있어요!
+      </Paragraph>
     </ul>
   );
 };

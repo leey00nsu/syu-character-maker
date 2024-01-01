@@ -1,9 +1,21 @@
 export const SUYA_HEAD_DECORATIONS = [
   {
     part: '머리',
+    item: '기본머리',
+    url: '/suya/suya_default_hair.png',
+    originColor: '#0d52a7',
+  },
+  {
+    part: '머리',
     item: '야구모자',
     url: '/suya/suya_baseball_cap.png',
     originColor: '#3486fc',
+  },
+  {
+    part: '머리',
+    item: '더벅머리',
+    url: '/suya/suya_messy_hair.png',
+    originColor: '#000000',
   },
   {
     part: '머리',

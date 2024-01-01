@@ -1,6 +1,12 @@
 export const SUHO_HEAD_DECORATIONS = [
   {
     part: '머리',
+    item: '기본머리',
+    url: '/suho/suho_default_hair.png',
+    originColor: '#0c88e6',
+  },
+  {
+    part: '머리',
     item: '야구모자',
     url: '/suho/suho_baseball_cap.png',
     originColor: '#3486fc',
@@ -114,6 +120,12 @@ export const SUHO_HAND_DECORATIONS = [
 ];
 
 export const SUHO_FOOT_DECORATIONS = [
+  {
+    part: '발',
+    item: '기본신발',
+    url: '/suho/suho_default_shoes.png',
+    originColor: '#01a4ff',
+  },
   {
     part: '발',
     item: '샌들',

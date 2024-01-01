@@ -6,9 +6,14 @@ import { useEventListener } from 'usehooks-ts';
 interface ColorPickerProps {
   color: Color;
   changeHandler: ColorChangeHandler;
+  disableAlpha?: boolean;
 }
 
-const ColorPicker = ({ color, changeHandler }: ColorPickerProps) => {
+const ColorPicker = ({
+  color,
+  changeHandler,
+  disableAlpha,
+}: ColorPickerProps) => {
   const [isMounted, setIsMounted] = useState(false);
   const colorPickerRef = useRef<HTMLDivElement>(null);
 
@@ -35,13 +40,16 @@ const ColorPicker = ({ color, changeHandler }: ColorPickerProps) => {
     }
   }, []);
 
+  const classNames = tw(
+    'overflow-hidden rounded-xl border shadow-none',
+    isMounted ? 'visible' : 'invisible',
+  );
+
   return (
     <div ref={colorPickerRef}>
       <ChromePicker
-        className={tw(
-          'overflow-hidden rounded-xl border shadow-none',
-          isMounted ? 'visible' : 'invisible',
-        )}
+        disableAlpha={disableAlpha}
+        className={classNames}
         color={color}
         onChange={changeHandler}
       />

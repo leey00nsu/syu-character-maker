@@ -41,6 +41,7 @@ const ColorPickerModal = ({ modal }: ColorPickerModalProps) => {
         <h3 className="text-lg font-bold">{modal.title}</h3>
         <div className="flex w-full justify-center">
           <ColorPicker
+            disableAlpha
             color={currentColor}
             changeHandler={changeColorHandler}
           />
