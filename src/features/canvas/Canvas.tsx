@@ -6,8 +6,8 @@ import useCanvas from '@/features/canvas/hooks/useCanvas';
 
 import { WindowContainer } from '@/ui/containers';
 
-import { CanvasObjects } from './components';
 import { CanvasResetButton } from './components/buttons';
+import { CanvasLayers } from './components';
 import CanvasNameInput from './components/canvasNameInput/CanvasNameInput';
 import {
   ObjectSelectBox,
@@ -36,7 +36,7 @@ const Canvas = () => {
       <WindowContainer.HeaderButton>
         <CanvasResetButton />
       </WindowContainer.HeaderButton>
-      
+
       <WindowContainer.Content className="flex h-[350px] w-full justify-center overflow-hidden sm:h-[600px] ">
         <Stage
           ref={stageRef}
@@ -49,8 +49,8 @@ const Canvas = () => {
             isMobile ? { x: MOBILE_SCALE, y: MOBILE_SCALE } : { x: 1, y: 1 }
           }
         >
-          <Layer ref={layerRef}>
-            <CanvasObjects objectSelectHandler={objectSelectHandler} />
+          <CanvasLayers objectSelectHandler={objectSelectHandler} />
+          <Layer>
             <ObjectSelectBox selectBoxRef={selectBoxRef} />
             <ObjectTransformer transformerRef={transformerRef} />
           </Layer>

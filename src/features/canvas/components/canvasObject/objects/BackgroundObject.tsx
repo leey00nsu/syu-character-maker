@@ -11,7 +11,6 @@ const BackgroundObject = () => {
     <Rect
       name="background"
       key="background"
-      z={-999}
       x={0}
       y={0}
       width={DEFAULT_WIDTH}

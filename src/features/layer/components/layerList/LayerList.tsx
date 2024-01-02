@@ -7,10 +7,14 @@ const LayerList = () => {
 
   const reversedCanvasObjects = [...canvasObjects].reverse();
 
+  const listable = reversedCanvasObjects.filter(
+    object => object.name !== 'eraser',
+  );
+
   return (
     <ul className="menu menu-vertical w-full flex-nowrap gap-1 p-2 py-4">
-      {reversedCanvasObjects.map((object, index) => (
-        <LayerItem key={object.id} object={object} index={index} />
+      {listable.map((object, index) => (
+        <LayerItem key={index} object={object} index={index} />
       ))}
     </ul>
   );

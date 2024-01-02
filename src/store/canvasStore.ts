@@ -50,8 +50,10 @@ interface Color {
 interface PenSlice {
   penSize: number;
   penColor: Color;
+  penMode: 'brush' | 'erase';
   setPenSize: (changes: number) => void;
   setPenColor: (changes: Color) => void;
+  setPenMode: (changes: 'brush' | 'erase') => void;
 }
 
 const DEFAULT_PEN_SIZE = 5;
@@ -69,6 +71,9 @@ const DEFAULT_PEN_COLOR: Color = {
 const createPenSlice: StateCreator<PenSlice> = set => ({
   penSize: DEFAULT_PEN_SIZE,
   penColor: DEFAULT_PEN_COLOR,
+  penMode: 'brush',
+  setPenMode: (changes: 'brush' | 'erase') =>
+    set(state => ({ penMode: changes })),
   setPenSize: (changes: number) => set(state => ({ penSize: changes })),
   setPenColor: (changes: Color) => set(state => ({ penColor: changes })),
 });
@@ -89,8 +94,8 @@ const createModeSlice: StateCreator<ModeSlice> = set => ({
 });
 
 export interface CanvasObject {
-  name: string;
-  id: string;
+  name: string; // 캔버스에서 그려지는 오브젝트의 종류 (character, decoration,line, image)
+  id: string; // 캔버스에서 그려지는 오브젝트의 고유 이름
   x?: number;
   y?: number;
   scaleX?: number;
@@ -98,20 +103,19 @@ export interface CanvasObject {
   skewX?: number;
   skewY?: number;
   rotation?: number;
-  points?: number[];
+  points?: number[]; // 선의 좌표
   color?: string;
   size?: number;
   url?: string;
-  z: number;
   opacity?: number;
-  originColor?: string;
+  originColor?: string; // 캔버스에 그려지는 꾸미기 아이템의 기본 색상
+  parents?: string; // 부모 오브젝트의 id
 }
 
 const DEFAULT_CANVAS_OBJECT: CanvasObject = {
   name: 'character',
   id: '수호',
   url: '/suho.png',
-  z: 1,
 };
 
 interface CanvasObjectSlice {
@@ -187,6 +191,7 @@ export const useCanvasStore = create<
         debounceTime: 1000,
       }),
       partialize: (state: any) => ({
+        canvasName: state.canvasName,
         backgroundColor: state.backgroundColor,
         penSize: state.penSize,
         penColor: state.penColor,

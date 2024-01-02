@@ -4,7 +4,7 @@ import { CanvasObject, useCanvasStore } from '@/store/canvasStore';
 
 import {
   IMMUTABLE_OBJECTS,
-  MUTABLE_OBJECTS,
+  UNSELCTABLE_OBJECTS,
 } from '@/features/canvas/constants/canvas';
 import useHistoryControll from '@/features/canvas/hooks/useHistoryControll';
 import { Decoration } from '@/features/menu/components/decoration/constants/decoration.type';
@@ -22,25 +22,41 @@ const useObjectControll = () => {
 
   // 새로운 선 추가
   const addLine = (line: Partial<CanvasObject>) => {
-    setCanvasObjects([
-      ...canvasObjects,
-      {
-        name: 'line',
-        size: line.size,
-        color: line.color,
-        points: line.points,
-        id: `선 ${canvasObjects.length}`,
-        z: canvasObjects.length,
-        x: 0,
-        y: 0,
-        scaleX: 1,
-        scaleY: 1,
-        skewX: 0,
-        skewY: 0,
-        opacity: line.opacity,
-        rotation: 0,
-      },
-    ]);
+    const currentLineLength = getCurrentLineLength();
+
+    const newLine = {
+      name: 'line',
+      size: line.size,
+      color: line.color,
+      points: line.points,
+      id: `선${currentLineLength + 1}`,
+      x: 0,
+      y: 0,
+      scaleX: 1,
+      scaleY: 1,
+      skewX: 0,
+      skewY: 0,
+      opacity: line.opacity,
+    };
+
+    setCanvasObjects([...canvasObjects, newLine]);
+  };
+
+  // 새로운 지우개 추가
+  const addEraser = (eraser: Partial<CanvasObject>) => {
+    const currentEraserLength = getCurrentEraserLength();
+
+    const newEraser = {
+      name: 'eraser',
+      id: `지우개${currentEraserLength + 1}`,
+      size: eraser.size,
+      color: eraser.color,
+      points: eraser.points,
+      opacity: eraser.opacity,
+      parents: selectedObjectIds[0],
+    };
+
+    setCanvasObjects([...canvasObjects, newEraser]);
   };
 
   // 선의 좌표를 업데이트
@@ -60,9 +76,11 @@ const useObjectControll = () => {
 
   // 새로운 이미지 추가
   const addImage = (image: Partial<CanvasObject>) => {
+    const currentImageLength = getCurrentImageLength();
+
     const newImage = {
       name: 'image',
-      id: `이미지 ${canvasObjects.length}`,
+      id: `이미지${currentImageLength + 1}`,
       url: image.url,
       x: 50,
       y: 50,
@@ -70,7 +88,6 @@ const useObjectControll = () => {
       scaleY: 1,
       skewX: 0,
       skewY: 0,
-      z: canvasObjects.length,
       opacity: 1,
     };
     const newCanvasObjects = [...canvasObjects, newImage];
@@ -108,9 +125,16 @@ const useObjectControll = () => {
 
   // 선택된 오브젝트 삭제
   const removeObject = () => {
-    const newCanvasObjects = canvasObjects.filter(
-      canvasObject => !selectedObjectIds.includes(canvasObject.id),
-    );
+    const newCanvasObjects = canvasObjects.filter(canvasObject => {
+      if (selectedObjectIds.includes(canvasObject.id)) return false;
+      if (
+        canvasObject.parents &&
+        selectedObjectIds.includes(canvasObject.parents)
+      )
+        return false;
+
+      return true;
+    });
 
     setCanvasObjects(newCanvasObjects);
     setSelectedObjectIds([]);
@@ -254,13 +278,38 @@ const useObjectControll = () => {
   // 현재 그려진 선, 이미지가 없는지 확인
   const isDrawingObjectsEmpty =
     canvasObjects.filter(canvasObject =>
-      MUTABLE_OBJECTS.includes(canvasObject.name),
+      UNSELCTABLE_OBJECTS.includes(canvasObject.name),
     ).length === 0;
+
+  const getCurrentLineLength = () => {
+    const currentLine = canvasObjects.filter(
+      canvasObject => canvasObject.name === 'line',
+    );
+
+    return currentLine.length;
+  };
+
+  const getCurrentImageLength = () => {
+    const currentImage = canvasObjects.filter(
+      canvasObject => canvasObject.name === 'image',
+    );
+
+    return currentImage.length;
+  };
+
+  const getCurrentEraserLength = () => {
+    const currentEraser = canvasObjects.filter(
+      canvasObject => canvasObject.name === 'eraser',
+    );
+
+    return currentEraser.length;
+  };
 
   return {
     addLine,
     updateLine,
     addImage,
+    addEraser,
     addDecoration,
     removeObject,
     removeDecoration,
