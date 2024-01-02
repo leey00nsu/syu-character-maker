@@ -1,6 +1,5 @@
 import { CanvasObject } from "@/store/canvasStore";
 import { CharacterObject, DecorationObject, ImageObject, LineObject } from "./objects";
-import EraserObject from "./objects/EraserObject";
 
 interface CanvasObjectProps {
   object: CanvasObject;
@@ -19,13 +18,6 @@ const CanvasObject = ({ object, objectSelectHandler }:CanvasObjectProps) => {
           key={object.id}
           object={object}
           objectSelectHandler={objectSelectHandler}
-        />
-      );
-    case 'eraser':
-      return (
-        <EraserObject
-          key={object.id}
-          object={object}
         />
       );
     case 'image':

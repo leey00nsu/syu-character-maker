@@ -50,10 +50,8 @@ interface Color {
 interface PenSlice {
   penSize: number;
   penColor: Color;
-  penMode: 'brush' | 'erase';
   setPenSize: (changes: number) => void;
   setPenColor: (changes: Color) => void;
-  setPenMode: (changes: 'brush' | 'erase') => void;
 }
 
 const DEFAULT_PEN_SIZE = 5;
@@ -71,9 +69,6 @@ const DEFAULT_PEN_COLOR: Color = {
 const createPenSlice: StateCreator<PenSlice> = set => ({
   penSize: DEFAULT_PEN_SIZE,
   penColor: DEFAULT_PEN_COLOR,
-  penMode: 'brush',
-  setPenMode: (changes: 'brush' | 'erase') =>
-    set(state => ({ penMode: changes })),
   setPenSize: (changes: number) => set(state => ({ penSize: changes })),
   setPenColor: (changes: Color) => set(state => ({ penColor: changes })),
 });

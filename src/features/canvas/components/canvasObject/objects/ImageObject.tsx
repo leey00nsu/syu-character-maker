@@ -1,6 +1,4 @@
-import { Group as GroupType } from 'konva/lib/Group';
-import { useLayoutEffect } from 'react';
-import { Group, Image } from 'react-konva';
+import { Image } from 'react-konva';
 import useImage from 'use-image';
 
 import { CanvasObject, useCanvasStore } from '@/store/canvasStore';
@@ -14,7 +12,6 @@ interface ImageObjectProps {
 }
 
 const ImageObject = ({ object, objectSelectHandler }: ImageObjectProps) => {
-  const stageRef = useCanvasStore(state => state.stageRef);
   const mode = useCanvasStore(state => state.mode);
 
   const [image] = useImage(object.url || '');
@@ -22,26 +19,11 @@ const ImageObject = ({ object, objectSelectHandler }: ImageObjectProps) => {
 
   const isDraggable = mode === 'move';
 
-  useLayoutEffect(() => {
-    cacheGroup();
-  }, [object]);
-
-  const cacheGroup = () => {
-    const objectGroup = stageRef?.current?.findOne(
-      '#' + object.id,
-    ) as GroupType;
-    const isCachedGroup = objectGroup?.children?.length! > 1;
-
-    if (isCachedGroup) {
-      objectGroup?.cache();
-    }
-  };
-
   if (image) {
     let aspect_ratio = image.width / image.height;
 
     return (
-      <Group
+      <Image
         rotation={object.rotation}
         scaleX={object.scaleX}
         scaleY={object.scaleY}
@@ -54,8 +36,6 @@ const ImageObject = ({ object, objectSelectHandler }: ImageObjectProps) => {
         opacity={object.opacity}
         name={object.name}
         key={object.id}
-        onDragMove={cacheGroup}
-        onTransform={cacheGroup}
         onDragStart={() => objectSelectHandler(object.id)}
         draggable={isDraggable}
         onClick={() => {
@@ -67,9 +47,8 @@ const ImageObject = ({ object, objectSelectHandler }: ImageObjectProps) => {
         height={DEFAULT_IMAGE_WIDTH / aspect_ratio}
         onDragEnd={transformObject}
         onTransformEnd={transformObject}
-      >
-        <Image url={object.url} image={image} />
-      </Group>
+        image={image}
+      />
     );
   }
 

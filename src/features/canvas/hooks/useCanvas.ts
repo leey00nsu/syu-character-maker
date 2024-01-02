@@ -33,7 +33,6 @@ const useCanvas = ({
   const canvasObjects = useCanvasStore(state => state.canvasObjects);
   const penSize = useCanvasStore(state => state.penSize);
   const penColor = useCanvasStore(state => state.penColor);
-  const penMode = useCanvasStore(state => state.penMode);
   const mode = useCanvasStore(state => state.mode);
 
   const setCanvasRef = useCanvasStore(state => state.setCanvasRef);
@@ -45,7 +44,7 @@ const useCanvas = ({
   const drawRef = useRef(false);
 
   const { updateHistory } = useUpdateHistory();
-  const { addLine, updateLine, addEraser } = useObjectControll();
+  const { addLine, updateLine } = useObjectControll();
 
   // stageRef, layerRef, selectBoxRef, transformerRef를 canvasRef에 저장
   // 이를 통해 다른 컴포넌트에서도 커스텀 훅 접근 가능
@@ -90,11 +89,17 @@ const useCanvas = ({
         selectBoxRef.current.width(0);
         selectBoxRef.current.height(0);
         updateSelection();
+      } else {
+        const isSelectable = MUTABLE_OBJECTS.includes(e.target.getName());
+        const isSelected = selectedObjectIds.includes(e.target.getId());
+
+        // 클릭한 대상이 선, 그림이고 , 현재 선택된 요소에 포함되어 있지 않을 때 해당 요소를 선택
+        if (isSelectable && !isSelected) {
+          setSelectedObjectIds([e.target.getId()]);
+        }
       }
     }
     if (mode === 'draw') {
-      if (penMode === 'erase' && selectedObjectIds.length === 0) return;
-
       drawRef.current = true;
 
       // 현재 마우스의 위치를 받아옴
@@ -105,38 +110,12 @@ const useCanvas = ({
         pos.y = pos.y / MOBILE_SCALE;
       }
 
-      if (penMode === 'brush') {
-        addLine({
-          size: penSize,
-          color: penColor.hex,
-          opacity: penColor.alpha,
-          points: [pos.x, pos.y, pos.x, pos.y],
-        });
-      }
-
-      if (penMode === 'erase') {
-        const selectedLine = stageRef.current.findOne(
-          `#${selectedObjectIds[0]}`,
-        );
-
-        // 지우개가 해당 오브젝트와 겹치지 않으면 리턴
-        const isIntersect = Konva.Util.haveIntersection(
-          { x: pos.x, y: pos.y, width: penSize, height: penSize },
-          selectedLine.getClientRect(),
-        );
-
-        if (!isIntersect) {
-          drawRef.current = false;
-          return;
-        }
-
-        addEraser({
-          size: penSize,
-          color: penColor.hex,
-          opacity: penColor.alpha,
-          points: [pos.x, pos.y, pos.x, pos.y],
-        });
-      }
+      addLine({
+        size: penSize,
+        color: penColor.hex,
+        opacity: penColor.alpha,
+        points: [pos.x, pos.y, pos.x, pos.y],
+      });
     }
   };
 
@@ -164,30 +143,32 @@ const useCanvas = ({
     if (!selectBoxRef.current) return;
 
     if (mode === 'move') {
-      if (!selectBoxRef.current.visible()) return;
+      if (!selectBoxRef.current.visible()) {
+        return;
+      }
 
       const canvas = document.getElementsByTagName('canvas');
 
-      let relX = 0;
-      let relY = 0;
+      let rel_x = 0;
+      let rel_y = 0;
 
       if (e.type === 'mousemove') {
-        relX = e.clientX - canvas[0].getBoundingClientRect().x;
-        relY = e.clientY - canvas[0].getBoundingClientRect().y;
+        rel_x = e.clientX - canvas[0].getBoundingClientRect().x;
+        rel_y = e.clientY - canvas[0].getBoundingClientRect().y;
       }
 
       if (e.type === 'touchmove') {
-        relX = e.touches[0].clientX - canvas[0].getBoundingClientRect().x;
-        relY = e.touches[0].clientY - canvas[0].getBoundingClientRect().y;
+        rel_x = e.touches[0].clientX - canvas[0].getBoundingClientRect().x;
+        rel_y = e.touches[0].clientY - canvas[0].getBoundingClientRect().y;
       }
 
       if (isMobile) {
-        relX = relX / MOBILE_SCALE;
-        relY = relY / MOBILE_SCALE;
+        rel_x = rel_x / MOBILE_SCALE;
+        rel_y = rel_y / MOBILE_SCALE;
       }
 
-      selectBoxRef.current.attrs.x2 = relX;
-      selectBoxRef.current.attrs.y2 = relY;
+      selectBoxRef.current.attrs.x2 = rel_x;
+      selectBoxRef.current.attrs.y2 = rel_y;
       updateSelection();
     }
 
@@ -198,43 +179,25 @@ const useCanvas = ({
 
       const canvas = document.getElementsByTagName('canvas');
 
-      let relX = 0;
-      let relY = 0;
+      let rel_x = 0;
+      let rel_y = 0;
 
       if (e.type === 'mousemove') {
-        relX = e.clientX - canvas[0].getBoundingClientRect().x;
-        relY = e.clientY - canvas[0].getBoundingClientRect().y;
+        rel_x = e.clientX - canvas[0].getBoundingClientRect().x;
+        rel_y = e.clientY - canvas[0].getBoundingClientRect().y;
       }
 
       if (e.type === 'touchmove') {
-        relX = e.touches[0].clientX - canvas[0].getBoundingClientRect().x;
-        relY = e.touches[0].clientY - canvas[0].getBoundingClientRect().y;
+        rel_x = e.touches[0].clientX - canvas[0].getBoundingClientRect().x;
+        rel_y = e.touches[0].clientY - canvas[0].getBoundingClientRect().y;
       }
 
       if (isMobile) {
-        relX = relX / MOBILE_SCALE;
-        relY = relY / MOBILE_SCALE;
+        rel_x = rel_x / MOBILE_SCALE;
+        rel_y = rel_y / MOBILE_SCALE;
       }
 
-      if (penMode === 'brush') {
-        updateLine(relX, relY);
-      }
-
-      if (penMode === 'erase') {
-        const selectedLine = stageRef?.current?.findOne(
-          `#${selectedObjectIds[0]}`,
-        );
-
-        // 지우개가 해당 오브젝트 밖으로 나가면 리턴
-        const isIntersect = Konva.Util.haveIntersection(
-          { x: relX, y: relY, width: penSize, height: penSize },
-          selectedLine?.getClientRect()!,
-        );
-
-        if (!isIntersect) return;
-
-        updateLine(relX, relY);
-      }
+      updateLine(rel_x, rel_y);
     }
   };
 
@@ -276,6 +239,7 @@ const useCanvas = ({
 
   // selectedObjectIds가 변경될 때마다 현재 선택된 요소를 Transformer에게 전달하여 표시
   useEffect(() => {
+    // if (!layerRef.current) return;
     if (!transformerRef.current) return;
 
     if (selectedObjectIds) {
@@ -287,12 +251,25 @@ const useCanvas = ({
           MUTABLE_OBJECTS.includes(child.attrs.name),
       );
 
+      // let selectedNodes = layerRef?.current?.children!.filter(
+      //   (child: any) =>
+      //     selectedObjectIds.includes(child.attrs.id) &&
+      //     MUTABLE_OBJECTS.includes(child.attrs.name),
+      // );
+
       if (!selectedNodes) return;
 
       transformerRef.current.nodes(selectedNodes);
       transformerRef.current.getLayer()?.batchDraw();
     }
   }, [selectedObjectIds]);
+
+  // mode가 변경될 때마다 selectedObjectIds를 초기화
+  useEffect(() => {
+    if (mode === 'draw') {
+      setSelectedObjectIds([]);
+    }
+  }, [mode]);
 
   // 화면 크기 변경시 stage를 다시 렌더링
   useEffect(() => {
