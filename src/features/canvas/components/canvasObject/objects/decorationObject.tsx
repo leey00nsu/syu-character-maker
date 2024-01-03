@@ -1,5 +1,5 @@
 import hexToRgb from '@/utils/hexToRgb';
-import { useEffect, useRef } from 'react';
+import { useLayoutEffect, useRef } from 'react';
 import { Image } from 'react-konva';
 import useImage from 'use-image';
 
@@ -15,7 +15,7 @@ const DecorationObject = ({ object }: DecorationObjectProps) => {
   const [image] = useImage(object.url || '');
   const imageRef = useRef<any>(null);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (image) {
       imageRef.current?.cache();
     }

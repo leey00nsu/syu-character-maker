@@ -19,9 +19,9 @@ const CanvasLayers = ({ objectSelectHandler }: CanvasLayersProps) => {
       </Layer>
 
       <Layer>
-        {canvasObjects.map((object, index) => (
+        {canvasObjects.map(object => (
           <CanvasObject
-            key={index}
+            key={object.id}
             object={object}
             objectSelectHandler={objectSelectHandler}
           />
