@@ -1,4 +1,4 @@
-import { useCanvasStore } from '@/store/canvasStore';
+import { useCanvasStore } from '@/store/canvas';
 
 import { MAX_CANVAS_NAME_LENGTH } from '../../constants/canvas';
 

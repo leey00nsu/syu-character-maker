@@ -37,74 +37,71 @@ const Paragraph = ({
   className,
   fixSize,
 }: ParagraphProps) => {
-  let sizeClasses = '';
-  let weightClasses = '';
+  let sizeClassNames = '';
+  let weightClassNames = '';
+
   switch (size) {
     case 'xs':
-      sizeClasses = twJoin('text-xs', !fixSize && 'sm:text-sm');
+      sizeClassNames = twJoin('text-xs', !fixSize && 'sm:text-sm');
       break;
     case 'sm':
-      sizeClasses = twJoin('text-sm', !fixSize && 'sm:text-base');
+      sizeClassNames = twJoin('text-sm', !fixSize && 'sm:text-base');
       break;
     case 'md':
-      sizeClasses = twJoin('text-ba', !fixSize && 'sm:text-lg');
+      sizeClassNames = twJoin('text-ba', !fixSize && 'sm:text-lg');
       break;
     case 'lg':
-      sizeClasses = twJoin('text-lg', !fixSize && 'sm:text-xl');
+      sizeClassNames = twJoin('text-lg', !fixSize && 'sm:text-xl');
       break;
     case 'xl':
-      sizeClasses = twJoin('text-xl', !fixSize && 'sm:text-2xl');
+      sizeClassNames = twJoin('text-xl', !fixSize && 'sm:text-2xl');
       break;
     case '2xl':
-      sizeClasses = twJoin('text-2xl', !fixSize && ' sm:text-3xl');
+      sizeClassNames = twJoin('text-2xl', !fixSize && ' sm:text-3xl');
       break;
     case '3xl':
-      sizeClasses = twJoin('text-3xl', !fixSize && ' sm:text-4xl');
+      sizeClassNames = twJoin('text-3xl', !fixSize && ' sm:text-4xl');
       break;
     case '4xl':
-      sizeClasses = twJoin('text-4xl', !fixSize && ' sm:text-5xl');
+      sizeClassNames = twJoin('text-4xl', !fixSize && ' sm:text-5xl');
       break;
     case '5xl':
-      sizeClasses = twJoin('text-5xl', !fixSize && ' sm:text-6xl');
+      sizeClassNames = twJoin('text-5xl', !fixSize && ' sm:text-6xl');
       break;
     case '6xl':
-      sizeClasses = twJoin('text-6xl', !fixSize && ' sm:text-7xl');
+      sizeClassNames = twJoin('text-6xl', !fixSize && ' sm:text-7xl');
       break;
   }
 
   switch (weight) {
     case 'light':
-      weightClasses = 'font-light';
+      weightClassNames = 'font-light';
       break;
     case 'normal':
-      weightClasses = 'font-normal';
+      weightClassNames = 'font-normal';
       break;
     case 'medium':
-      weightClasses = 'font-medium';
+      weightClassNames = 'font-medium';
       break;
     case 'semibold':
-      weightClasses = 'font-semibold';
+      weightClassNames = 'font-semibold';
       break;
     case 'bold':
-      weightClasses = 'font-bold';
+      weightClassNames = 'font-bold';
       break;
   }
 
-  const textEllipsis =
+  const ellipsisClassNames =
     'text-ellipsis max-w-full overflow-hidden whitespace-nowrap';
 
-  return (
-    <p
-      className={tw(
-        sizeClasses,
-        weightClasses,
-        className,
-        ellipsis && textEllipsis,
-      )}
-    >
-      {children}
-    </p>
+  const classNames = tw(
+    sizeClassNames,
+    weightClassNames,
+    className,
+    ellipsis && ellipsisClassNames,
   );
+  
+  return <p className={classNames}>{children}</p>;
 };
 
 export default Paragraph;

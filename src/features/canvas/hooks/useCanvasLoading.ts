@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-import { useCanvasStore } from '@/store/canvasStore';
+import { useCanvasStore } from '@/store/canvas';
 
 const useCanvasLoading = () => {
   const isCanvasLoading = useCanvasStore(state => state.isCanvasLoading);

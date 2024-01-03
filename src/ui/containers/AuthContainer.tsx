@@ -7,10 +7,9 @@ interface AuthContainerProps {
   privated?: boolean;
 }
 
-// 로그인 상태를 체크하는 페이지
+// 로그인 상태를 체크하는 컨테이너
 const AuthContainer = ({ element, privated }: AuthContainerProps) => {
   const { isLoading } = useValidateAuth({ privated });
-  
 
   if (isLoading) return <LoadingSpinner />;
 

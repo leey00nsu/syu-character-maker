@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { googleLoginWithCode } from '@/apis/auth/auth.api';
 
-import { useAuthStore } from '@/store/authStore';
+import { useAuthStore } from '@/store/auth';
 
 const useGoogleLogin = () => {
   const navigate = useNavigate();

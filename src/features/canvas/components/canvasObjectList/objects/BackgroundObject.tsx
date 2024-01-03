@@ -1,6 +1,6 @@
 import { Rect } from 'react-konva';
 
-import { useCanvasStore } from '@/store/canvasStore';
+import { useCanvasStore } from '@/store/canvas';
 
 import { DEFAULT_WIDTH } from '@/features/canvas/constants/canvas';
 

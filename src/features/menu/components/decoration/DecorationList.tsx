@@ -1,4 +1,4 @@
-import { useCanvasStore } from '@/store/canvasStore';
+import { useCanvasStore } from '@/store/canvas';
 
 import useCharacter from '@/features/canvas/hooks/useCharacter';
 import useObjectControll from '@/features/canvas/hooks/useObjectControll';

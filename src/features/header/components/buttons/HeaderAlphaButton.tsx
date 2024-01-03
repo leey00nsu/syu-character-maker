@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useCanvasStore } from '@/store/canvasStore';
+import { useCanvasStore } from '@/store/canvas';
 
 import { MUTABLE_OBJECTS } from '@/features/canvas/constants/canvas';
 import useHistoryControll from '@/features/canvas/hooks/useHistoryControll';

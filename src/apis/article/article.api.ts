@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { ArticleOrder, ArticleOrderBy } from '@/store/galleryStore';
+import { ArticleOrder, ArticleOrderBy } from '@/store/gallery/filterSlice';
 
 import { ApiResponse } from '../response.type';
 import {

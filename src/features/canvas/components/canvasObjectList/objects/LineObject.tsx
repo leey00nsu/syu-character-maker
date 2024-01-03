@@ -1,6 +1,7 @@
 import { Line } from 'react-konva';
 
-import { CanvasObject, useCanvasStore } from '@/store/canvasStore';
+import { useCanvasStore } from '@/store/canvas';
+import { CanvasObject } from '@/store/canvas/canvasObjectSlice';
 
 import useObjectControll from '@/features/canvas/hooks/useObjectControll';
 

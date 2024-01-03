@@ -18,7 +18,7 @@ interface ModalSlice {
   removeAllModals: () => void;
 }
 
-export const useModalStore = create<ModalSlice>(set => ({
+const useModalStore = create<ModalSlice>(set => ({
   isModalOpen: false,
   modals: [],
   setIsModalOpen: (changes: boolean) =>
@@ -28,3 +28,5 @@ export const useModalStore = create<ModalSlice>(set => ({
   removeModal: () => set(state => ({ modals: state.modals.slice(0, -1) })),
   removeAllModals: () => set(state => ({ modals: [] })),
 }));
+
+export default useModalStore;

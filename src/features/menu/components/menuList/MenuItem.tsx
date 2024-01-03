@@ -1,7 +1,9 @@
+import { Menus } from '../../constants/menus';
+
 interface MenuItemProps {
-  menuName: string;
+  menuName: Menus;
   menu: string;
-  changeMenuHandler: (changes: string) => void;
+  changeMenuHandler: (changes: Menus) => void;
 }
 
 const MenuItem = ({ menu, menuName, changeMenuHandler }: MenuItemProps) => {

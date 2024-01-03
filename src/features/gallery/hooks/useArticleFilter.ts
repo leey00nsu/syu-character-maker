@@ -1,12 +1,9 @@
-import {
-  ArticleOption,
-  ArticleOrderBy,
-  useFilterStore,
-} from '@/store/galleryStore';
+import { useGalleryStore } from '@/store/gallery';
+import { ArticleOption, ArticleOrderBy } from '@/store/gallery/filterSlice';
 
 const useArticleFilter = () => {
-  const filter = useFilterStore(state => state.filter);
-  const setFilter = useFilterStore(state => state.setFilter);
+  const filter = useGalleryStore(state => state.filter);
+  const setFilter = useGalleryStore(state => state.setFilter);
 
   // 리스트의 정렬 기준을 변경한다.
   const changeOrderBy = (changes: ArticleOrderBy) => {

@@ -2,7 +2,7 @@ import Konva from 'konva';
 import { RefObject, useEffect, useRef, useState } from 'react';
 import { useEventListener } from 'usehooks-ts';
 
-import { useCanvasStore } from '@/store/canvasStore';
+import { useCanvasStore } from '@/store/canvas';
 
 import {
   IMMUTABLE_OBJECTS,

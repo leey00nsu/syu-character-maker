@@ -1,4 +1,5 @@
-import { CanvasObject, useCanvasStore } from '@/store/canvasStore';
+import { useCanvasStore } from '@/store/canvas';
+import { CanvasObject } from '@/store/canvas/canvasObjectSlice';
 
 import Paragraph from '@/ui/texts/Paragraph';
 
@@ -21,6 +22,7 @@ const LayerItem = ({ object, index }: LayerItemProps) => {
     setMode('move');
   };
 
+  const isColorChangeable = !!object.originColor;
   const isSelected = selectedObjectIds.includes(object.id);
   const isSingle = selectedObjectIds.length === 1;
 
@@ -39,7 +41,7 @@ const LayerItem = ({ object, index }: LayerItemProps) => {
 
       {isSelected && isSingle && (
         <>
-          {object.originColor && <LayerColorButton object={object} />}
+          {isColorChangeable && <LayerColorButton object={object} />}
           <LayerUpButton index={index} />
           <LayerDownButton index={index} />
         </>

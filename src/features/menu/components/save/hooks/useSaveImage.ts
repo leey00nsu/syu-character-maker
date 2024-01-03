@@ -1,4 +1,4 @@
-import { useCanvasStore } from '@/store/canvasStore';
+import { useCanvasStore } from '@/store/canvas';
 
 import useExportCanvas from '@/features/canvas/hooks/useExportCanvas';
 

@@ -6,9 +6,9 @@ import useCanvas from '@/features/canvas/hooks/useCanvas';
 
 import { WindowContainer } from '@/ui/containers';
 
-import { CanvasLayers } from './components';
 import { CanvasResetButton } from './components/buttons';
 import CanvasNameInput from './components/canvasNameInput/CanvasNameInput';
+import CanvasObjectList from './components/canvasObjectList/CanvasObjectList';
 import {
   ObjectSelectBox,
   ObjectTransformer,
@@ -49,8 +49,8 @@ const Canvas = () => {
             isMobile ? { x: MOBILE_SCALE, y: MOBILE_SCALE } : { x: 1, y: 1 }
           }
         >
-          <CanvasLayers objectSelectHandler={objectSelectHandler} />
-          <Layer>
+          <Layer ref={layerRef}>
+            <CanvasObjectList objectSelectHandler={objectSelectHandler} />
             <ObjectSelectBox selectBoxRef={selectBoxRef} />
             <ObjectTransformer transformerRef={transformerRef} />
           </Layer>

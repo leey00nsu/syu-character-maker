@@ -1,7 +1,7 @@
 import { FormEvent, useEffect, useRef } from 'react';
 import { useEventListener } from 'usehooks-ts';
 
-import { Modal } from '@/store/modalStore';
+import { Modal } from '@/store/modal/modalStore';
 
 import useModal from '@/hooks/modal/useModal';
 

@@ -1,7 +1,7 @@
 import tw from '@/utils/tw';
 import { FaRegClock } from 'react-icons/fa';
 
-import { ArticleOrder } from '@/store/galleryStore';
+import { ArticleOrder } from '@/store/gallery/filterSlice';
 
 interface ArticleDateFilterProps {
   isActive: boolean;

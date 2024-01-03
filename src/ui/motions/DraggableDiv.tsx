@@ -8,6 +8,7 @@ interface DraggableDivProps {
 
 const DraggableDiv = ({ children, className }: DraggableDivProps) => {
   const classNames = tw('transformer-box', className);
+
   return (
     <motion.div drag dragSnapToOrigin className={classNames}>
       {children}

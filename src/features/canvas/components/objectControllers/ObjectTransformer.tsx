@@ -2,7 +2,7 @@ import Konva from 'konva';
 import { RefObject } from 'react';
 import { Transformer } from 'react-konva';
 
-import { useCanvasStore } from '@/store/canvasStore';
+import { useCanvasStore } from '@/store/canvas';
 
 interface ObjectTransformerProps {
   transformerRef: RefObject<Konva.Transformer>;

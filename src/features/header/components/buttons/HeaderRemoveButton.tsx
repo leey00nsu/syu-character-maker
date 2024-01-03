@@ -1,6 +1,6 @@
 import { FaTrashAlt } from 'react-icons/fa';
 
-import { useCanvasStore } from '@/store/canvasStore';
+import { useCanvasStore } from '@/store/canvas';
 
 import { MUTABLE_OBJECTS } from '@/features/canvas/constants/canvas';
 import useObjectControll from '@/features/canvas/hooks/useObjectControll';

@@ -1,6 +1,6 @@
 import Konva from 'konva';
 
-import { useCanvasStore } from '@/store/canvasStore';
+import { useCanvasStore } from '@/store/canvas';
 
 const useExportCanvas = () => {
   const stageRef = useCanvasStore(state => state.stageRef);

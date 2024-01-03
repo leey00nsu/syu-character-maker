@@ -1,7 +1,7 @@
 import tw from '@/utils/tw';
 import { FaHeart } from 'react-icons/fa';
 
-import { ArticleOrder } from '@/store/galleryStore';
+import { ArticleOrder } from '@/store/gallery/filterSlice';
 
 interface ArticleLikeCountFilterProps {
   isActive: boolean;

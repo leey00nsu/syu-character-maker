@@ -1,4 +1,4 @@
-import { useCanvasStore } from '@/store/canvasStore';
+import { useCanvasStore } from '@/store/canvas';
 
 import { NumberInput } from '@/ui/inputs';
 import SliderInput from '@/ui/inputs/SliderInput';

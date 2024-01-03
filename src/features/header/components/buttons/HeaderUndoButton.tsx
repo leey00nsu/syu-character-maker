@@ -1,7 +1,7 @@
 import { FaUndoAlt } from 'react-icons/fa';
 import { twJoin } from 'tailwind-merge';
 
-import { useCanvasStore } from '@/store/canvasStore';
+import { useCanvasStore } from '@/store/canvas';
 
 import useHistoryControll from '@/features/canvas/hooks/useHistoryControll';
 

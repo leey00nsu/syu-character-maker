@@ -1,4 +1,4 @@
-import { useCanvasStore } from '@/store/canvasStore';
+import { useCanvasStore } from '@/store/canvas';
 
 import LayerItem from './LayerItem';
 

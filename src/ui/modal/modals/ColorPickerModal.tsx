@@ -2,7 +2,7 @@ import { FormEvent, useEffect, useRef, useState } from 'react';
 import { ColorResult } from 'react-color';
 import { useEventListener } from 'usehooks-ts';
 
-import { Modal } from '@/store/modalStore';
+import { Modal } from '@/store/modal/modalStore';
 
 import useModal from '@/hooks/modal/useModal';
 

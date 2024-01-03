@@ -1,6 +1,6 @@
 import { IoColorPalette } from 'react-icons/io5';
 
-import { CanvasObject } from '@/store/canvasStore';
+import { CanvasObject } from '@/store/canvas/canvasObjectSlice';
 
 import useModal from '@/hooks/modal/useModal';
 

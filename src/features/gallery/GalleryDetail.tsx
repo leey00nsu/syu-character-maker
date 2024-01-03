@@ -1,6 +1,6 @@
 import { Navigate } from 'react-router-dom';
 
-import { useAuthStore } from '@/store/authStore';
+import { useAuthStore } from '@/store/auth';
 
 import useModal from '@/hooks/modal/useModal';
 

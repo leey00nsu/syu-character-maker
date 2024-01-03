@@ -1,7 +1,8 @@
 import { Image } from 'react-konva';
 import useImage from 'use-image';
 
-import { CanvasObject, useCanvasStore } from '@/store/canvasStore';
+import { useCanvasStore } from '@/store/canvas';
+import { CanvasObject } from '@/store/canvas/canvasObjectSlice';
 
 import { DEFAULT_IMAGE_WIDTH } from '@/features/canvas/constants/canvas';
 import useObjectControll from '@/features/canvas/hooks/useObjectControll';

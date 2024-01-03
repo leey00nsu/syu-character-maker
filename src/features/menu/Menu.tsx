@@ -11,15 +11,16 @@ import {
   Pen,
   Save,
 } from './components';
+import { MENUS, Menus } from './constants/menus';
 
 const Menu = () => {
-  const [menu, setMenu] = useState('꾸미기');
+  const [menu, setMenu] = useState(MENUS[0]);
 
-  const changeMenuHandler = (changes: string) => {
+  const changeMenuHandler = (changes: Menus) => {
     setMenu(changes);
   };
 
-  const context = () => {
+  const renderMenuContent = () => {
     switch (menu) {
       case '꾸미기':
         return <Decoration />;
@@ -50,7 +51,7 @@ const Menu = () => {
 
       <WindowContainer.Content className="flex grow flex-col">
         <MenuList menu={menu} changeMenuHandler={changeMenuHandler} />
-        {context()}
+        {renderMenuContent()}
       </WindowContainer.Content>
     </WindowContainer>
   );

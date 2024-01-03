@@ -1,4 +1,5 @@
-import { CanvasObject, useCanvasStore } from '@/store/canvasStore';
+import { useCanvasStore } from '@/store/canvas';
+import { CanvasObject } from '@/store/canvas/canvasObjectSlice';
 
 // 히스토리 업데이트 커스텀 훅
 const useHistoryControll = () => {

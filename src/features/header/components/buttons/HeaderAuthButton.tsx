@@ -1,7 +1,7 @@
 import { FaRegUserCircle } from 'react-icons/fa';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { useAuthStore } from '@/store/authStore';
+import { useAuthStore } from '@/store/auth';
 
 import useGetGoogleCode from '@/hooks/auth/useGetGoogleCode';
 

@@ -1,4 +1,4 @@
-import { Modal } from '@/store/modalStore';
+import { Modal } from '@/store/modal/modalStore';
 
 import { ConfirmModal } from './modals';
 import ColorPickerModal from './modals/ColorPickerModal';

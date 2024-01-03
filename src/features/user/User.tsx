@@ -1,19 +1,12 @@
-import { useAuthStore } from '@/store/authStore';
-
-import useLogout from '@/hooks/auth/useLogout';
+import { useAuthStore } from '@/store/auth';
 
 import { Avatar } from '@/ui/avatars';
-import { ActiveButton } from '@/ui/buttons';
 import { Paragraph } from '@/ui/texts';
+
+import { LogoutButton } from './buttons';
 
 const User = () => {
   const user = useAuthStore(state => state.user);
-
-  const { logoutMutate } = useLogout();
-
-  const logoutHandler = async () => {
-    await logoutMutate();
-  };
 
   return (
     <div className="flex w-full flex-col items-center gap-4 p-4 py-10">
@@ -27,9 +20,7 @@ const User = () => {
         <Paragraph size="md" weight="normal">
           {user.name}
         </Paragraph>
-        <ActiveButton className="btn w-full" clickHandler={logoutHandler}>
-          로그아웃
-        </ActiveButton>
+        <LogoutButton />
       </div>
     </div>
   );

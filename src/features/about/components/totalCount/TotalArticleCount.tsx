@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { Paragraph } from '@/ui/texts';
 
 import useGetTotalArticleCount from '../../hooks/useGetTotalArticleCount';
-import useMotionCount from '../hooks/useMotionCount';
+import useMotionCount from '../../hooks/useMotionCount';
 
 const TotalArticleCount = () => {
   const { totalArticleCount } = useGetTotalArticleCount();

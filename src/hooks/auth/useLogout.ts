@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { logout } from '@/apis/auth/auth.api';
 
-import { useAuthStore } from '@/store/authStore';
+import { useAuthStore } from '@/store/auth';
 
 const useLogout = () => {
   const navigate = useNavigate();

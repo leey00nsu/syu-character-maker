@@ -1,6 +1,6 @@
 import tw from '@/utils/tw';
 
-import { useCanvasStore } from '@/store/canvasStore';
+import { useCanvasStore } from '@/store/canvas';
 
 import useModal from '@/hooks/modal/useModal';
 

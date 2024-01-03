@@ -1,6 +1,6 @@
 import { ColorResult } from 'react-color';
 
-import { useCanvasStore } from '@/store/canvasStore';
+import { useCanvasStore } from '@/store/canvas';
 
 import { ColorPicker } from '@/ui/inputs';
 

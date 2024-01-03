@@ -1,4 +1,4 @@
-import { useCanvasStore } from '@/store/canvasStore';
+import { useCanvasStore } from '@/store/canvas';
 
 // 현재 캐릭터를 가져오는 커스텀 훅
 const useCharacter = () => {

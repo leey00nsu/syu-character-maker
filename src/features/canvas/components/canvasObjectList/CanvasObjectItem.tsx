@@ -1,12 +1,21 @@
-import { CanvasObject } from "@/store/canvasStore";
-import { CharacterObject, DecorationObject, ImageObject, LineObject } from "./objects";
+import { CanvasObject } from '@/store/canvas/canvasObjectSlice';
 
-interface CanvasObjectProps {
+import {
+  CharacterObject,
+  DecorationObject,
+  ImageObject,
+  LineObject,
+} from './objects';
+
+interface CanvasObjectItemProps {
   object: CanvasObject;
   objectSelectHandler: (id: string) => void;
 }
 
-const CanvasObject = ({ object, objectSelectHandler }:CanvasObjectProps) => {
+const CanvasObjectItem = ({
+  object,
+  objectSelectHandler,
+}: CanvasObjectItemProps) => {
   switch (object.name) {
     case 'character':
       return <CharacterObject object={object} key={object.id} />;
@@ -28,8 +37,9 @@ const CanvasObject = ({ object, objectSelectHandler }:CanvasObjectProps) => {
           objectSelectHandler={objectSelectHandler}
         />
       );
-    default: return null;
+    default:
+      return null;
   }
 };
 
-export default CanvasObject;
+export default CanvasObjectItem;

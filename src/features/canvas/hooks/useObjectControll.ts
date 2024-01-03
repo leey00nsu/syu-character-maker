@@ -1,6 +1,6 @@
 import { KonvaEventObject } from 'konva/lib/Node';
 
-import { CanvasObject, useCanvasStore } from '@/store/canvasStore';
+
 
 import {
   IMMUTABLE_OBJECTS,
@@ -8,6 +8,8 @@ import {
 } from '@/features/canvas/constants/canvas';
 import useHistoryControll from '@/features/canvas/hooks/useHistoryControll';
 import { Decoration } from '@/features/menu/components/decoration/constants/decoration.type';
+import { useCanvasStore } from '@/store/canvas';
+import { CanvasObject } from '@/store/canvas/canvasObjectSlice';
 
 // 오브젝트 컨트롤 커스텀 훅
 const useObjectControll = () => {

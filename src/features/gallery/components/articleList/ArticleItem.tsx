@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { ListArticle } from '@/apis/article/article.type';
 
-import { useAuthStore } from '@/store/authStore';
+import { useAuthStore } from '@/store/auth';
 
 import { Card } from '@/ui/cards';
 import { Image } from '@/ui/images';

@@ -1,6 +1,7 @@
 import { FaExpandArrowsAlt } from 'react-icons/fa';
 
-import { ModeState, useCanvasStore } from '@/store/canvasStore';
+import { useCanvasStore } from '@/store/canvas';
+import { ModeState } from '@/store/canvas/modeSlice';
 
 import { ToggleButton } from '@/ui/buttons';
 

@@ -1,1 +1,1 @@
-export { default as CanvasLayers } from './canvasLayers/CanvasLayers';
+export { default as CanvasLayers } from './canvasObjectList/CanvasObjectList';
