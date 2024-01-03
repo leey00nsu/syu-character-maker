@@ -7,7 +7,6 @@ import { useCanvasStore } from '@/store/canvasStore';
 import {
   IMMUTABLE_OBJECTS,
   MOBILE_MIN_WIDTH,
-  MOBILE_SCALE,
   MUTABLE_OBJECTS,
 } from '@/features/canvas/constants/canvas';
 import useUpdateHistory from '@/features/canvas/hooks/useHistoryControll';
@@ -69,13 +68,7 @@ const useCanvas = ({
       if (clickedOnEmpty) {
         setSelectedObjectIds([]);
 
-        const pos = stageRef.current.getPointerPosition()!;
-
-        // 모바일일 때는 스케일을 고려하여 좌표를 변경
-        if (isMobile) {
-          pos.x = pos.x / MOBILE_SCALE;
-          pos.y = pos.y / MOBILE_SCALE;
-        }
+        const pos = stageRef.current.getRelativePointerPosition()!;
 
         selectBoxRef.current.setAttrs({
           x1: pos.x,
@@ -85,9 +78,9 @@ const useCanvas = ({
         });
 
         selectBoxRef.current.visible(true);
-
         selectBoxRef.current.width(0);
         selectBoxRef.current.height(0);
+
         updateSelection();
       } else {
         const isSelectable = MUTABLE_OBJECTS.includes(e.target.getName());
@@ -103,12 +96,7 @@ const useCanvas = ({
       drawRef.current = true;
 
       // 현재 마우스의 위치를 받아옴
-      const pos = stageRef.current.getPointerPosition()!;
-
-      if (isMobile) {
-        pos.x = pos.x / MOBILE_SCALE;
-        pos.y = pos.y / MOBILE_SCALE;
-      }
+      const pos = stageRef.current.getRelativePointerPosition()!;
 
       addLine({
         size: penSize,
@@ -124,7 +112,6 @@ const useCanvas = ({
     if (!selectBoxRef.current) return;
 
     selectBoxRef.current.setAttrs({
-      visible: selectBoxRef.current.visible(),
       x: Math.min(selectBoxRef.current.attrs.x1, selectBoxRef.current.attrs.x2),
       y: Math.min(selectBoxRef.current.attrs.y1, selectBoxRef.current.attrs.y2),
       width: Math.abs(
@@ -139,7 +126,8 @@ const useCanvas = ({
   };
 
   // 드래그
-  const dragHandler = (e: any) => {
+  const dragHandler = () => {
+    if (!stageRef.current) return;
     if (!selectBoxRef.current) return;
 
     if (mode === 'move') {
@@ -147,28 +135,11 @@ const useCanvas = ({
         return;
       }
 
-      const canvas = document.getElementsByTagName('canvas');
+      // 현재 마우스의 위치를 받아옴
+      const pos = stageRef.current.getRelativePointerPosition()!;
 
-      let rel_x = 0;
-      let rel_y = 0;
-
-      if (e.type === 'mousemove') {
-        rel_x = e.clientX - canvas[0].getBoundingClientRect().x;
-        rel_y = e.clientY - canvas[0].getBoundingClientRect().y;
-      }
-
-      if (e.type === 'touchmove') {
-        rel_x = e.touches[0].clientX - canvas[0].getBoundingClientRect().x;
-        rel_y = e.touches[0].clientY - canvas[0].getBoundingClientRect().y;
-      }
-
-      if (isMobile) {
-        rel_x = rel_x / MOBILE_SCALE;
-        rel_y = rel_y / MOBILE_SCALE;
-      }
-
-      selectBoxRef.current.attrs.x2 = rel_x;
-      selectBoxRef.current.attrs.y2 = rel_y;
+      selectBoxRef.current.attrs.x2 = pos.x;
+      selectBoxRef.current.attrs.y2 = pos.y;
       updateSelection();
     }
 
@@ -177,27 +148,10 @@ const useCanvas = ({
         return;
       }
 
-      const canvas = document.getElementsByTagName('canvas');
+      // 현재 마우스의 위치를 받아옴
+      const pos = stageRef?.current?.getRelativePointerPosition()!;
 
-      let rel_x = 0;
-      let rel_y = 0;
-
-      if (e.type === 'mousemove') {
-        rel_x = e.clientX - canvas[0].getBoundingClientRect().x;
-        rel_y = e.clientY - canvas[0].getBoundingClientRect().y;
-      }
-
-      if (e.type === 'touchmove') {
-        rel_x = e.touches[0].clientX - canvas[0].getBoundingClientRect().x;
-        rel_y = e.touches[0].clientY - canvas[0].getBoundingClientRect().y;
-      }
-
-      if (isMobile) {
-        rel_x = rel_x / MOBILE_SCALE;
-        rel_y = rel_y / MOBILE_SCALE;
-      }
-
-      updateLine(rel_x, rel_y);
+      updateLine(pos.x, pos.y);
     }
   };
 
@@ -225,13 +179,14 @@ const useCanvas = ({
         Konva.Util.haveIntersection(box, shape.getClientRect()),
       );
 
-      let selectedObjectIds = selected.map((child: any) => child.attrs.id);
+      let selectedObjectIds = selected.map(child => child.attrs.id);
 
       setSelectedObjectIds(selectedObjectIds);
     }
 
     if (mode === 'draw') {
       if (!drawRef.current) return;
+
       drawRef.current = false;
       updateHistory(canvasObjects);
     }
@@ -239,25 +194,17 @@ const useCanvas = ({
 
   // selectedObjectIds가 변경될 때마다 현재 선택된 요소를 Transformer에게 전달하여 표시
   useEffect(() => {
-    // if (!layerRef.current) return;
+    if (!stageRef.current) return;
     if (!transformerRef.current) return;
 
     if (selectedObjectIds) {
-      const selectedLines = stageRef?.current?.find('.line');
-      const selectedImages = stageRef?.current?.find('.image');
-      const selectedNodes = [...selectedLines!, ...selectedImages!].filter(
-        (child: any) =>
+      const selectedLines = stageRef.current.find('.line');
+      const selectedImages = stageRef.current.find('.image');
+      const selectedNodes = [...selectedLines, ...selectedImages].filter(
+        child =>
           selectedObjectIds.includes(child.attrs.id) &&
           MUTABLE_OBJECTS.includes(child.attrs.name),
       );
-
-      // let selectedNodes = layerRef?.current?.children!.filter(
-      //   (child: any) =>
-      //     selectedObjectIds.includes(child.attrs.id) &&
-      //     MUTABLE_OBJECTS.includes(child.attrs.name),
-      // );
-
-      if (!selectedNodes) return;
 
       transformerRef.current.nodes(selectedNodes);
       transformerRef.current.getLayer()?.batchDraw();
