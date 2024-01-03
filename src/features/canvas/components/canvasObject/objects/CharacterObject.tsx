@@ -1,8 +1,7 @@
-import { useLayoutEffect, useRef } from 'react';
 import { Image } from 'react-konva';
 import useImage from 'use-image';
 
-import { CanvasObject, useCanvasStore } from '@/store/canvasStore';
+import { CanvasObject } from '@/store/canvasStore';
 
 import { DEFAULT_WIDTH } from '@/features/canvas/constants/canvas';
 

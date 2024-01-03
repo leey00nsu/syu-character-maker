@@ -42,7 +42,7 @@ const AddImage = () => {
       const ctx = canvas.getContext('2d');
       if (ctx) {
         ctx.drawImage(img, 0, 0, width, height);
-        const resizedUrl = canvas.toDataURL('image', 0.2); // 이미지를 base64 형식으로 변환
+        const resizedUrl = canvas.toDataURL('image', 0.3); // 이미지를 base64 형식으로 변환
         callback(resizedUrl);
       }
     };

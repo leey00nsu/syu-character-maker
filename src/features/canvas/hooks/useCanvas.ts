@@ -224,18 +224,16 @@ const useCanvas = ({
     if (!stageRef.current) return;
     if (!transformerRef.current) return;
 
-    if (selectedObjectIds) {
-      const selectedLines = stageRef.current.find('.line');
-      const selectedImages = stageRef.current.find('.image');
-      const selectedNodes = [...selectedLines, ...selectedImages].filter(
-        child =>
-          selectedObjectIds.includes(child.attrs.id) &&
-          MUTABLE_OBJECTS.includes(child.attrs.name),
-      );
+    const selectedLines = stageRef.current.find('.line');
+    const selectedImages = stageRef.current.find('.image');
+    const selectedNodes = [...selectedLines, ...selectedImages].filter(
+      child =>
+        selectedObjectIds.includes(child.attrs.id) &&
+        MUTABLE_OBJECTS.includes(child.attrs.name),
+    );
 
-      transformerRef.current.nodes(selectedNodes);
-      transformerRef.current.getLayer()?.batchDraw();
-    }
+    transformerRef.current.nodes(selectedNodes);
+    transformerRef.current.getLayer()?.batchDraw();
   }, [selectedObjectIds]);
 
   // mode가 변경될 때마다 selectedObjectIds를 초기화

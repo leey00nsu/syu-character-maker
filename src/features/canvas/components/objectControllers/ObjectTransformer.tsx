@@ -10,6 +10,7 @@ interface ObjectTransformerProps {
 
 const ObjectTransformer = ({ transformerRef }: ObjectTransformerProps) => {
   const { mode } = useCanvasStore(state => state);
+
   return (
     <Transformer
       id="transformer"
@@ -17,6 +18,8 @@ const ObjectTransformer = ({ transformerRef }: ObjectTransformerProps) => {
       shouldOverdrawWholeArea={mode === 'move'}
       rotateEnabled={mode === 'move'}
       resizeEnabled={mode === 'move'}
+      borderDash={[6, 6]}
+      borderStrokeWidth={2}
       padding={10}
       ref={transformerRef}
     />
