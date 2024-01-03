@@ -6,8 +6,8 @@ import useCanvas from '@/features/canvas/hooks/useCanvas';
 
 import { WindowContainer } from '@/ui/containers';
 
-import { CanvasResetButton } from './components/buttons';
 import { CanvasLayers } from './components';
+import { CanvasResetButton } from './components/buttons';
 import CanvasNameInput from './components/canvasNameInput/CanvasNameInput';
 import {
   ObjectSelectBox,

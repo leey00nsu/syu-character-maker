@@ -68,7 +68,7 @@ const useCanvas = ({
       if (clickedOnEmpty) {
         setSelectedObjectIds([]);
 
-        const pos = stageRef.current.getRelativePointerPosition()!;
+        const pos = stageRef.current.getRelativePointerPosition();
 
         selectBoxRef.current.setAttrs({
           x1: pos.x,
@@ -96,7 +96,7 @@ const useCanvas = ({
       drawRef.current = true;
 
       // 현재 마우스의 위치를 받아옴
-      const pos = stageRef.current.getRelativePointerPosition()!;
+      const pos = stageRef.current.getRelativePointerPosition();
 
       addLine({
         size: penSize,
@@ -104,6 +104,63 @@ const useCanvas = ({
         opacity: penColor.alpha,
         points: [pos.x, pos.y, pos.x, pos.y],
       });
+    }
+  };
+
+  // 드래그
+  const dragHandler = (e: any) => {
+    if (!stageRef.current) return;
+    if (!selectBoxRef.current) return;
+
+    if (mode === 'move') {
+      if (!selectBoxRef.current.visible()) {
+        return;
+      }
+
+      // 현재 마우스의 위치를 받아옴
+      let pos = stageRef.current.getRelativePointerPosition();
+
+      // getRelativePointerPosition로 캔버스 바깥 값을 구할 수 없을 때 직접 구함 : 데스크탑에서 캔버스 바깥으로 드래그할 때
+      if (e.clientX) {
+        const layer = stageRef.current.container();
+        const transform = stageRef.current.getAbsoluteTransform().copy();
+        transform.invert();
+        const pos2 = layer.getBoundingClientRect();
+
+        pos = transform.point({
+          x: e.clientX - pos2.x,
+          y: e.clientY - pos2.y,
+        });
+      }
+
+      selectBoxRef.current.attrs.x2 = pos.x;
+      selectBoxRef.current.attrs.y2 = pos.y;
+
+      updateSelection();
+    }
+
+    if (mode === 'draw') {
+      if (!drawRef.current) {
+        return;
+      }
+
+      // 현재 마우스의 위치를 받아옴
+      let pos = stageRef.current.getRelativePointerPosition();
+
+      // getRelativePointerPosition로 캔버스 바깥 값을 구할 수 없을 때 직접 구함 : 데스크탑에서 캔버스 바깥으로 드래그할 때
+      if (e.clientX) {
+        const layer = stageRef.current.container();
+        const transform = stageRef.current.getAbsoluteTransform().copy();
+        transform.invert();
+        const pos2 = layer.getBoundingClientRect();
+
+        pos = transform.point({
+          x: e.clientX - pos2.x,
+          y: e.clientY - pos2.y,
+        });
+      }
+
+      updateLine(pos.x, pos.y);
     }
   };
 
@@ -123,36 +180,6 @@ const useCanvas = ({
     });
 
     selectBoxRef.current.getLayer()?.batchDraw();
-  };
-
-  // 드래그
-  const dragHandler = () => {
-    if (!stageRef.current) return;
-    if (!selectBoxRef.current) return;
-
-    if (mode === 'move') {
-      if (!selectBoxRef.current.visible()) {
-        return;
-      }
-
-      // 현재 마우스의 위치를 받아옴
-      const pos = stageRef.current.getRelativePointerPosition()!;
-
-      selectBoxRef.current.attrs.x2 = pos.x;
-      selectBoxRef.current.attrs.y2 = pos.y;
-      updateSelection();
-    }
-
-    if (mode === 'draw') {
-      if (!drawRef.current) {
-        return;
-      }
-
-      // 현재 마우스의 위치를 받아옴
-      const pos = stageRef?.current?.getRelativePointerPosition()!;
-
-      updateLine(pos.x, pos.y);
-    }
   };
 
   // 드래그 종료
