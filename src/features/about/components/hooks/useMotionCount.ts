@@ -6,10 +6,9 @@ const useMotionCount = (start: number) => {
 
   const startAnimation = (to: number) => {
     animate(count, to, {
-      duration: 0.3,
       type: 'spring',
-      stiffness: 10,
-      damping: 10,
+      stiffness: 50,
+      damping: 20,
     });
   };
 
