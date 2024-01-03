@@ -1,4 +1,5 @@
 import hexToRgb from '@/utils/hexToRgb';
+import { useEffect, useRef } from 'react';
 import { Image } from 'react-konva';
 import useImage from 'use-image';
 
@@ -12,6 +13,13 @@ interface DecorationObjectProps {
 
 const DecorationObject = ({ object }: DecorationObjectProps) => {
   const [image] = useImage(object.url || '');
+  const imageRef = useRef<any>(null);
+
+  useEffect(() => {
+    if (image) {
+      imageRef.current?.cache();
+    }
+  }, [image]);
 
   const colorFilter = (imageData: ImageData) => {
     if (!object.originColor) return;
@@ -42,6 +50,7 @@ const DecorationObject = ({ object }: DecorationObjectProps) => {
   if (image) {
     return (
       <Image
+        ref={imageRef}
         opacity={1}
         name={object.name}
         key={object.id}
