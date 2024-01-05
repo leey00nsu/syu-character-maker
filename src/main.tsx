@@ -1,17 +1,15 @@
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import axios from 'axios';
 import ReactDOM from 'react-dom/client';
 import ReactGA from 'react-ga4';
 import { Toaster } from 'react-hot-toast';
 import { RouterProvider } from 'react-router-dom';
 
+import '@/apis/axios.config';
+
 import './index.css';
 import { router } from './router';
 import { ModalList } from './ui/modal';
-
-// 개발 환경에서 크로스 도메인에서 쿠키를 전송할 수 있도록 설정
-axios.defaults.withCredentials = import.meta.env.DEV;
 
 const queryClient = new QueryClient();
 
