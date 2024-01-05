@@ -7,7 +7,13 @@ const Gallery = () => {
   return (
     <WindowContainer className="grow">
       <WindowContainer.Header>
-        <Paragraph size="md" weight="medium" ellipsis fixSize>
+        <Paragraph
+          className="translate-y-1"
+          size="md"
+          weight="medium"
+          ellipsis
+          fixSize
+        >
           갤러리
         </Paragraph>
       </WindowContainer.Header>

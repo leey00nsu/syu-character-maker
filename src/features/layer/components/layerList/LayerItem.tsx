@@ -1,10 +1,11 @@
+import tw from '@/utils/tw';
+
 import { useCanvasStore } from '@/store/canvas';
 import { CanvasObject } from '@/store/canvas/canvasObjectSlice';
 
 import Paragraph from '@/ui/texts/Paragraph';
 
-import { LayerDownButton, LayerUpButton } from '../buttons';
-import LayerColorButton from '../buttons/LayerColorButton';
+import LayerButtons from './LayerButtons';
 
 interface LayerItemProps {
   object: CanvasObject;
@@ -22,30 +23,28 @@ const LayerItem = ({ object, index }: LayerItemProps) => {
     setMode('move');
   };
 
-  const isColorChangeable = !!object.originColor;
   const isSelected = selectedObjectIds.includes(object.id);
   const isSingle = selectedObjectIds.length === 1;
 
+  const classNames = tw(
+    'flex w-full flex-row justify-between',
+    isSelected && 'btn-active  rounded-lg ',
+  );
+
   return (
     <li
-      className={
-        isSelected
-          ? 'btn-active flex w-full flex-row justify-between rounded-lg  '
-          : 'flex  w-full flex-row justify-between'
-      }
+      className={classNames}
       onClick={clickLayerHandler.bind(this, object.id)}
     >
       <Paragraph className="grow" size="sm" weight="normal">
         {object.id}
       </Paragraph>
-
-      {isSelected && isSingle && (
-        <>
-          {isColorChangeable && <LayerColorButton object={object} />}
-          <LayerUpButton index={index} />
-          <LayerDownButton index={index} />
-        </>
-      )}
+      <LayerButtons
+        object={object}
+        index={index}
+        isSelected={isSelected}
+        isSingle={isSingle}
+      />
     </li>
   );
 };

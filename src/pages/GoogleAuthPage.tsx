@@ -17,7 +17,7 @@ const GoogleAuthPage = () => {
       navigate('/');
     }
     if (code) {
-      googleLoginMutate(code);
+      await googleLoginMutate(code);
     }
   };
 

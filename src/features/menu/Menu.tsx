@@ -3,14 +3,8 @@ import { useState } from 'react';
 import { WindowContainer } from '@/ui/containers';
 import { Paragraph } from '@/ui/texts';
 
-import {
-  AddImage,
-  Background,
-  Decoration,
-  MenuList,
-  Pen,
-  Save,
-} from './components';
+import { MenuList } from './components';
+import MenuContent from './components/menuContent/MenuContent';
 import { MENUS, Menus } from './constants/menus';
 
 const Menu = () => {
@@ -18,21 +12,6 @@ const Menu = () => {
 
   const changeMenuHandler = (changes: Menus) => {
     setMenu(changes);
-  };
-
-  const renderMenuContent = () => {
-    switch (menu) {
-      case '꾸미기':
-        return <Decoration />;
-      case '배경':
-        return <Background />;
-      case '이미지':
-        return <AddImage />;
-      case '펜':
-        return <Pen />;
-      case '저장':
-        return <Save />;
-    }
   };
 
   return (
@@ -51,7 +30,7 @@ const Menu = () => {
 
       <WindowContainer.Content className="flex grow flex-col">
         <MenuList menu={menu} changeMenuHandler={changeMenuHandler} />
-        {renderMenuContent()}
+        <MenuContent menu={menu} />
       </WindowContainer.Content>
     </WindowContainer>
   );

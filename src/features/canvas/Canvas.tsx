@@ -21,12 +21,16 @@ const Canvas = () => {
   const selectBoxRef = useRef<Konva.Rect>(null);
   const transformerRef = useRef<Konva.Transformer>(null);
 
-  const { clickHandler, objectSelectHandler, isMobile } = useCanvas({
+  const { clickHandler, isMobile } = useCanvas({
     stageRef,
     layerRef,
     selectBoxRef,
     transformerRef,
   });
+
+  const currentScale = isMobile
+    ? { x: MOBILE_SCALE, y: MOBILE_SCALE }
+    : { x: 1, y: 1 };
 
   return (
     <WindowContainer className="w-[350px] sm:w-[600px]">
@@ -45,12 +49,10 @@ const Canvas = () => {
           height={DEFAULT_WIDTH}
           onMouseDown={clickHandler}
           onTouchStart={clickHandler}
-          scale={
-            isMobile ? { x: MOBILE_SCALE, y: MOBILE_SCALE } : { x: 1, y: 1 }
-          }
+          scale={currentScale}
         >
           <Layer ref={layerRef}>
-            <CanvasObjectList objectSelectHandler={objectSelectHandler} />
+            <CanvasObjectList />
             <ObjectSelectBox selectBoxRef={selectBoxRef} />
             <ObjectTransformer transformerRef={transformerRef} />
           </Layer>

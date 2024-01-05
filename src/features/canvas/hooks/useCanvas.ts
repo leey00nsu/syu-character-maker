@@ -250,13 +250,6 @@ const useCanvas = ({
     stageRef.current.batchDraw();
   }, [isMobile]);
 
-  // 오브젝트가 드래그 되거나 선택되면 , selectedObjectIds에 추가
-  const objectSelectHandler = (objectId: string) => {
-    if (!selectedObjectIds.includes(objectId)) {
-      setSelectedObjectIds([objectId]);
-    }
-  };
-
   useEventListener('mousemove', dragHandler);
   useEventListener('mouseup', dragEndHandler);
   useEventListener('touchmove', dragHandler);
@@ -266,9 +259,8 @@ const useCanvas = ({
   );
 
   return {
-    clickHandler,
-    objectSelectHandler,
     isMobile,
+    clickHandler,
   };
 };
 

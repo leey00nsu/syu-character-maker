@@ -7,10 +7,9 @@ import useObjectControll from '@/features/canvas/hooks/useObjectControll';
 
 interface DrawObjectProps {
   object: CanvasObject;
-  objectSelectHandler: (id: string) => void;
 }
 
-const LineObject = ({ object, objectSelectHandler }: DrawObjectProps) => {
+const LineObject = ({ object }: DrawObjectProps) => {
   const mode = useCanvasStore(state => state.mode);
 
   const { transformObject } = useObjectControll();
@@ -36,15 +35,7 @@ const LineObject = ({ object, objectSelectHandler }: DrawObjectProps) => {
       x={object.x}
       y={object.y}
       name={object.name}
-      onDragStart={() => {
-        objectSelectHandler(object.id);
-      }}
       draggable={isDraggable}
-      onClick={() => {
-        if (mode !== 'move') return;
-        objectSelectHandler(object.id);
-      }}
-      onSelect={() => objectSelectHandler(object.id)}
       onDragEnd={transformObject}
       onTransformEnd={transformObject}
     />

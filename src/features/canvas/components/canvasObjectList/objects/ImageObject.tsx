@@ -9,10 +9,9 @@ import useObjectControll from '@/features/canvas/hooks/useObjectControll';
 
 interface ImageObjectProps {
   object: CanvasObject;
-  objectSelectHandler: (id: string) => void;
 }
 
-const ImageObject = ({ object, objectSelectHandler }: ImageObjectProps) => {
+const ImageObject = ({ object,  }: ImageObjectProps) => {
   const mode = useCanvasStore(state => state.mode);
 
   const [image] = useImage(object.url || '');
@@ -37,13 +36,7 @@ const ImageObject = ({ object, objectSelectHandler }: ImageObjectProps) => {
         opacity={object.opacity}
         name={object.name}
         key={object.id}
-        onDragStart={() => objectSelectHandler(object.id)}
         draggable={isDraggable}
-        onClick={() => {
-          if (mode !== 'move') return;
-          objectSelectHandler(object.id);
-        }}
-        onSelect={() => objectSelectHandler(object.id)}
         width={DEFAULT_IMAGE_WIDTH}
         height={DEFAULT_IMAGE_WIDTH / aspect_ratio}
         onDragEnd={transformObject}

@@ -15,12 +15,14 @@ const DecorationObject = ({ object }: DecorationObjectProps) => {
   const [image] = useImage(object.url || '');
   const imageRef = useRef<any>(null);
 
+  // 필터를 적용하기 위해 이미지를 캐싱
   useLayoutEffect(() => {
     if (image) {
       imageRef.current?.cache();
     }
   }, [image]);
 
+  // 색상 변경 커스텀 필터
   const colorFilter = (imageData: ImageData) => {
     if (!object.originColor) return;
     if (!object.color) return;

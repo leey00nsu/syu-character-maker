@@ -9,12 +9,10 @@ import {
 
 interface CanvasObjectItemProps {
   object: CanvasObject;
-  objectSelectHandler: (id: string) => void;
 }
 
 const CanvasObjectItem = ({
   object,
-  objectSelectHandler,
 }: CanvasObjectItemProps) => {
   switch (object.name) {
     case 'character':
@@ -26,7 +24,6 @@ const CanvasObjectItem = ({
         <LineObject
           key={object.id}
           object={object}
-          objectSelectHandler={objectSelectHandler}
         />
       );
     case 'image':
@@ -34,7 +31,6 @@ const CanvasObjectItem = ({
         <ImageObject
           key={object.id}
           object={object}
-          objectSelectHandler={objectSelectHandler}
         />
       );
     default:

@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 
 import { LoadingDots } from '@/ui/loadings';
@@ -10,7 +10,6 @@ import ArticleItem from './ArticleItem';
 const ArticleList = () => {
   const { currentOrderBy, currentOrder, authorOption } = useArticleFilter();
 
-  const articleListRef = useRef<HTMLDivElement>(null);
   const { ref: observerRef, inView } = useInView({
     threshold: 0.1,
   });
@@ -30,10 +29,7 @@ const ArticleList = () => {
   }, [isError, isFetching, inView]);
 
   return (
-    <div
-      ref={articleListRef}
-      className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5"
-    >
+    <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5">
       {response?.map((article, index) => (
         <ArticleItem
           key={
