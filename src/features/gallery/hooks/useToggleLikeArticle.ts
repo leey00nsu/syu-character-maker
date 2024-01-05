@@ -6,6 +6,8 @@ import {
 import { produce } from 'immer';
 import toast from 'react-hot-toast';
 
+import { TOAST_ICON, TOAST_MESSAGE } from '@/constants/toast';
+
 import { toggleLikeArticle } from '@/apis/article/article.api';
 import { ArticlePagination, ListArticle } from '@/apis/article/article.type';
 import { ApiResponse } from '@/apis/response.type';
@@ -86,13 +88,13 @@ const useToggleLikeArticle = () => {
     },
     onSuccess: (err, _, context) => {
       if (context?.isLiked) {
-        toast('좋아요!', {
-          icon: '❤️',
+        toast(TOAST_MESSAGE.LIKE, {
+          icon: TOAST_ICON.LIKE,
         });
       }
       if (!context?.isLiked) {
-        toast('좋아요를 취소했습니다.', {
-          icon: '💔',
+        toast(TOAST_MESSAGE.UNLIKE, {
+          icon: TOAST_ICON.UNLIKE,
         });
       }
     },
@@ -134,13 +136,13 @@ const useToggleLikeArticle = () => {
     },
     onSuccess: (err, _, context) => {
       if (context?.isLiked) {
-        toast('좋아요!', {
-          icon: '❤️',
+        toast(TOAST_MESSAGE.LIKE, {
+          icon: TOAST_ICON.LIKE,
         });
       }
       if (!context?.isLiked) {
-        toast('좋아요를 취소했습니다.', {
-          icon: '💔',
+        toast(TOAST_MESSAGE.UNLIKE, {
+          icon: TOAST_ICON.UNLIKE,
         });
       }
     },

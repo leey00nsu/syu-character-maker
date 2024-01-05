@@ -6,6 +6,7 @@ import { uploadArticle } from '@/apis/article/article.api';
 import { useCanvasStore } from '@/store/canvas';
 
 import useExportCanvas from '@/features/canvas/hooks/useExportCanvas';
+import { TOAST_MESSAGE } from '@/constants/toast';
 
 const useUploadArticle = () => {
   const canvasName = useCanvasStore(state => state.canvasName);
@@ -21,7 +22,7 @@ const useUploadArticle = () => {
     onSuccess() {
       // 업로드 후에는 업로드 제한을 다시 조회한다.
       queryClient.invalidateQueries({ queryKey: ['articleLimit'] });
-      toast.success('업로드 완료!');
+      toast.success(TOAST_MESSAGE.UPLOAD_ARTICLE);
     },
   });
 

@@ -3,6 +3,8 @@ import { useEffect } from 'react';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
+import { TOAST_MESSAGE } from '@/constants/toast';
+
 import { logout } from '@/apis/auth/auth.api';
 
 import { useAuthStore } from '@/store/auth';
@@ -35,7 +37,7 @@ const useLogout = () => {
         });
         setExpiredAt(null);
 
-        toast.success('로그아웃 되었습니다.');
+        toast.success(TOAST_MESSAGE.LOGOUT);
         navigate('/', { replace: true });
       }
     };
