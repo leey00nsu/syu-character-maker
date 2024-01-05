@@ -1,5 +1,4 @@
 import { useMutation } from '@tanstack/react-query';
-import { useEffect } from 'react';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
@@ -24,28 +23,25 @@ const useLogout = () => {
     mutationKey: ['logout'],
     retry: false,
     mutationFn: logout,
+    onSuccess: () => {
+      clientLogout();
+    },
   });
 
-  useEffect(() => {
-    const logout = async () => {
-      if (response) {
-        setAuth(false);
-        setUser({
-          name: '',
-          email: '',
-          photo: '',
-        });
-        setExpiredAt(null);
+  const clientLogout = () => {
+    setAuth(false);
+    setUser({
+      name: '',
+      email: '',
+      photo: '',
+    });
+    setExpiredAt(null);
 
-        toast.success(TOAST_MESSAGE.LOGOUT);
-        navigate('/', { replace: true });
-      }
-    };
+    toast.success(TOAST_MESSAGE.LOGOUT);
+    navigate('/', { replace: true });
+  };
 
-    logout();
-  }, [isError, response]);
-
-  return { logoutMutate };
+  return { logoutMutate, clientLogout };
 };
 
 export default useLogout;
