@@ -20,7 +20,6 @@ export const uploadArticle = async (formData: FormData) => {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
-      withCredentials: true,
     },
   );
 
@@ -40,9 +39,6 @@ export const getArticleList = async ({
 }) => {
   const response = await axios.get<ApiResponse<ArticlePagination>>(
     `${VITE_SERVER_HOST}/article?page=${pageParam}&orderBy=${orderBy}&order=${order}&author=${author}`,
-    {
-      withCredentials: true,
-    },
   );
 
   return response.data;
@@ -51,9 +47,6 @@ export const getArticleList = async ({
 export const getArticle = async ({ articleId }: { articleId: number }) => {
   const response = await axios.get<ApiResponse<ListArticle>>(
     `${VITE_SERVER_HOST}/article/${articleId}`,
-    {
-      withCredentials: true,
-    },
   );
 
   return response.data;
@@ -62,9 +55,6 @@ export const getArticle = async ({ articleId }: { articleId: number }) => {
 export const removeArticle = async ({ articleId }: { articleId: number }) => {
   const response = await axios.delete<ApiResponse<unknown>>(
     `${VITE_SERVER_HOST}/article/${articleId}`,
-    {
-      withCredentials: true,
-    },
   );
 
   return response.data;
@@ -74,9 +64,6 @@ export const toggleLikeArticle = async (articleId: number) => {
   const response = await axios.post<ApiResponse<unknown>>(
     `${VITE_SERVER_HOST}/article/${articleId}/like`,
     null,
-    {
-      withCredentials: true,
-    },
   );
 
   return response.data;
@@ -85,9 +72,6 @@ export const toggleLikeArticle = async (articleId: number) => {
 export const getArticleLimit = async () => {
   const response = await axios.get<ApiResponse<ArticleLimit>>(
     `${VITE_SERVER_HOST}/article/limit`,
-    {
-      withCredentials: true,
-    },
   );
 
   return response.data;
@@ -96,9 +80,6 @@ export const getArticleLimit = async () => {
 export const getTotalArticleCount = async () => {
   const response = await axios.get<ApiResponse<TotalArticleCount>>(
     `${VITE_SERVER_HOST}/article/total`,
-    {
-      withCredentials: true,
-    },
   );
 
   return response.data;

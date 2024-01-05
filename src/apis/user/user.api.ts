@@ -8,9 +8,6 @@ const { VITE_SERVER_HOST } = import.meta.env;
 export const getTotalUserCount = async () => {
   const response = await axios.get<ApiResponse<TotalUserCount>>(
     `${VITE_SERVER_HOST}/user/total`,
-    {
-      withCredentials: true,
-    },
   );
 
   return response.data;
