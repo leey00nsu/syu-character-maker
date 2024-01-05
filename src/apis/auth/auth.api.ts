@@ -1,12 +1,11 @@
-import axios from 'axios';
-
+import axiosInstance from '../axios.config';
 import { ApiResponse } from '../response.type';
 import { User } from './auth.type';
 
 const { VITE_SERVER_HOST } = import.meta.env;
 
 export const getUser = async () => {
-  const response = await axios.get<ApiResponse<User>>(
+  const response = await axiosInstance.get<ApiResponse<User>>(
     `${VITE_SERVER_HOST}/auth/user`,
   );
 
@@ -14,7 +13,7 @@ export const getUser = async () => {
 };
 
 export const googleLoginWithCode = async (code: string) => {
-  const response = await axios.post<ApiResponse<User>>(
+  const response = await axiosInstance.post<ApiResponse<User>>(
     `${VITE_SERVER_HOST}/auth/google?code=${code}`,
     null,
   );
@@ -23,7 +22,7 @@ export const googleLoginWithCode = async (code: string) => {
 };
 
 export const logout = async () => {
-  const response = await axios.post<ApiResponse<unknown>>(
+  const response = await axiosInstance.post<ApiResponse<unknown>>(
     `${VITE_SERVER_HOST}/auth/logout`,
     null,
   );

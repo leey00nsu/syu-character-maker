@@ -5,8 +5,6 @@ import ReactGA from 'react-ga4';
 import { Toaster } from 'react-hot-toast';
 import { RouterProvider } from 'react-router-dom';
 
-import '@/apis/axios.config';
-
 import './index.css';
 import { router } from './router';
 import { ModalList } from './ui/modal';

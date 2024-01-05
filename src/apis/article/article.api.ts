@@ -1,7 +1,6 @@
-import axios from 'axios';
-
 import { ArticleOrder, ArticleOrderBy } from '@/store/gallery/filterSlice';
 
+import axiosInstance from '../axios.config';
 import { ApiResponse } from '../response.type';
 import {
   ArticleLimit,
@@ -13,7 +12,7 @@ import {
 const { VITE_SERVER_HOST } = import.meta.env;
 
 export const uploadArticle = async (formData: FormData) => {
-  const response = await axios.post<ApiResponse<unknown>>(
+  const response = await axiosInstance.post<ApiResponse<unknown>>(
     `${VITE_SERVER_HOST}/article/upload`,
     formData,
     {
@@ -37,7 +36,7 @@ export const getArticleList = async ({
   order: ArticleOrder;
   author: boolean;
 }) => {
-  const response = await axios.get<ApiResponse<ArticlePagination>>(
+  const response = await axiosInstance.get<ApiResponse<ArticlePagination>>(
     `${VITE_SERVER_HOST}/article?page=${pageParam}&orderBy=${orderBy}&order=${order}&author=${author}`,
   );
 
@@ -45,7 +44,7 @@ export const getArticleList = async ({
 };
 
 export const getArticle = async ({ articleId }: { articleId: number }) => {
-  const response = await axios.get<ApiResponse<ListArticle>>(
+  const response = await axiosInstance.get<ApiResponse<ListArticle>>(
     `${VITE_SERVER_HOST}/article/${articleId}`,
   );
 
@@ -53,7 +52,7 @@ export const getArticle = async ({ articleId }: { articleId: number }) => {
 };
 
 export const removeArticle = async ({ articleId }: { articleId: number }) => {
-  const response = await axios.delete<ApiResponse<unknown>>(
+  const response = await axiosInstance.delete<ApiResponse<unknown>>(
     `${VITE_SERVER_HOST}/article/${articleId}`,
   );
 
@@ -61,7 +60,7 @@ export const removeArticle = async ({ articleId }: { articleId: number }) => {
 };
 
 export const toggleLikeArticle = async (articleId: number) => {
-  const response = await axios.post<ApiResponse<unknown>>(
+  const response = await axiosInstance.post<ApiResponse<unknown>>(
     `${VITE_SERVER_HOST}/article/${articleId}/like`,
     null,
   );
@@ -70,7 +69,7 @@ export const toggleLikeArticle = async (articleId: number) => {
 };
 
 export const getArticleLimit = async () => {
-  const response = await axios.get<ApiResponse<ArticleLimit>>(
+  const response = await axiosInstance.get<ApiResponse<ArticleLimit>>(
     `${VITE_SERVER_HOST}/article/limit`,
   );
 
@@ -78,7 +77,7 @@ export const getArticleLimit = async () => {
 };
 
 export const getTotalArticleCount = async () => {
-  const response = await axios.get<ApiResponse<TotalArticleCount>>(
+  const response = await axiosInstance.get<ApiResponse<TotalArticleCount>>(
     `${VITE_SERVER_HOST}/article/total`,
   );
 

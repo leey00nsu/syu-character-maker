@@ -1,3 +1,4 @@
+import { HeaderCanvasButtons } from './components';
 import {
   HeaderAboutButton,
   HeaderAuthButton,
@@ -5,7 +6,6 @@ import {
   HeaderGalleryButton,
 } from './components/buttons';
 import { HeaderContainer } from './components/containers';
-import HeaderCanvasButtons from './components/headerCanvasButtons/HeaderCanvasButtons';
 
 interface HeaderProps {
   isCanvas?: boolean;
