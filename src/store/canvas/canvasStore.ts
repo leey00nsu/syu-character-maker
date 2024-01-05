@@ -1,7 +1,8 @@
 import { del, get, set } from 'idb-keyval';
 import { create } from 'zustand';
-import { createDebouncedJSONStorage } from 'zustand-debounce';
-import { StateStorage, persist } from 'zustand/middleware';
+import { StateStorage, createJSONStorage, persist } from 'zustand/middleware';
+
+import debounce from '@/utils/debounce';
 
 import { BackgroundColorSlice, createBackgroundSlice } from './backgroundSlice';
 import {
@@ -17,9 +18,9 @@ const IDBstorage: StateStorage = {
   getItem: async (name: string): Promise<string | null> => {
     return (await get(name)) || null;
   },
-  setItem: async (name: string, value: string): Promise<void> => {
+  setItem: debounce(async (name: string, value: string): Promise<void> => {
     await set(name, value);
-  },
+  }, 1000),
   removeItem: async (name: string): Promise<void> => {
     await del(name);
   },
@@ -42,9 +43,7 @@ const useCanvasStore = create<
     }),
     {
       name: 'canvas',
-      storage: createDebouncedJSONStorage(IDBstorage, {
-        debounceTime: 1000, // 1초마다 저장
-      }),
+      storage: createJSONStorage(() => IDBstorage),
       partialize: (state: any) => ({
         canvasName: state.canvasName,
         backgroundColor: state.backgroundColor,

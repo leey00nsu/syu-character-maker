@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+
 import { useCanvasStore } from '@/store/canvas';
 import { CanvasObject } from '@/store/canvas/canvasObjectSlice';
 
@@ -20,6 +22,7 @@ const useHistoryControll = () => {
   const setCanvasObjectHistoryIndex = useCanvasStore(
     state => state.setCanvasObjectHistoryIndex,
   );
+
 
   // canvasObjectHistory에 변경 내역 최대 20개까지 저장
   const updateHistory = (newObject: CanvasObject[]) => {
