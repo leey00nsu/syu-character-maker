@@ -7,7 +7,7 @@ import { ListArticle } from '@/apis/article/article.type';
 import { useAuthStore } from '@/store/auth';
 
 import { Card } from '@/ui/cards';
-import { Image } from '@/ui/images';
+import { ImageComponent } from '@/ui/image';
 import { Paragraph } from '@/ui/texts';
 
 import useToggleLikeArticle from '../../hooks/useToggleLikeArticle';
@@ -43,7 +43,7 @@ const ArticleItem = ({ article }: ArticleItemProps) => {
       animate={{ opacity: 1, y: 0 }}
     >
       <Card clickHandler={clickCardHandler}>
-        <Image imgUrl={article.imageUrl} />
+        <ImageComponent imgUrl={article.imageUrl} />
         {article.isAuthor && (
           <div className="absolute right-0 top-0 flex p-4">
             <FaUserEdit className="h-6 w-6 text-neutral" />

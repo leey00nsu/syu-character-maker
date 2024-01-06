@@ -131,6 +131,7 @@ const useToggleLikeArticle = () => {
       return { previousArticle, id, isLiked };
     },
     onSettled: (data, error, variables, context) => {
+      // 응답 시 쿼리 재요청
       queryClient.invalidateQueries({ queryKey: ['getArticle', context?.id] });
     },
     onSuccess: (err, _, context) => {

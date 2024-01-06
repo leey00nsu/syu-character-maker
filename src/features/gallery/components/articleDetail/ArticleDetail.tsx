@@ -1,6 +1,6 @@
 import { ListArticle } from '@/apis/article/article.type';
 
-import { Image } from '@/ui/images';
+import { ImageComponent } from '@/ui/image';
 import { Paragraph } from '@/ui/texts';
 
 import { ArticleLikeToggleButton } from '../buttons';
@@ -24,7 +24,7 @@ const ArticleDetail = ({ response, toggleLikeHandler }: ArticleDetailProps) => {
       </div>
 
       <div className="flex aspect-square ">
-        <Image imgUrl={response.imageUrl} />
+        <ImageComponent imgUrl={response.imageUrl} />
       </div>
 
       <div className="flex flex-col justify-end p-2 text-end">
