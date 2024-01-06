@@ -9,7 +9,7 @@ import { TOAST_MESSAGE } from './../../../constants/toast';
 const useRemoveArticle = () => {
   const navigate = useNavigate();
   // 상세에서 좋아요 토글
-  const { mutateAsync: removeMutate } = useMutation({
+  const { mutate: removeMutate } = useMutation({
     mutationKey: ['removeArticle'],
     retry: false,
     mutationFn: removeArticle,

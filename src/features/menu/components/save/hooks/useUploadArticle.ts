@@ -1,12 +1,13 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 
+import { TOAST_MESSAGE } from '@/constants/toast';
+
 import { uploadArticle } from '@/apis/article/article.api';
 
 import { useCanvasStore } from '@/store/canvas';
 
 import useExportCanvas from '@/features/canvas/hooks/useExportCanvas';
-import { TOAST_MESSAGE } from '@/constants/toast';
 
 const useUploadArticle = () => {
   const canvasName = useCanvasStore(state => state.canvasName);
@@ -15,7 +16,7 @@ const useUploadArticle = () => {
   const { exportCanvasToBlob } = useExportCanvas();
   const queryClient = useQueryClient();
 
-  const { mutateAsync: uploadMutate, isPending } = useMutation({
+  const { mutate: uploadMutate, isPending } = useMutation({
     mutationKey: ['uploadArticle'],
     retry: false,
     mutationFn: uploadArticle,

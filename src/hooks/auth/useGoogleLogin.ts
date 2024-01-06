@@ -18,7 +18,7 @@ const useGoogleLogin = () => {
   const {
     data: response,
     isError,
-    mutateAsync: googleLoginMutate,
+    mutate: googleLoginMutate,
   } = useMutation({
     mutationKey: ['googleLoginWithCode'],
     retry: false,

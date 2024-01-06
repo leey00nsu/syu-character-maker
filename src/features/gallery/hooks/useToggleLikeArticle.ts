@@ -20,7 +20,7 @@ const useToggleLikeArticle = () => {
   const queryClient = useQueryClient();
 
   // 리스트에서 좋아요 토글
-  const { mutateAsync: toggleListLikeMutate } = useMutation({
+  const { mutate: toggleListLikeMutate } = useMutation({
     mutationKey: ['toggleListLikeArticle'],
     retry: false,
     mutationFn: toggleLikeArticle,
@@ -75,8 +75,8 @@ const useToggleLikeArticle = () => {
 
       return { previousInfiniteQuery, isLiked };
     },
-    onError: (err, _, context) => {
-      // 에러 발생시 쿼리 재요청
+    onSettled: () => {
+      // 응답 시 쿼리 재요청
       queryClient.invalidateQueries({
         queryKey: [
           'getArticleList',
@@ -86,7 +86,7 @@ const useToggleLikeArticle = () => {
         ],
       });
     },
-    onSuccess: (err, _, context) => {
+    onSuccess: (err, variables, context) => {
       if (context?.isLiked) {
         toast(TOAST_MESSAGE.LIKE, {
           icon: TOAST_ICON.LIKE,
@@ -130,8 +130,7 @@ const useToggleLikeArticle = () => {
 
       return { previousArticle, id, isLiked };
     },
-    onError: (err, _, context) => {
-      // 에러 발생시 쿼리 재요청
+    onSettled: (data, error, variables, context) => {
       queryClient.invalidateQueries({ queryKey: ['getArticle', context?.id] });
     },
     onSuccess: (err, _, context) => {

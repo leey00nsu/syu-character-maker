@@ -15,11 +15,7 @@ const useLogout = () => {
   const setUser = useAuthStore(state => state.setUser);
   const setExpiredAt = useAuthStore(state => state.setExpiredAt);
 
-  const {
-    data: response,
-    isError,
-    mutateAsync: logoutMutate,
-  } = useMutation({
+  const { mutate: logoutMutate } = useMutation({
     mutationKey: ['logout'],
     retry: false,
     mutationFn: logout,
