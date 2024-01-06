@@ -1,9 +1,9 @@
-import tw from '@/utils/tw';
-
 import { useCanvasStore } from '@/store/canvas';
 import { CanvasObject } from '@/store/canvas/canvasObjectSlice';
 
 import Paragraph from '@/ui/texts/Paragraph';
+
+import tw from '@/utils/tw';
 
 import LayerButtons from './LayerButtons';
 

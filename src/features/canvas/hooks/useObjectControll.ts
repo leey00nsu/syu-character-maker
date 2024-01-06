@@ -23,14 +23,14 @@ const useObjectControll = () => {
 
   // 새로운 선 추가
   const addLine = (line: Partial<CanvasObject>) => {
-    const currentLineLength = getCurrentLineLength();
+    const maxLineId = getMaxLineId();
 
     const newLine = {
       name: 'line',
       size: line.size,
       color: line.color,
       points: line.points,
-      id: `선${currentLineLength + 1}`,
+      id: `선${maxLineId + 1}`,
       x: 0,
       y: 0,
       scaleX: 1,
@@ -60,11 +60,11 @@ const useObjectControll = () => {
 
   // 새로운 이미지 추가
   const addImage = (image: Partial<CanvasObject>) => {
-    const currentImageLength = getCurrentImageLength();
+    const maxImageId = getMaxImageId();
 
     const newImage = {
       name: 'image',
-      id: `이미지${currentImageLength + 1}`,
+      id: `이미지${maxImageId + 1}`,
       url: image.url,
       x: 50,
       y: 50,
@@ -265,20 +265,30 @@ const useObjectControll = () => {
       MUTABLE_OBJECTS.includes(canvasObject.name),
     ).length === 0;
 
-  const getCurrentLineLength = () => {
-    const currentLine = canvasObjects.filter(
-      canvasObject => canvasObject.name === 'line',
-    );
+  const getMaxLineId = () => {
+    const lineIds = canvasObjects
+      .filter(canvasObject => canvasObject.name === 'line')
+      .map(canvasObject => canvasObject.id);
 
-    return currentLine.length;
+    if (lineIds.length === 0) return 0;
+
+    const maxId = Math.max(...lineIds.map(id => Number(id.split('선')[1])));
+
+    return maxId;
   };
 
-  const getCurrentImageLength = () => {
-    const currentImage = canvasObjects.filter(
-      canvasObject => canvasObject.name === 'image',
+  const getMaxImageId = () => {
+    const imageIds = canvasObjects
+      .filter(canvasObject => canvasObject.name === 'image')
+      .map(canvasObject => canvasObject.id);
+
+    if (imageIds.length === 0) return 0;
+
+    const maxId = Math.max(
+      ...imageIds.map(id => Number(id.split('이미지')[1])),
     );
 
-    return currentImage.length;
+    return maxId;
   };
 
   return {

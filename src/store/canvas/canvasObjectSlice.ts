@@ -1,4 +1,4 @@
-import { StateCreator } from "zustand";
+import { StateCreator } from 'zustand';
 
 export interface CanvasObject {
   name: string; // 캔버스에서 그려지는 오브젝트의 종류 (character, decoration,line, image)
@@ -40,7 +40,9 @@ export interface CanvasObjectSlice {
   setSelectedObjectIds: (changes: string[]) => void;
 }
 
-export const createCanvasObjectSlice: StateCreator<CanvasObjectSlice> = set => ({
+export const createCanvasObjectSlice: StateCreator<
+  CanvasObjectSlice
+> = set => ({
   isCanvasLoading: true,
   canvasName: '',
   canvasObjects: [DEFAULT_CANVAS_OBJECT],
